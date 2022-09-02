@@ -30,6 +30,7 @@ import {
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Sidebar from "../../components/sidebar";
 import Header from "../../components/header";
+import DashboardTitleLayout from "../dashboard-title-layout";
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
@@ -45,15 +46,12 @@ const userNavigation = [
   { name: "Sign out", href: "#" },
 ];
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
 type Props = {
   children: ReactNode;
+  title?: string | null;
 };
 
-export default function DashboardLayout({ children }: Props) {
+export default function DashboardLayout({ children, title = null }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const sidebarProps = {
@@ -72,18 +70,13 @@ export default function DashboardLayout({ children }: Props) {
         <div className="flex flex-1 flex-col md:pl-64">
           <Header {...headerProps} />
           <main className="flex-1">
-            <div className="py-6">
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                <h1 className="text-2xl font-semibold text-gray-900">
-                  Dashboard
-                </h1>
-              </div>
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                {/* Replace with your content */}
+            {title ? (
+              <DashboardTitleLayout title={title}>
                 {children}
-                {/* /End replace */}
-              </div>
-            </div>
+              </DashboardTitleLayout>
+            ) : (
+              children
+            )}
           </main>
         </div>
       </div>
