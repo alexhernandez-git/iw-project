@@ -1,11 +1,19 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { FolderIcon, HomeIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  FolderIcon,
+  HomeIcon,
+  PlusIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import { Link, useLocation } from "react-router-dom";
+import Button, { ButtonSmall } from "../button";
+import { Type } from "../../utils/types";
 
 const navigation = [
-  { name: "Home", href: "#", icon: HomeIcon, current: true },
-  { name: "Procedures", href: "#", icon: FolderIcon, current: false },
+  { name: "Home", href: "/", icon: HomeIcon },
+  { name: "Procedures", href: "/procedures", icon: FolderIcon },
 ];
 
 function classNames(...classes: string[]) {
@@ -18,6 +26,7 @@ type Props = {
 };
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
+  const { pathname } = useLocation();
   return (
     <>
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -80,13 +89,24 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
                   />
                 </div>
                 <div className="mt-5 h-0 flex-1 overflow-y-auto">
+                  <ButtonSmall
+                    href={"/new-procedure"}
+                    type={Type.Secondary}
+                    className="w-full flex items-center justify-center mb-3 rounded-none"
+                  >
+                    <PlusIcon
+                      className={"mr-3 h-6 w-6 text-white"}
+                      aria-hidden="true"
+                    />
+                    Nuevo tramite
+                  </ButtonSmall>
                   <nav className="space-y-1 px-2">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.href}
                         className={classNames(
-                          item.current
+                          pathname === item.href
                             ? "bg-gray-100 text-gray-900"
                             : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                           "group flex items-center px-2 py-2 text-base font-medium rounded-md"
@@ -94,7 +114,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
                       >
                         <item.icon
                           className={classNames(
-                            item.current
+                            pathname === item.href
                               ? "text-gray-500"
                               : "text-gray-400 group-hover:text-gray-500",
                             "mr-4 flex-shrink-0 h-6 w-6"
@@ -102,7 +122,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
                           aria-hidden="true"
                         />
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </nav>
                 </div>
@@ -127,13 +147,24 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
             />
           </div>
           <div className="mt-5 flex flex-grow flex-col">
+            <Button
+              href={"/new-procedure"}
+              type={Type.Secondary}
+              className="w-full flex items-center justify-center mb-3 rounded-none text-base font-normal"
+            >
+              <PlusIcon
+                className={"mr-3 h-6 w-6 text-white"}
+                aria-hidden="true"
+              />
+              Nuevo tramite
+            </Button>
             <nav className="flex-1 space-y-1 px-2 pb-4">
               {navigation.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
                   className={classNames(
-                    item.current
+                    pathname === item.href
                       ? "bg-gray-100 text-gray-900"
                       : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                     "group flex items-center px-2 py-2 text-sm font-medium rounded-md"
@@ -141,7 +172,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
                 >
                   <item.icon
                     className={classNames(
-                      item.current
+                      pathname === item.href
                         ? "text-gray-500"
                         : "text-gray-400 group-hover:text-gray-500",
                       "mr-3 flex-shrink-0 h-6 w-6"

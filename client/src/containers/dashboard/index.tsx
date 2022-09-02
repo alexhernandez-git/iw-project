@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardLayout from "../../layouts/dashboard-layout";
+import Layout from "../../layouts/layout";
 import { ScaleIcon } from "@heroicons/react/24/outline";
 import ProceduresList, {
   ProceduresListSmall,
@@ -24,15 +24,10 @@ const procedures = [
   },
   // More procedures...
 ];
-const statusStyles = {
-  success: "bg-green-100 text-green-800",
-  processing: "bg-yellow-100 text-yellow-800",
-  failed: "bg-gray-100 text-gray-800",
-};
 
 const Dashboard = () => {
   return (
-    <DashboardLayout>
+    <Layout>
       <div className="mt-8">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-lg font-medium leading-6 text-gray-900">
@@ -56,7 +51,7 @@ const Dashboard = () => {
         {/* Activity table (small breakpoint and up) */}
         <ProceduresList {...{ procedures }} />
       </div>
-    </DashboardLayout>
+    </Layout>
   );
 };
 

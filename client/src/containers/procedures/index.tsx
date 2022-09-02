@@ -2,7 +2,7 @@ import React from "react";
 import ProceduresList, {
   ProceduresListSmall,
 } from "../../components/procedures-list";
-import DashboardLayout from "../../layouts/dashboard-layout";
+import DashboardLayout from "../../layouts/layout";
 
 const procedures = [
   {
