@@ -93,7 +93,6 @@ const ButtonSmall = ({ children, className = "", type, href }: Props) => {
       text-sm 
       font-medium 
       text-gray-700 
-      hover:bg-gray-50
       ${className}
       `;
     switch (type) {
@@ -116,7 +115,6 @@ const ButtonSmall = ({ children, className = "", type, href }: Props) => {
           leading-4 
           text-white 
           shadow-sm 
-          hover:bg-indigo-700 
           ${className}
           `);
         break;
