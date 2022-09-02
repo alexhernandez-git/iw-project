@@ -6,7 +6,7 @@ exports.connect = () => {
   console.info("Connecting to the database...");
   // Connecting to the database
   mongoose
-    .connect(CUSTOMCONNSTR_DB || "mongodb://localhost:27017/local", {
+    .connect(CUSTOMCONNSTR_DB || "mongodb://db:27017/local", {
       useUnifiedTopology: true,
       /*useNewUrlParser: true,
       useCreateIndex: true,

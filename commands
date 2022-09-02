@@ -1,0 +1,8 @@
+Run docker in dev:
+docker-compose -f docker-compose.dev.yml up --build
+
+Run docker in staging:
+docker-compose -f docker-compose.staging.yml up --build
+
+Run docker in prod:
+docker-compose up --build
