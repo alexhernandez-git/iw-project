@@ -1,5 +1,9 @@
 # indianwebs-project-1
 
+Url in dev:
+
+- http://localhost:3000
+
 Before all:
 
 - Install docker desktop:
