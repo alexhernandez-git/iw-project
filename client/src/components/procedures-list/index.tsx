@@ -22,22 +22,28 @@ const ProceduresList = ({ procedures }: Props) => {
                     Transaction
                   </th>
                   <th
-                    className="bg-gray-50 px-6 py-3 text-right text-sm font-semibold text-gray-900"
+                    className="bg-gray-50 px-6 py-3  text-sm font-semibold text-gray-900"
                     scope="col"
                   >
                     Amount
                   </th>
                   <th
-                    className="hidden bg-gray-50 px-6 py-3 text-left text-sm font-semibold text-gray-900 md:block"
+                    className="hidden bg-gray-50 px-6 py-3 text-sm font-semibold text-gray-900 md:block"
                     scope="col"
                   >
                     Status
                   </th>
                   <th
-                    className="bg-gray-50 px-6 py-3 text-right text-sm font-semibold text-gray-900"
+                    className="bg-gray-50 px-6 py-3 text-sm font-semibold text-gray-900"
                     scope="col"
                   >
                     Date
+                  </th>
+                  <th
+                    scope="col"
+                    className="bg-gray-50 px-6 py-3 text-sm font-semibold text-gray-900"
+                  >
+                    <span className="sr-only">Edit</span>
                   </th>
                 </tr>
               </thead>

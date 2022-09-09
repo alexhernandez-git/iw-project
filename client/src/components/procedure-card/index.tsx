@@ -44,6 +44,11 @@ const ProcedureCard = ({ procedure }: Props) => {
       <td className="whitespace-nowrap px-6 py-4 text-right text-sm text-gray-500">
         <time dateTime={procedure.datetime}>{procedure.date}</time>
       </td>
+      <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+        <a href="#" className="text-indigo-600 hover:text-indigo-900">
+          Edit
+        </a>
+      </td>
     </tr>
   );
 };

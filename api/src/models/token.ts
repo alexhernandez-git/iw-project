@@ -1,8 +1,7 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
+import { Token } from "../types";
 
-const Schema = mongoose.Schema;
-
-const tokenSchema = new Schema({
+const tokenSchema = new Schema<Token>({
   userId: {
     type: Schema.Types.ObjectId,
     required: true,
@@ -22,4 +21,4 @@ const tokenSchema = new Schema({
 tokenSchema.index({ createdAt: 1 }, { expires: 172800 });
 // tokenSchema.index({"createdAt": 1});
 
-module.exports = mongoose.model("Token", tokenSchema);
+module.exports = model<Token>("Token", tokenSchema);

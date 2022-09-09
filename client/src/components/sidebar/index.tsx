@@ -13,7 +13,7 @@ import { Type } from "../../utils/types";
 
 const navigation = [
   { name: "Home", href: "/", icon: HomeIcon },
-  { name: "Procedures", href: "/procedures", icon: FolderIcon },
+  { name: "Tramites", href: "/procedures", icon: FolderIcon },
 ];
 
 function classNames(...classes: string[]) {
@@ -160,9 +160,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
             </Button>
             <nav className="flex-1 space-y-1 px-2 pb-4">
               {navigation.map((item) => (
-                <a
+                <Link
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   className={classNames(
                     pathname === item.href
                       ? "bg-gray-100 text-gray-900"
@@ -180,7 +180,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
                     aria-hidden="true"
                   />
                   {item.name}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>
