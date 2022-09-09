@@ -7,6 +7,7 @@ WORKDIR /app
 RUN npm install
 RUN npm install nodemon -g
 RUN npm install jest -g
+RUN npm install typescript -g
 
 # Create app directory  
 COPY ./api/package.json .
