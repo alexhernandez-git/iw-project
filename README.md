@@ -10,6 +10,8 @@ Before all:
   Docker desktop windows link: https://docs.docker.com/desktop/install/windows-install/
   Docker desktop mac link: https://docs.docker.com/desktop/install/mac-install/
 
+- sudo mv .envs/.local.example .envs/.local
+
 Run docker in dev:
 docker-compose -f docker-compose.dev.yml up --build
 
