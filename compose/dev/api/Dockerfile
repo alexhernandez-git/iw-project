@@ -10,7 +10,7 @@ RUN npm install jest -g
 RUN npm install typescript -g
 
 # Create app directory  
-COPY ./api/package.json .
+COPY ./api .
 
 RUN yarn
 # If you are building your code for production
