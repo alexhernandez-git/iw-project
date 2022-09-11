@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { UserRoles, User as UserType } from "../types";
-import { User } from "../models/user";
+import { IUser, User } from "../models/user";
 import bcrypt from "bcrypt";
 import { getToken } from "../utils/tokens";
 
@@ -31,14 +31,13 @@ export const create = async (
 
     const hashedPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUNDS);
 
-    const user = await User.create<UserType>({
+    const user = await User.create({
       firstName,
       lastName,
       email,
       role,
       password: hashedPassword,
     });
-
     const accessToken = getToken(user._id);
 
     res.send({ user, accessToken, success: true });
@@ -61,7 +60,7 @@ export const login = async (
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    const { password: userRealPassword, _id, username, role } = user;
+    const { password: userRealPassword, _id, role } = user;
     const passValidation =
       password && (await bcrypt.compareSync(password, userRealPassword));
     if (passValidation) {

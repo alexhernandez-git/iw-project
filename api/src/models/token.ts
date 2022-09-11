@@ -1,7 +1,15 @@
-import { Schema, model } from "mongoose";
-import { Token } from "../types";
+import { Schema, model, connect, Document, ObjectId } from "mongoose";
+import { UserRoles } from "../types";
 
-const tokenSchema = new Schema<Token>({
+// 1. Create an interface representing a document in MongoDB.
+export interface IToken extends Document {
+  userId: ObjectId;
+  token: string;
+  createdAt: Date;
+}
+
+// 2. Create a Schema corresponding to the document interface.
+const userSchema = new Schema<IToken>({
   userId: {
     type: Schema.Types.ObjectId,
     required: true,
@@ -18,7 +26,6 @@ const tokenSchema = new Schema<Token>({
   },
 });
 
-tokenSchema.index({ createdAt: 1 }, { expires: 172800 });
-// tokenSchema.index({"createdAt": 1});
-
-module.exports = model<Token>("Token", tokenSchema);
+// 3. Create a Model.
+const Token = model<IToken>("Token", userSchema);
+export { Token };

@@ -4,7 +4,7 @@ services:
   server:
     build:
       context: .
-      dockerfile: ./compose/dev/api/Dockerfile
+      dockerfile: ./compose/prod/api/Dockerfile
     restart: unless-stopped
     ports:
       - 8080:8080
@@ -15,7 +15,7 @@ services:
     env_file:
       - ./.envs/.local/.mongo
       - ./.envs/.local/.node
-    command: yarn build && yarn start
+    command: yarn start
   db:
     image: mongo:6.0
     restart: unless-stopped
@@ -28,7 +28,7 @@ services:
   client:
     build:
       context: .
-      dockerfile: ./compose/dev/client/Dockerfile
+      dockerfile: ./compose/prod/client/Dockerfile
     restart: unless-stopped
     expose:
       - 3000

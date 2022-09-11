@@ -1,7 +1,17 @@
-import { User as UserType, UserRoles } from "../types";
-import { Schema, model } from "mongoose";
+import { Schema, model, connect, Document } from "mongoose";
+import { UserRoles } from "../types";
 
-const userSchema = new Schema<UserType>({
+// 1. Create an interface representing a document in MongoDB.
+export interface IUser extends Document {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  role: UserRoles;
+}
+
+// 2. Create a Schema corresponding to the document interface.
+const userSchema = new Schema<IUser>({
   firstName: { type: String },
   lastName: { type: String },
   email: { type: String },
@@ -9,11 +19,6 @@ const userSchema = new Schema<UserType>({
   role: { type: String, enum: UserRoles },
 });
 
-const reducedUserModel = ["_id", "firstName", "lastName"];
-
-userSchema.set("timestamps", true);
-
-module.exports = {
-  User: model<UserType>("User", userSchema),
-  reducedUserModel,
-};
+// 3. Create a Model.
+const User = model<IUser>("User", userSchema);
+export { User };

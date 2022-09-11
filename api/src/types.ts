@@ -1,5 +1,3 @@
-import { ObjectId } from "mongoose";
-
 export enum UserRoles {
   SuperAdmin = "superadmin",
   Admin = "admin",
@@ -15,7 +13,7 @@ export type User = {
 };
 
 export type Token = {
-  userId: ObjectId;
+  userId: string;
   token: string;
   createdAt: Date;
 };
