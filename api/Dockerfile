@@ -3,8 +3,8 @@ FROM node:14
 
 WORKDIR /api
 
-COPY ./package*.json .
+COPY ./package*.json ./
 RUN npm install
 
-COPY . .
+COPY ./ ./
 
