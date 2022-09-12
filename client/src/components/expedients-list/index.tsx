@@ -1,12 +1,13 @@
 import React from "react";
-import ProcedureCard, { ProcedureCardSmall } from "../procedure-card";
-import { Procedure } from "../../utils/types";
+import ExpedientCard, { ExpedientCardSmall } from "../expedients-card";
+import { Expediente } from "../../utils/types";
 
 type Props = {
-  procedures: Procedure[];
+  expedients: Expediente[];
 };
 
-const ProceduresList = ({ procedures }: Props) => {
+const ExpedientsList = ({ expedients }: Props) => {
+  console.log(expedients);
   return (
     <div className="hidden sm:block">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -16,28 +17,34 @@ const ProceduresList = ({ procedures }: Props) => {
               <thead>
                 <tr>
                   <th
-                    className="bg-gray-50 px-6 py-3 text-left text-sm font-semibold text-gray-900"
+                    className="bg-gray-50 px-6 py-3 text-center text-sm font-semibold text-gray-900"
                     scope="col"
                   >
-                    Transaction
+                    Numero
                   </th>
                   <th
                     className="bg-gray-50 px-6 py-3  text-sm font-semibold text-gray-900"
                     scope="col"
                   >
-                    Amount
+                    Tipo expediente
                   </th>
                   <th
                     className="hidden bg-gray-50 px-6 py-3 text-sm font-semibold text-gray-900 md:block"
                     scope="col"
                   >
-                    Status
+                    Estado
                   </th>
                   <th
                     className="bg-gray-50 px-6 py-3 text-sm font-semibold text-gray-900"
                     scope="col"
                   >
-                    Date
+                    Empresa
+                  </th>
+                  <th
+                    className="bg-gray-50 px-6 py-3 text-sm font-semibold text-gray-900"
+                    scope="col"
+                  >
+                    Importe
                   </th>
                   <th
                     scope="col"
@@ -48,8 +55,8 @@ const ProceduresList = ({ procedures }: Props) => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                {procedures.map((procedure, index) => (
-                  <ProcedureCard procedure={procedure} key={index} />
+                {expedients.map((expedient, index) => (
+                  <ExpedientCard expedient={expedient} key={index} />
                 ))}
               </tbody>
             </table>
@@ -87,12 +94,12 @@ const ProceduresList = ({ procedures }: Props) => {
   );
 };
 
-const ProceduresListSmall = ({ procedures }: Props) => {
+const ExpedientsListSmall = ({ expedients }: Props) => {
   return (
     <div className="shadow sm:hidden">
       <ul className="mt-2 divide-y divide-gray-200 overflow-hidden shadow sm:hidden">
-        {procedures.map((procedure, index) => (
-          <ProcedureCardSmall procedure={procedure} key={index} />
+        {expedients.map((procedure, index) => (
+          <ExpedientCardSmall procedure={procedure} key={index} />
         ))}
       </ul>
 
@@ -119,5 +126,5 @@ const ProceduresListSmall = ({ procedures }: Props) => {
   );
 };
 
-export { ProceduresListSmall };
-export default ProceduresList;
+export { ExpedientsListSmall };
+export default ExpedientsList;

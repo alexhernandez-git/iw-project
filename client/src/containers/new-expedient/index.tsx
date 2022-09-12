@@ -1,6 +1,6 @@
 import Layout from "../../layouts/layout";
 
-export default function NewProcedure() {
+export default function NewExpedient() {
   return (
     <Layout title={"Nuevo tramite"}>
       <form className="space-y-8 divide-y divide-gray-200 mt-6">

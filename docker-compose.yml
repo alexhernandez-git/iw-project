@@ -3,8 +3,7 @@ version: "3"
 services:
   server:
     build:
-      context: .
-      dockerfile: ./compose/prod/api/Dockerfile
+      context: ./api
     restart: unless-stopped
     ports:
       - 8080:8080
@@ -12,10 +11,11 @@ services:
       - db
     volumes:
       - ./api:/api
+      - /api/node_modules
     env_file:
       - ./.envs/.local/.mongo
       - ./.envs/.local/.node
-    command: yarn start
+    command: npm run dev
   db:
     image: mongo:6.0
     restart: unless-stopped
@@ -27,8 +27,7 @@ services:
       - ./.envs/.local/.mongo
   client:
     build:
-      context: .
-      dockerfile: ./compose/prod/client/Dockerfile
+      context: ./client
     restart: unless-stopped
     expose:
       - 3000
@@ -38,6 +37,7 @@ services:
       - db
     volumes:
       - ./client:/client
+      - /client/node_modules
     env_file:
       - ./.envs/.local/.mongo
       - ./.envs/.local/.node

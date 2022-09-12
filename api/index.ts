@@ -1,7 +1,7 @@
 // import { backUpDB } from "./src/utils/helpers";
 
-const http = require("http");
-const app = require("./src/app");
+import http from "http";
+import app from "./src/app";
 const server = http.createServer(app);
 
 require("./src/config/database").connect();

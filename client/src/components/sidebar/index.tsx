@@ -13,7 +13,7 @@ import { Type } from "../../utils/types";
 
 const navigation = [
   { name: "Home", href: "/", icon: HomeIcon },
-  { name: "Tramites", href: "/procedures", icon: FolderIcon },
+  { name: "Tramites", href: "/expedients", icon: FolderIcon },
 ];
 
 function classNames(...classes: string[]) {
@@ -90,7 +90,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
                 </div>
                 <div className="mt-5 h-0 flex-1 overflow-y-auto">
                   <ButtonSmall
-                    href={"/new-procedure"}
+                    href={"/new-expedient"}
                     type={Type.Secondary}
                     className="w-full flex items-center justify-center mb-3 rounded-none"
                   >
@@ -148,7 +148,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
           </div>
           <div className="mt-5 flex flex-grow flex-col">
             <Button
-              href={"/new-procedure"}
+              href={"/new-expedient"}
               type={Type.Secondary}
               className="w-full flex items-center justify-center mb-3 rounded-none text-base font-normal"
             >

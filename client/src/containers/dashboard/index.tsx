@@ -1,28 +1,14 @@
 import React from "react";
 import Layout from "../../layouts/layout";
 import { ScaleIcon } from "@heroicons/react/24/outline";
-import ProceduresList, {
-  ProceduresListSmall,
-} from "../../components/procedures-list";
+import ExpedientsList, {
+  ExpedientsListSmall,
+} from "../../components/expedients-list";
 import Card from "../../components/card";
-
+import { expedients } from "../../data";
 const cards = [
   { name: "Account balance", href: "#", icon: ScaleIcon, amount: "$30,659.45" },
   // More items...
-];
-
-const procedures = [
-  {
-    id: 1,
-    name: "Payment to Molly Sanders",
-    href: "#",
-    amount: "$20,000",
-    currency: "USD",
-    status: "success",
-    date: "July 11, 2020",
-    datetime: "2020-07-11",
-  },
-  // More procedures...
 ];
 
 const Dashboard = () => {
@@ -46,10 +32,10 @@ const Dashboard = () => {
         </h2>
 
         {/* Activity list (smallest breakpoint only) */}
-        <ProceduresListSmall {...{ procedures }} />
+        <ExpedientsListSmall {...{ expedients }} />
 
         {/* Activity table (small breakpoint and up) */}
-        <ProceduresList {...{ procedures }} />
+        <ExpedientsList {...{ expedients }} />
       </div>
     </Layout>
   );

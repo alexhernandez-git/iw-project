@@ -17,47 +17,47 @@ const actions = [
   {
     icon: ClockIcon,
     name: "Request time off",
-    href: "/new-procedure/1",
+    href: "/new-expedient/1",
     iconForeground: "text-teal-700",
     iconBackground: "bg-teal-50",
   },
   {
     icon: CheckBadgeIcon,
     name: "Benefits",
-    href: "/new-procedure/1",
+    href: "/new-expedient/1",
     iconForeground: "text-purple-700",
     iconBackground: "bg-purple-50",
   },
   {
     icon: UsersIcon,
     name: "Schedule a one-on-one",
-    href: "/new-procedure/1",
+    href: "/new-expedient/1",
     iconForeground: "text-sky-700",
     iconBackground: "bg-sky-50",
   },
   {
     icon: BanknotesIcon,
     name: "Payroll",
-    href: "/new-procedure/1",
+    href: "/new-expedient/1",
     iconForeground: "text-yellow-700",
     iconBackground: "bg-yellow-50",
   },
   {
     icon: ReceiptRefundIcon,
     name: "Submit an expense",
-    href: "/new-procedure/1",
+    href: "/new-expedient/1",
     iconForeground: "text-rose-700",
     iconBackground: "bg-rose-50",
   },
   {
     icon: AcademicCapIcon,
     name: "Training",
-    href: "/new-procedure/1",
+    href: "/new-expedient/1",
     iconForeground: "text-indigo-700",
     iconBackground: "bg-indigo-50",
   },
 ];
-export default function NewProcedureType() {
+export default function NewExpedientType() {
   return (
     <Layout title={"Elige el tramite"}>
       {/* Actions panel */}
