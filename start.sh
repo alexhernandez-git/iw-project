@@ -1,0 +1,1 @@
+npm i ./api && npm i ./client

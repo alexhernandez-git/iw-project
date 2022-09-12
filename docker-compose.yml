@@ -1,21 +1,21 @@
 version: "3"
 
 services:
-  # server:
-  #   build:
-  #     context: .
-  #     dockerfile: ./compose/prod/api/Dockerfile
-  #   restart: unless-stopped
-  #   ports:
-  #     - 8080:8080
-  #   depends_on:
-  #     - db
-  #   volumes:
-  #     - ./api:/app
-  #   env_file:
-  #     - ./.envs/.local/.mongo
-  #     - ./.envs/.local/.node
-  #   command: yarn start
+  server:
+    build:
+      context: .
+      dockerfile: ./compose/prod/api/Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    volumes:
+      - ./api:/api
+    env_file:
+      - ./.envs/.local/.mongo
+      - ./.envs/.local/.node
+    command: yarn start
   db:
     image: mongo:6.0
     restart: unless-stopped
@@ -37,7 +37,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./client:/app
+      - ./client:/client
     env_file:
       - ./.envs/.local/.mongo
       - ./.envs/.local/.node

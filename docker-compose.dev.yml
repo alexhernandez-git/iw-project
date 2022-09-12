@@ -3,15 +3,15 @@ version: "3"
 services:
   server:
     build:
-      context: .
-      dockerfile: ./compose/dev/api/Dockerfile
+      context: ./api
     restart: unless-stopped
     ports:
       - 8080:8080
     depends_on:
       - db
     volumes:
-      - ./api:/app
+      - ./api:/api
+      - /api/node_modules
     env_file:
       - ./.envs/.local/.mongo
       - ./.envs/.local/.node
@@ -27,8 +27,7 @@ services:
       - ./.envs/.local/.mongo
   client:
     build:
-      context: .
-      dockerfile: ./compose/dev/client/Dockerfile
+      context: ./client
     restart: unless-stopped
     expose:
       - 3000
@@ -37,7 +36,8 @@ services:
     depends_on:
       - db
     volumes:
-      - ./client:/app
+      - ./client:/client
+      - /client/node_modules
     env_file:
       - ./.envs/.local/.mongo
       - ./.envs/.local/.node
