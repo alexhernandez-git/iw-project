@@ -20,7 +20,7 @@ const ExpedientsList = ({ expedients }: Props) => {
                     className="bg-gray-50 px-6 py-3 text-center text-sm font-semibold text-gray-900"
                     scope="col"
                   >
-                    Numero
+                    Empresa
                   </th>
                   <th
                     className="bg-gray-50 px-6 py-3  text-sm font-semibold text-gray-900"
@@ -38,7 +38,7 @@ const ExpedientsList = ({ expedients }: Props) => {
                     className="bg-gray-50 px-6 py-3 text-sm font-semibold text-gray-900"
                     scope="col"
                   >
-                    Empresa
+                    Numero expediente
                   </th>
                   <th
                     className="bg-gray-50 px-6 py-3 text-sm font-semibold text-gray-900"

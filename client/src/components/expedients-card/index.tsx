@@ -13,37 +13,31 @@ function classNames(...classes: string[]) {
 const ExpedientCard = ({ expedient }: Props) => {
   return (
     <tr key={expedient?.expediente} className="bg-white">
-      <td className="w-full max-w-0 text-center whitespace-nowrap px-6 py-4 text-sm text-gray-900">
-        <div className="flex justify-center">
-          <a className="group inline-flex space-x-2 truncate text-sm">
-            <p className="truncate text-gray-500 group-hover:text-gray-900">
-              {expedient?.expediente}
-            </p>
-          </a>
-        </div>
+      <td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-500">
+        {expedient?.empresa}
       </td>
-      <td className="whitespace-nowrap px-6 py-4 text-right text-sm text-gray-500">
+      <td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-500">
         {expedient?.tipo}
       </td>
-      <td className="hidden whitespace-nowrap px-6 py-4 text-sm text-gray-500 md:block">
+      <td className="hidden whitespace-nowrap px-6 text-center py-4 text-sm text-gray-500 md:block">
         <span
           className={classNames(
-            "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize"
+            "inline-flex items-center px-2.5 py-0.5 text-center rounded-full text-xs font-medium capitalize"
           )}
         >
           {expedient?.estado}
         </span>
       </td>
-      <td className="whitespace-nowrap px-6 py-4 text-right text-sm text-gray-500">
+      <td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-500">
         <span
           className={classNames(
             "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize"
           )}
         >
-          {expedient?.empresa}
+          {expedient?.expediente}
         </span>
       </td>
-      <td className="whitespace-nowrap px-6 py-4 text-right text-sm text-gray-500">
+      <td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-500">
         <span
           className={classNames(
             "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize"
