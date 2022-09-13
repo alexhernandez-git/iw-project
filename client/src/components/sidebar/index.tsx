@@ -150,7 +150,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
             <Button
               href={"/new-expedient"}
               type={Type.Secondary}
-              className="w-full flex items-center justify-center mb-3 rounded-none text-base font-normal"
+              className="w-full flex items-center justify-left mb-3 rounded-none text-base font-normal"
             >
               <PlusIcon
                 className={"mr-3 h-6 w-6 text-white"}
