@@ -1,5 +1,5 @@
 import {
-  DondeGuardado,
+  GuardadoEn,
   EstadoExpedientes,
   Expediente,
   FormaDePagoTipo,
@@ -8,18 +8,18 @@ import {
 
 export const expedients: Expediente = [
   {
-    expediente: "1",
+    _id: "1",
     orden: "2",
     tipo: "Extrangeria",
     conexiones: "",
-    dondeGuardado: DondeGuardado.EV, // ¿?
+    guardadoEn: GuardadoEn.ExpedienteVigente, // ¿?
     responsable: "Mireia",
     codigoCliente: "928",
     codigoClienteProvisional: "123",
     cliente: "Juan Gomez Sierra",
     beneficiario: "Juan",
     asunto: "",
-    fechaSolicitudServicioNotificacion: new Date(),
+    fechaSolicitudServicioNotificacion: "",
     plazoLegal: "10 dias",
     estado: EstadoExpedientes.Documentacion,
     empresa: "Apple",
@@ -39,18 +39,18 @@ export const expedients: Expediente = [
     comprobadoTodo: false,
   },
   {
-    expediente: "1",
+    _id: "1",
     orden: "2",
     tipo: "Extrangeria",
     conexiones: "",
-    dondeGuardado: DondeGuardado.EV, // ¿?
+    guardadoEn: GuardadoEn.ExpedienteVigente, // ¿?
     responsable: "Mireia",
     codigoCliente: "928",
     codigoClienteProvisional: "123",
     cliente: "Juan Gomez Sierra",
     beneficiario: "Juan",
     asunto: "",
-    fechaSolicitudServicioNotificacion: new Date(),
+    fechaSolicitudServicioNotificacion: "",
     plazoLegal: "10 dias",
     estado: EstadoExpedientes.Documentacion,
     empresa: "Apple",
@@ -70,18 +70,18 @@ export const expedients: Expediente = [
     comprobadoTodo: false,
   },
   {
-    expediente: "1",
+    _id: "1",
     orden: "2",
     tipo: "Extrangeria",
     conexiones: "",
-    dondeGuardado: DondeGuardado.EV, // ¿?
+    guardadoEn: GuardadoEn.EnCarpeta, // ¿?
     responsable: "Mireia",
     codigoCliente: "928",
     codigoClienteProvisional: "123",
     cliente: "Juan Gomez Sierra",
     beneficiario: "Juan",
     asunto: "",
-    fechaSolicitudServicioNotificacion: new Date(),
+    fechaSolicitudServicioNotificacion: "",
     plazoLegal: "10 dias",
     estado: EstadoExpedientes.Documentacion,
     empresa: "Apple",
@@ -101,18 +101,18 @@ export const expedients: Expediente = [
     comprobadoTodo: false,
   },
   {
-    expediente: "1",
+    _id: "1",
     orden: "2",
     tipo: "Extrangeria",
     conexiones: "",
-    dondeGuardado: DondeGuardado.EV, // ¿?
+    guardadoEn: GuardadoEn.Fisico, // ¿?
     responsable: "Mireia",
     codigoCliente: "928",
     codigoClienteProvisional: "123",
     cliente: "Juan Gomez Sierra",
     beneficiario: "Juan",
     asunto: "",
-    fechaSolicitudServicioNotificacion: new Date(),
+    fechaSolicitudServicioNotificacion: "",
     plazoLegal: "10 dias",
     estado: EstadoExpedientes.Documentacion,
     empresa: "Apple",
@@ -132,18 +132,18 @@ export const expedients: Expediente = [
     comprobadoTodo: false,
   },
   {
-    expediente: "1",
+    _id: "1",
     orden: "2",
     tipo: "Extrangeria",
     conexiones: "",
-    dondeGuardado: DondeGuardado.EV, // ¿?
+    guardadoEn: GuardadoEn.Fisico, // ¿?
     responsable: "Mireia",
     codigoCliente: "928",
     codigoClienteProvisional: "123",
     cliente: "Juan Gomez Sierra",
     beneficiario: "Juan",
     asunto: "",
-    fechaSolicitudServicioNotificacion: new Date(),
+    fechaSolicitudServicioNotificacion: "",
     plazoLegal: "10 dias",
     estado: EstadoExpedientes.Documentacion,
     empresa: "Apple",

@@ -16,7 +16,7 @@ function classNames(...classes: string[]) {
 const actions = [
   {
     icon: ClockIcon,
-    name: "Request time off",
+    name: "Extrangeria",
     href: "/new-expedient/1",
     iconForeground: "text-teal-700",
     iconBackground: "bg-teal-50",
@@ -59,7 +59,7 @@ const actions = [
 ];
 export default function NewExpedientType() {
   return (
-    <Layout title={"Elige el tramite"}>
+    <Layout title={"Elige el expediente"}>
       {/* Actions panel */}
       <section aria-labelledby="quick-links-title" className="mt-6">
         <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-gray-200 shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0">

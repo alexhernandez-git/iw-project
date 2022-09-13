@@ -98,7 +98,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
                       className={"mr-3 h-6 w-6 text-white"}
                       aria-hidden="true"
                     />
-                    Nuevo tramite
+                    Nuevo expediente
                   </ButtonSmall>
                   <nav className="space-y-1 px-2">
                     {navigation.map((item) => (
@@ -156,7 +156,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
                 className={"mr-3 h-6 w-6 text-white"}
                 aria-hidden="true"
               />
-              Nuevo tramite
+              Nuevo expediente
             </Button>
             <nav className="flex-1 space-y-1 px-2 pb-4">
               {navigation.map((item) => (

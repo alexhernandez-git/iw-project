@@ -18,10 +18,10 @@ export enum HonorariosYSuplidosTipo {
   TA = "tasas",
 }
 
-export enum DondeGuardado {
-  EC = "encarpeta",
-  EV = "expedientevigente",
-  F = "fisico",
+export enum GuardadoEn {
+  EnCarpeta = "encarpeta",
+  ExpedienteVigente = "expedientevigente",
+  Fisico = "fisico",
 }
 
 export type HonorariosYSuplidos = {
@@ -36,11 +36,11 @@ export enum FormaDePagoTipo {
 }
 
 export type Expediente = {
-  expediente: string;
+  _id: string;
   orden: string;
   tipo: string;
   conexiones: string;
-  dondeGuardado: DondeGuardado; // ¿?
+  guardadoEn: GuardadoEn; // ¿?
   responsable: string;
   codigoCliente: string;
   codigoClienteProvisional: string;

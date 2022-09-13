@@ -7,7 +7,9 @@ import ExpedientsList, {
 import Card from "../../components/card";
 import { expedients } from "../../data";
 const cards = [
-  { name: "Account balance", href: "#", icon: ScaleIcon, amount: "$30,659.45" },
+  { name: "Expedientes", href: "#", icon: ScaleIcon, amount: "42" },
+  { name: "Expedientes en progreso", href: "#", icon: ScaleIcon, amount: "12" },
+  { name: "Expedientes terminados", href: "#", icon: ScaleIcon, amount: "30" },
   // More items...
 ];
 
@@ -16,9 +18,9 @@ const Dashboard = () => {
     <Layout>
       <div className="mt-8">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-lg font-medium leading-6 text-gray-900">
+          {/* <h2 className="text-lg font-medium leading-6 text-gray-900">
             Overview
-          </h2>
+          </h2> */}
           <div className="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {/* Card */}
             {cards.map((card, index) => (

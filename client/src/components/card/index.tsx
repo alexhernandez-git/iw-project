@@ -32,7 +32,7 @@ const Card = ({ card }: Props) => {
             href={card.href}
             className="font-medium text-cyan-700 hover:text-cyan-900"
           >
-            View all
+            Ir a {card.name}
           </a>
         </div>
       </div>

@@ -98,8 +98,8 @@ const ExpedientsListSmall = ({ expedients }: Props) => {
   return (
     <div className="shadow sm:hidden">
       <ul className="mt-2 divide-y divide-gray-200 overflow-hidden shadow sm:hidden">
-        {expedients.map((procedure, index) => (
-          <ExpedientCardSmall procedure={procedure} key={index} />
+        {expedients.map((expedient, index) => (
+          <ExpedientCardSmall expedient={expedient} key={index} />
         ))}
       </ul>
 

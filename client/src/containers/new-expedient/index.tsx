@@ -2,7 +2,7 @@ import Layout from "../../layouts/layout";
 
 export default function NewExpedient() {
   return (
-    <Layout title={"Nuevo tramite"}>
+    <Layout title={"Nuevo expediente"}>
       <form className="space-y-8 divide-y divide-gray-200 mt-6">
         <div className="space-y-8 divide-y divide-gray-200">
           <div>
