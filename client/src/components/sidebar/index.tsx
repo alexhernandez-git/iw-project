@@ -13,7 +13,7 @@ import { Type } from "../../utils/types";
 import EsanLogo from "../../images/esan-asesores-logo-hd.png";
 const navigation = [
   { name: "Home", href: "/", icon: HomeIcon },
-  { name: "Tramites", href: "/expedients", icon: FolderIcon },
+  { name: "Expedientes", href: "/expedients", icon: FolderIcon },
 ];
 
 function classNames(...classes: string[]) {
