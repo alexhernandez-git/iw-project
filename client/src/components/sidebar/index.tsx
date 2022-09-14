@@ -10,7 +10,7 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import Button, { ButtonSmall } from "../button";
 import { Type } from "../../utils/types";
-
+import EsanLogo from "../../images/esan-asesores-logo-hd.png";
 const navigation = [
   { name: "Home", href: "/", icon: HomeIcon },
   { name: "Tramites", href: "/expedients", icon: FolderIcon },
@@ -84,7 +84,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
                 <div className="flex flex-shrink-0 items-center px-4">
                   <img
                     className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                    src={EsanLogo}
                     alt="Your Company"
                   />
                 </div>
@@ -140,11 +140,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
         {/* Sidebar component, swap this element with another sidebar if you like */}
         <div className="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5">
           <div className="flex flex-shrink-0 items-center px-4">
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt="Your Company"
-            />
+            <img className="h-8 w-auto" src={EsanLogo} alt="Your Company" />
           </div>
           <div className="mt-5 flex flex-grow flex-col">
             <Button
