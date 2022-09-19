@@ -4,48 +4,21 @@ import { Expediente } from "../../utils/types";
 
 type Props = {
   expedient: Expediente;
+  selectedFields: { label: string; value: string }[];
 };
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const ExpedientCard = ({ expedient }: Props) => {
+const ExpedientCard = ({ expedient, selectedFields }: Props) => {
   return (
     <tr key={expedient._id} className="bg-white">
-      <td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-500">
-        {expedient.empresa}
-      </td>
-      <td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-500">
-        {expedient.tipo}
-      </td>
-      <td className="hidden whitespace-nowrap px-6 text-center py-4 text-sm text-gray-500 md:block">
-        <span
-          className={classNames(
-            "inline-flex items-center px-2.5 py-0.5 text-center rounded-full text-xs font-medium capitalize"
-          )}
-        >
-          {expedient.estado}
-        </span>
-      </td>
-      <td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-500">
-        <span
-          className={classNames(
-            "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize"
-          )}
-        >
-          {expedient._id}
-        </span>
-      </td>
-      <td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-500">
-        <span
-          className={classNames(
-            "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize"
-          )}
-        >
-          {expedient.honorarios}€
-        </span>
-      </td>
+      {selectedFields.map((selectedField: { label: string; value: string }) => (
+        <td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-500">
+          {expedient[selectedField?.value]}
+        </td>
+      ))}
       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
         <a href="#" className="text-indigo-600 hover:text-indigo-900">
           Edit

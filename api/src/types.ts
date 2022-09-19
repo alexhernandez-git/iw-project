@@ -23,6 +23,28 @@ export enum Sexo {
   Mujer = "m",
 }
 
+export enum FormaDePagoTipo {
+  Efectivo = "efectivo",
+  Transferencia = "transferencia",
+  Cheque = "cheque",
+}
+
+export enum EstadoExpedientes {
+  EnEstudio = "enestudio", // Para colaborador PENDIENTE
+  PeticionDocumentacion = "peticiondocumentacion", // Para colaborador PENDIENTE
+  DocumentacionCompleta = "documentacioncompleta", // Para colaborador PENDIENTE
+  ExpedienteCursadoNoConcluido = "expedientecursadonoconcluido", // Para colaborador EN TRAMITE
+  // En este punto puede que se pida crear otro expediente amb orden (id del antiguo expediente)
+  Concluido = "concluido",
+}
+
+export enum HonorariosYSuplidosTipo {
+  DS = "denominacionsocial",
+  RM = "registromercantil",
+  NO = "notaria",
+  TA = "tasas",
+}
+
 export enum EstadoCivil {
   Soltero = "s",
   Casado = "c",
@@ -31,52 +53,63 @@ export enum EstadoCivil {
   SinPareja = "sp",
 }
 
-export type SolicitudModelosGeneralesEX00 = {
-  pasaporteExtrangero: string;
-  NIEExtrangero: string;
-  primerApellidoExtrangero: string;
-  segundoApellidoExtrangero: string;
-  nombreExtrangero: string;
-  fechaNacimientoExtrangero: string;
-  lugarNacimientoExtrangero: string;
-  paisExtrangero: string;
-  sexoExtrangero: Sexo;
-  nacionalidadExtrangero: string;
-  estadoCivilExtrangero: EstadoCivil;
-  nombrePadreExtrangero: string;
-  nombreMadreExtrangero: string;
-  domicilioEspanaExtrangero: string;
-  numeroDomicilioEspanaExtrangero: string;
-  pisoDomicilioEspanaExtrangero: string;
-  localidadExtrangero: string;
-  codigoPostalExtrangero: string;
-  provinciaExtrangero: string;
-  telefonoMobilExtrangero: string;
-  emailExtrangero: string;
-  representanteLegalExtrangero: string;
-  DNINIEPASRepresentanteLegalExtrangero: string;
-  tituloRepresentanteLegalExtrangero: string;
-  nombreRazonSocialRepresentante: string;
-  DNINIEPASRepresentante: string;
-  domicilioEspanaRepresentante: string;
-  numeroDomicilioEspanaRepresentante: string;
-  pisoDomicilioEspanaRepresentante: string;
-  localidadRepresentante: string;
-  codigoPostalRepresentante: string;
-  provinciaRepresentante: string;
-  telefonoMobilRepresentante: string;
-  emailRepresentante: string;
-  representanteLegalRepresentante: string;
-  DNINIEPASRepresentanteLegalRepresentante: string;
-  tituloRepresentanteLegalRepresentante: string;
-  nombreRazonSocialDomicilio: string;
-  DNINIEPASDomicilio: string;
-  domicilioEspanaDomicilio: string;
-  numeroDomicilioEspanaDomicilio: string;
-  pisoDomicilioEspanaDomicilio: string;
-  localidadDomicilio: string;
-  codigoPostalDomicilio: string;
-  provinciaDomicilio: string;
-  telefonoMobilDomicilio: string;
-  emailDomicilio: string;
+export enum GuardadoEn {
+  EnCarpeta = "encarpeta",
+  ExpedienteVigente = "expedientevigente",
+  Fisico = "fisico",
+}
+
+export type HonorariosYSuplidos = {
+  tipo: HonorariosYSuplidosTipo;
+  cantidad: number;
+};
+
+export type ExpedienteTipo = {
+  nombre: string;
+  honorarios: number;
+  archivoDeRequerimientos: string;
+};
+
+export enum RequerimientoDelExpedienteTipo {
+  Texto = "texto",
+  TextoLargo = "textolargo",
+  Archivo = "archivo",
+}
+
+export type RequerimientoDelExpediente = {
+  nombre: string;
+  tipo: RequerimientoDelExpedienteTipo;
+  expediente: string;
+};
+
+export type RequerimientoDelExpedienteUsuario = {
+  archivo: string;
+  texto: string;
+  tipo: RequerimientoDelExpedienteTipo;
+  expediente: string;
+  usuario: string;
+};
+
+export type Expediente = {
+  _id: string;
+  orden: string;
+  tipo: ExpedienteTipo;
+  vinculado: string;
+  conexiones: string;
+  guardadoEn: GuardadoEn;
+  responsable: string;
+  codigoCliente: string;
+  codigoClienteProvisional: string;
+  cliente: string;
+  beneficiario: string;
+  asunto: string;
+  fechaSolicitudServicioNotificacion: string;
+  plazoLegal: string;
+  estado: EstadoExpedientes;
+  empresa: string;
+  honorarios: number;
+  honorariosYSuplidos: HonorariosYSuplidos[];
+  formaDePago: FormaDePagoTipo;
+  facturado: boolean;
+  comprobadoTodo: boolean;
 };

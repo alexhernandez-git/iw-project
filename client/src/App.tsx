@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./containers/dashboard";
 import Login from "./containers/login";
 import NewExpedient from "./containers/new-expedient";
-import NewExpedientType from "./containers/new-expedient-type";
 import Expedients from "./containers/expedients";
 
 function App() {
@@ -13,8 +12,7 @@ function App() {
         <Route path={"/"} element={<Dashboard />} />
         <Route path={"/expedients"} element={<Expedients />} />
         <Route path={"/login"} element={<Login />} />
-        <Route path={"/new-expedient"} element={<NewExpedientType />} />
-        <Route path={"/new-expedient/:type"} element={<NewExpedient />} />
+        <Route path={"/new-expedient"} element={<NewExpedient />} />
       </Routes>
     </Router>
   );

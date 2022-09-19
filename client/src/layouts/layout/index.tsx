@@ -45,20 +45,18 @@ export default function Layout({ children, title = null }: Props) {
   };
 
   return (
-    <>
-      <div>
-        <Sidebar {...sidebarProps} />
-        <div className="flex flex-1 flex-col md:pl-64">
-          <Header {...headerProps} />
-          <main className="flex-1">
-            {title ? (
-              <LayoutHeader title={title}>{children}</LayoutHeader>
-            ) : (
-              children
-            )}
-          </main>
-        </div>
+    <div className="bg-gray-100">
+      <Sidebar {...sidebarProps} />
+      <div className="flex flex-1 flex-col md:pl-64">
+        <Header {...headerProps} />
+        <main className="flex-1">
+          {title ? (
+            <LayoutHeader title={title}>{children}</LayoutHeader>
+          ) : (
+            children
+          )}
+        </main>
       </div>
-    </>
+    </div>
   );
 }

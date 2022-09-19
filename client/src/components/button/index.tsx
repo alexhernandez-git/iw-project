@@ -1,46 +1,38 @@
-import React, { ReactNode, useEffect, useMemo, useState } from "react";
+import React, {
+  MouseEventHandler,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Link } from "react-router-dom";
 import { Type } from "../../utils/types";
 
 type Props = {
   children: ReactNode;
   className?: string;
-  href?: string;
+  href?: string | null;
   type?: Type;
+  disabled?: boolean;
+  onClick?: (event: any) => void;
 };
 
 const ButtonLink = ({ children, to }: { children: ReactNode; to: string }) => {
   return <Link to={to}>{children}</Link>;
 };
 
-const Button = ({ children, className = "", type, href }: Props) => {
+const Button = ({
+  children,
+  className = "",
+  type = Type.Primary,
+  href = null,
+  disabled = false,
+  onClick = () => {},
+}: Props) => {
   const [currentClassName, setCurrentClassName] = useState("");
 
   useEffect(() => {
     const defaultClassName = `
-    hidden 
-    md:inline 
-    relative 
-    inline-flex 
-    items-center 
-    rounded-md 
-    border 
-    border-gray-300 
-    bg-white 
-    px-4 
-    py-2 
-    text-sm 
-    font-medium 
-    text-gray-700 
-    hover:bg-gray-50
-    ${className}
-    `;
-    switch (type) {
-      case Type.Primary:
-        setCurrentClassName(defaultClassName);
-        break;
-      case Type.Secondary:
-        setCurrentClassName(`
         md:inline-flex
         hidden
         items-center 
@@ -56,6 +48,29 @@ const Button = ({ children, className = "", type, href }: Props) => {
         text-white 
         shadow-sm 
         hover:bg-indigo-700 
+    ${className}
+    `;
+    switch (type) {
+      case Type.Primary:
+        setCurrentClassName(defaultClassName);
+        break;
+      case Type.Secondary:
+        setCurrentClassName(`
+        hidden 
+        md:inline 
+        relative 
+        inline-flex 
+        items-center 
+        rounded-md 
+        border 
+        border-gray-300 
+        bg-white 
+        px-4 
+        py-2 
+        text-sm 
+        font-medium 
+        text-gray-700 
+        hover:bg-gray-50
         ${className}
         `);
         break;
@@ -66,8 +81,17 @@ const Button = ({ children, className = "", type, href }: Props) => {
   }, [className, type, setCurrentClassName]);
 
   const component = useMemo(
-    () => <button className={currentClassName}>{children}</button>,
-    [currentClassName, children]
+    () => (
+      <button
+        onClick={onClick}
+        style={{ opacity: disabled ? 0.7 : 1 }}
+        disabled={disabled}
+        className={currentClassName}
+      >
+        {children}
+      </button>
+    ),
+    [currentClassName, children, disabled]
   );
 
   if (href) return <ButtonLink to={href}>{component}</ButtonLink>;
