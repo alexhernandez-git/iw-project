@@ -21,7 +21,9 @@ import {
   FormTextAreaField,
   FormTextField,
 } from "../../components/form-field";
-import { RequerimientoDelExpedienteTipo } from "../../utils/types";
+import { RequerimientoDelExpedienteTipo, Type } from "../../utils/types";
+import NewField from "./partials/new-field";
+import { makeId } from "../../utils/helpers";
 
 const people = [
   { id: 1, name: "Leslie Alexander" },
@@ -100,9 +102,38 @@ export default function NewExpedientType() {
   const [query, setQuery] = useState("");
   const [selectedType, setSelectedType] = useState(null);
   const [step, setStep] = useState(0);
-
+  const [requeriments, setRequeriments] = useState(expediente?.requerimientos);
+  const onAddField = ({
+    nombre,
+    tipo,
+    descripcion = false,
+  }: {
+    nombre: string;
+    tipo: RequerimientoDelExpedienteTipo;
+    descripcion?: string | boolean;
+  }) => {
+    console.log({ nombre, tipo, descripcion });
+    setRequeriments([
+      ...requeriments,
+      {
+        id: makeId(10),
+        nombre,
+        tipo,
+        descripcion: descripcion ? descripcion : "",
+        texto: "",
+        archivo: "",
+        custom: true,
+      },
+    ]);
+  };
   const onNextStep = () => {
     setStep(step < 1 ? step + 1 : step);
+  };
+
+  const onDeleteCustomField = (id: string) => {
+    setRequeriments(
+      requeriments.filter((requirement) => requirement.id !== id)
+    );
   };
 
   const filteredActions =
@@ -112,6 +143,10 @@ export default function NewExpedientType() {
           return action.name.toLowerCase().includes(query.toLowerCase());
         });
 
+  const [isAddingNewField, setIsAddingNewField] = useState(false);
+
+  console.log(requeriments);
+
   const SeccondStep = useMemo(
     () => (
       <div className="text-black">
@@ -119,16 +154,20 @@ export default function NewExpedientType() {
           <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
             <FormSection>
               <div className="space-y-6 sm:space-y-5">
-                {expediente?.requerimientos.map((requerimiento) => {
+                {requeriments.map((requerimiento) => {
+                  const props = {
+                    requirement: requerimiento,
+                    onDeleteCustomField,
+                  };
                   switch (requerimiento.tipo) {
                     case RequerimientoDelExpedienteTipo.Texto:
-                      return <FormTextField requirement={requerimiento} />;
+                      return <FormTextField {...props} />;
                     case RequerimientoDelExpedienteTipo.TextoLargo:
-                      return <FormTextAreaField requirement={requerimiento} />;
+                      return <FormTextAreaField {...props} />;
                     case RequerimientoDelExpedienteTipo.Archivo:
-                      return <FormFileField requirement={requerimiento} />;
+                      return <FormFileField {...props} />;
                     default:
-                      return <FormTextField requirement={requerimiento} />;
+                      return <FormTextField {...props} />;
                   }
                 })}
               </div>
@@ -137,7 +176,7 @@ export default function NewExpedientType() {
         </form>
       </div>
     ),
-    []
+    [requeriments]
   );
 
   const getTextButton = useMemo(
@@ -212,7 +251,27 @@ export default function NewExpedientType() {
             )}
           </div>
         </Combobox>
-        {step > 0 && SeccondStep}
+        {step > 0 && (
+          <>
+            {SeccondStep}
+            <div className="py-4">
+              {isAddingNewField ? (
+                <NewField
+                  setIsAddingNewField={setIsAddingNewField}
+                  isAddingNewField={isAddingNewField}
+                  onAddField={onAddField}
+                />
+              ) : (
+                <Button
+                  type={Type.Secondary}
+                  onClick={() => setIsAddingNewField(true)}
+                >
+                  Añadir otro campo
+                </Button>
+              )}
+            </div>
+          </>
+        )}
       </StepLayout>
     </Layout>
   );

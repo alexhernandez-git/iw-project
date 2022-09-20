@@ -43,12 +43,14 @@ export enum RequerimientoDelExpedienteTipo {
 }
 
 export type RequerimientoDelExpediente = {
+  id: string;
   nombre: string;
   tipo: RequerimientoDelExpedienteTipo;
   archivo: string;
   texto: string;
   expediente: string;
   descripcion: string;
+  custom?: boolean;
 };
 
 export type Expediente = {

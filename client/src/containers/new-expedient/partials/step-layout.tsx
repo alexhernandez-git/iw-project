@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "../../../components/button";
-import { Type } from "../../../utils/types";
 
 type Props = {
   children: React.ReactNode;

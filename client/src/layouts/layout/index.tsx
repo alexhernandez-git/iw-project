@@ -45,7 +45,7 @@ export default function Layout({ children, title = null }: Props) {
   };
 
   return (
-    <div className="bg-gray-100">
+    <div className="min-h-screen bg-gray-100">
       <Sidebar {...sidebarProps} />
       <div className="flex flex-1 flex-col md:pl-64">
         <Header {...headerProps} />

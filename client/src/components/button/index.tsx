@@ -33,8 +33,6 @@ const Button = ({
 
   useEffect(() => {
     const defaultClassName = `
-        md:inline-flex
-        hidden
         items-center 
         rounded-md 
         border 
@@ -56,18 +54,18 @@ const Button = ({
         break;
       case Type.Secondary:
         setCurrentClassName(`
-        hidden 
-        md:inline 
         relative 
         inline-flex 
         items-center 
         rounded-md 
         border 
-        border-gray-300 
         bg-white 
-        px-4 
+        text-sm 
+        px-3
         py-2 
         text-sm 
+        leading-4 
+        border-gray-300 
         font-medium 
         text-gray-700 
         hover:bg-gray-50

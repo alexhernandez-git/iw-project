@@ -14,16 +14,28 @@ export const tipoDeExpedientes: ExpedienteTipo[] = [
     honorarios: 199,
     requerimientos: [
       {
+        id: "1",
         nombre: "Nombre y apellidos",
         tipo: RequerimientoDelExpedienteTipo.Texto,
         archivo: "",
         texto: "Texto puesto hasta ahora",
+        custom: false,
       },
       {
+        id: "2",
         nombre: "Foto de DNI",
         tipo: RequerimientoDelExpedienteTipo.Archivo,
         archivo: "",
         texto: "",
+        custom: false,
+      },
+      {
+        id: "3",
+        nombre: "Explicacion de motivos del tramite",
+        tipo: RequerimientoDelExpedienteTipo.TextoLargo,
+        archivo: "",
+        texto: "Empece a escribir ayer y puedo continuar hoy",
+        custom: false,
       },
     ],
   },
