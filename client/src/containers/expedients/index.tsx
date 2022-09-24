@@ -7,11 +7,9 @@ import { expedients } from "../../data";
 
 const Expedients = () => {
   return (
-    <DashboardLayout>
-      <div className="mt-8">
-        <ExpedientsList {...{ expedients }} />
-        <ExpedientsListSmall {...{ expedients }} />
-      </div>
+    <DashboardLayout title={"Expedients"}>
+      <ExpedientsList {...{ expedients }} />
+      <ExpedientsListSmall {...{ expedients }} />
     </DashboardLayout>
   );
 };

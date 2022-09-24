@@ -4,8 +4,7 @@ export enum Type {
 }
 
 export enum EstadoExpedientes {
-  EnEstudio = "enestudio", // Para colaborador PENDIENTE
-  PeticionDocumentacion = "peticiondocumentacion", // Para colaborador PENDIENTE
+  Draft = "draft", // Para colaborador PENDIENTE
   DocumentacionCompleta = "documentacioncompleta", // Para colaborador PENDIENTE
   ExpedienteCursadoNoConcluido = "expedientecursadonoconcluido", // Para colaborador EN TRAMITE
   // En este punto puede que se pida crear otro expediente amb orden (id del antiguo expediente)
@@ -28,6 +27,7 @@ export enum GuardadoEn {
 export type HonorariosYSuplidos = {
   tipo: HonorariosYSuplidosTipo;
   cantidad: number;
+  descripcion: string;
 };
 
 export enum FormaDePagoTipo {
@@ -41,6 +41,18 @@ export enum RequerimientoDelExpedienteTipo {
   TextoLargo = "textolargo",
   Archivo = "archivo",
 }
+
+export type FieldData = {
+  id: string;
+  nombre: string;
+  tipo: RequerimientoDelExpedienteTipo;
+  archivo: string;
+  texto: string;
+  expediente: string;
+  descripcion: string;
+  custom?: boolean;
+  onDeleteField?: (id: string) => void;
+};
 
 export type RequerimientoDelExpediente = {
   id: string;
@@ -66,6 +78,15 @@ export type Expediente = {
   codigoClienteProvisional: string;
   cliente: string;
   beneficiario: string;
+  silencioAdministrativo: boolean;
+  silencioAdministrativoDias: number;
+  silencioAdministrativoMeses: number;
+  silencioAdministrativoAnos: number;
+  silencioAdministrativosTipo: number; // DIAS | MESES | AÑOS
+  suspensionRequerimientoDias: number;
+  fecharResolucion: Date;
+  tipoResolucion: string; // FABORABLE / NO FABORABLE
+  documentoResolucion: string;
   asunto: string;
   fechaSolicitudServicioNotificacion: string;
   plazoLegal: string;
@@ -79,8 +100,11 @@ export type Expediente = {
   requerimientos: RequerimientoDelExpediente[];
 };
 
-export type ExpedienteTipo = {
+export type TramiteTipo = {
   nombre: string;
+  codigo: string;
+  tramitePadre: string;
+  descripcio: string;
   honorarios: number;
   requerimientos: RequerimientoDelExpediente[];
 };
@@ -90,3 +114,5 @@ export type ExpedienteTipo = {
 
 // Tabla de presupuestos
 // Por definir
+
+// els tramits tenen subcategorias

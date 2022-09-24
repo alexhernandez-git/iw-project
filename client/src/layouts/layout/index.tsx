@@ -51,7 +51,12 @@ export default function Layout({ children, title = null }: Props) {
         <Header {...headerProps} />
         <main className="flex-1">
           {title ? (
-            <LayoutHeader title={title}>{children}</LayoutHeader>
+            <div>
+              <LayoutHeader title={title} />
+              <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+                {children}
+              </div>
+            </div>
           ) : (
             children
           )}

@@ -1,6 +1,6 @@
 import React from "react";
 import { BanknotesIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { Expediente } from "../../utils/types";
+import { Expediente } from "../../../utils/types";
 
 type Props = {
   expedient: Expediente;

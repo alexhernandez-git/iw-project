@@ -1,28 +1,22 @@
 import React from "react";
-import { RequerimientoDelExpediente } from "../../utils/types";
+import { FieldData } from "../../utils/types";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 type Props = {
-  requirement: RequerimientoDelExpediente;
-  onDeleteCustomField: (id: string) => void;
+  data: FieldData;
 };
 
 const FormFieldLayout = ({
-  requirement: { id, nombre, descripcion, custom },
-  onDeleteCustomField,
+  data: { id, nombre, descripcion, custom, onDeleteField },
   children,
 }: {
-  onDeleteCustomField: (id: string) => void;
-  requirement: RequerimientoDelExpediente;
+  data: FieldData;
   children: React.ReactNode;
 }) => {
   return (
     <div className="sm:border-t sm:border-gray-200  sm:pt-5">
       {custom && (
-        <div
-          className="flex justify-end"
-          onClick={() => onDeleteCustomField(id)}
-        >
+        <div className="flex justify-end" onClick={() => onDeleteField(id)}>
           <button
             type="button"
             className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -46,12 +40,9 @@ const FormFieldLayout = ({
   );
 };
 
-export const FormTextField = ({ requirement, onDeleteCustomField }: Props) => {
+export const FormTextField = ({ data }: Props) => {
   return (
-    <FormFieldLayout
-      onDeleteCustomField={onDeleteCustomField}
-      requirement={requirement}
-    >
+    <FormFieldLayout data={data}>
       <input
         type="text"
         name="first-name"
@@ -63,15 +54,9 @@ export const FormTextField = ({ requirement, onDeleteCustomField }: Props) => {
   );
 };
 
-export const FormTextAreaField = ({
-  requirement,
-  onDeleteCustomField,
-}: Props) => {
+export const FormTextAreaField = ({ data }: Props) => {
   return (
-    <FormFieldLayout
-      onDeleteCustomField={onDeleteCustomField}
-      requirement={requirement}
-    >
+    <FormFieldLayout data={data}>
       <textarea
         id="about"
         name="about"
@@ -83,12 +68,9 @@ export const FormTextAreaField = ({
   );
 };
 
-export const FormFileField = ({ requirement, onDeleteCustomField }: Props) => {
+export const FormFileField = ({ data }: Props) => {
   return (
-    <FormFieldLayout
-      onDeleteCustomField={onDeleteCustomField}
-      requirement={requirement}
-    >
+    <FormFieldLayout data={data}>
       <div className="flex max-w-lg justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
         <div className="space-y-1 text-center">
           <svg

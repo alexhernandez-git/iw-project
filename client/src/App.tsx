@@ -4,6 +4,8 @@ import Dashboard from "./containers/dashboard";
 import Login from "./containers/login";
 import NewExpedient from "./containers/new-expedient";
 import Expedients from "./containers/expedients";
+import ExpedientsTypes from "./containers/expedients-types";
+import ExpedientsTypesView from "./containers/expedients-types-view";
 
 function App() {
   return (
@@ -13,6 +15,11 @@ function App() {
         <Route path={"/expedients"} element={<Expedients />} />
         <Route path={"/login"} element={<Login />} />
         <Route path={"/new-expedient"} element={<NewExpedient />} />
+        <Route path={"/expedients-types"} element={<ExpedientsTypes />} />
+        <Route
+          path={"/expedients-types/view"}
+          element={<ExpedientsTypesView />}
+        />
       </Routes>
     </Router>
   );

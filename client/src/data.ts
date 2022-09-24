@@ -37,6 +37,14 @@ export const tipoDeExpedientes: ExpedienteTipo[] = [
         texto: "Empece a escribir ayer y puedo continuar hoy",
         custom: false,
       },
+      {
+        id: "3",
+        nombre: "Explicacion de motivos del tramite",
+        tipo: RequerimientoDelExpedienteTipo.TextoLargo,
+        archivo: "",
+        texto: "Empece a escribir ayer y puedo continuar hoy",
+        custom: false,
+      },
     ],
   },
 ];
