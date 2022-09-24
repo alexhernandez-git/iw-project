@@ -11,13 +11,13 @@ const ExpedientsTypesView = () => {
     <DashboardLayout title={tipoDeExpediente.nombre}>
       <DescriptionList
         {...{
-          title: "Expedient view",
+          title: "Datos del expediente",
           description: "hola a todos",
           list: [
             {
               type: ListItemType.Text,
               label: "Nombre",
-              value: { value: "Hola" },
+              value: "Hola",
             },
             {
               type: ListItemType.Button,
@@ -36,6 +36,19 @@ const ExpedientsTypesView = () => {
                   onClick: () => {},
                 },
               ],
+            },
+          ],
+        }}
+      />
+      <DescriptionList
+        {...{
+          title: "Requerimientos del expediente",
+          description: "hola a todos",
+          list: [
+            {
+              type: ListItemType.Text,
+              label: "nombre",
+              value: "hola1",
             },
           ],
         }}

@@ -13,6 +13,7 @@ type Props = {
       type: ListItemType;
       label: string;
       value:
+        | string
         | {
             value: string | number;
             onClick?: (_: any) => any;
@@ -38,7 +39,7 @@ const DescriptionList = ({ title, description, list }: Props) => {
                 type: index % 2 === 0 ? Type.Primary : Type.Secondary,
               }}
             >
-              {item.type === ListItemType.Text && item.value?.value}
+              {item.type === ListItemType.Text && item?.value}
               {item.type === ListItemType.Button && (
                 <div className="flex items-center justify-between text-sm">
                   <div className="flex w-0 flex-1 items-center">
