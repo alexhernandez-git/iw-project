@@ -1,33 +1,25 @@
 import React from "react";
 import { PaperClipIcon } from "@heroicons/react/20/solid";
 import DescriptionRow from "./partials/description-row";
-import { Type } from "../../utils/types";
+import { ListItemType, Type } from "../../utils/types";
 import List from "../list";
 import Button from "../button";
 
-enum ListItemType {
-  Text = "text",
-  List = "list",
-  Button = "button",
-}
-
 type Props = {
-  data: {
-    title: string;
-    description: string;
-    list: [
-      {
-        type: ListItemType;
-        value:
-          | {
-              label: string;
-              value: string | number;
-              onClick?: (_: any) => any;
-            }
-          | Array<{ value: string; onClick?: (_: any) => any }>;
-      }
-    ];
-  };
+  title: string;
+  description: string;
+  list: [
+    {
+      type: ListItemType;
+      label: string;
+      value:
+        | {
+            value: string | number;
+            onClick?: (_: any) => any;
+          }
+        | Array<{ value: string; onClick?: (_: any) => any }>;
+    }
+  ];
 };
 
 const DescriptionList = ({ title, description, list }: Props) => {
@@ -39,23 +31,28 @@ const DescriptionList = ({ title, description, list }: Props) => {
       </div>
       <div className="border-t border-gray-200">
         <dl>
-          {list.map((item) => (
-            <DescriptionRow {...{ label: "Nombre", type: Type.Secondary }}>
-              {item.type === ListItemType.Text && item.value}
+          {list.map((item, index) => (
+            <DescriptionRow
+              {...{
+                label: item.label,
+                type: index % 2 === 0 ? Type.Primary : Type.Secondary,
+              }}
+            >
+              {item.type === ListItemType.Text && item.value?.value}
               {item.type === ListItemType.Button && (
-                <div className="flex items-center justify-between p-3 text-sm">
+                <div className="flex items-center justify-between text-sm">
                   <div className="flex w-0 flex-1 items-center">
-                    <span className="ml-2 w-0 flex-1 truncate">
-                      {item.value}
+                    <span className="w-0 flex-1 truncate">
+                      {item.value?.value}
                     </span>
                   </div>
                   <div className="ml-4 flex-shrink-0">
                     <Button
                       type={Type.Secondary}
-                      onClick={item.onClick}
+                      onClick={item?.value.onClick}
                       className="font-medium text-indigo-600 hover:text-indigo-500"
                     >
-                      Download
+                      Ir
                     </Button>
                   </div>
                 </div>

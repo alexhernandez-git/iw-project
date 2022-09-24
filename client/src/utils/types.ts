@@ -3,6 +3,12 @@ export enum Type {
   Secondary = "secondary",
 }
 
+export enum ListItemType {
+  Text = "text",
+  List = "list",
+  Button = "button",
+}
+
 export enum EstadoExpedientes {
   Draft = "draft", // Para colaborador PENDIENTE
   DocumentacionCompleta = "documentacioncompleta", // Para colaborador PENDIENTE
