@@ -14,7 +14,7 @@ import EsanLogo from "../../images/esan-asesores-logo-hd.png";
 const navigation = [
   { name: "Home", href: "/", icon: HomeIcon },
   { name: "Expedientes", href: "/expedients", icon: FolderIcon },
-  { name: "Tipos de expedientes", href: "/expedients-types", icon: FolderIcon },
+  { name: "Tipos de expediente", href: "/expedients-types", icon: FolderIcon },
 ];
 
 function classNames(...classes: string[]) {

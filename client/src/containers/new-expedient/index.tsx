@@ -24,6 +24,7 @@ import {
 import { RequerimientoDelExpedienteTipo, Type } from "../../utils/types";
 import NewField from "./partials/new-field";
 import { makeId } from "../../utils/helpers";
+import Requirements from "../../requirements-builder";
 
 const people = [
   { id: 1, name: "Leslie Alexander" },
@@ -143,41 +144,41 @@ export default function NewExpedientType() {
           return action.name.toLowerCase().includes(query.toLowerCase());
         });
 
-  const [isAddingNewField, setIsAddingNewField] = useState(false);
+  // const [isAddingNewField, setIsAddingNewField] = useState(false);
 
   console.log(requeriments);
 
-  const SeccondStep = useMemo(
-    () => (
-      <div className="text-black">
-        <form className="space-y-8 divide-y divide-gray-200">
-          <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
-            <FormSection>
-              <div className="space-y-6 sm:space-y-5">
-                {requeriments.map((requerimiento) => {
-                  const props = {
-                    requirement: requerimiento,
-                    onDeleteCustomField,
-                  };
-                  switch (requerimiento.tipo) {
-                    case RequerimientoDelExpedienteTipo.Texto:
-                      return <FormTextField {...props} />;
-                    case RequerimientoDelExpedienteTipo.TextoLargo:
-                      return <FormTextAreaField {...props} />;
-                    case RequerimientoDelExpedienteTipo.Archivo:
-                      return <FormFileField {...props} />;
-                    default:
-                      return <FormTextField {...props} />;
-                  }
-                })}
-              </div>
-            </FormSection>
-          </div>
-        </form>
-      </div>
-    ),
-    [requeriments]
-  );
+  // const SeccondStep = useMemo(
+  //   () => (
+  //     <div className="text-black">
+  //       <form className="space-y-8 divide-y divide-gray-200">
+  //         <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
+  //           <FormSection>
+  //             <div className="space-y-6 sm:space-y-5">
+  //               {requeriments.map((requerimiento) => {
+  //                 const props = {
+  //                   data: requerimiento,
+  //                   onDeleteField: onDeleteCustomField,
+  //                 };
+  //                 switch (requerimiento.tipo) {
+  //                   case RequerimientoDelExpedienteTipo.Texto:
+  //                     return <FormTextField {...props} />;
+  //                   case RequerimientoDelExpedienteTipo.TextoLargo:
+  //                     return <FormTextAreaField {...props} />;
+  //                   case RequerimientoDelExpedienteTipo.Archivos:
+  //                     return <FormFileField {...props} />;
+  //                   default:
+  //                     return <FormTextField {...props} />;
+  //                 }
+  //               })}
+  //             </div>
+  //           </FormSection>
+  //         </div>
+  //       </form>
+  //     </div>
+  //   ),
+  //   [requeriments]
+  // );
 
   const getTextButton = useMemo(
     () => (step === 0 ? "Continuar" : "Crear"),
@@ -252,25 +253,11 @@ export default function NewExpedientType() {
           </div>
         </Combobox>
         {step > 0 && (
-          <>
-            {SeccondStep}
-            <div className="py-4">
-              {isAddingNewField ? (
-                <NewField
-                  setIsAddingNewField={setIsAddingNewField}
-                  isAddingNewField={isAddingNewField}
-                  onAddField={onAddField}
-                />
-              ) : (
-                <Button
-                  type={Type.Secondary}
-                  onClick={() => setIsAddingNewField(true)}
-                >
-                  Añadir otro campo
-                </Button>
-              )}
-            </div>
-          </>
+          <Requirements
+            onAddField={onAddField}
+            onDeleteField={onDeleteCustomField}
+            requeriments={requeriments}
+          />
         )}
       </StepLayout>
     </Layout>

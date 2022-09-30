@@ -6,6 +6,7 @@ import NewExpedient from "./containers/new-expedient";
 import Expedients from "./containers/expedients";
 import ExpedientsTypes from "./containers/expedients-types";
 import ExpedientsTypesView from "./containers/expedients-types-view";
+import ExpedientsTypesNew from "./containers/expedients-types-new";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
         <Route
           path={"/expedients-types/view"}
           element={<ExpedientsTypesView />}
+        />
+        <Route
+          path={"/expedients-types/new"}
+          element={<ExpedientsTypesNew />}
         />
       </Routes>
     </Router>

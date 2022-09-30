@@ -24,7 +24,7 @@ export const tipoDeExpedientes: ExpedienteTipo[] = [
       {
         id: "2",
         nombre: "Foto de DNI",
-        tipo: RequerimientoDelExpedienteTipo.Archivo,
+        tipo: RequerimientoDelExpedienteTipo.Archivos,
         archivo: "",
         texto: "",
         custom: false,

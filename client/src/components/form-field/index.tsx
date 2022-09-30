@@ -41,10 +41,12 @@ const FormFieldLayout = ({
 };
 
 export const FormTextField = ({ data }: Props) => {
+  const { disabled } = data;
   return (
     <FormFieldLayout data={data}>
       <input
         type="text"
+        disabled={disabled}
         name="first-name"
         id="first-name"
         autoComplete="given-name"
@@ -55,10 +57,12 @@ export const FormTextField = ({ data }: Props) => {
 };
 
 export const FormTextAreaField = ({ data }: Props) => {
+  const { disabled } = data;
   return (
     <FormFieldLayout data={data}>
       <textarea
         id="about"
+        disabled={disabled}
         name="about"
         rows={3}
         className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -69,9 +73,14 @@ export const FormTextAreaField = ({ data }: Props) => {
 };
 
 export const FormFileField = ({ data }: Props) => {
+  const { disabled } = data;
   return (
     <FormFieldLayout data={data}>
-      <div className="flex max-w-lg justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+      <div
+        className={`${
+          disabled ?? "opacity-5"
+        } flex max-w-lg justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6`}
+      >
         <div className="space-y-1 text-center">
           <svg
             className="mx-auto h-12 w-12 text-gray-400"

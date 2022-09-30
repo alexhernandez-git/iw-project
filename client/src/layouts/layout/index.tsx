@@ -30,9 +30,17 @@ import LayoutHeader from "../layout-header";
 type Props = {
   children: ReactNode;
   title?: string | null;
+  button?: {
+    label: string;
+    onClick: (_: any) => any;
+  };
 };
 
-export default function Layout({ children, title = null }: Props) {
+export default function Layout({
+  children,
+  title = null,
+  button = null,
+}: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const sidebarProps = {
@@ -52,7 +60,7 @@ export default function Layout({ children, title = null }: Props) {
         <main className="flex-1">
           {title ? (
             <div>
-              <LayoutHeader title={title} />
+              <LayoutHeader title={title} button={button} />
               <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
                 {children}
               </div>

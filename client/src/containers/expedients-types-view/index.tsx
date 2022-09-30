@@ -29,10 +29,14 @@ const ExpedientsTypesView = () => {
             },
             {
               type: ListItemType.List,
-              label: "Adios",
+              label: "Hijos",
               value: [
                 {
                   value: "Expediente 3",
+                  onClick: () => {},
+                },
+                {
+                  value: "Expediente 4",
                   onClick: () => {},
                 },
               ],
@@ -47,8 +51,13 @@ const ExpedientsTypesView = () => {
           list: [
             {
               type: ListItemType.Text,
-              label: "nombre",
-              value: "hola1",
+              label: "Nombre",
+              value: "Texto",
+            },
+            {
+              type: ListItemType.Text,
+              label: "DNI",
+              value: "Archivos",
             },
           ],
         }}

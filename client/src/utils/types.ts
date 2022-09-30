@@ -9,6 +9,17 @@ export enum ListItemType {
   Button = "button",
 }
 
+export enum FormInputType {
+  Text = "text",
+  Select = "select",
+}
+
+export type FormInput = {
+  type: FormInputType;
+  name: string;
+  label: string;
+};
+
 export enum EstadoExpedientes {
   Draft = "draft", // Para colaborador PENDIENTE
   DocumentacionCompleta = "documentacioncompleta", // Para colaborador PENDIENTE
@@ -45,7 +56,7 @@ export enum FormaDePagoTipo {
 export enum RequerimientoDelExpedienteTipo {
   Texto = "texto",
   TextoLargo = "textolargo",
-  Archivo = "archivo",
+  Archivos = "archivos",
 }
 
 export type FieldData = {
@@ -57,14 +68,20 @@ export type FieldData = {
   expediente: string;
   descripcion: string;
   custom?: boolean;
+  disabled?: boolean;
   onDeleteField?: (id: string) => void;
+};
+
+export type RequerimientoDelExpedientes = {
+  id: string;
+  url: string;
 };
 
 export type RequerimientoDelExpediente = {
   id: string;
   nombre: string;
   tipo: RequerimientoDelExpedienteTipo;
-  archivo: string;
+  archivo: RequerimientoDelExpedientes[];
   texto: string;
   expediente: string;
   descripcion: string;

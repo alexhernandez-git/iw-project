@@ -12,8 +12,7 @@ const FormSection = ({ children }: Props) => {
           Requerimientos
         </h3>
         <p className="mt-1 max-w-2xl text-sm text-gray-500">
-          This information will be displayed publicly so be careful what you
-          share.
+          Requierimientos del expediente
         </p>
       </div>
       <div className="space-y-6 sm:space-y-5">{children}</div>
