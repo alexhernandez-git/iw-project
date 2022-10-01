@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Form from "../../components/form";
-import { tipoDeExpedientes } from "../../data";
 import DashboardLayout from "../../layouts/layout";
 import Requirements from "../../requirements-builder";
 import { makeId } from "../../utils/helpers";
@@ -52,6 +51,11 @@ const ExpedientsTypesNew = () => {
               label: "Información",
               description: "Descripcion",
               inputs: [
+                {
+                  label: "Codigo",
+                  name: "code",
+                  type: FormInputType.Text,
+                },
                 {
                   label: "Nombre",
                   name: "name",

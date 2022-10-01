@@ -11,7 +11,7 @@ type Props = {
 const LayoutHeader = ({ title, button = null }: Props) => {
   return (
     /* This example requires Tailwind CSS v2.0+ */
-    <div className="border-b border-gray-200 p-5 sm:flex sm:items-center sm:justify-between mb-6">
+    <div className="border-b border-gray-200 p-5 sm:flex sm:items-center sm:justify-between">
       <h3 className="text-md font-medium leading-6 text-gray-600">{title}</h3>
       {button && (
         <div className="mt-3 flex sm:mt-0 sm:ml-4">

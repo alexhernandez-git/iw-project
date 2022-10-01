@@ -77,9 +77,7 @@ export const FormFileField = ({ data }: Props) => {
   return (
     <FormFieldLayout data={data}>
       <div
-        className={`${
-          disabled ?? "opacity-5"
-        } flex max-w-lg justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6`}
+        className={`flex max-w-lg justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6`}
       >
         <div className="space-y-1 text-center">
           <svg
@@ -103,6 +101,7 @@ export const FormFileField = ({ data }: Props) => {
             >
               <span>Upload a file</span>
               <input
+                disabled={disabled}
                 id="file-upload"
                 name="file-upload"
                 type="file"

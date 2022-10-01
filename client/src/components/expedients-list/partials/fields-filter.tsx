@@ -1,14 +1,14 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, SetStateAction, useState } from "react";
+import { Dispatch, Fragment, SetStateAction, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { listFields } from "../../../data";
 
 type Props = {
   open: boolean;
-  setOpen: SetStateAction<any>;
+  setOpen: Dispatch<SetStateAction<any>>;
   selectedFields: string[];
-  setSelectedFields: SetStateAction<any>;
+  setSelectedFields: Dispatch<SetStateAction<any>>;
 };
 
 export default function FieldsFilter({

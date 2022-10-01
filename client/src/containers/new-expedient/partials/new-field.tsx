@@ -18,8 +18,8 @@ const mailingLists = [
     description: "Ej: Descripciónes...",
   },
   {
-    id: RequerimientoDelExpedienteTipo.Archivo,
-    title: "Archivo",
+    id: RequerimientoDelExpedienteTipo.Archivos,
+    title: "Archivos",
     description: "Ej: Foto DNI, foto pasaporte...",
   },
 ];

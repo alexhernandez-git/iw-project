@@ -14,23 +14,6 @@ const ExpedientsTypesCard = ({ expedient }) => {
                 <p className="truncate font-medium text-indigo-600">
                   {expedient.title}
                 </p>
-                <p className="ml-1 flex-shrink-0 font-normal text-gray-500">
-                  in {expedient.department}
-                </p>
-              </div>
-              <div className="mt-2 flex">
-                <div className="flex items-center text-sm text-gray-500">
-                  <CalendarIcon
-                    className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
-                    aria-hidden="true"
-                  />
-                  <p>
-                    Created on{" "}
-                    <time dateTime={expedient.closeDate}>
-                      {expedient.closeDateFull}
-                    </time>
-                  </p>
-                </div>
               </div>
             </div>
           </div>

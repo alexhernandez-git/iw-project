@@ -14,7 +14,7 @@
   }
   ```
 */
-import { ReactNode, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 import {
   CalendarIcon,
   ChartBarIcon,
@@ -26,20 +26,28 @@ import {
 import Sidebar from "../../components/sidebar";
 import Header from "../../components/header";
 import LayoutHeader from "../layout-header";
+import Filters from "../../components/filters";
 
 type Props = {
   children: ReactNode;
   title?: string | null;
+  filters?: any;
   button?: {
     label: string;
     onClick: (_: any) => any;
+  };
+  search?: {
+    search: string;
+    setSearch: Dispatch<SetStateAction<string>>;
   };
 };
 
 export default function Layout({
   children,
   title = null,
+  filters = null,
   button = null,
+  search = undefined,
 }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -56,12 +64,14 @@ export default function Layout({
     <div className="min-h-screen bg-gray-100">
       <Sidebar {...sidebarProps} />
       <div className="flex flex-1 flex-col md:pl-64">
-        <Header {...headerProps} />
+        <Header {...headerProps} search={search} />
+
         <main className="flex-1">
           {title ? (
             <div>
               <LayoutHeader title={title} button={button} />
-              <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+              {filters && <Filters />}
+              <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-6">
                 {children}
               </div>
             </div>

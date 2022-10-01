@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ExpedientCard, { ExpedientCardSmall } from "./partials/expedients-card";
 import { Expediente } from "../../utils/types";
 import FieldsFilter from "./partials/fields-filter";
+import Filters from "./partials/filters";
 
 type Props = {
   expedients: Expediente[];
@@ -21,13 +22,13 @@ const ExpedientsList = ({ expedients }: Props) => {
   ]);
   console.log(selectedFields);
   return (
-    <div className="hidden sm:block">
+    <div className="block">
       <div className="flex justify-end my-2">
         <button
           onClick={() => setOpen(true)}
           className="flex items-center text-gray-600 text-sm"
         >
-          Filtrar campos
+          Editar campos
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -42,7 +43,7 @@ const ExpedientsList = ({ expedients }: Props) => {
         />
       </div>
       <div className="px-4 sm:px-6 lg:px-8">
-        <div className="mt-8 flex flex-col">
+        <div className="mt-4 flex flex-col">
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
               <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
@@ -84,38 +85,4 @@ const ExpedientsList = ({ expedients }: Props) => {
     </div>
   );
 };
-
-const ExpedientsListSmall = ({ expedients }: Props) => {
-  return (
-    <div className="shadow sm:hidden">
-      <ul className="mt-2 divide-y divide-gray-200 overflow-hidden shadow sm:hidden">
-        {expedients.map((expedient, index) => (
-          <ExpedientCardSmall expedient={expedient} key={index} />
-        ))}
-      </ul>
-
-      <nav
-        className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3"
-        aria-label="Pagination"
-      >
-        <div className="flex flex-1 justify-between">
-          <a
-            href="#"
-            className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-500"
-          >
-            Previous
-          </a>
-          <a
-            href="#"
-            className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-500"
-          >
-            Next
-          </a>
-        </div>
-      </nav>
-    </div>
-  );
-};
-
-export { ExpedientsListSmall };
 export default ExpedientsList;

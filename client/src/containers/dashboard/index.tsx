@@ -1,9 +1,7 @@
 import React from "react";
 import Layout from "../../layouts/layout";
 import { ScaleIcon } from "@heroicons/react/24/outline";
-import ExpedientsList, {
-  ExpedientsListSmall,
-} from "../../components/expedients-list";
+import ExpedientsList from "../../components/expedients-list";
 import Card from "../../components/card";
 import { expedients } from "../../data";
 const cards = [
@@ -28,16 +26,12 @@ const Dashboard = () => {
             ))}
           </div>
         </div>
-
-        <h2 className="mx-auto mt-8 max-w-6xl px-4 text-lg font-medium leading-6 text-gray-900 sm:px-6 lg:px-8">
-          Recent activity
-        </h2>
-
-        {/* Activity list (smallest breakpoint only) */}
-        <ExpedientsListSmall {...{ expedients }} />
-
-        {/* Activity table (small breakpoint and up) */}
-        <ExpedientsList {...{ expedients }} />
+        <div className="mx-auto mt-8 max-w-6xl  sm:px-6">
+          <h2 className="text-lg font-medium leading-6 text-gray-900 sm:px-6 lg:px-8">
+            Recent activity
+          </h2>
+          <ExpedientsList {...{ expedients }} />
+        </div>
       </div>
     </Layout>
   );

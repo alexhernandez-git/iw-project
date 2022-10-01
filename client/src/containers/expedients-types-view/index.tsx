@@ -3,12 +3,21 @@ import DashboardLayout from "../../layouts/layout";
 import { tipoDeExpedientes } from "../../data";
 import DescriptionList from "../../components/description-list";
 import { ListItemType } from "../../utils/types";
+import { useNavigate } from "react-router-dom";
 
 const tipoDeExpediente = tipoDeExpedientes[0];
 
 const ExpedientsTypesView = () => {
+  const navigate = useNavigate();
+
   return (
-    <DashboardLayout title={tipoDeExpediente.nombre}>
+    <DashboardLayout
+      title={tipoDeExpediente.nombre}
+      button={{
+        label: "Editar",
+        onClick: () => navigate("/expedients-types/edit/1"),
+      }}
+    >
       <DescriptionList
         {...{
           title: "Datos del expediente",

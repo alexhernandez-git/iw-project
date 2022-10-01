@@ -113,7 +113,6 @@ export default function NewExpedientType() {
     tipo: RequerimientoDelExpedienteTipo;
     descripcion?: string | boolean;
   }) => {
-    console.log({ nombre, tipo, descripcion });
     setRequeriments([
       ...requeriments,
       {
@@ -124,6 +123,7 @@ export default function NewExpedientType() {
         texto: "",
         archivo: "",
         custom: true,
+        disabled: false,
       },
     ]);
   };
