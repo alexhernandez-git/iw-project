@@ -7,7 +7,7 @@ import {
   ReceiptRefundIcon,
   UsersIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMemo, useState } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Combobox } from "@headlessui/react";
@@ -100,6 +100,8 @@ const actions = [
 const expediente = tipoDeExpedientes[0];
 
 export default function NewExpedientType() {
+  const navigate = useNavigate();
+
   const [query, setQuery] = useState("");
   const [selectedType, setSelectedType] = useState(null);
   const [step, setStep] = useState(0);
@@ -128,7 +130,11 @@ export default function NewExpedientType() {
     ]);
   };
   const onNextStep = () => {
-    setStep(step < 1 ? step + 1 : step);
+    if (step === 0) {
+      setStep(step < 1 ? step + 1 : step);
+    } else {
+      navigate("/expedients/1");
+    }
   };
 
   const onDeleteCustomField = (id: string) => {

@@ -3,7 +3,7 @@ import ExpedientsTypesList from "../../components/expedients-types-list";
 import DashboardLayout from "../../layouts/layout";
 import { tipoDeExpedientes } from "../../data";
 import { useNavigate } from "react-router-dom";
-import { useSearch } from "../../utils/use-search";
+import { useSearch } from "../../hooks/use-search";
 
 const ExpedientsTypes = () => {
   const navigate = useNavigate();

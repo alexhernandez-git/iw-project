@@ -12,6 +12,7 @@ export enum ListItemType {
 export enum FormInputType {
   Text = "text",
   Select = "select",
+  Array = "array",
 }
 
 export type FormInput = {

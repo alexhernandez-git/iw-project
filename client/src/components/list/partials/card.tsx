@@ -13,11 +13,13 @@ const Card = ({ value, onClick }: Props) => {
       <div className="flex w-0 flex-1 items-center">
         <span className="w-0 flex-1 truncate">{value}</span>
       </div>
-      <div className="ml-4 flex-shrink-0">
-        <Button type={Type.Secondary} onClick={onClick}>
-          Ir
-        </Button>
-      </div>
+      {onClick && (
+        <div className="ml-4 flex-shrink-0">
+          <Button type={Type.Secondary} onClick={onClick}>
+            Ir
+          </Button>
+        </div>
+      )}
     </li>
   );
 };

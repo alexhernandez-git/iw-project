@@ -89,6 +89,7 @@ export const expedients: Expediente[] = [
     conexiones: "",
     guardadoEn: GuardadoEn.ExpedienteVigente, // ¿?
     responsable: "Mireia",
+    vinculado: "Expediente 2",
     codigoCliente: "928",
     codigoClienteProvisional: "123",
     cliente: "Juan Gomez Sierra",
@@ -112,6 +113,36 @@ export const expedients: Expediente[] = [
     formaDePago: FormaDePagoTipo.Cheque,
     facturado: false,
     comprobadoTodo: false,
+    requerimientos: [
+      {
+        id: "1",
+        nombre: "Nombre y apellidos",
+        tipo: RequerimientoDelExpedienteTipo.Texto,
+        texto: "Texto puesto hasta ahora",
+        custom: false,
+      },
+      {
+        id: "2",
+        nombre: "Foto de DNI",
+        tipo: RequerimientoDelExpedienteTipo.Archivos,
+        texto: "",
+        custom: false,
+      },
+      {
+        id: "3",
+        nombre: "Explicacion de motivos del tramite",
+        tipo: RequerimientoDelExpedienteTipo.TextoLargo,
+        texto: "Empece a escribir ayer y puedo continuar hoy",
+        custom: false,
+      },
+      {
+        id: "3",
+        nombre: "Explicacion de motivos del tramite",
+        tipo: RequerimientoDelExpedienteTipo.TextoLargo,
+        texto: "Empece a escribir ayer y puedo continuar hoy",
+        custom: false,
+      },
+    ],
   },
   {
     _id: "1",

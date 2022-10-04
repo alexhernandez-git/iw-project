@@ -15,7 +15,7 @@ type Props = {
       value:
         | string
         | {
-            value: string | number;
+            label: string | number;
             onClick?: (_: any) => any;
           }
         | Array<{ value: string; onClick?: (_: any) => any }>;
@@ -44,18 +44,20 @@ const DescriptionList = ({ title, description, list }: Props) => {
                 <div className="flex items-center justify-between text-sm">
                   <div className="flex w-0 flex-1 items-center">
                     <span className="w-0 flex-1 truncate">
-                      {item.value?.value}
+                      {item.value?.label}
                     </span>
                   </div>
-                  <div className="ml-4 flex-shrink-0">
-                    <Button
-                      type={Type.Secondary}
-                      onClick={item?.value.onClick}
-                      className="font-medium text-indigo-600 hover:text-indigo-500"
-                    >
-                      Ir
-                    </Button>
-                  </div>
+                  {item?.value?.onClick && (
+                    <div className="ml-4 flex-shrink-0">
+                      <Button
+                        type={Type.Secondary}
+                        onClick={item?.value.onClick}
+                        className="font-medium text-indigo-600 hover:text-indigo-500"
+                      >
+                        Ir
+                      </Button>
+                    </div>
+                  )}
                 </div>
               )}
               {item.type === ListItemType.List && <List data={item.value} />}

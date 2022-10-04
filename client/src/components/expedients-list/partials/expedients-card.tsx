@@ -1,6 +1,7 @@
 import React from "react";
 import { BanknotesIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { Expediente } from "../../../utils/types";
+import { Link } from "react-router-dom";
 
 type Props = {
   expedient: Expediente;
@@ -20,9 +21,12 @@ const ExpedientCard = ({ expedient, selectedFields }: Props) => {
         </td>
       ))}
       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-        <a href="#" className="text-indigo-600 hover:text-indigo-900">
-          Edit
-        </a>
+        <Link
+          to="/expedients/:id"
+          className="text-indigo-600 hover:text-indigo-900"
+        >
+          View
+        </Link>
       </td>
     </tr>
   );

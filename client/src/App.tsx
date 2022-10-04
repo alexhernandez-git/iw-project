@@ -8,6 +8,8 @@ import ExpedientsTypes from "./containers/expedients-types";
 import ExpedientsTypesView from "./containers/expedients-types-view";
 import ExpedientsTypesNew from "./containers/expedients-types-new";
 import ExpedientsTypesEdit from "./containers/expedients-types-edit";
+import ExpedientsView from "./containers/expedients-view";
+import ExpedientsEdit from "./containers/expedients-edit";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           path={"/expedients-types/edit/:id"}
           element={<ExpedientsTypesEdit />}
         />
+        <Route path={"/expedients/:id"} element={<ExpedientsView />} />
+        <Route path={"/expedients/edit/:id"} element={<ExpedientsEdit />} />
       </Routes>
     </Router>
   );
