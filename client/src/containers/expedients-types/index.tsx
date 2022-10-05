@@ -14,11 +14,18 @@ const ExpedientsTypes = () => {
   });
   return (
     <DashboardLayout
-      title={"Tipos de expedientes"}
+      title={"Tipos de expediente"}
       button={{
         label: "Crear",
         onClick: () => navigate("/expedients-types/new"),
       }}
+      pages={[
+        {
+          name: "Tipos de expediente",
+          href: "/expedients-types",
+          current: true,
+        },
+      ]}
       search={{ search, setSearch }}
     >
       <ExpedientsTypesList {...{ tipoDeExpedientes }} />

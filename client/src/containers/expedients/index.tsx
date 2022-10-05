@@ -15,6 +15,13 @@ const Expedients = () => {
       title={"Expedients"}
       filters={{}}
       search={{ search, setSearch }}
+      pages={[
+        {
+          name: "Expedientes",
+          href: "/expedients",
+          current: true,
+        },
+      ]}
     >
       <ExpedientsList {...{ expedients }} />
     </DashboardLayout>

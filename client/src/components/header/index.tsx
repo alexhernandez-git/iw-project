@@ -5,11 +5,7 @@ import { Bars3BottomLeftIcon, BellIcon } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 
-const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "/login" },
-];
+const userNavigation = [{ name: "Sign out", href: "/login" }];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -62,14 +58,6 @@ const Header = ({ setSidebarOpen, search }: Props) => {
         </div>
 
         <div className="ml-4 flex items-center md:ml-6">
-          <button
-            type="button"
-            className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            <span className="sr-only">View notifications</span>
-            <BellIcon className="h-6 w-6" aria-hidden="true" />
-          </button>
-
           {/* Profile dropdown */}
           <Menu as="div" className="relative ml-3">
             <div>

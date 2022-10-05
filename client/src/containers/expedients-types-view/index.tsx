@@ -17,6 +17,18 @@ const ExpedientsTypesView = () => {
         label: "Editar",
         onClick: () => navigate("/expedients-types/edit/1"),
       }}
+      pages={[
+        {
+          name: "Tipos de expediente",
+          href: "/expedients-types",
+          current: false,
+        },
+        {
+          name: "Tipo de expediente",
+          href: "/expedients-types/view",
+          current: true,
+        },
+      ]}
     >
       <DescriptionList
         {...{
@@ -32,7 +44,7 @@ const ExpedientsTypesView = () => {
               type: ListItemType.Button,
               label: "Padre",
               value: {
-                value: "Expediente 1",
+                label: "Expediente 1",
                 onClick: () => {},
               },
             },

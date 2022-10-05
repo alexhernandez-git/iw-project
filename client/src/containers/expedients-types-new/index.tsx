@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Form from "../../components/form";
 import DashboardLayout from "../../layouts/layout";
 import Requirements from "../../requirements-builder";
@@ -9,6 +10,8 @@ import {
 } from "../../utils/types";
 
 const ExpedientsTypesNew = () => {
+  const navigate = useNavigate();
+
   const [requeriments, setRequeriments] = useState([]);
 
   const onAddField = ({
@@ -42,7 +45,25 @@ const ExpedientsTypesNew = () => {
   };
 
   return (
-    <DashboardLayout title={"Nuevo tipo de expediente"}>
+    <DashboardLayout
+      title={"Nuevo tipo de expediente"}
+      button={{
+        label: "Crear",
+        onClick: () => navigate("/expedients-types/1"),
+      }}
+      pages={[
+        {
+          name: "Tipos de expediente",
+          href: "/expedients-types",
+          current: false,
+        },
+        {
+          name: "Nuevo tipo de expediente",
+          href: "/expedients-types/new",
+          current: true,
+        },
+      ]}
+    >
       <div className="space-y-6 sm:px-6 lg:col-span-9 lg:px-0 mb-6">
         <Form
           onSubmit={() => {}}

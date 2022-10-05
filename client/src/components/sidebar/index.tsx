@@ -91,7 +91,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
                 </div>
                 <div className="mt-5 h-0 flex-1 overflow-y-auto">
                   <ButtonSmall
-                    href={"/new-expedient"}
+                    href={"/expedients/new"}
                     type={Type.Secondary}
                     className="w-full flex items-center justify-center mb-3 rounded-none"
                   >
@@ -145,7 +145,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
           </div>
           <div className="mt-5 flex flex-grow flex-col">
             <Button
-              href={"/new-expedient"}
+              href={"/expedients/new"}
               className="w-full flex items-center justify-left mb-3 rounded-none text-base font-normal"
             >
               <PlusIcon

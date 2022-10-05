@@ -6,24 +6,47 @@ import {
   ListItemType,
   RequerimientoDelExpedienteTipo,
 } from "../../utils/types";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const expediente = expedients[0];
 const ExpedientsView = () => {
   const navigate = useNavigate();
+
+  const { id } = useParams();
   return (
     <DashboardLayout
       title={expediente.orden}
+      buttonSecondary={{
+        label: "Crear expediente vinculado",
+        onClick: () => navigate(`/expedients/new/${expediente._id}`),
+      }}
       button={{
         label: "Editar",
         onClick: () => navigate("/expedients/edit/1"),
       }}
+      pages={[
+        {
+          name: "Expedientes",
+          href: "/expedients",
+          current: false,
+        },
+        {
+          name: "Expediente " + id,
+          href: "/expedients/" + id,
+          current: true,
+        },
+      ]}
     >
       <DescriptionList
         {...{
           title: "Datos del expediente",
           description: "",
           list: [
+            {
+              type: ListItemType.Text,
+              label: "identificador",
+              value: expediente._id,
+            },
             {
               type: ListItemType.Text,
               label: "orden",
@@ -129,8 +152,8 @@ const ExpedientsView = () => {
       />
       <DescriptionList
         {...{
-          title: "Requerimientos del expediente",
-          description: "hola a todos",
+          title: "Recursos",
+          description: "",
           list: expediente.requerimientos.map((requerimiento) =>
             requerimiento.tipo === RequerimientoDelExpedienteTipo.Archivos
               ? {
@@ -138,6 +161,7 @@ const ExpedientsView = () => {
                   label: requerimiento.nombre,
                   value: {
                     label: "Descargar archivo",
+                    buttonLabel: "Descargar",
                     onClick: () => {
                       alert("desargando archivo");
                     },

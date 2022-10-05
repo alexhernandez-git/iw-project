@@ -7,7 +7,7 @@ import {
   ReceiptRefundIcon,
   UsersIcon,
 } from "@heroicons/react/24/outline";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useMemo, useState } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Combobox } from "@headlessui/react";
@@ -46,7 +46,7 @@ const actions = [
     name: "Extrangeria",
     descripcion:
       "Esta es una descripción de prueba para poner un poco de texto",
-    href: "/new-expedient/1",
+    href: "/expedients/new/1",
     iconForeground: "text-teal-700",
     iconBackground: "bg-teal-50",
   },
@@ -55,7 +55,7 @@ const actions = [
     name: "Benefits",
     descripcion:
       "Esta es una descripción de prueba para poner un poco de texto",
-    href: "/new-expedient/1",
+    href: "/expedients/new/1",
     iconForeground: "text-purple-700",
     iconBackground: "bg-purple-50",
   },
@@ -64,7 +64,7 @@ const actions = [
     name: "Schedule a one-on-one",
     descripcion:
       "Esta es una descripción de prueba para poner un poco de texto",
-    href: "/new-expedient/1",
+    href: "/expedients/new/1",
     iconForeground: "text-sky-700",
     iconBackground: "bg-sky-50",
   },
@@ -73,7 +73,7 @@ const actions = [
     name: "Payroll",
     descripcion:
       "Esta es una descripción de prueba para poner un poco de texto",
-    href: "/new-expedient/1",
+    href: "/expedients/new/1",
     iconForeground: "text-yellow-700",
     iconBackground: "bg-yellow-50",
   },
@@ -82,7 +82,7 @@ const actions = [
     name: "Submit an expense",
     descripcion:
       "Esta es una descripción de prueba para poner un poco de texto",
-    href: "/new-expedient/1",
+    href: "/expedients/new/1",
     iconForeground: "text-rose-700",
     iconBackground: "bg-rose-50",
   },
@@ -91,7 +91,7 @@ const actions = [
     name: "Training",
     descripcion:
       "Esta es una descripción de prueba para poner un poco de texto",
-    href: "/new-expedient/1",
+    href: "/expedients/new/1",
     iconForeground: "text-indigo-700",
     iconBackground: "bg-indigo-50",
   },
@@ -191,8 +191,41 @@ export default function NewExpedientType() {
     [step]
   );
 
+  const params = useParams();
+  console.log(params);
   return (
-    <Layout title={"Creación del expediente"}>
+    <Layout
+      title={`Creación del expediente${
+        params.vinculated ? " vinculado a expediente: " + params.vinculated : ""
+      }`}
+      pages={
+        params.vinculated
+          ? [
+              {
+                name: "Expedientex",
+                href: "/expedients",
+                current: false,
+              },
+              {
+                name: "Expediente 3",
+                href: "/expedients/3",
+                current: true,
+              },
+              {
+                name: "Crear expediente vinculado",
+                href: "/expedients/new/2",
+                current: true,
+              },
+            ]
+          : [
+              {
+                name: "Nuevo expediente",
+                href: "/expedients/new",
+                current: true,
+              },
+            ]
+      }
+    >
       {/* Actions panel */}
       <StepLayout
         onNextStep={onNextStep}

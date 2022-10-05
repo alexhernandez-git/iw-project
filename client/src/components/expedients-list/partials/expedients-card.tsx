@@ -8,10 +8,6 @@ type Props = {
   selectedFields: { label: string; value: string }[];
 };
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
 const ExpedientCard = ({ expedient, selectedFields }: Props) => {
   return (
     <tr key={expedient._id} className="bg-white">
@@ -22,10 +18,10 @@ const ExpedientCard = ({ expedient, selectedFields }: Props) => {
       ))}
       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
         <Link
-          to="/expedients/:id"
+          to="/expedients/2"
           className="text-indigo-600 hover:text-indigo-900"
         >
-          View
+          Ver
         </Link>
       </td>
     </tr>

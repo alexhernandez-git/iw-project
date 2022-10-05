@@ -6,7 +6,7 @@ import {
   FormTextField,
 } from "../components/form-field";
 import FormSection from "../components/form-section";
-import NewField from "../containers/new-expedient/partials/new-field";
+import NewField from "../containers/expedients-new/partials/new-field";
 import { RequerimientoDelExpedienteTipo, Type } from "../utils/types";
 
 type Props = {

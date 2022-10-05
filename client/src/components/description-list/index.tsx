@@ -1,5 +1,4 @@
 import React from "react";
-import { PaperClipIcon } from "@heroicons/react/20/solid";
 import DescriptionRow from "./partials/description-row";
 import { ListItemType, Type } from "../../utils/types";
 import List from "../list";
@@ -17,6 +16,7 @@ type Props = {
         | {
             label: string | number;
             onClick?: (_: any) => any;
+            buttonLabel?: string;
           }
         | Array<{ value: string; onClick?: (_: any) => any }>;
     }
@@ -54,7 +54,7 @@ const DescriptionList = ({ title, description, list }: Props) => {
                         onClick={item?.value.onClick}
                         className="font-medium text-indigo-600 hover:text-indigo-500"
                       >
-                        Ir
+                        {item?.value?.buttonLabel ?? "Ir"}
                       </Button>
                     </div>
                   )}

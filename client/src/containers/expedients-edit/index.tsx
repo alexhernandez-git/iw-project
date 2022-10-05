@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Form from "../../components/form";
 import { expedients } from "../../data";
 import DashboardLayout from "../../layouts/layout";
@@ -10,6 +11,8 @@ import {
 } from "../../utils/types";
 
 const ExpedientsEdit = () => {
+  const navigate = useNavigate();
+
   const [requeriments, setRequeriments] = useState(
     expedients[0].requerimientos
   );
@@ -44,7 +47,32 @@ const ExpedientsEdit = () => {
   };
 
   return (
-    <DashboardLayout title={"Editar expediente"}>
+    <DashboardLayout
+      title={"Editar expediente"}
+      button={{
+        label: "Guardar",
+        onClick: () => {
+          alert("Guardado");
+        },
+      }}
+      pages={[
+        {
+          name: "Expedientex",
+          href: "/expedients",
+          current: false,
+        },
+        {
+          name: "Expediente 3",
+          href: "/expedients/3",
+          current: true,
+        },
+        {
+          name: "Editar expediente",
+          href: "/expedients/edit/2",
+          current: true,
+        },
+      ]}
+    >
       <div className="space-y-6 sm:px-6 lg:col-span-9 lg:px-0 mb-6">
         <Form
           onSubmit={() => {}}

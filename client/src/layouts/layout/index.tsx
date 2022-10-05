@@ -27,11 +27,16 @@ import Sidebar from "../../components/sidebar";
 import Header from "../../components/header";
 import LayoutHeader from "../layout-header";
 import Filters from "../../components/filters";
+import Breadcrumb from "../../components/breadcrumb";
 
 type Props = {
   children: ReactNode;
   title?: string | null;
   filters?: any;
+  buttonSecondary?: {
+    label: string;
+    onClick: (_: any) => any;
+  };
   button?: {
     label: string;
     onClick: (_: any) => any;
@@ -40,14 +45,21 @@ type Props = {
     search: string;
     setSearch: Dispatch<SetStateAction<string>>;
   };
+  pages?: {
+    name: string;
+    href: string;
+    current: boolean;
+  }[];
 };
 
 export default function Layout({
   children,
   title = null,
   filters = null,
+  buttonSecondary = null,
   button = null,
   search = undefined,
+  pages = null,
 }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -65,11 +77,16 @@ export default function Layout({
       <Sidebar {...sidebarProps} />
       <div className="flex flex-1 flex-col md:pl-64">
         <Header {...headerProps} search={search} />
-
+        {pages && <Breadcrumb {...{ pages }} />}
         <main className="flex-1">
           {title ? (
             <div>
-              <LayoutHeader title={title} button={button} />
+              <LayoutHeader
+                title={title}
+                button={button}
+                buttonSecondary={buttonSecondary}
+              />
+
               {filters && <Filters />}
               <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 mt-6">
                 {children}

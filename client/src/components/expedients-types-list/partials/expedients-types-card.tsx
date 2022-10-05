@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const ExpedientsTypesCard = ({ expedient }) => {
   return (
     <li key={expedient.id}>
-      <Link to="/expedients-types/view" className="block hover:bg-gray-50">
+      <Link to="/expedients-types/1" className="block hover:bg-gray-50">
         <div className="flex items-center px-4 py-4 sm:px-6">
           <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
             <div className="truncate">

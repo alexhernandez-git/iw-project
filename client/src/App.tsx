@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./containers/dashboard";
 import Login from "./containers/login";
-import NewExpedient from "./containers/new-expedient";
+import NewExpedient from "./containers/expedients-new";
 import Expedients from "./containers/expedients";
 import ExpedientsTypes from "./containers/expedients-types";
 import ExpedientsTypesView from "./containers/expedients-types-view";
@@ -18,10 +18,14 @@ function App() {
         <Route path={"/"} element={<Dashboard />} />
         <Route path={"/expedients"} element={<Expedients />} />
         <Route path={"/login"} element={<Login />} />
-        <Route path={"/new-expedient"} element={<NewExpedient />} />
+        <Route path={"/expedients/new"} element={<NewExpedient />} />
+        <Route
+          path={"/expedients/new/:vinculated"}
+          element={<NewExpedient />}
+        />
         <Route path={"/expedients-types"} element={<ExpedientsTypes />} />
         <Route
-          path={"/expedients-types/view"}
+          path={"/expedients-types/:id"}
           element={<ExpedientsTypesView />}
         />
         <Route
