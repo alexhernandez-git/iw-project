@@ -84,6 +84,7 @@ const Button = ({
         onClick={onClick}
         style={{ opacity: disabled ? 0.7 : 1 }}
         disabled={disabled}
+        type="button"
         className={currentClassName}
       >
         {children}
@@ -91,8 +92,6 @@ const Button = ({
     ),
     [currentClassName, children, disabled]
   );
-
-  if (href) return <ButtonLink to={href}>{component}</ButtonLink>;
   return component;
 };
 

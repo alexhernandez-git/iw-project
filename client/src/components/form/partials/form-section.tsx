@@ -1,5 +1,7 @@
 import React from "react";
 import { FormInput, FormInputType } from "../../../utils/types";
+import ArrayInput from "./array-input";
+import DateInput from "./date-input";
 import SelectInput from "./select-input";
 import TextInput from "./text-input";
 
@@ -21,12 +23,16 @@ const FormSection = ({ label, description, inputs, onSave = null }: Props) => {
           <p className="mt-1 text-sm text-gray-500">{description}</p>
         </div>
         <div className="grid grid-cols-6 gap-6">
-          {inputs.map(({ name, type, label }: FormInput) => {
+          {inputs.map(({ name, type, label, options }: FormInput) => {
             switch (type) {
               case FormInputType.Text:
                 return <TextInput {...{ label, name }} />;
               case FormInputType.Select:
-                return <SelectInput {...{ label, name }} />;
+                return <SelectInput {...{ label, name, options }} />;
+              case FormInputType.Date:
+                return <DateInput {...{ label, name, options }} />;
+              case FormInputType.Array:
+                return <ArrayInput {...{ label, name }} />;
               default:
                 break;
             }

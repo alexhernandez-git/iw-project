@@ -37,6 +37,7 @@ function App() {
           element={<ExpedientsTypesEdit />}
         />
         <Route path={"/expedients/:id"} element={<ExpedientsView />} />
+        <Route path={"/expedients/:id/*"} element={<ExpedientsView />} />
         <Route path={"/expedients/edit/:id"} element={<ExpedientsEdit />} />
       </Routes>
     </Router>

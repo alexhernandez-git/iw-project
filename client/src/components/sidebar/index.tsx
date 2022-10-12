@@ -7,7 +7,7 @@ import {
   PlusIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import Button, { ButtonSmall } from "../button";
 import { Type } from "../../utils/types";
 import EsanLogo from "../../images/esan-asesores-logo-hd.png";
@@ -27,6 +27,7 @@ type Props = {
 };
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   return (
     <>
@@ -145,7 +146,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
           </div>
           <div className="mt-5 flex flex-grow flex-col">
             <Button
-              href={"/expedients/new"}
+              onClick={() => navigate("/expedients/new")}
               className="w-full flex items-center justify-left mb-3 rounded-none text-base font-normal"
             >
               <PlusIcon

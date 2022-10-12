@@ -13,12 +13,14 @@ export enum FormInputType {
   Text = "text",
   Select = "select",
   Array = "array",
+  Date = "date",
 }
 
 export type FormInput = {
   type: FormInputType;
   name: string;
   label: string;
+  options?: string[];
 };
 
 export enum EstadoExpedientes {

@@ -7,6 +7,7 @@ import Requirements from "../../requirements-builder";
 import { makeId } from "../../utils/helpers";
 import {
   FormInputType,
+  GuardadoEn,
   RequerimientoDelExpedienteTipo,
 } from "../../utils/types";
 
@@ -94,7 +95,12 @@ const ExpedientsEdit = () => {
                 {
                   label: "Guardado en",
                   name: "guardadoEn",
-                  type: FormInputType.Text,
+                  type: FormInputType.Select,
+                  options: [
+                    GuardadoEn.EnCarpeta,
+                    GuardadoEn.ExpedienteVigente,
+                    GuardadoEn.Fisico,
+                  ],
                 },
                 {
                   label: "Responsable",
@@ -104,11 +110,6 @@ const ExpedientsEdit = () => {
                 {
                   label: "codigo cliente",
                   name: "codigoCliente",
-                  type: FormInputType.Text,
-                },
-                {
-                  label: "Guardado en",
-                  name: "guardadoEn",
                   type: FormInputType.Text,
                 },
                 {
@@ -132,9 +133,9 @@ const ExpedientsEdit = () => {
                   type: FormInputType.Text,
                 },
                 {
-                  label: "fechaSolicitudServicioNotificacion",
+                  label: "fecha solicitud servicio notificacion",
                   name: "fechaSolicitudServicioNotificacion",
-                  type: FormInputType.Text,
+                  type: FormInputType.Date,
                 },
                 {
                   label: "plazoLegal",
@@ -156,6 +157,12 @@ const ExpedientsEdit = () => {
                   name: "honorarios",
                   type: FormInputType.Text,
                 },
+              ],
+            },
+            {
+              label: "Honorarios y Suplidos",
+              description: "",
+              inputs: [
                 {
                   label: "Honorarios y Suplidos",
                   name: "honorariosYSuplidos",
