@@ -1,3 +1,10 @@
+export enum SliceState {
+  Inactive = "idle",
+  Loading = "loading",
+  Success = "success",
+  Failed = "failed",
+}
+
 export enum Type {
   Primary = "primary",
   Secondary = "secondary",
@@ -16,56 +23,70 @@ export enum FormInputType {
   Date = "date",
 }
 
+export enum UserRole {
+  SuperAdmin = "superadmin",
+  Admin = "admin",
+  User = "user",
+}
+
+export type User = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: UserRole;
+};
+
 export type FormInput = {
   type: FormInputType;
   name: string;
+  formik: any;
   label: string;
   options?: string[];
 };
 
-export enum EstadoExpedientes {
+export enum ExpedientState {
   Draft = "draft", // Para colaborador PENDIENTE
   DocumentacionCompleta = "documentacioncompleta", // Para colaborador PENDIENTE
-  ExpedienteCursadoNoConcluido = "expedientecursadonoconcluido", // Para colaborador EN TRAMITE
+  ExpedientCursadoNoConcluido = "expedientecursadonoconcluido", // Para colaborador EN TRAMITE
   // En este punto puede que se pida crear otro expediente amb orden (id del antiguo expediente)
   Concluido = "concluido",
 }
 
-export enum HonorariosYSuplidosTipo {
-  DS = "denominacionsocial",
-  RM = "registromercantil",
-  NO = "notaria",
-  TA = "tasas",
+export enum HonorariosYSuplidosType {
+  DenominacionSocial = "ds",
+  RegistroMercantil = "rm",
+  Notaria = "no",
+  Tasas = "ta",
 }
 
-export enum GuardadoEn {
+export enum StoredIn {
   EnCarpeta = "encarpeta",
-  ExpedienteVigente = "expedientevigente",
+  CurrentExpedient = "expedientevigente",
   Fisico = "fisico",
 }
 
 export type HonorariosYSuplidos = {
-  tipo: HonorariosYSuplidosTipo;
+  tipo: HonorariosYSuplidosType;
   cantidad: number;
   descripcion: string;
 };
 
-export enum FormaDePagoTipo {
+export enum PaymentType {
   Efectivo = "efectivo",
   Transferencia = "transferencia",
   Cheque = "cheque",
 }
 
-export enum RequerimientoDelExpedienteTipo {
-  Texto = "texto",
-  TextoLargo = "textolargo",
-  Archivos = "archivos",
+export enum ExpedientRequirementType {
+  Text = "text",
+  LargeText = "largetext",
+  Files = "files",
 }
 
 export type FieldData = {
   id: string;
   nombre: string;
-  tipo: RequerimientoDelExpedienteTipo;
+  tipo: ExpedientRequirementType;
   archivo: string;
   texto: string;
   expediente: string;
@@ -75,30 +96,30 @@ export type FieldData = {
   onDeleteField?: (id: string) => void;
 };
 
-export type RequerimientoDelExpedientes = {
+export type ExpedientsRequirement = {
   id: string;
   url: string;
 };
 
-export type RequerimientoDelExpediente = {
+export type ExpedientRequirement = {
   id: string;
   nombre: string;
-  tipo: RequerimientoDelExpedienteTipo;
-  archivo: RequerimientoDelExpedientes[];
+  tipo: ExpedientRequirementType;
+  archivo: ExpedientsRequirement[];
   texto: string;
   expediente: string;
   descripcion: string;
   custom?: boolean;
 };
 
-export type Expediente = {
+export type Expedient = {
   _id: string;
   orden: string;
   isDraft: boolean;
   tipo: string;
   vinculado: string;
   conexiones: string;
-  guardadoEn: GuardadoEn;
+  guardadoEn: StoredIn;
   responsable: string;
   codigoCliente: string;
   codigoClienteProvisional: string;
@@ -116,23 +137,23 @@ export type Expediente = {
   asunto: string;
   fechaSolicitudServicioNotificacion: string;
   plazoLegal: string;
-  estado: EstadoExpedientes;
+  estado: ExpedientState;
   empresa: string;
   honorarios: number;
   honorariosYSuplidos: HonorariosYSuplidos[];
-  formaDePago: FormaDePagoTipo;
+  formaDePago: PaymentType;
   facturado: boolean;
   comprobadoTodo: boolean;
-  requerimientos: RequerimientoDelExpediente[];
+  requerimientos: ExpedientRequirement[];
 };
 
-export type TramiteTipo = {
+export type ExpedientType = {
   nombre: string;
   codigo: string;
   tramitePadre: string;
   descripcio: string;
   honorarios: number;
-  requerimientos: RequerimientoDelExpediente[];
+  requerimientos: ExpedientRequirement[];
 };
 
 // Expedient vinculat

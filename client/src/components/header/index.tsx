@@ -3,9 +3,9 @@ import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Bars3BottomLeftIcon, BellIcon } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import { Link } from "react-router-dom";
-
-const userNavigation = [{ name: "Sign out", href: "/login" }];
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signOut } from "../../store/user";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -20,6 +20,17 @@ type Props = {
 };
 
 const Header = ({ setSidebarOpen, search }: Props) => {
+  const dispatch = useDispatch();
+
+  const userNavigation = [
+    {
+      name: "Sign out",
+      onClick: () => {
+        dispatch(signOut());
+      },
+    },
+  ];
+
   return (
     <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow">
       <button
@@ -83,15 +94,15 @@ const Header = ({ setSidebarOpen, search }: Props) => {
                 {userNavigation.map((item) => (
                   <Menu.Item key={item.name}>
                     {({ active }) => (
-                      <Link
-                        to={item.href}
+                      <span
+                        onClick={item.onClick}
                         className={classNames(
                           active ? "bg-gray-100" : "",
                           "block px-4 py-2 text-sm text-gray-700"
                         )}
                       >
                         {item.name}
-                      </Link>
+                      </span>
                     )}
                   </Menu.Item>
                 ))}

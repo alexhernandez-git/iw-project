@@ -9,12 +9,13 @@ type Props = {
   label: string;
   description: string;
   inputs: FormInput[];
+  formik: any;
   onSave?: (_: any) => any | null;
 };
 
 const FormSection = ({ label, description, inputs, onSave = null }: Props) => {
   return (
-    <div className="shadow sm:overflow-hidden sm:rounded-md">
+    <div className="shadow sm:rounded-md">
       <div className="space-y-6 bg-white py-6 px-4 sm:p-6">
         <div>
           <h3 className="text-lg font-medium leading-6 text-gray-900">
@@ -23,16 +24,16 @@ const FormSection = ({ label, description, inputs, onSave = null }: Props) => {
           <p className="mt-1 text-sm text-gray-500">{description}</p>
         </div>
         <div className="grid grid-cols-6 gap-6">
-          {inputs.map(({ name, type, label, options }: FormInput) => {
+          {inputs.map(({ name, type, label, options, formik }: FormInput) => {
             switch (type) {
               case FormInputType.Text:
-                return <TextInput {...{ label, name }} />;
+                return <TextInput {...{ label, name, formik }} />;
               case FormInputType.Select:
-                return <SelectInput {...{ label, name, options }} />;
+                return <SelectInput {...{ label, name, options, formik }} />;
               case FormInputType.Date:
-                return <DateInput {...{ label, name, options }} />;
+                return <DateInput {...{ label, name, options, formik }} />;
               case FormInputType.Array:
-                return <ArrayInput {...{ label, name }} />;
+                return <ArrayInput {...{ label, name, formik }} />;
               default:
                 break;
             }

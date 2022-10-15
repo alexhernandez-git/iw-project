@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Combobox } from "@headlessui/react";
 
@@ -14,22 +14,41 @@ function classNames(...classes) {
 
 type Props = {
   label: string;
-  options: string[];
+  name: string;
+  formik: any;
+  options: { id: string; label: string }[];
 };
 
-const SelectInput = ({ label, options }: Props) => {
+const SelectInput = ({ label, options, name, formik }: Props) => {
   const [query, setQuery] = useState("");
-  const [optionsValues, setOptionsValues] = useState("-");
+
+  const [optionsValues, setOptionsValues] = useState(
+    formik.values[name] ?? "-"
+  );
+
+  const allOptions = useMemo(
+    () => [{ id: "-", label: "-" }, ...options],
+    [options]
+  );
+
+  const onChange = (value: string) => {
+    const selectedOption = options.find(
+      (optionItem) => optionItem.label === value
+    );
+    formik.setFieldValue(name, selectedOption?.id);
+    setOptionsValues(value);
+  };
 
   const optionsValuesFiltered =
     query === ""
-      ? options
-      : options.filter((option) => {
-          return option.toLowerCase().includes(query.toLowerCase());
+      ? allOptions
+      : allOptions.filter((option) => {
+          return option.label.toLowerCase().includes(query.toLowerCase());
         });
+
   return (
     <div className="col-span-6 sm:col-span-3">
-      <Combobox as="div" value={optionsValues} onChange={setOptionsValues}>
+      <Combobox as="div" value={optionsValues} onChange={onChange}>
         <Combobox.Label className="block text-sm font-medium text-gray-700">
           {label}
         </Combobox.Label>
@@ -50,8 +69,8 @@ const SelectInput = ({ label, options }: Props) => {
             <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {optionsValuesFiltered.map((option) => (
                 <Combobox.Option
-                  key={option}
-                  value={option}
+                  key={option.id}
+                  value={option.label}
                   className={({ active }) =>
                     classNames(
                       "relative cursor-default select-none py-2 pl-3 pr-9",
@@ -67,7 +86,7 @@ const SelectInput = ({ label, options }: Props) => {
                           selected && "font-semibold"
                         )}
                       >
-                        {option}
+                        {option.label}
                       </span>
 
                       {selected && (

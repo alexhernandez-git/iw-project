@@ -1,14 +1,25 @@
 import {
-  GuardadoEn,
-  EstadoExpedientes,
-  Expediente,
-  FormaDePagoTipo,
-  HonorariosYSuplidosTipo,
-  RequerimientoDelExpedienteTipo,
-  ExpedienteTipo,
+  StoredIn,
+  ExpedientState,
+  Expedient,
+  PaymentType,
+  HonorariosYSuplidosType,
+  ExpedientRequirementType,
+  ExpedientType,
+  UserRole,
 } from "./utils/types";
 
-export const tipoDeExpedientes: ExpedienteTipo[] = [
+export const user = {
+  firstName: "Alex",
+  lastName: "Hernandez",
+  email: "alex@gmail.com",
+  role: UserRole.SuperAdmin,
+};
+
+export const token: string =
+  "jfewowjefao8w3joifwioahfoiehwafwa80efiweajwofihoih";
+
+export const expedientTypes: ExpedientType[] = [
   {
     nombre: "Extrangeria",
     honorarios: 199,
@@ -16,7 +27,7 @@ export const tipoDeExpedientes: ExpedienteTipo[] = [
       {
         id: "1",
         nombre: "Nombre y apellidos",
-        tipo: RequerimientoDelExpedienteTipo.Texto,
+        tipo: ExpedientRequirementType.Text,
         archivo: "",
         texto: "Texto puesto hasta ahora",
         custom: false,
@@ -24,7 +35,7 @@ export const tipoDeExpedientes: ExpedienteTipo[] = [
       {
         id: "2",
         nombre: "Foto de DNI",
-        tipo: RequerimientoDelExpedienteTipo.Archivos,
+        tipo: ExpedientRequirementType.Files,
         archivo: "",
         texto: "",
         custom: false,
@@ -32,7 +43,7 @@ export const tipoDeExpedientes: ExpedienteTipo[] = [
       {
         id: "3",
         nombre: "Explicacion de motivos del tramite",
-        tipo: RequerimientoDelExpedienteTipo.TextoLargo,
+        tipo: ExpedientRequirementType.LargeText,
         archivo: "",
         texto: "Empece a escribir ayer y puedo continuar hoy",
         custom: false,
@@ -40,7 +51,7 @@ export const tipoDeExpedientes: ExpedienteTipo[] = [
       {
         id: "3",
         nombre: "Explicacion de motivos del tramite",
-        tipo: RequerimientoDelExpedienteTipo.TextoLargo,
+        tipo: ExpedientRequirementType.LargeText,
         archivo: "",
         texto: "Empece a escribir ayer y puedo continuar hoy",
         custom: false,
@@ -49,12 +60,12 @@ export const tipoDeExpedientes: ExpedienteTipo[] = [
   },
 ];
 
-export const expedient: Expediente = {
+export const expedient: Expedient = {
   _id: "1",
   orden: "2",
   tipo: "Extrangeria",
   conexiones: "",
-  guardadoEn: GuardadoEn.ExpedienteVigente, // ¿?
+  guardadoEn: StoredIn.CurrentExpedient, // ¿?
   responsable: "Mireia",
   codigoCliente: "928",
   codigoClienteProvisional: "123",
@@ -63,33 +74,33 @@ export const expedient: Expediente = {
   asunto: "",
   fechaSolicitudServicioNotificacion: "",
   plazoLegal: "10 dias",
-  estado: EstadoExpedientes.DocumentacionCompleta,
+  estado: ExpedientState.DocumentacionCompleta,
   empresa: "Apple",
   honorarios: 125,
   honorariosYSuplidos: [
     {
       cantidad: 50,
-      tipo: HonorariosYSuplidosTipo.RM,
+      tipo: HonorariosYSuplidosType.RegistroMercantil,
     },
     {
       cantidad: 100,
-      tipo: HonorariosYSuplidosTipo.DS,
+      tipo: HonorariosYSuplidosType.DenominacionSocial,
     },
   ],
-  formaDePago: FormaDePagoTipo.Cheque,
+  formaDePago: PaymentType.Cheque,
   facturado: false,
   comprobadoTodo: false,
 };
 
-export const expedients: Expediente[] = [
+export const expedients: Expedient[] = [
   {
     _id: "1",
     orden: "2",
     tipo: "Extrangeria",
     conexiones: "",
-    guardadoEn: GuardadoEn.ExpedienteVigente, // ¿?
+    guardadoEn: StoredIn.CurrentExpedient, // ¿?
     responsable: "Mireia",
-    vinculado: "Expediente 2",
+    vinculado: "Expedient 2",
     codigoCliente: "928",
     codigoClienteProvisional: "123",
     cliente: "Juan Gomez Sierra",
@@ -97,48 +108,48 @@ export const expedients: Expediente[] = [
     asunto: "",
     fechaSolicitudServicioNotificacion: "",
     plazoLegal: "10 dias",
-    estado: EstadoExpedientes.Documentacion,
+    estado: ExpedientState.Documentacion,
     empresa: "Apple",
     honorarios: 125,
     honorariosYSuplidos: [
       {
         cantidad: 50,
-        tipo: HonorariosYSuplidosTipo.RM,
+        tipo: HonorariosYSuplidosType.RegistroMercantil,
       },
       {
         cantidad: 100,
-        tipo: HonorariosYSuplidosTipo.DS,
+        tipo: HonorariosYSuplidosType.DenominacionSocial,
       },
     ],
-    formaDePago: FormaDePagoTipo.Cheque,
+    formaDePago: PaymentType.Cheque,
     facturado: false,
     comprobadoTodo: false,
     requerimientos: [
       {
         id: "1",
         nombre: "Nombre y apellidos",
-        tipo: RequerimientoDelExpedienteTipo.Texto,
+        tipo: ExpedientRequirementType.Text,
         texto: "Texto puesto hasta ahora",
         custom: false,
       },
       {
         id: "2",
         nombre: "Foto de DNI",
-        tipo: RequerimientoDelExpedienteTipo.Archivos,
+        tipo: ExpedientRequirementType.Files,
         texto: "",
         custom: false,
       },
       {
         id: "3",
         nombre: "Explicacion de motivos del tramite",
-        tipo: RequerimientoDelExpedienteTipo.TextoLargo,
+        tipo: ExpedientRequirementType.LargeText,
         texto: "Empece a escribir ayer y puedo continuar hoy",
         custom: false,
       },
       {
         id: "3",
         nombre: "Explicacion de motivos del tramite",
-        tipo: RequerimientoDelExpedienteTipo.TextoLargo,
+        tipo: ExpedientRequirementType.LargeText,
         texto: "Empece a escribir ayer y puedo continuar hoy",
         custom: false,
       },
@@ -149,7 +160,7 @@ export const expedients: Expediente[] = [
     orden: "2",
     tipo: "Extrangeria",
     conexiones: "",
-    guardadoEn: GuardadoEn.EnCarpeta, // ¿?
+    guardadoEn: StoredIn.EnCarpeta, // ¿?
     responsable: "Mireia",
     codigoCliente: "928",
     codigoClienteProvisional: "123",
@@ -158,20 +169,20 @@ export const expedients: Expediente[] = [
     asunto: "",
     fechaSolicitudServicioNotificacion: "",
     plazoLegal: "10 dias",
-    estado: EstadoExpedientes.Documentacion,
+    estado: ExpedientState.Documentacion,
     empresa: "Apple",
     honorarios: 125,
     honorariosYSuplidos: [
       {
         cantidad: 50,
-        tipo: HonorariosYSuplidosTipo.RM,
+        tipo: HonorariosYSuplidosType.RegistroMercantil,
       },
       {
         cantidad: 100,
-        tipo: HonorariosYSuplidosTipo.DS,
+        tipo: HonorariosYSuplidosType.DenominacionSocial,
       },
     ],
-    formaDePago: FormaDePagoTipo.Cheque,
+    formaDePago: PaymentType.Cheque,
     facturado: false,
     comprobadoTodo: false,
   },
@@ -180,7 +191,7 @@ export const expedients: Expediente[] = [
     orden: "2",
     tipo: "Extrangeria",
     conexiones: "",
-    guardadoEn: GuardadoEn.Fisico, // ¿?
+    guardadoEn: StoredIn.Fisico, // ¿?
     responsable: "Mireia",
     codigoCliente: "928",
     codigoClienteProvisional: "123",
@@ -189,20 +200,20 @@ export const expedients: Expediente[] = [
     asunto: "",
     fechaSolicitudServicioNotificacion: "",
     plazoLegal: "10 dias",
-    estado: EstadoExpedientes.Documentacion,
+    estado: ExpedientState.Documentacion,
     empresa: "Apple",
     honorarios: 125,
     honorariosYSuplidos: [
       {
         cantidad: 50,
-        tipo: HonorariosYSuplidosTipo.RM,
+        tipo: HonorariosYSuplidosType.RegistroMercantil,
       },
       {
         cantidad: 100,
-        tipo: HonorariosYSuplidosTipo.DS,
+        tipo: HonorariosYSuplidosType.DenominacionSocial,
       },
     ],
-    formaDePago: FormaDePagoTipo.Cheque,
+    formaDePago: PaymentType.Cheque,
     facturado: false,
     comprobadoTodo: false,
   },
@@ -211,7 +222,7 @@ export const expedients: Expediente[] = [
     orden: "2",
     tipo: "Extrangeria",
     conexiones: "",
-    guardadoEn: GuardadoEn.Fisico, // ¿?
+    guardadoEn: StoredIn.Fisico, // ¿?
     responsable: "Mireia",
     codigoCliente: "928",
     codigoClienteProvisional: "123",
@@ -220,20 +231,20 @@ export const expedients: Expediente[] = [
     asunto: "",
     fechaSolicitudServicioNotificacion: "",
     plazoLegal: "10 dias",
-    estado: EstadoExpedientes.Documentacion,
+    estado: ExpedientState.Documentacion,
     empresa: "Apple",
     honorarios: 125,
     honorariosYSuplidos: [
       {
         cantidad: 50,
-        tipo: HonorariosYSuplidosTipo.RM,
+        tipo: HonorariosYSuplidosType.RegistroMercantil,
       },
       {
         cantidad: 100,
-        tipo: HonorariosYSuplidosTipo.DS,
+        tipo: HonorariosYSuplidosType.DenominacionSocial,
       },
     ],
-    formaDePago: FormaDePagoTipo.Cheque,
+    formaDePago: PaymentType.Cheque,
     facturado: false,
     comprobadoTodo: false,
   },
@@ -245,7 +256,7 @@ export const listFields = [
   { label: "Tipo", value: "tipo" },
   { label: "Vinculado", value: "vinculado" },
   { label: "Conexiones", value: "conexiones" },
-  { label: "GuardadoEn", value: "guardadoEn" },
+  { label: "StoredIn", value: "guardadoEn" },
   { label: "Responsable", value: "responsable" },
   { label: "Codigo cliente", value: "codigoCliente" },
   { label: "Codigo cliente provisional", value: "codigoClienteProvisional" },

@@ -2,10 +2,7 @@ import React from "react";
 import DashboardLayout from "../../layouts/layout";
 import { expedients } from "../../data";
 import DescriptionList from "../../components/description-list";
-import {
-  ListItemType,
-  RequerimientoDelExpedienteTipo,
-} from "../../utils/types";
+import { ListItemType, ExpedientRequirementType } from "../../utils/types";
 import { useNavigate, useParams } from "react-router-dom";
 import Tabs from "../../components/tabs";
 import { Route, Routes } from "react-router-dom";
@@ -173,8 +170,7 @@ const ExpedientsView = () => {
                   title: "Recursos",
                   description: "",
                   list: expediente.requerimientos.map((requerimiento) =>
-                    requerimiento.tipo ===
-                    RequerimientoDelExpedienteTipo.Archivos
+                    requerimiento.tipo === ExpedientRequirementType.Files
                       ? {
                           type: ListItemType.Button,
                           label: requerimiento.nombre,

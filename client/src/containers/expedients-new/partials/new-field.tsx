@@ -3,22 +3,22 @@ import { SetStateAction, useEffect, useRef, useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import Button from "../../../components/button";
-import { RequerimientoDelExpedienteTipo, Type } from "../../../utils/types";
+import { ExpedientRequirementType, Type } from "../../../utils/types";
 import { useFormik } from "formik";
 
 const mailingLists = [
   {
-    id: RequerimientoDelExpedienteTipo.Texto,
+    id: ExpedientRequirementType.Text,
     title: "Texto",
     description: "Ej: Nombre, Apellidos...",
   },
   {
-    id: RequerimientoDelExpedienteTipo.TextoLargo,
+    id: ExpedientRequirementType.LargeText,
     title: "Texto Largo",
     description: "Ej: Descripciónes...",
   },
   {
-    id: RequerimientoDelExpedienteTipo.Archivos,
+    id: ExpedientRequirementType.Files,
     title: "Archivos",
     description: "Ej: Foto DNI, foto pasaporte...",
   },
@@ -37,7 +37,7 @@ type Props = {
     descripcion,
   }: {
     nombre: string;
-    tipo: RequerimientoDelExpedienteTipo;
+    tipo: ExpedientRequirementType;
     descripcion?: string | boolean;
   }) => void;
 };
@@ -48,7 +48,7 @@ export default function NewField({
   onAddField,
 }: Props) {
   const [fieldType, setFieldType] = useState(mailingLists[0]);
-  const tipo = useRef<RequerimientoDelExpedienteTipo>(mailingLists[0].id);
+  const tipo = useRef<ExpedientRequirementType>(mailingLists[0].id);
   console.log({ tipo });
   const formik = useFormik({
     initialValues: {

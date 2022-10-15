@@ -4,13 +4,19 @@ import Form from "../../components/form";
 import DashboardLayout from "../../layouts/layout";
 import Requirements from "../../requirements-builder";
 import { makeId } from "../../utils/helpers";
-import {
-  FormInputType,
-  RequerimientoDelExpedienteTipo,
-} from "../../utils/types";
+import { FormInputType, ExpedientRequirementType } from "../../utils/types";
+import { useFormik } from "formik";
 
 const ExpedientsTypesNew = () => {
-  const navigate = useNavigate();
+  const formik = useFormik({
+    initialValues: {
+      code: "",
+      name: "",
+    },
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
   const [requeriments, setRequeriments] = useState([]);
 
@@ -20,7 +26,7 @@ const ExpedientsTypesNew = () => {
     descripcion = false,
   }: {
     nombre: string;
-    tipo: RequerimientoDelExpedienteTipo;
+    tipo: ExpedientRequirementType;
     descripcion?: string | boolean;
   }) => {
     console.log({ nombre, tipo, descripcion });
@@ -49,7 +55,7 @@ const ExpedientsTypesNew = () => {
       title={"Nuevo tipo de expediente"}
       button={{
         label: "Crear",
-        onClick: () => navigate("/expedients-types/1"),
+        onClick: formik.handleSubmit,
       }}
       pages={[
         {
@@ -66,7 +72,7 @@ const ExpedientsTypesNew = () => {
     >
       <div className="space-y-6 sm:px-6 lg:col-span-9 lg:px-0 mb-6">
         <Form
-          onSubmit={() => {}}
+          onSubmit={formik.handleSubmit}
           data={[
             {
               label: "Información",
@@ -75,16 +81,24 @@ const ExpedientsTypesNew = () => {
                 {
                   label: "Codigo",
                   name: "code",
+                  formik,
                   type: FormInputType.Text,
                 },
                 {
                   label: "Nombre",
                   name: "name",
+                  formik,
                   type: FormInputType.Text,
                 },
                 {
                   label: "Padre",
                   name: "parent",
+                  options: [
+                    { id: "parent1", label: "parent1" },
+                    { id: "parent2", label: "parent2" },
+                    { id: "parent3", label: "parent3" },
+                  ],
+                  formik,
                   type: FormInputType.Select,
                 },
               ],

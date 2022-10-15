@@ -3,12 +3,13 @@ import { FormInput } from "../../utils/types";
 import FormSection from "./partials/form-section";
 
 type Props = {
-  onSubmit: (_: any) => any;
   customSection: React.ReactElement;
+  onSubmit: (_: any) => any;
   data: {
     label: string;
     description: string;
     inputs: FormInput[];
+    formik: any;
     onSave?: (_: any) => any | null;
   }[];
 };
@@ -19,7 +20,7 @@ const Form = ({ data, customSection, onSubmit }: Props) => {
       {data.map((section) => (
         <FormSection {...section} />
       ))}
-      <div className="shadow sm:overflow-hidden sm:rounded-md">
+      <div className="shadow sm:rounded-md">
         <div className="space-y-6 bg-white px-4 sm:px-6">{customSection}</div>
       </div>
     </form>

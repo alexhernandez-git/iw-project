@@ -1,7 +1,7 @@
 import React from "react";
 import ExpedientsTypesList from "../../components/expedients-types-list";
 import DashboardLayout from "../../layouts/layout";
-import { tipoDeExpedientes } from "../../data";
+import { expedientTypes } from "../../data";
 import { useNavigate } from "react-router-dom";
 import { useSearch } from "../../hooks/use-search";
 
@@ -28,7 +28,7 @@ const ExpedientsTypes = () => {
       ]}
       search={{ search, setSearch }}
     >
-      <ExpedientsTypesList {...{ tipoDeExpedientes }} />
+      <ExpedientsTypesList {...{ expedientTypes }} />
     </DashboardLayout>
   );
 };

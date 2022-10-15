@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -36,9 +36,9 @@ export default function Tabs({ tabs }) {
         <div className="border-b border-gray-200">
           <nav className="-mb-px flex space-x-8" aria-label="Tabs">
             {tabs.map((tab) => (
-              <a
+              <Link
                 key={tab?.name}
-                href={tab.href}
+                to={tab.href}
                 className={classNames(
                   isCurrent(tab)
                     ? "border-indigo-500 text-indigo-600"
@@ -48,7 +48,7 @@ export default function Tabs({ tabs }) {
                 aria-current={isCurrent(tab) ? "page" : undefined}
               >
                 {tab?.name}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>

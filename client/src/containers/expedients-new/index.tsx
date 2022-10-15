@@ -15,13 +15,13 @@ import Button from "../../components/button";
 import StepLayout from "./partials/step-layout";
 import FormSection from "../../components/form-section";
 
-import { tipoDeExpedientes } from "../../data";
+import { expedientTypes } from "../../data";
 import {
   FormFileField,
   FormTextAreaField,
   FormTextField,
 } from "../../components/form-field";
-import { RequerimientoDelExpedienteTipo, Type } from "../../utils/types";
+import { ExpedientRequirementType, Type } from "../../utils/types";
 import NewField from "./partials/new-field";
 import { makeId } from "../../utils/helpers";
 import Requirements from "../../requirements-builder";
@@ -97,7 +97,7 @@ const actions = [
   },
 ];
 
-const expediente = tipoDeExpedientes[0];
+const expediente = expedientTypes[0];
 
 export default function NewExpedientType() {
   const navigate = useNavigate();
@@ -112,7 +112,7 @@ export default function NewExpedientType() {
     descripcion = false,
   }: {
     nombre: string;
-    tipo: RequerimientoDelExpedienteTipo;
+    tipo: ExpedientRequirementType;
     descripcion?: string | boolean;
   }) => {
     setRequeriments([
@@ -167,11 +167,11 @@ export default function NewExpedientType() {
   //                   onDeleteField: onDeleteCustomField,
   //                 };
   //                 switch (requerimiento.tipo) {
-  //                   case RequerimientoDelExpedienteTipo.Texto:
+  //                   case ExpedientRequirementType.Text:
   //                     return <FormTextField {...props} />;
-  //                   case RequerimientoDelExpedienteTipo.TextoLargo:
+  //                   case ExpedientRequirementType.LargeText:
   //                     return <FormTextAreaField {...props} />;
-  //                   case RequerimientoDelExpedienteTipo.Archivos:
+  //                   case ExpedientRequirementType.Files:
   //                     return <FormFileField {...props} />;
   //                   default:
   //                     return <FormTextField {...props} />;

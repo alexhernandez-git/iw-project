@@ -23,13 +23,13 @@ export enum Sexo {
   Mujer = "m",
 }
 
-export enum FormaDePagoTipo {
+export enum PaymentType {
   Efectivo = "efectivo",
   Transferencia = "transferencia",
   Cheque = "cheque",
 }
 
-export enum EstadoExpedientes {
+export enum ExpedientState {
   EnEstudio = "enestudio", // Para colaborador PENDIENTE
   PeticionDocumentacion = "peticiondocumentacion", // Para colaborador PENDIENTE
   DocumentacionCompleta = "documentacioncompleta", // Para colaborador PENDIENTE
@@ -38,7 +38,7 @@ export enum EstadoExpedientes {
   Concluido = "concluido",
 }
 
-export enum HonorariosYSuplidosTipo {
+export enum HonorariosYSuplidosType {
   DS = "denominacionsocial",
   RM = "registromercantil",
   NO = "notaria",
@@ -53,14 +53,14 @@ export enum EstadoCivil {
   SinPareja = "sp",
 }
 
-export enum GuardadoEn {
+export enum StoredIn {
   EnCarpeta = "encarpeta",
-  ExpedienteVigente = "expedientevigente",
+  CurrentExpedient = "expedientevigente",
   Fisico = "fisico",
 }
 
 export type HonorariosYSuplidos = {
-  tipo: HonorariosYSuplidosTipo;
+  tipo: HonorariosYSuplidosType;
   cantidad: number;
 };
 
@@ -70,7 +70,7 @@ export type ExpedienteTipo = {
   archivoDeRequerimientos: string;
 };
 
-export enum RequerimientoDelExpedienteTipo {
+export enum ExpedientRequirementType {
   Texto = "texto",
   TextoLargo = "textolargo",
   Archivo = "archivo",
@@ -78,14 +78,14 @@ export enum RequerimientoDelExpedienteTipo {
 
 export type RequerimientoDelExpediente = {
   nombre: string;
-  tipo: RequerimientoDelExpedienteTipo;
+  tipo: ExpedientRequirementType;
   expediente: string;
 };
 
 export type RequerimientoDelExpedienteUsuario = {
   archivo: string;
   texto: string;
-  tipo: RequerimientoDelExpedienteTipo;
+  tipo: ExpedientRequirementType;
   expediente: string;
   usuario: string;
 };
@@ -96,7 +96,7 @@ export type Expediente = {
   tipo: ExpedienteTipo;
   vinculado: string;
   conexiones: string;
-  guardadoEn: GuardadoEn;
+  guardadoEn: StoredIn;
   responsable: string;
   codigoCliente: string;
   codigoClienteProvisional: string;
@@ -105,11 +105,11 @@ export type Expediente = {
   asunto: string;
   fechaSolicitudServicioNotificacion: string;
   plazoLegal: string;
-  estado: EstadoExpedientes;
+  estado: ExpedientState;
   empresa: string;
   honorarios: number;
   honorariosYSuplidos: HonorariosYSuplidos[];
-  formaDePago: FormaDePagoTipo;
+  formaDePago: PaymentType;
   facturado: boolean;
   comprobadoTodo: boolean;
 };

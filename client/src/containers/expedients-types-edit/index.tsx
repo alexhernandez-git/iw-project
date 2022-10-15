@@ -4,10 +4,7 @@ import Form from "../../components/form";
 import DashboardLayout from "../../layouts/layout";
 import Requirements from "../../requirements-builder";
 import { makeId } from "../../utils/helpers";
-import {
-  FormInputType,
-  RequerimientoDelExpedienteTipo,
-} from "../../utils/types";
+import { FormInputType, ExpedientRequirementType } from "../../utils/types";
 
 const ExpedientsTypesEdit = () => {
   const navigate = useNavigate();
@@ -19,7 +16,7 @@ const ExpedientsTypesEdit = () => {
     descripcion = false,
   }: {
     nombre: string;
-    tipo: RequerimientoDelExpedienteTipo;
+    tipo: ExpedientRequirementType;
     descripcion?: string | boolean;
   }) => {
     setRequeriments([

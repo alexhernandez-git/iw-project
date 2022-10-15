@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./containers/dashboard";
 import Login from "./containers/login";
@@ -10,35 +10,115 @@ import ExpedientsTypesNew from "./containers/expedients-types-new";
 import ExpedientsTypesEdit from "./containers/expedients-types-edit";
 import ExpedientsView from "./containers/expedients-view";
 import ExpedientsEdit from "./containers/expedients-edit";
+import ProtectedRoute from "./components/private-route";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "./store";
+import { getUser } from "./store/user";
 
 function App() {
+  const state = useSelector((state: RootState) => state);
+
+  console.log(state);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
+
   return (
     <Router>
       <Routes>
-        <Route path={"/"} element={<Dashboard />} />
-        <Route path={"/expedients"} element={<Expedients />} />
         <Route path={"/login"} element={<Login />} />
-        <Route path={"/expedients/new"} element={<NewExpedient />} />
+        <Route
+          path={"/"}
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={"/expedients"}
+          element={
+            <ProtectedRoute>
+              <Expedients />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={"/expedients/new"}
+          element={
+            <ProtectedRoute>
+              <NewExpedient />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path={"/expedients/new/:vinculated"}
-          element={<NewExpedient />}
+          element={
+            <ProtectedRoute>
+              <NewExpedient />
+            </ProtectedRoute>
+          }
         />
-        <Route path={"/expedients-types"} element={<ExpedientsTypes />} />
+        <Route
+          path={"/expedients-types"}
+          element={
+            <ProtectedRoute>
+              <ExpedientsTypes />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path={"/expedients-types/:id"}
-          element={<ExpedientsTypesView />}
+          element={
+            <ProtectedRoute>
+              <ExpedientsTypesView />
+            </ProtectedRoute>
+          }
         />
         <Route
           path={"/expedients-types/new"}
-          element={<ExpedientsTypesNew />}
+          element={
+            <ProtectedRoute>
+              <ExpedientsTypesNew />
+            </ProtectedRoute>
+          }
         />
         <Route
           path={"/expedients-types/edit/:id"}
-          element={<ExpedientsTypesEdit />}
+          element={
+            <ProtectedRoute>
+              <ExpedientsTypesEdit />
+            </ProtectedRoute>
+          }
         />
-        <Route path={"/expedients/:id"} element={<ExpedientsView />} />
-        <Route path={"/expedients/:id/*"} element={<ExpedientsView />} />
-        <Route path={"/expedients/edit/:id"} element={<ExpedientsEdit />} />
+        <Route
+          path={"/expedients/:id"}
+          element={
+            <ProtectedRoute>
+              <ExpedientsView />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={"/expedients/:id/*"}
+          element={
+            <ProtectedRoute>
+              <ExpedientsView />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={"/expedients/edit/:id"}
+          element={
+            <ProtectedRoute>
+              <ExpedientsEdit />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

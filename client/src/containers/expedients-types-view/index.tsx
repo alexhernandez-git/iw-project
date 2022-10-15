@@ -1,11 +1,11 @@
 import React from "react";
 import DashboardLayout from "../../layouts/layout";
-import { tipoDeExpedientes } from "../../data";
+import { expedientTypes } from "../../data";
 import DescriptionList from "../../components/description-list";
 import { ListItemType } from "../../utils/types";
 import { useNavigate } from "react-router-dom";
 
-const tipoDeExpediente = tipoDeExpedientes[0];
+const tipoDeExpediente = expedientTypes[0];
 
 const ExpedientsTypesView = () => {
   const navigate = useNavigate();

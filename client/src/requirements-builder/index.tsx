@@ -7,14 +7,14 @@ import {
 } from "../components/form-field";
 import FormSection from "../components/form-section";
 import NewField from "../containers/expedients-new/partials/new-field";
-import { RequerimientoDelExpedienteTipo, Type } from "../utils/types";
+import { ExpedientRequirementType, Type } from "../utils/types";
 
 type Props = {
   requirements: any;
   onDeleteField: (id: string) => void;
   onAddField: (_: {
     nombre: string;
-    tipo: RequerimientoDelExpedienteTipo;
+    tipo: ExpedientRequirementType;
     descripcion?: string | boolean;
   }) => void;
 };
@@ -36,11 +36,11 @@ const RequirementsBuilder = ({
                 {requeriments.map((data) => {
                   const props = { data: { ...data, onDeleteField } };
                   switch (data.tipo) {
-                    case RequerimientoDelExpedienteTipo.Texto:
+                    case ExpedientRequirementType.Text:
                       return <FormTextField {...props} />;
-                    case RequerimientoDelExpedienteTipo.TextoLargo:
+                    case ExpedientRequirementType.LargeText:
                       return <FormTextAreaField {...props} />;
-                    case RequerimientoDelExpedienteTipo.Archivos:
+                    case ExpedientRequirementType.Files:
                       return <FormFileField {...props} />;
                     default:
                       return <FormTextField {...props} />;

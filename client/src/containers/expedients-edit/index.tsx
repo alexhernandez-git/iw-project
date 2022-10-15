@@ -7,8 +7,8 @@ import Requirements from "../../requirements-builder";
 import { makeId } from "../../utils/helpers";
 import {
   FormInputType,
-  GuardadoEn,
-  RequerimientoDelExpedienteTipo,
+  StoredIn,
+  ExpedientRequirementType,
 } from "../../utils/types";
 
 const ExpedientsEdit = () => {
@@ -24,7 +24,7 @@ const ExpedientsEdit = () => {
     descripcion = false,
   }: {
     nombre: string;
-    tipo: RequerimientoDelExpedienteTipo;
+    tipo: ExpedientRequirementType;
     descripcion?: string | boolean;
   }) => {
     setRequeriments([
@@ -97,9 +97,9 @@ const ExpedientsEdit = () => {
                   name: "guardadoEn",
                   type: FormInputType.Select,
                   options: [
-                    GuardadoEn.EnCarpeta,
-                    GuardadoEn.ExpedienteVigente,
-                    GuardadoEn.Fisico,
+                    StoredIn.EnCarpeta,
+                    StoredIn.CurrentExpedient,
+                    StoredIn.Fisico,
                   ],
                 },
                 {

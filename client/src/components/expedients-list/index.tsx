@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import ExpedientCard, { ExpedientCardSmall } from "./partials/expedients-card";
 import { Expediente } from "../../utils/types";
 import FieldsFilter from "./partials/fields-filter";
 import Filters from "./partials/filters";
+import Pagination from "../pagination";
 
 type Props = {
   expedients: Expediente[];
+  pagination: ReactElement<any, any>;
 };
 
-const ExpedientsList = ({ expedients }: Props) => {
+const ExpedientsList = ({ expedients, pagination }: Props) => {
   console.log(expedients);
   const [open, setOpen] = useState(false);
 
@@ -77,6 +79,7 @@ const ExpedientsList = ({ expedients }: Props) => {
                     ))}
                   </tbody>
                 </table>
+                {pagination && pagination}
               </div>
             </div>
           </div>
