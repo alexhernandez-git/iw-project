@@ -7,7 +7,12 @@ import {
 } from "../components/form-field";
 import FormSection from "../components/form-section";
 import NewField from "../containers/expedients-new/partials/new-field";
-import { ExpedientRequirementType, Type } from "../utils/types";
+import { makeId } from "../utils/helpers";
+import {
+  ExpedientRequirement,
+  ExpedientRequirementType,
+  Type,
+} from "../utils/types";
 
 type Props = {
   requirements: any;
@@ -20,14 +25,43 @@ type Props = {
   }) => void;
 };
 
-const RequirementsBuilder = ({
-  requeriments,
-  onDeleteField,
-  formik,
-  onAddField,
-}: Props) => {
+const RequirementsBuilder = ({ requeriments, formik }: Props) => {
+  const { setFieldValue, values } = formik;
+
   const [isAddingNewField, setIsAddingNewField] = useState(false);
-  console.log({ onDeleteField });
+
+  const onAddField = ({
+    nombre,
+    tipo,
+    descripcion = false,
+  }: {
+    nombre: string;
+    tipo: ExpedientRequirementType;
+    descripcion?: string | boolean;
+  }) => {
+    setFieldValue("requeriments", [
+      ...values.requeriments,
+      {
+        id: makeId(10),
+        nombre,
+        tipo,
+        descripcion: descripcion ? descripcion : "",
+        texto: "",
+        archivo: "",
+        custom: true,
+        disabled: true,
+      },
+    ]);
+  };
+
+  const onDeleteField = (id: string) => {
+    setFieldValue(
+      "requeriments",
+      values.requeriments?.filter(
+        (requirement: ExpedientRequirement) => requirement.id !== id
+      )
+    );
+  };
   return (
     <>
       <div className="text-black">

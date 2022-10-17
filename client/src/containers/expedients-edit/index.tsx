@@ -56,37 +56,6 @@ const ExpedientsEdit = () => {
     dispatch(getExpedient(id));
   }, []);
 
-  const onAddField = ({
-    nombre,
-    tipo,
-    descripcion = false,
-  }: {
-    nombre: string;
-    tipo: ExpedientRequirementType;
-    descripcion?: string | boolean;
-  }) => {
-    setFieldValue("requeriments", [
-      ...values.requeriments,
-      {
-        id: makeId(10),
-        nombre,
-        tipo,
-        descripcion: descripcion ? descripcion : "",
-        texto: "",
-        archivo: "",
-        custom: true,
-        disabled: true,
-      },
-    ]);
-  };
-
-  const onDeleteField = (id: string) => {
-    setFieldValue(
-      "requeriments",
-      values.requeriments?.filter((requirement) => requirement.id !== id)
-    );
-  };
-
   return (
     <DashboardLayout
       title={"Editar expediente"}
@@ -212,8 +181,6 @@ const ExpedientsEdit = () => {
             ]}
             customSection={
               <Requirements
-                onAddField={onAddField}
-                onDeleteField={onDeleteField}
                 formik={formik}
                 requeriments={values?.requeriments}
               />
