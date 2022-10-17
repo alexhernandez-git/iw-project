@@ -12,6 +12,8 @@ import { ExpedientRequirementType, Type } from "../utils/types";
 type Props = {
   requirements: any;
   onDeleteField: (id: string) => void;
+  onEditTextField: ({ id, text }: { id: string; text: string }) => void;
+  formik: any;
   onAddField: (_: {
     nombre: string;
     tipo: ExpedientRequirementType;
@@ -22,6 +24,8 @@ type Props = {
 const RequirementsBuilder = ({
   requeriments,
   onDeleteField,
+  onEditTextField,
+  formik,
   onAddField,
 }: Props) => {
   const [isAddingNewField, setIsAddingNewField] = useState(false);
@@ -34,7 +38,9 @@ const RequirementsBuilder = ({
             <FormSection>
               <div className="space-y-6 sm:space-y-5">
                 {requeriments.map((data) => {
-                  const props = { data: { ...data, onDeleteField } };
+                  const props = {
+                    data: { ...data, onDeleteField, onEditTextField, formik },
+                  };
                   switch (data.tipo) {
                     case ExpedientRequirementType.Text:
                       return <FormTextField {...props} />;

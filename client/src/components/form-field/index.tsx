@@ -1,5 +1,5 @@
 import React from "react";
-import { FieldData } from "../../utils/types";
+import { ExpedientRequirement, FieldData } from "../../utils/types";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 type Props = {
@@ -41,15 +41,21 @@ const FormFieldLayout = ({
 };
 
 export const FormTextField = ({ data }: Props) => {
-  const { disabled } = data;
+  const { disabled, formik, nombre, id, onEditTextField } = data;
   return (
     <FormFieldLayout data={data}>
       <input
         type="text"
         disabled={disabled}
-        name="first-name"
-        id="first-name"
-        autoComplete="given-name"
+        name={nombre}
+        value={
+          formik.values.requeriments.find(
+            (requeriment: ExpedientRequirement) => requeriment.nombre === nombre
+          ).texto
+        }
+        onChange={(e: { target: { value: string } }) =>
+          onEditTextField && onEditTextField({ id, text: e.target.value })
+        }
         className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm"
       />
     </FormFieldLayout>
@@ -57,14 +63,22 @@ export const FormTextField = ({ data }: Props) => {
 };
 
 export const FormTextAreaField = ({ data }: Props) => {
-  const { disabled } = data;
+  const { disabled, formik, nombre, onEditTextField, id } = data;
   return (
     <FormFieldLayout data={data}>
       <textarea
         id="about"
         disabled={disabled}
-        name="about"
         rows={3}
+        name={nombre}
+        value={
+          formik.values.requeriments.find(
+            (requeriment: ExpedientRequirement) => requeriment.nombre === nombre
+          ).texto
+        }
+        onChange={(e: { target: { value: string } }) =>
+          onEditTextField && onEditTextField({ id, text: e.target.value })
+        }
         className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         defaultValue={""}
       />

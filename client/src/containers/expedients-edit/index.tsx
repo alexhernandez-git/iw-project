@@ -23,6 +23,14 @@ const ExpedientsEdit = () => {
     (state: RootState) => state.expedient
   );
 
+  const [requeriments, setRequeriments] = useState(expedient?.requerimientos);
+
+  useEffect(() => {
+    if (expedient?.requerimientos) {
+      setRequeriments(expedient.requerimientos);
+    }
+  }, [expedient]);
+
   const formik = useFormik({
     initialValues: {
       tipo: expedient?.tipo ?? "",
@@ -31,6 +39,7 @@ const ExpedientsEdit = () => {
       responsable: expedient?.guardadoEn ?? "",
       codigoCliente: expedient?.codigoCliente ?? "",
       codigoClienteProvisional: expedient?.codigoClienteProvisional ?? "",
+      requeriments: expedient?.requerimientos,
     },
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -38,17 +47,13 @@ const ExpedientsEdit = () => {
     },
   });
 
-  const { handleSubmit } = formik;
+  const { handleSubmit, values, setFieldValue } = formik;
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getExpedient(id));
   }, []);
-
-  const [requeriments, setRequeriments] = useState(
-    expedients[0].requerimientos
-  );
 
   const onAddField = ({
     nombre,
@@ -59,8 +64,8 @@ const ExpedientsEdit = () => {
     tipo: ExpedientRequirementType;
     descripcion?: string | boolean;
   }) => {
-    setRequeriments([
-      ...requeriments,
+    setFieldValue("requeriments", [
+      ...values.requeriments,
       {
         id: makeId(10),
         nombre,
@@ -73,9 +78,20 @@ const ExpedientsEdit = () => {
       },
     ]);
   };
+
+  const onEditTextField = ({ id, text }: { id: string; text: string }) => {
+    setFieldValue(
+      "requeriments",
+      values?.requeriments?.map((requeriment) =>
+        requeriment.id === id ? { ...requeriment, texto: text } : requeriment
+      )
+    );
+  };
+
   const onDeleteField = (id: string) => {
-    setRequeriments(
-      requeriments.filter((requirement) => requirement.id !== id)
+    setFieldValue(
+      "requeriments",
+      values.requeriments?.filter((requirement) => requirement.id !== id)
     );
   };
 
@@ -206,7 +222,9 @@ const ExpedientsEdit = () => {
               <Requirements
                 onAddField={onAddField}
                 onDeleteField={onDeleteField}
-                requeriments={requeriments}
+                onEditTextField={onEditTextField}
+                formik={formik}
+                requeriments={values?.requeriments}
               />
             }
           />
