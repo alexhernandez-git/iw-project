@@ -37,7 +37,7 @@ const RequirementsBuilder = ({
               <div className="space-y-6 sm:space-y-5">
                 {requeriments.map((data) => {
                   const props = {
-                    data: { ...data, onDeleteField, onEditTextField, formik },
+                    data: { ...data, onDeleteField, formik },
                   };
                   switch (data.tipo) {
                     case ExpedientRequirementType.Text:

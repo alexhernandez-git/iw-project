@@ -94,7 +94,6 @@ export type FieldData = {
   custom?: boolean;
   disabled?: boolean;
   onDeleteField?: (id: string) => void;
-  onEditTextField?: ({ id, text }: { id: string; text: string }) => void;
   formik: any;
 };
 

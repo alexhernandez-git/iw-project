@@ -80,15 +80,6 @@ const ExpedientsEdit = () => {
     ]);
   };
 
-  const onEditTextField = ({ id, text }: { id: string; text: string }) => {
-    setFieldValue(
-      "requeriments",
-      values?.requeriments?.map((requeriment) =>
-        requeriment.id === id ? { ...requeriment, texto: text } : requeriment
-      )
-    );
-  };
-
   const onDeleteField = (id: string) => {
     setFieldValue(
       "requeriments",

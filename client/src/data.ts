@@ -199,7 +199,7 @@ export const expedients: Expedient[] = [
     asunto: "",
     fechaSolicitudServicioNotificacion: "",
     plazoLegal: "10 dias",
-    estado: ExpedientState.Documentacion,
+    estado: ExpedientState.DocumentacionCompleta,
     empresa: "Apple",
     honorarios: 125,
     honorariosYSuplidos: [
