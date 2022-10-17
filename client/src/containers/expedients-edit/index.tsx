@@ -39,6 +39,7 @@ const ExpedientsEdit = () => {
       responsable: expedient?.guardadoEn ?? "",
       codigoCliente: expedient?.codigoCliente ?? "",
       codigoClienteProvisional: expedient?.codigoClienteProvisional ?? "",
+      honorariosYSuplidos: expedient?.honorariosYSuplidos ?? [],
       requeriments: expedient?.requerimientos,
     },
     enableReinitialize: true,
@@ -222,7 +223,6 @@ const ExpedientsEdit = () => {
               <Requirements
                 onAddField={onAddField}
                 onDeleteField={onDeleteField}
-                onEditTextField={onEditTextField}
                 formik={formik}
                 requeriments={values?.requeriments}
               />

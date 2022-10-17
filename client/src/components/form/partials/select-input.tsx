@@ -2,12 +2,6 @@ import React, { useMemo, useState } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Combobox } from "@headlessui/react";
 
-const people = [
-  { id: 0, name: "Sin padre" },
-  { id: 1, name: "Leslie Alexander" },
-  // More users...
-];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }

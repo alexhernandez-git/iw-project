@@ -12,7 +12,6 @@ import { ExpedientRequirementType, Type } from "../utils/types";
 type Props = {
   requirements: any;
   onDeleteField: (id: string) => void;
-  onEditTextField: ({ id, text }: { id: string; text: string }) => void;
   formik: any;
   onAddField: (_: {
     nombre: string;
@@ -24,7 +23,6 @@ type Props = {
 const RequirementsBuilder = ({
   requeriments,
   onDeleteField,
-  onEditTextField,
   formik,
   onAddField,
 }: Props) => {

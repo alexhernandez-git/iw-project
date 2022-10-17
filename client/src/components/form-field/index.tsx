@@ -41,7 +41,17 @@ const FormFieldLayout = ({
 };
 
 export const FormTextField = ({ data }: Props) => {
-  const { disabled, formik, nombre, id, onEditTextField } = data;
+  const { disabled, formik, nombre, id } = data;
+
+  const onEditTextField = ({ id, text }: { id: string; text: string }) => {
+    formik.setFieldValue(
+      "requeriments",
+      formik.values?.requeriments?.map((requeriment: ExpedientRequirement) =>
+        requeriment.id === id ? { ...requeriment, texto: text } : requeriment
+      )
+    );
+  };
+
   return (
     <FormFieldLayout data={data}>
       <input
@@ -63,7 +73,17 @@ export const FormTextField = ({ data }: Props) => {
 };
 
 export const FormTextAreaField = ({ data }: Props) => {
-  const { disabled, formik, nombre, onEditTextField, id } = data;
+  const { disabled, formik, nombre, id } = data;
+
+  const onEditTextField = ({ id, text }: { id: string; text: string }) => {
+    formik.setFieldValue(
+      "requeriments",
+      formik.values?.requeriments?.map((requeriment: ExpedientRequirement) =>
+        requeriment.id === id ? { ...requeriment, texto: text } : requeriment
+      )
+    );
+  };
+
   return (
     <FormFieldLayout data={data}>
       <textarea

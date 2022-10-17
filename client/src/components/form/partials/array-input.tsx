@@ -13,19 +13,14 @@ type Input = {
   value: string;
 };
 
-const ArrayInput = ({ label, name }: Props) => {
-  const [inputs, setInputs] = useState<Input[]>([]);
-
+const ArrayInput = ({ label, name, values, onChangeArrayInput }: Props) => {
   const formik = useFormik({
     initialValues: {
       labelInput: "",
       valueInput: "",
     },
     onSubmit: ({ labelInput, valueInput }, { resetForm }) => {
-      setInputs((inputsState) => [
-        ...inputsState,
-        { label: labelInput, value: valueInput },
-      ]);
+      onChangeArrayInput(...values, { label: labelInput, value: valueInput });
       resetForm();
     },
   });
