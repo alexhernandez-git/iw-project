@@ -1,12 +1,10 @@
 import React, { ReactElement, useState } from "react";
 import ExpedientCard, { ExpedientCardSmall } from "./partials/expedients-card";
-import { Expediente } from "../../utils/types";
+import { Expedient } from "../../utils/types";
 import FieldsFilter from "./partials/fields-filter";
-import Filters from "./partials/filters";
-import Pagination from "../pagination";
 
 type Props = {
-  expedients: Expediente[];
+  expedients: Expedient[];
   pagination: ReactElement<any, any>;
 };
 

@@ -32,37 +32,40 @@ const DescriptionList = ({ title, description, list }: Props) => {
       </div>
       <div className="border-t border-gray-200">
         <dl>
-          {list.map((item, index) => (
-            <DescriptionRow
-              {...{
-                label: item.label,
-                type: index % 2 === 0 ? Type.Primary : Type.Secondary,
-              }}
-            >
-              {item.type === ListItemType.Text && item?.value}
-              {item.type === ListItemType.Button && (
-                <div className="flex items-center justify-between text-sm">
-                  <div className="flex w-0 flex-1 items-center">
-                    <span className="w-0 flex-1 truncate">
-                      {item.value?.label}
-                    </span>
-                  </div>
-                  {item?.value?.onClick && (
-                    <div className="ml-4 flex-shrink-0">
-                      <Button
-                        type={Type.Secondary}
-                        onClick={item?.value.onClick}
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                      >
-                        {item?.value?.buttonLabel ?? "Ir"}
-                      </Button>
+          {list &&
+            list.map((item, index) => (
+              <DescriptionRow
+                {...{
+                  label: item?.label,
+                  type: index % 2 === 0 ? Type.Primary : Type.Secondary,
+                }}
+              >
+                {item?.type === ListItemType.Text && item?.value}
+                {item?.type === ListItemType.Button && (
+                  <div className="flex items-center justify-between text-sm">
+                    <div className="flex w-0 flex-1 items-center">
+                      <span className="w-0 flex-1 truncate">
+                        {item?.value?.label}
+                      </span>
                     </div>
-                  )}
-                </div>
-              )}
-              {item.type === ListItemType.List && <List data={item.value} />}
-            </DescriptionRow>
-          ))}
+                    {item?.value?.onClick && (
+                      <div className="ml-4 flex-shrink-0">
+                        <Button
+                          type={Type.Secondary}
+                          onClick={item?.value.onClick}
+                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                        >
+                          {item?.value?.buttonLabel ?? "Ir"}
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                )}
+                {item?.type === ListItemType.List && (
+                  <List data={item?.value} />
+                )}
+              </DescriptionRow>
+            ))}
         </dl>
       </div>
     </div>

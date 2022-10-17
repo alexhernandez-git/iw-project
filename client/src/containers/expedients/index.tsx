@@ -15,10 +15,12 @@ const Expedients = () => {
     value: { page, size, count, data },
   } = useSelector((state: RootState) => state.expedients);
 
+  const { value: user } = useSelector((state: RootState) => state.user);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getExpedients());
+    dispatch(getExpedients({}));
   }, []);
 
   const [search, setSearch] = useSearch({

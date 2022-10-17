@@ -44,7 +44,11 @@ const Header = ({ setSidebarOpen, search }: Props) => {
       <div className="flex flex-1 justify-between px-4">
         <div className="flex flex-1">
           {search && (
-            <form className="flex w-full md:ml-0" action="#" method="GET">
+            <form
+              className="flex w-full md:ml-0"
+              onSubmit={(e) => e.preventDefault()}
+              method="GET"
+            >
               <label htmlFor="search-field" className="sr-only">
                 Search
               </label>

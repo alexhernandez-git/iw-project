@@ -4,11 +4,13 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import user from "./user";
 import expedients from "./expedients";
+import expedient from "./expedient";
 
 export const store = configureStore({
   reducer: {
     user,
     expedients,
+    expedient,
   },
 });
 

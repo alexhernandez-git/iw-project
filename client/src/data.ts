@@ -90,6 +90,36 @@ export const expedient: Expedient = {
   formaDePago: PaymentType.Cheque,
   facturado: false,
   comprobadoTodo: false,
+  requerimientos: [
+    {
+      id: "1",
+      nombre: "Nombre y apellidos",
+      tipo: ExpedientRequirementType.Text,
+      texto: "Texto puesto hasta ahora",
+      custom: false,
+    },
+    {
+      id: "2",
+      nombre: "Foto de DNI",
+      tipo: ExpedientRequirementType.Files,
+      texto: "",
+      custom: false,
+    },
+    {
+      id: "3",
+      nombre: "Explicacion de motivos del tramite",
+      tipo: ExpedientRequirementType.LargeText,
+      texto: "Empece a escribir ayer y puedo continuar hoy",
+      custom: false,
+    },
+    {
+      id: "3",
+      nombre: "Explicacion de motivos del tramite",
+      tipo: ExpedientRequirementType.LargeText,
+      texto: "Empece a escribir ayer y puedo continuar hoy",
+      custom: false,
+    },
+  ],
 };
 
 export const expedients: Expedient[] = [

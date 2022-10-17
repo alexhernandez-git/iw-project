@@ -25,16 +25,8 @@ const initialState: ExpedientsState = {
 
 export const getExpedients = createAsyncThunk(
   "expedients/getExpedients",
-  async ({ page, search }: { page?: number; search?: string }) => {
+  async ({ page = 0, search = "" }: { page?: number; search?: string }) => {
     const response = await fetchExpedients({ page, search });
-    return response.data;
-  }
-);
-
-export const newExpedient = createAsyncThunk(
-  "expedients/newExpedient",
-  async (expedient) => {
-    const response = await createExpedient(expedient);
     return response.data;
   }
 );
@@ -56,20 +48,6 @@ export const counterSlice = createSlice({
         state.value = action.payload;
       })
       .addCase(getExpedients.rejected, (state) => {
-        state.status = SliceState.Failed;
-      })
-      .addCase(newExpedient.pending, (state) => {
-        state.status = SliceState.Loading;
-      })
-      .addCase(newExpedient.fulfilled, (state, action) => {
-        state.status = SliceState.Inactive;
-        state.value = {
-          ...state.value,
-          count: state.value.count + 1,
-          data: [action.payload.data, ...state.value],
-        };
-      })
-      .addCase(newExpedient.rejected, (state) => {
         state.status = SliceState.Failed;
       });
   },
