@@ -22,6 +22,7 @@ export const token: string =
 export const expedientTypes: ExpedientType[] = [
   {
     nombre: "Extrangeria",
+    codigo: "1",
     honorarios: 199,
     requerimientos: [
       {

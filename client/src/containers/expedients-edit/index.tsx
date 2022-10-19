@@ -23,7 +23,7 @@ const ExpedientsEdit = () => {
     (state: RootState) => state.expedient
   );
 
-  const [requeriments, setRequeriments] = useState(expedient?.requerimientos);
+  const [requirements, setRequeriments] = useState(expedient?.requerimientos);
 
   useEffect(() => {
     if (expedient?.requerimientos) {
@@ -40,7 +40,7 @@ const ExpedientsEdit = () => {
       codigoCliente: expedient?.codigoCliente ?? "",
       codigoClienteProvisional: expedient?.codigoClienteProvisional ?? "",
       honorariosYSuplidos: expedient?.honorariosYSuplidos ?? [],
-      requeriments: expedient?.requerimientos,
+      requirements: expedient?.requerimientos,
     },
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -182,7 +182,7 @@ const ExpedientsEdit = () => {
             customSection={
               <Requirements
                 formik={formik}
-                requeriments={values?.requeriments}
+                requirements={values?.requirements}
               />
             }
           />

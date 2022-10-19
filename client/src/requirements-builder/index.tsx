@@ -25,7 +25,9 @@ type Props = {
   }) => void;
 };
 
-const RequirementsBuilder = ({ requeriments, formik }: Props) => {
+const RequirementsBuilder = ({ requirements, formik }: Props) => {
+  console.log({ requirements });
+
   const { setFieldValue, values } = formik;
 
   const [isAddingNewField, setIsAddingNewField] = useState(false);
@@ -39,8 +41,8 @@ const RequirementsBuilder = ({ requeriments, formik }: Props) => {
     tipo: ExpedientRequirementType;
     descripcion?: string | boolean;
   }) => {
-    setFieldValue("requeriments", [
-      ...values.requeriments,
+    setFieldValue("requirements", [
+      ...values.requirements,
       {
         id: makeId(10),
         nombre,
@@ -56,8 +58,8 @@ const RequirementsBuilder = ({ requeriments, formik }: Props) => {
 
   const onDeleteField = (id: string) => {
     setFieldValue(
-      "requeriments",
-      values.requeriments?.filter(
+      "requirements",
+      values.requirements?.filter(
         (requirement: ExpedientRequirement) => requirement.id !== id
       )
     );
@@ -69,7 +71,7 @@ const RequirementsBuilder = ({ requeriments, formik }: Props) => {
           <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
             <FormSection>
               <div className="space-y-6 sm:space-y-5">
-                {requeriments.map((data) => {
+                {requirements.map((data) => {
                   const props = {
                     data: { ...data, onDeleteField, formik },
                   };

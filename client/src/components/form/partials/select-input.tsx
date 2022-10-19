@@ -16,6 +16,8 @@ type Props = {
 const SelectInput = ({ label, options, name, formik }: Props) => {
   const [query, setQuery] = useState("");
 
+  console.log(options);
+
   const [optionsValues, setOptionsValues] = useState(
     formik.values[name] ?? "-"
   );
@@ -29,7 +31,8 @@ const SelectInput = ({ label, options, name, formik }: Props) => {
     const selectedOption = options.find(
       (optionItem) => optionItem.label === value
     );
-    formik.setFieldValue(name, selectedOption?.id);
+    console.log("entra", selectedOption?.id);
+    formik.setFieldValue(name, selectedOption?.id ?? null);
     setOptionsValues(value);
   };
 

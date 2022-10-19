@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { ReactElement } from "react";
 import { FormInput } from "../../utils/types";
 import FormSection from "./partials/form-section";
 
 type Props = {
   customSection: React.ReactElement;
+  children: ReactElement;
   onSubmit: (_: any) => any;
   data: {
     label: string;
@@ -14,14 +15,14 @@ type Props = {
   }[];
 };
 
-const Form = ({ data, customSection, onSubmit }: Props) => {
+const Form = ({ data, children, onSubmit }: Props) => {
   return (
-    <form onSubmit={onSubmit} method="POST" className="space-y-6">
+    <form onSubmit={onSubmit} method="POST" className="space-y-6 mb-5">
       {data.map((section) => (
         <FormSection {...section} />
       ))}
       <div className="shadow sm:rounded-md">
-        <div className="space-y-6 bg-white px-4 sm:px-6">{customSection}</div>
+        <div className="space-y-6 bg-white px-4 sm:px-6">{children}</div>
       </div>
     </form>
   );

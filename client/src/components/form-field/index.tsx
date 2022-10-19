@@ -45,8 +45,8 @@ export const FormTextField = ({ data }: Props) => {
 
   const onEditTextField = ({ id, text }: { id: string; text: string }) => {
     formik.setFieldValue(
-      "requeriments",
-      formik.values?.requeriments?.map((requeriment: ExpedientRequirement) =>
+      "requirements",
+      formik.values?.requirements?.map((requeriment: ExpedientRequirement) =>
         requeriment.id === id ? { ...requeriment, texto: text } : requeriment
       )
     );
@@ -59,7 +59,7 @@ export const FormTextField = ({ data }: Props) => {
         disabled={disabled}
         name={nombre}
         value={
-          formik.values.requeriments.find(
+          formik.values.requirements.find(
             (requeriment: ExpedientRequirement) => requeriment.nombre === nombre
           ).texto
         }
@@ -77,8 +77,8 @@ export const FormTextAreaField = ({ data }: Props) => {
 
   const onEditTextField = ({ id, text }: { id: string; text: string }) => {
     formik.setFieldValue(
-      "requeriments",
-      formik.values?.requeriments?.map((requeriment: ExpedientRequirement) =>
+      "requirements",
+      formik.values?.requirements?.map((requeriment: ExpedientRequirement) =>
         requeriment.id === id ? { ...requeriment, texto: text } : requeriment
       )
     );
@@ -92,7 +92,7 @@ export const FormTextAreaField = ({ data }: Props) => {
         rows={3}
         name={nombre}
         value={
-          formik.values.requeriments.find(
+          formik.values.requirements.find(
             (requeriment: ExpedientRequirement) => requeriment.nombre === nombre
           ).texto
         }

@@ -18,7 +18,7 @@ const ExpedientsTypesNew = () => {
     },
   });
 
-  const [requeriments, setRequeriments] = useState([]);
+  const [requirements, setRequeriments] = useState([]);
 
   const onAddField = ({
     nombre,
@@ -31,7 +31,7 @@ const ExpedientsTypesNew = () => {
   }) => {
     console.log({ nombre, tipo, descripcion });
     setRequeriments([
-      ...requeriments,
+      ...requirements,
       {
         id: makeId(10),
         nombre,
@@ -46,7 +46,7 @@ const ExpedientsTypesNew = () => {
   };
   const onDeleteField = (id: string) => {
     setRequeriments(
-      requeriments.filter((requirement) => requirement.id !== id)
+      requirements.filter((requirement) => requirement.id !== id)
     );
   };
 
@@ -108,7 +108,7 @@ const ExpedientsTypesNew = () => {
             <Requirements
               onAddField={onAddField}
               onDeleteField={onDeleteField}
-              requeriments={requeriments}
+              requirements={requirements}
             />
           }
         />

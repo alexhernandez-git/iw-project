@@ -8,7 +8,7 @@ import { FormInputType, ExpedientRequirementType } from "../../utils/types";
 
 const ExpedientsTypesEdit = () => {
   const navigate = useNavigate();
-  const [requeriments, setRequeriments] = useState([]);
+  const [requirements, setRequeriments] = useState([]);
 
   const onAddField = ({
     nombre,
@@ -20,7 +20,7 @@ const ExpedientsTypesEdit = () => {
     descripcion?: string | boolean;
   }) => {
     setRequeriments([
-      ...requeriments,
+      ...requirements,
       {
         id: makeId(10),
         nombre,
@@ -35,7 +35,7 @@ const ExpedientsTypesEdit = () => {
   };
   const onDeleteField = (id: string) => {
     setRequeriments(
-      requeriments.filter((requirement) => requirement.id !== id)
+      requirements.filter((requirement) => requirement.id !== id)
     );
   };
 
@@ -96,7 +96,7 @@ const ExpedientsTypesEdit = () => {
             <Requirements
               onAddField={onAddField}
               onDeleteField={onDeleteField}
-              requeriments={requeriments}
+              requirements={requirements}
             />
           }
         />
