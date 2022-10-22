@@ -1,3 +1,10 @@
+export enum Models {
+  ExpedientType = "ExpedientType",
+  Expedient = "Expedient",
+  User = "User",
+  ExpedientResource = "ExpedientResource",
+}
+
 export enum UserRoles {
   SuperAdmin = "superadmin",
   Admin = "admin",
@@ -70,7 +77,7 @@ export type ExpedienteTipo = {
   archivoDeRequerimientos: string;
 };
 
-export enum ExpedientRequirementType {
+export enum ExpedientResourceType {
   Texto = "texto",
   TextoLargo = "textolargo",
   Archivo = "archivo",
@@ -78,14 +85,14 @@ export enum ExpedientRequirementType {
 
 export type RequerimientoDelExpediente = {
   nombre: string;
-  tipo: ExpedientRequirementType;
+  tipo: ExpedientResourceType;
   expediente: string;
 };
 
 export type RequerimientoDelExpedienteUsuario = {
   archivo: string;
   texto: string;
-  tipo: ExpedientRequirementType;
+  tipo: ExpedientResourceType;
   expediente: string;
   usuario: string;
 };
@@ -112,4 +119,35 @@ export type Expediente = {
   formaDePago: PaymentType;
   facturado: boolean;
   comprobadoTodo: boolean;
+};
+
+export type ExpedientResourceFile = {
+  id: string;
+  url: string;
+};
+
+export type ExpedientResource = {
+  id: string;
+  nombre: string;
+  tipo: ExpedientResourceType;
+  archivo: ExpedientResourceFile[];
+  texto: string;
+  expediente: string;
+  descripcion: string;
+  custom?: boolean;
+};
+
+export enum ExpedientResourceType {
+  Text = "text",
+  LargeText = "largetext",
+  Files = "files",
+}
+
+export type ExpedientType = {
+  nombre: string;
+  codigo: string;
+  tramitePadre: string;
+  descripcio: string;
+  honorarios: number;
+  requerimientos: ExpedientResource[];
 };

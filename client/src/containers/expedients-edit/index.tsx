@@ -91,11 +91,6 @@ const ExpedientsEdit = () => {
                 description: "",
                 inputs: [
                   {
-                    label: "Tipo",
-                    name: "tipo",
-                    type: FormInputType.Text,
-                  },
-                  {
                     label: "Conexiones",
                     name: "conexiones",
                     type: FormInputType.Text,
@@ -179,13 +174,9 @@ const ExpedientsEdit = () => {
                 ].map((item) => ({ ...item, formik })),
               },
             ]}
-            customSection={
-              <Requirements
-                formik={formik}
-                requirements={values?.requirements}
-              />
-            }
-          />
+          >
+            <Requirements formik={formik} requirements={values?.requirements} />
+          </Form>
         </div>
       </HandleStatus>
     </DashboardLayout>

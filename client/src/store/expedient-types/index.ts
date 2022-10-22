@@ -25,8 +25,16 @@ const initialState: ExpedientTypesState = {
 
 export const getExpedientTypes = createAsyncThunk(
   "expedients/getExpedientTypes",
-  async ({ page = 0, search = "" }: { page?: number; search?: string }) => {
-    const response = await fetchExpedientTypes({ page, search });
+  async ({
+    page = 0,
+    search = "",
+    getAll = false,
+  }: {
+    page?: number;
+    search?: string;
+    getAll?: boolean;
+  }) => {
+    const response = await fetchExpedientTypes({ page, search, getAll });
     return response.data;
   }
 );

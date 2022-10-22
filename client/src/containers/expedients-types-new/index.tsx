@@ -104,14 +104,9 @@ const ExpedientsTypesNew = () => {
               ],
             },
           ]}
-          customSection={
-            <Requirements
-              onAddField={onAddField}
-              onDeleteField={onDeleteField}
-              requirements={requirements}
-            />
-          }
-        />
+        >
+          <Requirements formik={formik} requirements={requirements} />
+        </Form>
       </div>
     </DashboardLayout>
   );

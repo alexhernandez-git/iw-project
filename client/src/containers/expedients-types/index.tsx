@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ExpedientsTypesList from "../../components/expedients-types-list";
 import DashboardLayout from "../../layouts/layout";
-import { expedientTypes } from "../../data";
 import { useNavigate } from "react-router-dom";
 import { useSearch } from "../../hooks/use-search";
+import { useDispatch, useSelector } from "react-redux";
+import { getExpedientTypes } from "../../store/expedient-types";
+import { RootState } from "../../store";
+import HandleStatus from "../../components/handle-status";
 
 const ExpedientsTypes = () => {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getExpedientTypes({}));
+  }, []);
+
+  const { status, value: expedientTypes } = useSelector(
+    (state: RootState) => state.expedientTypes
+  );
+
   const [search, setSearch] = useSearch({
     callback: (searchValue) => {
       console.log("text-changed expedients types", searchValue);
@@ -28,7 +42,9 @@ const ExpedientsTypes = () => {
       ]}
       search={{ search, setSearch }}
     >
-      <ExpedientsTypesList {...{ expedientTypes }} />
+      <HandleStatus status={status} data={expedientTypes}>
+        <ExpedientsTypesList {...{ expedientTypes }} />
+      </HandleStatus>
     </DashboardLayout>
   );
 };

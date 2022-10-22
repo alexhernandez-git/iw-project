@@ -35,6 +35,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { getExpedientTypes } from "../../store/expedient-types";
 import Form from "../../components/form";
+import { createExpedient } from "../../store/expedient/API";
+import { newExpedient } from "../../store/expedient";
 
 const people = [
   { id: 1, name: "Leslie Alexander" },
@@ -110,6 +112,8 @@ const actions = [
 export default function NewExpedientType() {
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const { status, value: expedientTypes } = useSelector(
     (state: RootState) => state.expedientTypes
   );
@@ -117,7 +121,7 @@ export default function NewExpedientType() {
   console.log({ status, expedientTypes });
 
   useEffect(() => {
-    dispatch(getExpedientTypes({}));
+    dispatch(getExpedientTypes({ getAll: true }));
   }, []);
 
   const formik = useFormik({
@@ -132,12 +136,16 @@ export default function NewExpedientType() {
       requirements: [],
     },
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
+      console.log("entra");
+      dispatch(newExpedient(values))
+        .unwrap()
+        .then(() => navigate("/expedients/2"))
+        .catch(() => {
+          alert("error");
+        });
       resetForm({});
     },
   });
-
-  console.log({ formik });
 
   const { handleSubmit, values, setFieldValue } = formik;
 
@@ -160,6 +168,10 @@ export default function NewExpedientType() {
 
   return (
     <Layout
+      button={{
+        label: "Crear",
+        onClick: handleSubmit,
+      }}
       title={`Creación del expediente${
         params.vinculated ? " vinculado a expediente: " + params.vinculated : ""
       }`}

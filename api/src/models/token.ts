@@ -1,5 +1,4 @@
-import { Schema, model, connect, Document, ObjectId } from "mongoose";
-import { UserRoles } from "../types";
+import { Schema, model, Document, ObjectId } from "mongoose";
 
 // 1. Create an interface representing a document in MongoDB.
 export interface IToken extends Document {

@@ -5,7 +5,7 @@ import Loading from "../loading";
 type Props = {
   children: ReactElement;
   status: SliceState;
-  data: any;
+  data?: any;
 };
 
 const HandleStatus = ({ children, status, data }: Props) => {
@@ -15,7 +15,8 @@ const HandleStatus = ({ children, status, data }: Props) => {
   if (status === SliceState.Failed) {
     return "error";
   }
-  if (data && [SliceState.Inactive, SliceState.Success].includes(status)) {
+  console.log(status);
+  if ([SliceState.Success].includes(status)) {
     return children;
   }
   return "Error 404";

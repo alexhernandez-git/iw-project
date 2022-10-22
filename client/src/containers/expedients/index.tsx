@@ -8,6 +8,7 @@ import { SliceState } from "../../utils/types";
 import Loading from "../../components/loading";
 import { getExpedients } from "../../store/expedients";
 import Pagination from "../../components/pagination";
+import HandleStatus from "../../components/handle-status";
 
 const Expedients = () => {
   const {
@@ -52,9 +53,7 @@ const Expedients = () => {
           },
         ]}
       >
-        {status === SliceState.Loading ? (
-          <Loading />
-        ) : (
+        <HandleStatus status={status} data={data}>
           <ExpedientsList
             expedients={data}
             pagination={
@@ -64,7 +63,7 @@ const Expedients = () => {
               />
             }
           />
-        )}
+        </HandleStatus>
       </DashboardLayout>
     </>
   );

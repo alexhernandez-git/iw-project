@@ -1,52 +1,62 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import Form from "../../components/form";
+import HandleStatus from "../../components/handle-status";
 import DashboardLayout from "../../layouts/layout";
 import Requirements from "../../requirements-builder";
+import { useAppSelector } from "../../store";
+import { getExpedientType } from "../../store/expedient-type";
+import { getExpedientTypes } from "../../store/expedient-types";
 import { makeId } from "../../utils/helpers";
-import { FormInputType, ExpedientRequirementType } from "../../utils/types";
+import {
+  FormInputType,
+  ExpedientRequirementType,
+  SliceState,
+} from "../../utils/types";
 
 const ExpedientsTypesEdit = () => {
   const navigate = useNavigate();
-  const [requirements, setRequeriments] = useState([]);
 
-  const onAddField = ({
-    nombre,
-    tipo,
-    descripcion = false,
-  }: {
-    nombre: string;
-    tipo: ExpedientRequirementType;
-    descripcion?: string | boolean;
-  }) => {
-    setRequeriments([
-      ...requirements,
-      {
-        id: makeId(10),
-        nombre,
-        tipo,
-        descripcion: descripcion ? descripcion : "",
-        texto: "",
-        archivo: "",
-        custom: true,
-        disabled: true,
-      },
-    ]);
-  };
-  const onDeleteField = (id: string) => {
-    setRequeriments(
-      requirements.filter((requirement) => requirement.id !== id)
-    );
-  };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getExpedientType(id));
+    dispatch(getExpedientTypes({ getAll: true }));
+  }, []);
+
+  const { id } = useParams();
+
+  const { status, value: expedientType } = useAppSelector(
+    (state) => state.expedientType
+  );
+
+  const { status: expedientTypesStatus, value: expedientTypes } =
+    useAppSelector((state) => state.expedientTypes);
+
+  console.log({ expedientTypesStatus, expedientTypes });
+
+  const formik = useFormik({
+    initialValues: {
+      code: "",
+      name: "",
+      requirements: expedientType?.requerimientos,
+    },
+    enableReinitialize: true,
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
+  const { values, handleSubmit } = formik;
 
   return (
     <DashboardLayout
       title={"Editar expediente"}
       button={{
         label: "Guardar",
-        onClick: () => {
-          alert("Guardado");
-        },
+        onClick: handleSubmit,
       }}
       pages={[
         {
@@ -66,41 +76,55 @@ const ExpedientsTypesEdit = () => {
         },
       ]}
     >
-      <div className="space-y-6 sm:px-6 lg:col-span-9 lg:px-0 mb-6">
-        <Form
-          onSubmit={() => {}}
-          data={[
-            {
-              label: "Información",
-              description: "Descripcion",
-              inputs: [
+      <HandleStatus status={status} data={expedientType}>
+        <HandleStatus status={expedientTypesStatus} data={expedientTypes}>
+          <div className="space-y-6 sm:px-6 lg:col-span-9 lg:px-0 mb-6">
+            <Form
+              onSubmit={() => {}}
+              data={[
                 {
-                  label: "Codigo",
-                  name: "code",
-                  type: FormInputType.Text,
+                  label: "Información",
+                  description: "Descripcion",
+                  inputs: [
+                    {
+                      label: "Codigo",
+                      name: "code",
+                      type: FormInputType.Text,
+                    },
+                    {
+                      label: "Nombre",
+                      name: "name",
+                      type: FormInputType.Text,
+                    },
+                    {
+                      label: "Padre",
+                      name: "parent",
+                      type: FormInputType.Select,
+                      options:
+                        expedientTypesStatus === SliceState.Success &&
+                        expedientTypes
+                          ? expedientTypes.data
+                              .map(({ nombre, codigo }) => ({
+                                label: nombre,
+                                id: codigo,
+                              }))
+                              .filter(
+                                (expedientType) => expedientType.id !== id
+                              )
+                          : [],
+                    },
+                  ].map((item) => ({ ...item, formik })),
                 },
-                {
-                  label: "Nombre",
-                  name: "name",
-                  type: FormInputType.Text,
-                },
-                {
-                  label: "Padre",
-                  name: "parent",
-                  type: FormInputType.Select,
-                },
-              ],
-            },
-          ]}
-          customSection={
-            <Requirements
-              onAddField={onAddField}
-              onDeleteField={onDeleteField}
-              requirements={requirements}
-            />
-          }
-        />
-      </div>
+              ]}
+            >
+              <Requirements
+                formik={formik}
+                requirements={values.requirements}
+              />
+            </Form>
+          </div>
+        </HandleStatus>
+      </HandleStatus>
     </DashboardLayout>
   );
 };

@@ -5,9 +5,11 @@ import { ExpedientType } from "../../utils/types";
 export function fetchExpedientTypes({
   page,
   search,
+  getAll,
 }: {
   page: number;
   search: string;
+  getAll: boolean;
 }) {
   return new Promise<{
     data: {
@@ -19,14 +21,23 @@ export function fetchExpedientTypes({
   }>((resolve) =>
     setTimeout(
       () =>
-        resolve({
-          data: {
-            count: 100,
-            page: 1,
-            size: 10,
-            data: expedientTypes,
-          },
-        }),
+        getAll
+          ? resolve({
+              data: {
+                count: expedientTypes.length,
+                page: 0,
+                size: expedientTypes.length,
+                data: expedientTypes,
+              },
+            })
+          : resolve({
+              data: {
+                count: 100,
+                page: 1,
+                size: 10,
+                data: expedientTypes,
+              },
+            }),
       500
     )
   );

@@ -10,13 +10,10 @@ type Props = {
   label: string;
   name: string;
   formik: any;
-  options: { id: string; label: string }[];
 };
 
 const SelectInput = ({ label, options, name, formik }: Props) => {
   const [query, setQuery] = useState("");
-
-  console.log(options);
 
   const [optionsValues, setOptionsValues] = useState(
     formik.values[name] ?? "-"

@@ -51,7 +51,6 @@ const RequirementsBuilder = ({ requirements, formik }: Props) => {
         texto: "",
         archivo: "",
         custom: true,
-        disabled: true,
       },
     ]);
   };
