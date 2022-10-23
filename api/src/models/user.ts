@@ -18,22 +18,6 @@ const userSchema = new Schema<IUser>({
   email: { type: String },
   password: { type: String },
   role: { type: String, enum: UserRoles },
-  token: {
-    userId: {
-      type: Schema.Types.ObjectId,
-      required: true,
-      ref: "User",
-    },
-    token: {
-      type: String,
-      required: true,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      // expires: 10,// this is the expiry time in seconds
-    },
-  },
 });
 
 // 3. Create a Model.

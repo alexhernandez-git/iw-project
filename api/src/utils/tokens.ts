@@ -1,6 +1,5 @@
 import bcrypt from "bcrypt";
 import { Token } from "../models/token";
-import { Token as TokenType } from "../types";
 import * as crypto from "crypto";
 
 const BCRYPT_SALT_ROUNDS = 12;

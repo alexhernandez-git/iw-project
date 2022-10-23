@@ -62,7 +62,8 @@ export const find = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 10 } = req.params;
+
   try {
     const expedient = await Expedient.find()
       .limit(limit * 1)

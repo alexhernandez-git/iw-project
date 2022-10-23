@@ -14,3 +14,5 @@ router.get("/", find);
 router.patch("/:id", updateOne);
 router.get("/:id", findOne);
 router.delete("/:id", deleteOne);
+
+export default router;

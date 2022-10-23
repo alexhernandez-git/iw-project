@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
-const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET ?? "1234";
 
-module.exports = function (req, res, next) {
+export default function (req, res, next) {
   const authHeader = req.headers.authorization;
 
   if (authHeader) {
@@ -17,4 +17,4 @@ module.exports = function (req, res, next) {
   } else {
     res.sendStatus(401);
   }
-};
+}

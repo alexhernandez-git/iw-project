@@ -1,9 +1,10 @@
-import { create, login } from "../controllers/users";
+import { create, getByToken, login } from "../controllers/users";
 
 var express = require("express");
-const jwt = require("jsonwebtoken");
-var bcrypt = require("bcrypt");
 var router = express.Router();
 
 router.post("/register", create);
 router.post("/login", login);
+router.get("/get-user/:token", getByToken);
+
+export default router;

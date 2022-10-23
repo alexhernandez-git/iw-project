@@ -1,10 +1,11 @@
 // import { backUpDB } from "./src/utils/helpers";
 
 import http from "http";
-import app from "./src/app";
+import app from "./app";
+
 const server = http.createServer(app);
 
-require("./src/config/database").connect();
+require("./config/database").connect();
 
 const { API_PORT } = process.env;
 const port = process.env.PORT || "8080";
