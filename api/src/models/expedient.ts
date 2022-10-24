@@ -1,17 +1,13 @@
 import { Schema, model, Document } from "mongoose";
 import {
-  ExpedientResource,
+  ExpedientResourceType,
   ExpedientState,
-  HonorariosYSuplidos,
   HonorariosYSuplidosType,
   Models,
   PaymentType,
   StoredIn,
 } from "../types";
 
-// 1. Create an interface representing a document in MongoDB.
-
-// 2. Create a Schema corresponding to the document interface.
 const expedientSchema = new Schema({
   _id: { type: String },
   orden: { type: String },
@@ -39,8 +35,17 @@ const expedientSchema = new Schema({
       cantidad: { type: Number },
     },
   ],
+  recursos: [
+    {
+      nombre: { type: String },
+      tipo: { type: String, enum: ExpedientResourceType },
+      texto: { type: String },
+      expediente: { type: String },
+      descripcion: { type: String },
+      custom: { type: Boolean },
+    },
+  ],
 });
 
-// 3. Create a Model.
 const Expedient = model(Models.Expedient, expedientSchema);
 export { Expedient };

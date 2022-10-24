@@ -1,15 +1,21 @@
 import { Request, Response, NextFunction } from "express";
 import { ExpedientType } from "../models/expedient-type";
-import { ExpedientResource } from "../types";
+import { ExpedientResource, ExpedientResourceType } from "../types";
 
 export const create = async (
   req: Request<{
     nombre: string;
     codigo: string;
-    tramitePadre: string;
+    tramitePadre: string | null;
     descripcion: string;
     honorarios: number;
-    recursos: ExpedientResource[];
+    recursos: {
+      nombre: string;
+      tipo: ExpedientResourceType;
+      texto: string;
+      descripcion: string;
+      custom?: boolean = false;
+    }[];
   }>,
   res: Response,
   next: NextFunction
@@ -19,7 +25,7 @@ export const create = async (
       body: { nombre, codigo, tramitePadre, descripcion, honorarios, recursos },
     } = req;
 
-    const expedient = await ExpedientType.create({
+    const expedientType = await ExpedientType.create({
       nombre,
       codigo,
       tramitePadre,
@@ -28,8 +34,9 @@ export const create = async (
       recursos,
     });
 
-    res.send({ expedient, success: true });
+    res.send({ expedientType, success: true });
   } catch (error) {
+    console.log(error);
     next({
       statusCode: 500,
       message: "Error creating user",
@@ -47,9 +54,16 @@ export const findOne = async (
   try {
     const { id } = req.params;
 
-    const expedient = await ExpedientType.findById(id);
+    const expedientType = await ExpedientType.findById(id);
 
-    res.send({ expedient, success: true });
+    if (!expedientType) {
+      return res.send({
+        statusCode: 404,
+        message: "Expediente no encontrado",
+      });
+    }
+
+    res.send({ expedientType, success: true });
   } catch (error) {
     next({
       statusCode: 500,
@@ -68,12 +82,12 @@ export const find = async (
 ) => {
   const { page = 1, limit = 10 } = req.params;
   try {
-    const expedient = await ExpedientType.find()
+    const expedientTypes = await ExpedientType.find()
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .exec();
 
-    res.send({ expedient, success: true });
+    res.send({ expedientTypes, success: true });
   } catch (error) {
     next({
       statusCode: 500,
@@ -87,10 +101,16 @@ export const updateOne = async (
     id: string;
     nombre: string;
     codigo: string;
-    tramitePadre: string;
+    tramitePadre: string | null;
     descripcion: string;
     honorarios: number;
-    recursos: ExpedientResource[];
+    recursos: {
+      nombre: string;
+      tipo: ExpedientResourceType;
+      texto: string;
+      descripcion: string;
+      custom?: boolean = false;
+    }[];
   }>,
   res: Response,
   next: NextFunction
@@ -101,20 +121,31 @@ export const updateOne = async (
       params: { id },
     } = req;
 
-    const expedientType = await ExpedientType.updateOne(
+    const expedientType = await ExpedientType.findOneAndUpdate(
       { _id: id },
       {
-        nombre,
-        codigo,
-        tramitePadre,
-        descripcion,
-        honorarios,
-        recursos,
+        $set: {
+          nombre,
+          codigo,
+          tramitePadre,
+          descripcion,
+          honorarios,
+          recursos,
+        },
+      },
+      {
+        upsert: true,
+        new: true,
       }
     );
 
-    res.send({ expedientType, success: true });
+    res.send({
+      expedientType,
+      statusCode: 201,
+      message: "Expediente actualizado",
+    });
   } catch (error) {
+    console.log(error);
     next({
       statusCode: 500,
       message: "Error creating user",
@@ -134,9 +165,9 @@ export const deleteOne = async (
       params: { id },
     } = req;
 
-    const expedient = await ExpedientType.deleteOne({ _id: id });
+    await ExpedientType.deleteOne({ _id: id });
 
-    res.send({ expedient, success: true });
+    res.send({ success: true });
   } catch (error) {
     next({
       statusCode: 500,

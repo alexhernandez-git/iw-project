@@ -1,13 +1,19 @@
 import { Request, Response, NextFunction } from "express";
 import { Expedient } from "../models/expedient";
-import { ExpedientResource, ExpedientResourceType } from "../types";
+import { ExpedientResourceType } from "../types";
 
 export const create = async (
   req: Request<{
     tipo: string;
     vinculado: string;
     asunto: string;
-    recursos: ExpedientResource[];
+    recursos: {
+      nombre: string;
+      tipo: ExpedientResourceType;
+      texto: string;
+      descripcion: string;
+      custom?: boolean = false;
+    }[];
   }>,
   res: Response,
   next: NextFunction
@@ -16,6 +22,7 @@ export const create = async (
     const {
       body: { tipo, vinculado, asunto, recursos },
     } = req;
+    console.log({ tipo, vinculado, asunto, recursos });
 
     const expedient = await Expedient.create({
       tipo,
@@ -26,6 +33,7 @@ export const create = async (
 
     res.send({ expedient, success: true });
   } catch (error) {
+    console.log(error);
     next({
       statusCode: 500,
       message: "Error creating user",
@@ -45,11 +53,18 @@ export const findOne = async (
 
     const expedient = await Expedient.findById(id);
 
+    if (!expedient) {
+      return res.send({
+        statusCode: 404,
+        message: "Expediente no encontrado",
+      });
+    }
+
     res.send({ expedient, success: true });
   } catch (error) {
     next({
       statusCode: 500,
-      message: "Error creating user",
+      message: "Error buscando expediente",
     });
   }
 };
@@ -91,16 +106,17 @@ export const updateOne = async (
 ) => {
   try {
     const {
-      body: { tipo, vinculado, asunto },
+      body: { tipo, vinculado, asunto, recursos },
       params: { id },
     } = req;
 
-    const expedient = await Expedient.updateOne(
+    const expedient = await Expedient.findOneAndUpdate(
       { _id: id },
       {
         tipo,
         vinculado,
         asunto,
+        recursos,
       }
     );
 
@@ -125,9 +141,9 @@ export const deleteOne = async (
       params: { id },
     } = req;
 
-    const expedient = await Expedient.deleteOne({ _id: id });
+    await Expedient.deleteOne({ _id: id });
 
-    res.send({ expedient, success: true });
+    res.send({ success: true });
   } catch (error) {
     next({
       statusCode: 500,

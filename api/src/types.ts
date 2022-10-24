@@ -130,7 +130,6 @@ export type ExpedientResource = {
   id: string;
   nombre: string;
   tipo: ExpedientResourceType;
-  archivo: ExpedientResourceFile[];
   texto: string;
   expediente: string;
   descripcion: string;

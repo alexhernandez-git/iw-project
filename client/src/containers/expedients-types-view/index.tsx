@@ -63,7 +63,9 @@ const ExpedientsTypesView = () => {
                 label: "Padre",
                 value: {
                   label: "Expediente 1",
-                  onClick: () => {},
+                  onClick: () => {
+                    alert("entra");
+                  },
                 },
               },
               {

@@ -1,29 +1,27 @@
 import { Schema, model, Document } from "mongoose";
-import { Models } from "../types";
+import { ExpedientResourceType, Models } from "../types";
 
-// 1. Create an interface representing a document in MongoDB.
-export interface IExpedientType extends Document {
-  nombre: string;
-  codigo: string;
-  tramitePadre: Schema.Types.ObjectId;
-  descripcion: string;
-  honorarios: number;
-  recursos: Schema.Types.ObjectId[];
-}
-
-// 2. Create a Schema corresponding to the document interface.
-const expedientTypeSchema = new Schema<IExpedientType>({
+const expedientTypeSchema = new Schema({
   nombre: { type: String },
   codigo: { type: String },
-  tramitePadre: { type: Schema.Types.ObjectId, ref: Models.ExpedientType },
+  tramitePadre: {
+    type: Schema.Types.ObjectId,
+    default: null,
+    ref: Models.ExpedientType,
+  },
   descripcion: { type: String },
   honorarios: { type: Number },
-  recursos: [{ type: Schema.Types.ObjectId, ref: Models.ExpedientResource }],
+  recursos: [
+    {
+      nombre: { type: String },
+      tipo: { type: String, enum: ExpedientResourceType },
+      texto: { type: String },
+      expediente: { type: String },
+      descripcion: { type: String },
+      custom: { type: Boolean },
+    },
+  ],
 });
 
-// 3. Create a Model.
-const ExpedientType = model<IExpedientType>(
-  Models.ExpedientType,
-  expedientTypeSchema
-);
+const ExpedientType = model(Models.ExpedientType, expedientTypeSchema);
 export { ExpedientType };
