@@ -122,7 +122,7 @@ export type ExpedientRequirement = {
 
 export type Section = {
   nombre: string;
-  requerimientos: ExpedientRequirement[];
+  recursos: ExpedientRequirement[];
 };
 
 export type Expedient = {
@@ -168,7 +168,7 @@ export type ExpedientType = {
   tramitePadre: string;
   descripcio: string;
   honorarios: number;
-  requerimientos: Section[];
+  secciones: Section[];
 };
 
 // Expedient vinculat

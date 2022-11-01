@@ -1,24 +1,21 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import Form from "../../components/form";
 import DashboardLayout from "../../layouts/layout";
-import Requirements from "../../requirements-builder";
-import { makeId } from "../../utils/helpers";
-import { FormInputType, ExpedientRequirementType } from "../../utils/types";
+import { FormInputType } from "../../utils/types";
 import { useFormik } from "formik";
+import Sections from "../../components/sections";
 
 const ExpedientsTypesNew = () => {
   const formik = useFormik({
     initialValues: {
       code: "",
       name: "",
+      secciones: [],
     },
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },
   });
-
-  const [requirements, setRequeriments] = useState([]);
 
   return (
     <DashboardLayout
@@ -81,7 +78,7 @@ const ExpedientsTypesNew = () => {
             },
           ]}
         >
-          <Requirements formik={formik} requirements={requirements} />
+          <Sections formik={formik} />
         </Form>
       </div>
     </DashboardLayout>

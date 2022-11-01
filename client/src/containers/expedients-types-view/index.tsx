@@ -86,30 +86,32 @@ const ExpedientsTypesView = () => {
           }}
         />
 
-        <DescriptionList
-          {...{
-            title: "Requerimientos del expediente",
-            description: "hola a todos",
-            list: expedientType?.requerimientos.map((requerimiento) =>
-              requerimiento.tipo === ExpedientRequirementType.Text ||
-              requerimiento.tipo === ExpedientRequirementType.LargeText
-                ? {
-                    type: ListItemType.Text,
-                    label: requerimiento.nombre,
-                    value: requerimiento.texto,
-                  }
-                : {
-                    type: ListItemType.Button,
-                    label: requerimiento.nombre,
-                    value: {
-                      label: "imagen.png",
-                      onClick: () => alert("descargando"),
-                      buttonLabel: "Descargar",
-                    },
-                  }
-            ),
-          }}
-        />
+        {expedientType?.secciones.map((section) => (
+          <DescriptionList
+            {...{
+              title: "Requerimientos del expediente",
+              description: "hola a todos",
+              list: section?.recursos.map((requerimiento) =>
+                requerimiento.tipo === ExpedientRequirementType.Text ||
+                requerimiento.tipo === ExpedientRequirementType.LargeText
+                  ? {
+                      type: ListItemType.Text,
+                      label: requerimiento.nombre,
+                      value: requerimiento.texto,
+                    }
+                  : {
+                      type: ListItemType.Button,
+                      label: requerimiento.nombre,
+                      value: {
+                        label: "imagen.png",
+                        onClick: () => alert("descargando"),
+                        buttonLabel: "Descargar",
+                      },
+                    }
+              ),
+            }}
+          />
+        ))}
       </HandleStatus>
     </DashboardLayout>
   );

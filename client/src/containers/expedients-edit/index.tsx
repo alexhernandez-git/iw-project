@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Form from "../../components/form";
 import HandleStatus from "../../components/handle-status";
+import Sections from "../../components/sections";
 import { expedients } from "../../data";
 import DashboardLayout from "../../layouts/layout";
 import Requirements from "../../requirements-builder";
@@ -23,11 +24,11 @@ const ExpedientsEdit = () => {
     (state: RootState) => state.expedient
   );
 
-  const [requirements, setRequeriments] = useState(expedient?.requerimientos);
+  const [requirements, setRequeriments] = useState(expedient?.recursos);
 
   useEffect(() => {
-    if (expedient?.requerimientos) {
-      setRequeriments(expedient.requerimientos);
+    if (expedient?.recursos) {
+      setRequeriments(expedient.recursos);
     }
   }, [expedient]);
 
@@ -40,7 +41,7 @@ const ExpedientsEdit = () => {
       codigoCliente: expedient?.codigoCliente ?? "",
       codigoClienteProvisional: expedient?.codigoClienteProvisional ?? "",
       honorariosYSuplidos: expedient?.honorariosYSuplidos ?? [],
-      requirements: expedient?.requerimientos,
+      secciones: expedient?.secciones ?? [],
     },
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -48,7 +49,7 @@ const ExpedientsEdit = () => {
     },
   });
 
-  const { handleSubmit, values, setFieldValue } = formik;
+  const { handleSubmit, values } = formik;
 
   const dispatch = useDispatch();
 
@@ -175,7 +176,7 @@ const ExpedientsEdit = () => {
               },
             ]}
           >
-            <Requirements formik={formik} requirements={values?.requirements} />
+            <Sections formik={formik} />
           </Form>
         </div>
       </HandleStatus>

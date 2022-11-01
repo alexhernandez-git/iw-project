@@ -50,8 +50,8 @@ const RequirementsBuilder = ({
         sectionItem.nombre === section.nombre
           ? {
               ...sectionItem,
-              requerimientos: [
-                ...sectionItem.requerimientos,
+              recursos: [
+                ...sectionItem.recursos,
                 {
                   id: makeId(10),
                   nombre,
@@ -75,7 +75,7 @@ const RequirementsBuilder = ({
         sectionItem.nombre === section.nombre
           ? {
               ...sectionItem,
-              requerimientos: sectionItem.requerimientos?.filter(
+              recursos: sectionItem.recursos?.filter(
                 (requirement: ExpedientRequirement) => requirement.id !== id
               ),
             }
@@ -91,7 +91,7 @@ const RequirementsBuilder = ({
         sectionItem.nombre === section.nombre
           ? {
               ...sectionItem,
-              requerimientos: sectionItem.requerimientos.map((requeriment) =>
+              recursos: sectionItem.recursos.map((requeriment) =>
                 requeriment.id === id
                   ? { ...requeriment, texto: text }
                   : requeriment
@@ -105,7 +105,7 @@ const RequirementsBuilder = ({
   const getFieldValue = (nombre: string) => {
     values.secciones.forEach((sectionItem: Section) => {
       if (sectionItem.nombre === section.nombre) {
-        return sectionItem.requerimientos.find(
+        return sectionItem.recursos.find(
           (requirement) => requirement.nombre === nombre
         )?.texto;
       }
@@ -124,7 +124,7 @@ const RequirementsBuilder = ({
               onDeleteSection={onDeleteSection}
             >
               <div className="space-y-6 sm:space-y-5">
-                {section.requerimientos.map((data) => {
+                {section.recursos.map((data) => {
                   const props = {
                     data: {
                       ...data,

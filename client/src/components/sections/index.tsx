@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import RequirementsBuilder from "../../requirements-builder";
 import { Section, Type } from "../../utils/types";
 import Button from "../button";
@@ -10,7 +10,7 @@ const Sections = ({ formik }) => {
   const newSectionFormik = useFormik({
     initialValues: {
       nombre: "",
-      requerimientos: [],
+      recursos: [],
     },
     onSubmit: (data, { resetForm }) => {
       formik.setFieldValue("secciones", [...formik.values.secciones, data]);
@@ -41,6 +41,15 @@ const Sections = ({ formik }) => {
       )
     );
   };
+
+  const inputRef = useRef();
+
+  useEffect(() => {
+    if (isAddingSection) {
+      inputRef.current.focus();
+    }
+  }, [isAddingSection]);
+
   return (
     <div className="">
       <div className="space-y-6 mb-5">
@@ -63,6 +72,8 @@ const Sections = ({ formik }) => {
             <div className="mt-1">
               <input
                 type="text"
+                ref={inputRef}
+                autoFocus
                 name="nombre"
                 onChange={newSectionFormik.handleChange}
                 onBlur={newSectionFormik.handleBlur}

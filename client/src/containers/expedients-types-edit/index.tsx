@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Form from "../../components/form";
 import HandleStatus from "../../components/handle-status";
+import Sections from "../../components/sections";
 import DashboardLayout from "../../layouts/layout";
 import Requirements from "../../requirements-builder";
 import { useAppSelector } from "../../store";
@@ -41,7 +42,7 @@ const ExpedientsTypesEdit = () => {
     initialValues: {
       code: "",
       name: "",
-      requirements: expedientType?.requerimientos,
+      secciones: [],
     },
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -117,10 +118,7 @@ const ExpedientsTypesEdit = () => {
                 },
               ]}
             >
-              <Requirements
-                formik={formik}
-                requirements={values.requirements}
-              />
+              <Sections formik={formik} />
             </Form>
           </div>
         </HandleStatus>

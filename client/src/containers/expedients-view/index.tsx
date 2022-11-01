@@ -68,6 +68,7 @@ const ExpedientsView = () => {
           expedient?.secciones
             ? [
                 "Información",
+                "Honorarios y Suplidos",
                 ...expedient.secciones.map(
                   (section: Section) => section.nombre
                 ),
@@ -174,6 +175,16 @@ const ExpedientsView = () => {
                     label: "honorarios",
                     value: expedient?.honorarios,
                   },
+                ],
+              }}
+            />
+          )}
+          {tabIndex === 1 && (
+            <DescriptionList
+              {...{
+                title: "Datos del expediente",
+                description: "",
+                list: [
                   {
                     type: ListItemType.List,
                     label: "Honorarios y Suplidos",
@@ -198,14 +209,14 @@ const ExpedientsView = () => {
           {expedient?.secciones &&
             expedient?.secciones.map(
               (section, index) =>
-                index + 1 === tabIndex && (
+                index + 2 === tabIndex && (
                   <DescriptionList
                     {...{
                       title: section.nombre,
                       description: "",
                       list:
-                        section.requerimientos &&
-                        section.requerimientos.map((requerimiento) =>
+                        section.recursos &&
+                        section.recursos.map((requerimiento) =>
                           requerimiento?.tipo === ExpedientRequirementType.Files
                             ? {
                                 type: ListItemType.Button,

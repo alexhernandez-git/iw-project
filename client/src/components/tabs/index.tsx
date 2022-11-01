@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo } from "react";
-import { Link, useLocation } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -42,7 +41,7 @@ export default function Tabs({ tabs, tabIndex, setTab }) {
                   isCurrent(tab)
                     ? "border-indigo-500 text-indigo-600"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
-                  "whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+                  "whitespace-nowrap cursor-pointer py-4 px-1 border-b-2 font-medium text-sm"
                 )}
                 aria-current={isCurrent(tab) ? "page" : undefined}
               >

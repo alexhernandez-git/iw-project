@@ -1,3 +1,4 @@
+import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import EsanLogo from "../../images/esan-asesores-logo-hd.png";
@@ -24,14 +25,20 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  const onSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    dispatch(login({ username: "hello", password: "hello" }))
-      .unwrap()
-      .then(() => {
-        navigate("/");
-      });
-  };
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    onSubmit: (data, { resetForm }) => {
+      dispatch(login(data))
+        .unwrap()
+        .then(() => {
+          navigate("/");
+          resetForm();
+        });
+    },
+  });
 
   return (
     <>
@@ -66,7 +73,11 @@ export default function Login() {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6" onSubmit={onSubmit} method="POST">
+            <form
+              className="space-y-6"
+              onSubmit={formik.handleSubmit}
+              method="POST"
+            >
               <div>
                 <label
                   htmlFor="email"
@@ -77,6 +88,9 @@ export default function Login() {
                 <div className="mt-1">
                   <input
                     id="username"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.username}
                     name="username"
                     type="text"
                     autoComplete="username"
@@ -96,6 +110,9 @@ export default function Login() {
                   <input
                     id="password"
                     name="password"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.password}
                     type="password"
                     autoComplete="current-password"
                     className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"

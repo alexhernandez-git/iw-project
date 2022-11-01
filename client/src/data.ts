@@ -27,7 +27,7 @@ export const expedientTypes: ExpedientType[] = [
     secciones: [
       {
         nombre: "seccion 1",
-        requerimientos: [
+        recursos: [
           {
             id: "1",
             nombre: "Nombre y apellidos",
@@ -95,7 +95,7 @@ export const expedient: Expedient = {
   secciones: [
     {
       nombre: "seccion 1",
-      requerimientos: [
+      recursos: [
         {
           id: "1",
           nombre: "Nombre y apellidos",
@@ -161,7 +161,7 @@ export const expedients: Expedient[] = [
     formaDePago: PaymentType.Cheque,
     facturado: false,
     comprobadoTodo: false,
-    requerimientos: [
+    recursos: [
       {
         id: "1",
         nombre: "Nombre y apellidos",

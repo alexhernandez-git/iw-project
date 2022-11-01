@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "../button";
 
 type Props = {
@@ -27,6 +27,14 @@ const FormSection = ({
     },
   });
 
+  const inputRef = useRef();
+
+  useEffect(() => {
+    if (isEdit) {
+      inputRef.current.focus();
+    }
+  }, [isEdit]);
+
   return (
     <div className="space-y-6 pt-6 sm:space-y-5 sm:pt-6">
       {isEdit ? (
@@ -36,6 +44,7 @@ const FormSection = ({
             name="nombre"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            ref={inputRef}
             value={formik.values.nombre}
             id="nombre"
             placeholder=""
@@ -52,7 +61,7 @@ const FormSection = ({
           Requierimientos del expediente
         </p> */}
           <div className="flex gap-3">
-            <span onClick={() => setIsEdit(true)}>
+            <span onClick={() => setIsEdit(true)} className="cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -68,7 +77,10 @@ const FormSection = ({
                 />
               </svg>
             </span>
-            <span onClick={() => onDeleteSection(title)}>
+            <span
+              onClick={() => onDeleteSection(title)}
+              className="cursor-pointer"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
