@@ -20,36 +20,6 @@ const ExpedientsTypesNew = () => {
 
   const [requirements, setRequeriments] = useState([]);
 
-  const onAddField = ({
-    nombre,
-    tipo,
-    descripcion = false,
-  }: {
-    nombre: string;
-    tipo: ExpedientRequirementType;
-    descripcion?: string | boolean;
-  }) => {
-    console.log({ nombre, tipo, descripcion });
-    setRequeriments([
-      ...requirements,
-      {
-        id: makeId(10),
-        nombre,
-        tipo,
-        descripcion: descripcion ? descripcion : "",
-        texto: "",
-        archivo: "",
-        custom: true,
-        disabled: true,
-      },
-    ]);
-  };
-  const onDeleteField = (id: string) => {
-    setRequeriments(
-      requirements.filter((requirement) => requirement.id !== id)
-    );
-  };
-
   return (
     <DashboardLayout
       title={"Nuevo tipo de expediente"}
@@ -87,6 +57,12 @@ const ExpedientsTypesNew = () => {
                 {
                   label: "Nombre",
                   name: "name",
+                  formik,
+                  type: FormInputType.Text,
+                },
+                {
+                  label: "Honorarios",
+                  name: "codigo",
                   formik,
                   type: FormInputType.Text,
                 },

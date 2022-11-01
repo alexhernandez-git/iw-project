@@ -21,9 +21,7 @@ const Form = ({ data, children, onSubmit }: Props) => {
       {data.map((section) => (
         <FormSection {...section} />
       ))}
-      <div className="shadow sm:rounded-md">
-        <div className="space-y-6 bg-white px-4 sm:px-6">{children}</div>
-      </div>
+      <div className="shadow sm:rounded-md">{children}</div>
     </form>
   );
 };

@@ -1,3 +1,5 @@
+// guardar on edit create
+
 export enum SliceState {
   Inactive = "idle",
   Loading = "loading",
@@ -50,6 +52,9 @@ export enum ExpedientState {
   ExpedientCursadoNoConcluido = "expedientecursadonoconcluido", // Para colaborador EN TRAMITE
   // En este punto puede que se pida crear otro expediente amb orden (id del antiguo expediente)
   Concluido = "concluido",
+  ResolucionFaborable = "resolucionfavorable",
+  ResolucionDeNegatoria = "resoluciondenegatoria",
+  NoResolucion = "noresolucion",
 }
 
 export enum HonorariosYSuplidosType {
@@ -93,7 +98,9 @@ export type FieldData = {
   descripcion: string;
   custom?: boolean;
   disabled?: boolean;
-  onDeleteField?: (id: string) => void;
+  onDeleteField: (id: string) => void;
+  onEditField: (id: string, text: string) => void;
+  getFieldValue: (id: string) => string;
   formik: any;
 };
 
@@ -111,6 +118,11 @@ export type ExpedientRequirement = {
   expediente: string;
   descripcion: string;
   custom?: boolean;
+};
+
+export type Section = {
+  nombre: string;
+  requerimientos: ExpedientRequirement[];
 };
 
 export type Expedient = {
@@ -136,6 +148,8 @@ export type Expedient = {
   tipoResolucion: string; // FABORABLE / NO FABORABLE
   documentoResolucion: string;
   asunto: string;
+  fechaDePresentacion: Date;
+  fechaNotificacionRequerimiento: Date;
   fechaSolicitudServicioNotificacion: string;
   plazoLegal: string;
   estado: ExpedientState;
@@ -145,7 +159,7 @@ export type Expedient = {
   formaDePago: PaymentType;
   facturado: boolean;
   comprobadoTodo: boolean;
-  requerimientos: ExpedientRequirement[];
+  secciones: Section[];
 };
 
 export type ExpedientType = {
@@ -154,7 +168,7 @@ export type ExpedientType = {
   tramitePadre: string;
   descripcio: string;
   honorarios: number;
-  requerimientos: ExpedientRequirement[];
+  requerimientos: Section[];
 };
 
 // Expedient vinculat

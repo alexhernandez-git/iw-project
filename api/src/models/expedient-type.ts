@@ -11,14 +11,19 @@ const expedientTypeSchema = new Schema({
   },
   descripcion: { type: String },
   honorarios: { type: Number },
-  recursos: [
+  secciones: [
     {
-      nombre: { type: String },
-      tipo: { type: String, enum: ExpedientResourceType },
-      texto: { type: String },
-      expediente: { type: String },
-      descripcion: { type: String },
-      custom: { type: Boolean },
+      nombre: String,
+      recursos: [
+        {
+          nombre: { type: String },
+          tipo: { type: String, enum: ExpedientResourceType },
+          texto: { type: String },
+          expediente: { type: String },
+          descripcion: { type: String },
+          custom: { type: Boolean },
+        },
+      ],
     },
   ],
 });

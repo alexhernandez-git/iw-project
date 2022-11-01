@@ -50,7 +50,7 @@ export const counterSlice = createSlice({
         state.status = SliceState.Loading;
       })
       .addCase(getExpedient.fulfilled, (state, action) => {
-        state.status = SliceState.Inactive;
+        state.status = SliceState.Success;
         state.value = action.payload;
       })
       .addCase(getExpedient.rejected, (state) => {
@@ -60,7 +60,7 @@ export const counterSlice = createSlice({
         state.status = SliceState.Loading;
       })
       .addCase(newExpedient.fulfilled, (state, action) => {
-        state.status = SliceState.Inactive;
+        state.status = SliceState.Success;
         state.value = action.payload;
       })
       .addCase(newExpedient.rejected, (state) => {
@@ -70,7 +70,7 @@ export const counterSlice = createSlice({
         state.status = SliceState.Loading;
       })
       .addCase(editExpedient.fulfilled, (state, action) => {
-        state.status = SliceState.Inactive;
+        state.status = SliceState.Success;
         state.value = action.payload;
       })
       .addCase(editExpedient.rejected, (state) => {

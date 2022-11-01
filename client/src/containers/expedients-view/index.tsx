@@ -22,6 +22,8 @@ const ExpedientsView = () => {
     (state: RootState) => state.expedient
   );
 
+  console.log({ status, expedient });
+
   const { id } = useParams();
 
   const dispatch = useDispatch();

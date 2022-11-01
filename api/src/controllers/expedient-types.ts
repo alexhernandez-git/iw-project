@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { ExpedientType } from "../models/expedient-type";
-import { ExpedientResource, ExpedientResourceType } from "../types";
+import { ExpedientResourceType } from "../types";
 
 export const create = async (
   req: Request<{
@@ -80,14 +80,22 @@ export const find = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { page = 1, limit = 10 } = req.params;
+  // const { page = 1, limit = 10 } = req.params;
   try {
-    const expedientTypes = await ExpedientType.find()
-      .limit(limit * 1)
-      .skip((page - 1) * limit)
-      .exec();
+    // const expedientTypes = await ExpedientType.find()
+    //   .limit(limit * 1)
+    //   .skip((page - 1) * limit)
+    //   .exec();
 
-    res.send({ expedientTypes, success: true });
+    const expedientTypes = await ExpedientType.find();
+
+    res.send({
+      count: expedientTypes.length,
+      page: 0,
+      size: expedientTypes.length,
+      data: expedientTypes,
+      success: true,
+    });
   } catch (error) {
     next({
       statusCode: 500,
@@ -104,12 +112,15 @@ export const updateOne = async (
     tramitePadre: string | null;
     descripcion: string;
     honorarios: number;
-    recursos: {
+    secciones: {
       nombre: string;
-      tipo: ExpedientResourceType;
-      texto: string;
-      descripcion: string;
-      custom?: boolean = false;
+      recursos: {
+        nombre: string;
+        tipo: ExpedientResourceType;
+        texto: string;
+        descripcion: string;
+        custom?: boolean = false;
+      }[];
     }[];
   }>,
   res: Response,

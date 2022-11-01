@@ -1,9 +1,9 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { SetStateAction, useEffect, useRef, useState } from "react";
+import { SetStateAction, useRef, useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
-import Button from "../../../components/button";
-import { ExpedientRequirementType, Type } from "../../../utils/types";
+import Button from "../../components/button";
+import { ExpedientRequirementType, Type } from "../../utils/types";
 import { useFormik } from "formik";
 
 const mailingLists = [

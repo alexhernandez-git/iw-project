@@ -1,18 +1,25 @@
 import { Request, Response, NextFunction } from "express";
 import { Expedient } from "../models/expedient";
-import { ExpedientResourceType } from "../types";
+import { ExpedientResourceType, HonorariosYSuplidosType } from "../types";
 
 export const create = async (
   req: Request<{
     tipo: string;
     vinculado: string;
     asunto: string;
-    recursos: {
+    secciones: {
       nombre: string;
-      tipo: ExpedientResourceType;
-      texto: string;
-      descripcion: string;
-      custom?: boolean = false;
+      recursos: {
+        nombre: string;
+        tipo: ExpedientResourceType;
+        texto: string;
+        descripcion: string;
+        custom?: boolean = false;
+      }[];
+    }[];
+    honorariosYSuplidos: {
+      tipo: { enum: HonorariosYSuplidosType; type: String };
+      cantidad: { type: Number };
     }[];
   }>,
   res: Response,
@@ -20,15 +27,16 @@ export const create = async (
 ) => {
   try {
     const {
-      body: { tipo, vinculado, asunto, recursos },
+      body: { tipo, vinculado, asunto, secciones, honorariosYSuplidos },
     } = req;
-    console.log({ tipo, vinculado, asunto, recursos });
+    console.log({ tipo, vinculado, asunto, secciones });
 
     const expedient = await Expedient.create({
       tipo,
       vinculado,
       asunto,
-      recursos,
+      secciones,
+      honorariosYSuplidos,
     });
 
     res.send({ expedient, success: true });
@@ -77,15 +85,23 @@ export const find = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { page = 1, limit = 10 } = req.params;
+  // const { page = 1, limit = 10 } = req.params;
 
   try {
-    const expedient = await Expedient.find()
-      .limit(limit * 1)
-      .skip((page - 1) * limit)
-      .exec();
+    // const expedients = await Expedient.find()
+    //   .limit(limit * 1)
+    //   .skip((page - 1) * limit)
+    //   .exec();
 
-    res.send({ expedient, success: true });
+    const expedients = await Expedient.find();
+
+    res.send({
+      count: expedients.length,
+      page: 0,
+      size: expedients.length,
+      data: expedients,
+      success: true,
+    });
   } catch (error) {
     next({
       statusCode: 500,
@@ -100,23 +116,44 @@ export const updateOne = async (
     tipo: string;
     vinculado: string;
     asunto: string;
+    honorariosYSuplidos: {
+      tipo: { enum: HonorariosYSuplidosType; type: String };
+      cantidad: { type: Number };
+    }[];
+    secciones: {
+      nombre: string;
+      recursos: {
+        nombre: string;
+        tipo: ExpedientResourceType;
+        texto: string;
+        descripcion: string;
+        custom?: boolean = false;
+      }[];
+    }[];
   }>,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const {
-      body: { tipo, vinculado, asunto, recursos },
+      body: { tipo, vinculado, asunto, secciones, honorariosYSuplidos },
       params: { id },
     } = req;
 
     const expedient = await Expedient.findOneAndUpdate(
       { _id: id },
       {
-        tipo,
-        vinculado,
-        asunto,
-        recursos,
+        $set: {
+          tipo,
+          vinculado,
+          asunto,
+          secciones,
+          honorariosYSuplidos,
+        },
+      },
+      {
+        upsert: true,
+        new: true,
       }
     );
 

@@ -6,31 +6,34 @@ import {
   FormTextField,
 } from "../components/form-field";
 import FormSection from "../components/form-section";
-import NewField from "../containers/expedients-new/partials/new-field";
+import NewField from "./partials/new-field";
 import { makeId } from "../utils/helpers";
 import {
   ExpedientRequirement,
   ExpedientRequirementType,
+  Section,
   Type,
 } from "../utils/types";
 
 type Props = {
   requirements: any;
-  onDeleteField: (id: string) => void;
   formik: any;
-  onAddField: (_: {
-    nombre: string;
-    tipo: ExpedientRequirementType;
-    descripcion?: string | boolean;
-  }) => void;
+  onEditSection: (sectionName: string, nombre: string) => void;
+  onDeleteSection: (nombre: string) => void;
+  section: Section;
 };
 
-const RequirementsBuilder = ({ requirements, formik }: Props) => {
-  console.log({ requirements });
-
+const RequirementsBuilder = ({
+  section,
+  formik,
+  onEditSection,
+  onDeleteSection,
+}: Props) => {
   const { setFieldValue, values } = formik;
 
   const [isAddingNewField, setIsAddingNewField] = useState(false);
+
+  console.log({ values });
 
   const onAddField = ({
     nombre,
@@ -41,38 +44,95 @@ const RequirementsBuilder = ({ requirements, formik }: Props) => {
     tipo: ExpedientRequirementType;
     descripcion?: string | boolean;
   }) => {
-    setFieldValue("requirements", [
-      ...values.requirements,
-      {
-        id: makeId(10),
-        nombre,
-        tipo,
-        descripcion: descripcion ? descripcion : "",
-        texto: "",
-        archivo: "",
-        custom: true,
-      },
-    ]);
+    setFieldValue(
+      "secciones",
+      values.secciones.map((sectionItem: Section) =>
+        sectionItem.nombre === section.nombre
+          ? {
+              ...sectionItem,
+              requerimientos: [
+                ...sectionItem.requerimientos,
+                {
+                  id: makeId(10),
+                  nombre,
+                  tipo,
+                  descripcion: descripcion ? descripcion : "",
+                  texto: "",
+                  archivo: "",
+                  custom: true,
+                },
+              ],
+            }
+          : sectionItem
+      )
+    );
   };
 
   const onDeleteField = (id: string) => {
     setFieldValue(
-      "requirements",
-      values.requirements?.filter(
-        (requirement: ExpedientRequirement) => requirement.id !== id
+      "secciones",
+      values.secciones.map((sectionItem: Section) =>
+        sectionItem.nombre === section.nombre
+          ? {
+              ...sectionItem,
+              requerimientos: sectionItem.requerimientos?.filter(
+                (requirement: ExpedientRequirement) => requirement.id !== id
+              ),
+            }
+          : sectionItem
       )
     );
   };
+
+  const onEditField = (id: string, text: string) => {
+    setFieldValue(
+      "secciones",
+      values.secciones.map((sectionItem: Section) =>
+        sectionItem.nombre === section.nombre
+          ? {
+              ...sectionItem,
+              requerimientos: sectionItem.requerimientos.map((requeriment) =>
+                requeriment.id === id
+                  ? { ...requeriment, texto: text }
+                  : requeriment
+              ),
+            }
+          : sectionItem
+      )
+    );
+  };
+
+  const getFieldValue = (nombre: string) => {
+    values.secciones.forEach((sectionItem: Section) => {
+      if (sectionItem.nombre === section.nombre) {
+        return sectionItem.requerimientos.find(
+          (requirement) => requirement.nombre === nombre
+        )?.texto;
+      }
+    });
+  };
+
+  console.log({ section });
   return (
     <>
       <div className="text-black">
         <form className="space-y-8 divide-y divide-gray-200">
           <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
-            <FormSection>
+            <FormSection
+              title={section.nombre}
+              onEditSection={onEditSection}
+              onDeleteSection={onDeleteSection}
+            >
               <div className="space-y-6 sm:space-y-5">
-                {requirements.map((data) => {
+                {section.requerimientos.map((data) => {
                   const props = {
-                    data: { ...data, onDeleteField, formik },
+                    data: {
+                      ...data,
+                      onDeleteField,
+                      onEditField,
+                      formik,
+                      getFieldValue,
+                    },
                   };
                   switch (data.tipo) {
                     case ExpedientRequirementType.Text:

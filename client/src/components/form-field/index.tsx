@@ -41,16 +41,7 @@ const FormFieldLayout = ({
 };
 
 export const FormTextField = ({ data }: Props) => {
-  const { disabled, formik, nombre, id } = data;
-
-  const onEditTextField = ({ id, text }: { id: string; text: string }) => {
-    formik.setFieldValue(
-      "requirements",
-      formik.values?.requirements?.map((requeriment: ExpedientRequirement) =>
-        requeriment.id === id ? { ...requeriment, texto: text } : requeriment
-      )
-    );
-  };
+  const { disabled, nombre, id, onEditField, getFieldValue } = data;
 
   return (
     <FormFieldLayout data={data}>
@@ -58,13 +49,9 @@ export const FormTextField = ({ data }: Props) => {
         type="text"
         disabled={disabled}
         name={nombre}
-        value={
-          formik.values.requirements.find(
-            (requeriment: ExpedientRequirement) => requeriment.nombre === nombre
-          ).texto
-        }
+        value={getFieldValue(nombre)}
         onChange={(e: { target: { value: string } }) =>
-          onEditTextField && onEditTextField({ id, text: e.target.value })
+          onEditField && onEditField(id, e.target.value)
         }
         className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm"
       />
@@ -73,16 +60,7 @@ export const FormTextField = ({ data }: Props) => {
 };
 
 export const FormTextAreaField = ({ data }: Props) => {
-  const { disabled, formik, nombre, id } = data;
-
-  const onEditTextField = ({ id, text }: { id: string; text: string }) => {
-    formik.setFieldValue(
-      "requirements",
-      formik.values?.requirements?.map((requeriment: ExpedientRequirement) =>
-        requeriment.id === id ? { ...requeriment, texto: text } : requeriment
-      )
-    );
-  };
+  const { disabled, nombre, id, onEditField, getFieldValue } = data;
 
   return (
     <FormFieldLayout data={data}>
@@ -91,13 +69,9 @@ export const FormTextAreaField = ({ data }: Props) => {
         disabled={disabled}
         rows={3}
         name={nombre}
-        value={
-          formik.values.requirements.find(
-            (requeriment: ExpedientRequirement) => requeriment.nombre === nombre
-          ).texto
-        }
+        value={getFieldValue(nombre)}
         onChange={(e: { target: { value: string } }) =>
-          onEditTextField && onEditTextField({ id, text: e.target.value })
+          onEditField && onEditField(id, e.target.value)
         }
         className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         defaultValue={""}

@@ -9,10 +9,13 @@ import {
 } from "../types";
 
 const expedientSchema = new Schema({
-  _id: { type: String },
   orden: { type: String },
   tipo: { type: Schema.Types.ObjectId, ref: Models.ExpedientType },
-  vinculado: { type: Schema.Types.ObjectId, ref: Models.Expedient },
+  vinculado: {
+    type: Schema.Types.ObjectId,
+    default: null,
+    ref: Models.Expedient,
+  },
   conexiones: { type: String },
   guardadoEn: { enum: StoredIn, type: String },
   responsable: { type: String },
@@ -35,14 +38,19 @@ const expedientSchema = new Schema({
       cantidad: { type: Number },
     },
   ],
-  recursos: [
+  secciones: [
     {
-      nombre: { type: String },
-      tipo: { type: String, enum: ExpedientResourceType },
-      texto: { type: String },
-      expediente: { type: String },
-      descripcion: { type: String },
-      custom: { type: Boolean },
+      nombre: String,
+      recursos: [
+        {
+          nombre: { type: String },
+          tipo: { type: String, enum: ExpedientResourceType },
+          texto: { type: String },
+          expediente: { type: String },
+          descripcion: { type: String },
+          custom: { type: Boolean },
+        },
+      ],
     },
   ],
 });

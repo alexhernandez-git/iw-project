@@ -28,7 +28,7 @@ import {
   StoredIn,
   Type,
 } from "../../utils/types";
-import NewField from "./partials/new-field";
+import NewField from "../../requirements-builder/partials/new-field";
 import { makeId } from "../../utils/helpers";
 import Requirements from "../../requirements-builder";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,6 +37,7 @@ import { getExpedientTypes } from "../../store/expedient-types";
 import Form from "../../components/form";
 import { createExpedient } from "../../store/expedient/API";
 import { newExpedient } from "../../store/expedient";
+import Sections from "../../components/sections";
 
 const people = [
   { id: 1, name: "Leslie Alexander" },
@@ -133,7 +134,7 @@ export default function NewExpedientType() {
       codigoCliente: "",
       codigoClienteProvisional: "",
       honorariosYSuplidos: [],
-      requirements: [],
+      secciones: [],
     },
     onSubmit: (values, { resetForm }) => {
       console.log("entra");
@@ -154,10 +155,7 @@ export default function NewExpedientType() {
       const selectedExpedientType = expedientTypes.data.find(
         (expedientType) => expedientType.codigo === values.tipo
       );
-      setFieldValue(
-        "requirements",
-        selectedExpedientType?.requerimientos ?? []
-      );
+      setFieldValue("secciones", selectedExpedientType?.secciones ?? []);
     }
   }, [values?.tipo]);
 
@@ -222,88 +220,85 @@ export default function NewExpedientType() {
                       }))
                     : [],
               },
-              {
-                label: "Conexiones",
-                name: "conexiones",
-                type: FormInputType.Text,
-              },
-              {
-                label: "Guardado en",
-                name: "guardadoEn",
-                type: FormInputType.Select,
-                options: [
-                  { label: "En Carpeta", id: StoredIn.EnCarpeta },
-                  {
-                    label: "Expediente Vigente",
-                    id: StoredIn.CurrentExpedient,
-                  },
-                  { label: "Fisico", id: StoredIn.Fisico },
-                ],
-              },
-              {
-                label: "Responsable",
-                name: "responsable",
-                type: FormInputType.Text,
-              },
-              {
-                label: "codigo cliente",
-                name: "codigoCliente",
-                type: FormInputType.Text,
-              },
-              {
-                label: "codigo cliente provisional",
-                name: "codigoClienteProvisional",
-                type: FormInputType.Text,
-              },
-              {
-                label: "Cliente",
-                name: "cliente",
-                type: FormInputType.Text,
-              },
-              {
-                label: "Beneficiario",
-                name: "beneficiario",
-                type: FormInputType.Text,
-              },
-              {
-                label: "Asunto",
-                name: "asunto",
-                type: FormInputType.Text,
-              },
-              {
-                label: "fecha solicitud servicio notificacion",
-                name: "fechaSolicitudServicioNotificacion",
-                type: FormInputType.Date,
-              },
-              {
-                label: "plazoLegal",
-                name: "plazoLegal",
-                type: FormInputType.Text,
-              },
-              {
-                label: "estado",
-                name: "estado",
-                type: FormInputType.Text,
-              },
-              {
-                label: "empresa",
-                name: "empresa",
-                type: FormInputType.Text,
-              },
-              {
-                label: "honorarios",
-                name: "honorarios",
-                type: FormInputType.Text,
-              },
+              // {
+              //   label: "Conexiones",
+              //   name: "conexiones",
+              //   type: FormInputType.Text,
+              // },
+              // {
+              //   label: "Guardado en",
+              //   name: "guardadoEn",
+              //   type: FormInputType.Select,
+              //   options: [
+              //     { label: "En Carpeta", id: StoredIn.EnCarpeta },
+              //     {
+              //       label: "Expediente Vigente",
+              //       id: StoredIn.CurrentExpedient,
+              //     },
+              //     { label: "Fisico", id: StoredIn.Fisico },
+              //   ],
+              // },
+              // {
+              //   label: "Responsable",
+              //   name: "responsable",
+              //   type: FormInputType.Text,
+              // },
+              // {
+              //   label: "codigo cliente",
+              //   name: "codigoCliente",
+              //   type: FormInputType.Text,
+              // },
+              // {
+              //   label: "codigo cliente provisional",
+              //   name: "codigoClienteProvisional",
+              //   type: FormInputType.Text,
+              // },
+              // {
+              //   label: "Cliente",
+              //   name: "cliente",
+              //   type: FormInputType.Text,
+              // },
+              // {
+              //   label: "Beneficiario",
+              //   name: "beneficiario",
+              //   type: FormInputType.Text,
+              // },
+              // {
+              //   label: "Asunto",
+              //   name: "asunto",
+              //   type: FormInputType.Text,
+              // },
+              // {
+              //   label: "fecha solicitud servicio notificacion",
+              //   name: "fechaSolicitudServicioNotificacion",
+              //   type: FormInputType.Date,
+              // },
+              // {
+              //   label: "plazoLegal",
+              //   name: "plazoLegal",
+              //   type: FormInputType.Text,
+              // },
+              // {
+              //   label: "estado",
+              //   name: "estado",
+              //   type: FormInputType.Text,
+              // },
+              // {
+              //   label: "empresa",
+              //   name: "empresa",
+              //   type: FormInputType.Text,
+              // },
+              // {
+              //   label: "honorarios",
+              //   name: "honorarios",
+              //   type: FormInputType.Text,
+              // },
             ].map((item) => ({ ...item, formik })),
           },
         ]}
       >
-        {values?.requirements && values.requirements.length > 0 && (
-          <Requirements
-            formik={formik}
-            requirements={values?.requirements ?? []}
-          />
+        {values?.secciones && values.secciones.length > 0 && (
+          <Sections formik={formik} />
         )}
       </Form>
     </Layout>
