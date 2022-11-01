@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DashboardLayout from "../../layouts/layout";
 import DescriptionList from "../../components/description-list";
 import {
   ListItemType,
   ExpedientRequirementType,
   SliceState,
+  Section,
 } from "../../utils/types";
 import { useNavigate, useParams } from "react-router-dom";
 import Tabs from "../../components/tabs";
@@ -34,6 +35,8 @@ const ExpedientsView = () => {
 
   console.log({ expedient });
 
+  const [tabIndex, setTabIndex] = useState(0);
+
   return (
     <DashboardLayout
       title={expedient?.orden}
@@ -59,172 +62,172 @@ const ExpedientsView = () => {
       ]}
     >
       <Tabs
-        tabs={[
-          { name: "Información", href: "/expedients/2", current: false },
-          {
-            name: "Recursos",
-            href: "/expedients/2/resources",
-            current: false,
-          },
-        ]}
+        tabIndex={tabIndex}
+        setTab={setTabIndex}
+        tabs={
+          expedient?.secciones
+            ? [
+                "Información",
+                ...expedient.secciones.map(
+                  (section: Section) => section.nombre
+                ),
+              ]
+            : ["Información"]
+        }
       />
 
       <div className="mt-4">
         <HandleStatus status={status} data={expedient}>
-          <Routes>
-            <Route
-              path=""
-              element={
-                <DescriptionList
-                  {...{
-                    title: "Datos del expediente",
-                    description: "",
-                    list: [
-                      {
-                        type: ListItemType.Text,
-                        label: "identificador",
-                        value: expedient?._id,
+          {tabIndex === 0 && (
+            <DescriptionList
+              {...{
+                title: "Datos del expediente",
+                description: "",
+                list: [
+                  {
+                    type: ListItemType.Text,
+                    label: "identificador",
+                    value: expedient?._id,
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "orden",
+                    value: expedient?.orden,
+                  },
+                  {
+                    type: ListItemType.Button,
+                    label: "vinculado",
+                    value: {
+                      label: expedient?.vinculado,
+                      onClick: () => {
+                        alert("Ir a expedient vinculado");
                       },
-                      {
-                        type: ListItemType.Text,
-                        label: "orden",
-                        value: expedient?.orden,
-                      },
-                      {
-                        type: ListItemType.Button,
-                        label: "vinculado",
-                        value: {
-                          label: expedient?.vinculado,
-                          onClick: () => {
-                            alert("Ir a expedient vinculado");
-                          },
-                        },
-                      },
-                      {
-                        type: ListItemType.Text,
-                        label: "tipo",
-                        value: expedient?.tipo,
-                      },
-                      {
-                        type: ListItemType.Text,
-                        label: "conexiones",
-                        value: expedient?.conexiones,
-                      },
-                      {
-                        type: ListItemType.Text,
-                        label: "guardadoEn",
-                        value: expedient?.guardadoEn,
-                      },
-                      {
-                        type: ListItemType.Text,
-                        label: "responsable",
-                        value: expedient?.responsable,
-                      },
-                      {
-                        type: ListItemType.Text,
-                        label: "codigoCliente",
-                        value: expedient?.codigoCliente,
-                      },
-                      {
-                        type: ListItemType.Text,
-                        label: "codigoClienteProvisional",
-                        value: expedient?.codigoClienteProvisional,
-                      },
-                      {
-                        type: ListItemType.Text,
-                        label: "cliente",
-                        value: expedient?.cliente,
-                      },
-                      {
-                        type: ListItemType.Text,
-                        label: "beneficiario",
-                        value: expedient?.beneficiario,
-                      },
-                      {
-                        type: ListItemType.Text,
-                        label: "asunto",
-                        value: expedient?.asunto,
-                      },
-                      {
-                        type: ListItemType.Text,
-                        label: "fechaSolicitudServicioNotificacion",
-                        value: expedient?.fechaSolicitudServicioNotificacion,
-                      },
-                      {
-                        type: ListItemType.Text,
-                        label: "plazoLegal",
-                        value: expedient?.plazoLegal,
-                      },
-                      {
-                        type: ListItemType.Text,
-                        label: "estado",
-                        value: expedient?.estado,
-                      },
-                      {
-                        type: ListItemType.Text,
-                        label: "empresa",
-                        value: expedient?.empresa,
-                      },
-                      {
-                        type: ListItemType.Text,
-                        label: "honorarios",
-                        value: expedient?.honorarios,
-                      },
-                      {
-                        type: ListItemType.List,
-                        label: "Honorarios y Suplidos",
-                        value:
-                          expedient?.honorariosYSuplidos &&
-                          expedient?.honorariosYSuplidos.map(
-                            (honorarioYSuplido) => ({
-                              value: `${honorarioYSuplido?.tipo} - ${
-                                honorarioYSuplido?.cantidad
-                              }$ ${
-                                honorarioYSuplido?.descripcion
-                                  ? "- " + honorarioYSuplido?.descripcion
-                                  : ""
-                              }`,
-                            })
-                          ),
-                      },
-                    ],
-                  }}
-                />
-              }
-            />
-            <Route
-              path="resources"
-              element={
-                <DescriptionList
-                  {...{
-                    title: "Recursos",
-                    description: "",
-                    list:
-                      expedient?.requerimientos &&
-                      expedient?.requerimientos.map((requerimiento) =>
-                        requerimiento?.tipo === ExpedientRequirementType.Files
-                          ? {
-                              type: ListItemType.Button,
-                              label: requerimiento?.nombre,
-                              value: {
-                                label: "Descargar archivo",
-                                buttonLabel: "Descargar",
-                                onClick: () => {
-                                  alert("desargando archivo");
-                                },
-                              },
-                            }
-                          : {
-                              type: ListItemType.Text,
-                              label: requerimiento?.nombre,
-                              value: requerimiento.texto,
-                            }
+                    },
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "tipo",
+                    value: expedient?.tipo,
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "conexiones",
+                    value: expedient?.conexiones,
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "guardadoEn",
+                    value: expedient?.guardadoEn,
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "responsable",
+                    value: expedient?.responsable,
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "codigoCliente",
+                    value: expedient?.codigoCliente,
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "codigoClienteProvisional",
+                    value: expedient?.codigoClienteProvisional,
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "cliente",
+                    value: expedient?.cliente,
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "beneficiario",
+                    value: expedient?.beneficiario,
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "asunto",
+                    value: expedient?.asunto,
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "fechaSolicitudServicioNotificacion",
+                    value: expedient?.fechaSolicitudServicioNotificacion,
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "plazoLegal",
+                    value: expedient?.plazoLegal,
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "estado",
+                    value: expedient?.estado,
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "empresa",
+                    value: expedient?.empresa,
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "honorarios",
+                    value: expedient?.honorarios,
+                  },
+                  {
+                    type: ListItemType.List,
+                    label: "Honorarios y Suplidos",
+                    value:
+                      expedient?.honorariosYSuplidos &&
+                      expedient?.honorariosYSuplidos.map(
+                        (honorarioYSuplido) => ({
+                          value: `${honorarioYSuplido?.tipo} - ${
+                            honorarioYSuplido?.cantidad
+                          }$ ${
+                            honorarioYSuplido?.descripcion
+                              ? "- " + honorarioYSuplido?.descripcion
+                              : ""
+                          }`,
+                        })
                       ),
-                  }}
-                />
-              }
+                  },
+                ],
+              }}
             />
-          </Routes>
+          )}
+          {expedient?.secciones &&
+            expedient?.secciones.map(
+              (section, index) =>
+                index + 1 === tabIndex && (
+                  <DescriptionList
+                    {...{
+                      title: section.nombre,
+                      description: "",
+                      list:
+                        section.requerimientos &&
+                        section.requerimientos.map((requerimiento) =>
+                          requerimiento?.tipo === ExpedientRequirementType.Files
+                            ? {
+                                type: ListItemType.Button,
+                                label: requerimiento?.nombre,
+                                value: {
+                                  label: "Descargar archivo",
+                                  buttonLabel: "Descargar",
+                                  onClick: () => {
+                                    alert("desargando archivo");
+                                  },
+                                },
+                              }
+                            : {
+                                type: ListItemType.Text,
+                                label: requerimiento?.nombre,
+                                value: requerimiento.texto,
+                              }
+                        ),
+                    }}
+                  />
+                )
+            )}
         </HandleStatus>
       </div>
     </DashboardLayout>

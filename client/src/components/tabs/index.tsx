@@ -5,14 +5,13 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Tabs({ tabs }) {
-  const { pathname } = useLocation();
+export default function Tabs({ tabs, tabIndex, setTab }) {
+  const currentTab = useMemo(() => tabs[tabIndex], [tabs, tabIndex]);
 
-  const currentTab = useMemo(
-    () => tabs.find((tab) => tab.href === pathname),
-    [tabs, pathname]
+  const isCurrent = useCallback(
+    (tabItem) => currentTab === tabItem,
+    [currentTab]
   );
-  const isCurrent = useCallback((tab) => tab.href === pathname, [pathname]);
 
   return (
     <div>
@@ -25,20 +24,20 @@ export default function Tabs({ tabs }) {
           id="tabs"
           name="tabs"
           className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-          defaultValue={currentTab?.name}
+          defaultValue={currentTab}
         >
           {tabs.map((tab) => (
-            <option key={tab?.name}>{tab?.name}</option>
+            <option key={tab}>{tab}</option>
           ))}
         </select>
       </div>
       <div className="hidden sm:block">
         <div className="border-b border-gray-200">
           <nav className="-mb-px flex space-x-8" aria-label="Tabs">
-            {tabs.map((tab) => (
-              <Link
-                key={tab?.name}
-                to={tab.href}
+            {tabs.map((tab, index) => (
+              <span
+                key={tab}
+                onClick={() => setTab(index)}
                 className={classNames(
                   isCurrent(tab)
                     ? "border-indigo-500 text-indigo-600"
@@ -47,8 +46,8 @@ export default function Tabs({ tabs }) {
                 )}
                 aria-current={isCurrent(tab) ? "page" : undefined}
               >
-                {tab?.name}
-              </Link>
+                {tab}
+              </span>
             ))}
           </nav>
         </div>
