@@ -42,8 +42,8 @@ const Sections = ({ formik }) => {
     );
   };
   return (
-    <div className="space-y-6 bg-white py-6 px-4 sm:p-6">
-      <div>
+    <div className="">
+      <div className="space-y-6 mb-5">
         {formik.values.secciones.map((section: Section) => (
           <RequirementsBuilder
             formik={formik}
@@ -85,12 +85,7 @@ const Sections = ({ formik }) => {
           </div>
         </div>
       ) : (
-        <div
-          className={
-            formik.values.secciones.length !== 0 &&
-            "border-t border-gray-200 pt-4"
-          }
-        >
+        <div className={formik.values.secciones.length !== 0 && "pt-4"}>
           <Button onClick={() => setIsAddingSection(true)}>
             Añadir sección
           </Button>

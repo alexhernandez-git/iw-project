@@ -68,7 +68,7 @@ const FormSection = ({
                 />
               </svg>
             </span>
-            <span>
+            <span onClick={() => onDeleteSection(title)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

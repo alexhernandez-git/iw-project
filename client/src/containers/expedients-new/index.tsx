@@ -297,9 +297,7 @@ export default function NewExpedientType() {
           },
         ]}
       >
-        {values?.secciones && values.secciones.length > 0 && (
-          <Sections formik={formik} />
-        )}
+        <Sections formik={formik} />
       </Form>
     </Layout>
   );

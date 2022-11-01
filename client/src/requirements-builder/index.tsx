@@ -114,7 +114,7 @@ const RequirementsBuilder = ({
 
   console.log({ section });
   return (
-    <>
+    <div className="shadow sm:rounded-md bg-white py-6 px-4 sm:p-6">
       <div className="text-black">
         <form className="space-y-8 divide-y divide-gray-200">
           <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
@@ -166,7 +166,7 @@ const RequirementsBuilder = ({
           </Button>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
