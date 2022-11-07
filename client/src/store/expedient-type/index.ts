@@ -21,23 +21,23 @@ export const getExpedientType = createAsyncThunk(
   "expedients/getExpedientType",
   async (id: string) => {
     const response = await fetchExpedientType(id);
-    return response.data;
+    return response.data.expedientType;
   }
 );
 
 export const newExpedientType = createAsyncThunk(
   "expedients/newExpedientType",
-  async (id: string) => {
-    const response = await createExpedientType(id);
-    return response.data;
+  async (values: ExpedientType) => {
+    const response = await createExpedientType(values);
+    return response.data.expedientType;
   }
 );
 
 export const editExpedientType = createAsyncThunk(
   "expedients/editExpedientType",
-  async (id: string, data) => {
+  async ({ id, data }: { id: string; data: any }) => {
     const response = await updateExpedientType(id, data);
-    return response.data;
+    return response.data.expedientType;
   }
 );
 

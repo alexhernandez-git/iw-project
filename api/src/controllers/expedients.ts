@@ -1,11 +1,14 @@
 import { Request, Response, NextFunction } from "express";
+import { Types } from "mongoose";
 import { Expedient } from "../models/expedient";
+import { ExpedientType } from "../models/expedient-type";
 import { ExpedientResourceType, HonorariosYSuplidosType } from "../types";
 
 export const create = async (
   req: Request<{
     tipo: string;
     vinculado: string;
+    guardadoEn: string;
     asunto: string;
     secciones: {
       nombre: string;
@@ -27,15 +30,23 @@ export const create = async (
 ) => {
   try {
     const {
-      body: { tipo, vinculado, asunto, secciones, honorariosYSuplidos },
+      body: {
+        tipo,
+        vinculado,
+        asunto,
+        secciones,
+        honorariosYSuplidos,
+        guardadoEn,
+      },
     } = req;
     console.log({ tipo, vinculado, asunto, secciones });
 
     const expedient = await Expedient.create({
-      tipo,
+      tipo: new Types.ObjectId(tipo),
       vinculado,
       asunto,
       secciones,
+      guardadoEn,
       honorariosYSuplidos,
     });
 
@@ -79,6 +90,7 @@ export const findOne = async (
 
 export const find = async (
   req: Request<{
+    search: string;
     page: number;
     limit: number;
   }>,
@@ -115,6 +127,7 @@ export const updateOne = async (
     id: string;
     tipo: string;
     vinculado: string;
+    guardadoEn: string;
     asunto: string;
     honorariosYSuplidos: {
       tipo: { enum: HonorariosYSuplidosType; type: String };
@@ -136,16 +149,24 @@ export const updateOne = async (
 ) => {
   try {
     const {
-      body: { tipo, vinculado, asunto, secciones, honorariosYSuplidos },
+      body: {
+        tipo,
+        vinculado,
+        asunto,
+        secciones,
+        honorariosYSuplidos,
+        guardadoEn,
+      },
       params: { id },
     } = req;
-
+    console.log(req.body);
     const expedient = await Expedient.findOneAndUpdate(
       { _id: id },
       {
         $set: {
           tipo,
           vinculado,
+          guardadoEn,
           asunto,
           secciones,
           honorariosYSuplidos,

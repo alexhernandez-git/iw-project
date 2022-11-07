@@ -3,7 +3,7 @@ import { ExpedientResourceType, Models } from "../types";
 
 const expedientTypeSchema = new Schema({
   nombre: { type: String },
-  codigo: { type: String },
+  codigo: { type: String, unique: true },
   tramitePadre: {
     type: Schema.Types.ObjectId,
     default: null,

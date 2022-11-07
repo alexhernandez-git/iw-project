@@ -13,7 +13,6 @@ import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getExpedient } from "../../store/expedient";
 import { RootState } from "../../store";
-import Loading from "../../components/loading";
 import HandleStatus from "../../components/handle-status";
 
 const ExpedientsView = () => {
@@ -39,14 +38,14 @@ const ExpedientsView = () => {
 
   return (
     <DashboardLayout
-      title={expedient?.orden}
+      title={expedient?.orden ?? expedient?._id ?? "Sin nombre"}
       buttonSecondary={{
         label: "Crear expedient vinculado",
         onClick: () => navigate(`/expedients/new/${expedient?._id}`),
       }}
       button={{
         label: "Editar",
-        onClick: () => navigate("/expedients/edit/1"),
+        onClick: () => navigate(`/expedients/edit/${expedient?._id}`),
       }}
       pages={[
         {

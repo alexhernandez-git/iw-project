@@ -137,10 +137,10 @@ export default function NewExpedientType() {
       secciones: [],
     },
     onSubmit: (values, { resetForm }) => {
-      console.log("entra");
+      console.log({ createExpedientValues: values });
       dispatch(newExpedient(values))
         .unwrap()
-        .then(() => navigate("/expedients/2"))
+        .then(() => navigate(`/expedients`))
         .catch(() => {
           alert("error");
         });
@@ -153,7 +153,7 @@ export default function NewExpedientType() {
   useEffect(() => {
     if (expedientTypes.data) {
       const selectedExpedientType = expedientTypes.data.find(
-        (expedientType) => expedientType.codigo === values.tipo
+        (expedientType) => expedientType._id === values.tipo
       );
       setFieldValue("secciones", selectedExpedientType?.secciones ?? []);
     }
@@ -214,9 +214,9 @@ export default function NewExpedientType() {
                 type: FormInputType.Select,
                 options:
                   status === SliceState.Success && expedientTypes
-                    ? expedientTypes.data.map(({ nombre, codigo }) => ({
-                        label: nombre,
-                        id: codigo,
+                    ? expedientTypes.data.map(({ nombre, codigo, _id }) => ({
+                        label: `Nombre: ${nombre} Codigo: ${codigo}`,
+                        id: _id,
                       }))
                     : [],
               },

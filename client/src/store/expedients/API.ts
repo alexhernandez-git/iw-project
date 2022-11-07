@@ -1,5 +1,5 @@
-import { expedients, expedient } from "../../data";
 import { Expedient } from "../../utils/types";
+import axios from "axios";
 
 // A mock function to mimic making an async request for data
 export function fetchExpedients({
@@ -17,23 +17,25 @@ export function fetchExpedients({
       data: Expedient[];
     };
   }>((resolve) =>
-    setTimeout(
-      () =>
-        resolve({
-          data: {
-            count: 100,
-            page: 1,
-            size: 10,
-            data: expedients,
-          },
-        }),
-      500
+    resolve(
+      axios.get("http://localhost:8080/expedients", {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+        },
+      })
     )
   );
 }
 
 export function createExpedient(data) {
+  console.log({ data });
   return new Promise<{ data: Expedient }>((resolve) =>
-    setTimeout(() => resolve({ data: expedient }), 500)
+    resolve(
+      axios.post("http://localhost:8080/expedients", data, {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+        },
+      })
+    )
   );
 }

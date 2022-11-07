@@ -16,6 +16,8 @@ const Expedients = () => {
     value: { page, size, count, data },
   } = useSelector((state: RootState) => state.expedients);
 
+  console.log({ data });
+
   const { value: user } = useSelector((state: RootState) => state.user);
 
   const dispatch = useDispatch();

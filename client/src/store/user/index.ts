@@ -30,6 +30,7 @@ export const login = createAsyncThunk(
 export const getUser = createAsyncThunk("user/getUser", async () => {
   const token = localStorage.getItem("token") ?? "";
   const response = await fetchUser(token);
+  console.log({ response });
   return response.data;
 });
 
@@ -61,7 +62,7 @@ export const userSlice = createSlice({
       })
       .addCase(getUser.fulfilled, (state, action) => {
         state.status = SliceState.Success;
-        state.value = action.payload;
+        state.value = action.payload.user;
       })
       .addCase(getUser.rejected, (state) => {
         state.status = SliceState.Failed;

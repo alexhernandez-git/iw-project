@@ -42,7 +42,7 @@ const FormFieldLayout = ({
 
 export const FormTextField = ({ data }: Props) => {
   const { disabled, nombre, id, onEditField, getFieldValue } = data;
-
+  console.log("get field value", getFieldValue("Certificado"));
   return (
     <FormFieldLayout data={data}>
       <input

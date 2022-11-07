@@ -9,12 +9,15 @@ export const create = async (
     tramitePadre: string | null;
     descripcion: string;
     honorarios: number;
-    recursos: {
+    secciones: {
       nombre: string;
-      tipo: ExpedientResourceType;
-      texto: string;
-      descripcion: string;
-      custom?: boolean = false;
+      recursos: {
+        nombre: string;
+        tipo: ExpedientResourceType;
+        texto: string;
+        descripcion: string;
+        custom?: boolean = false;
+      }[];
     }[];
   }>,
   res: Response,
@@ -22,17 +25,41 @@ export const create = async (
 ) => {
   try {
     const {
-      body: { nombre, codigo, tramitePadre, descripcion, honorarios, recursos },
+      body: {
+        nombre,
+        codigo,
+        tramitePadre,
+        descripcion,
+        honorarios,
+        secciones,
+      },
     } = req;
 
-    const expedientType = await ExpedientType.create({
-      nombre,
-      codigo,
-      tramitePadre,
-      descripcion,
-      honorarios,
-      recursos,
-    });
+    const expedientType = await ExpedientType.create(
+      tramitePadre
+        ? {
+            nombre,
+            codigo,
+            tramitePadre,
+            descripcion,
+            honorarios,
+            secciones,
+          }
+        : {
+            nombre,
+            codigo,
+            descripcion,
+            honorarios,
+            secciones,
+          }
+    );
+
+    if (expedientType.tramitePadre) {
+      const parentExpedient = await ExpedientType.findById(
+        expedientType.tramitePadre
+      ).select({ nombre: 1, _id: 1, codigo: 1 });
+      expedientType.tramitePadre = parentExpedient;
+    }
 
     res.send({ expedientType, success: true });
   } catch (error) {
@@ -63,7 +90,17 @@ export const findOne = async (
       });
     }
 
-    res.send({ expedientType, success: true });
+    if (expedientType.tramitePadre) {
+      const parentExpedient = await ExpedientType.findById(
+        expedientType.tramitePadre
+      ).select({ nombre: 1, _id: 1, codigo: 1 });
+      expedientType.tramitePadre = parentExpedient;
+    }
+
+    res.send({
+      expedientType,
+      success: true,
+    });
   } catch (error) {
     next({
       statusCode: 500,
@@ -80,14 +117,26 @@ export const find = async (
   res: Response,
   next: NextFunction
 ) => {
-  // const { page = 1, limit = 10 } = req.params;
+  const { page = 1, limit = null } = req.params;
   try {
     // const expedientTypes = await ExpedientType.find()
     //   .limit(limit * 1)
     //   .skip((page - 1) * limit)
     //   .exec();
 
-    const expedientTypes = await ExpedientType.find();
+    let expedientTypes = [];
+
+    if (!limit) {
+      expedientTypes = await ExpedientType.find().select({
+        nombre: 1,
+        _id: 1,
+        codigo: 1,
+        tramitePadre: 1,
+        secciones: 1,
+      });
+    } else {
+      expedientTypes = await ExpedientType.find();
+    }
 
     res.send({
       count: expedientTypes.length,
@@ -128,27 +177,49 @@ export const updateOne = async (
 ) => {
   try {
     const {
-      body: { nombre, codigo, tramitePadre, descripcion, honorarios, recursos },
+      body: {
+        nombre,
+        codigo,
+        tramitePadre,
+        descripcion,
+        honorarios,
+        secciones,
+      },
       params: { id },
     } = req;
 
     const expedientType = await ExpedientType.findOneAndUpdate(
       { _id: id },
       {
-        $set: {
-          nombre,
-          codigo,
-          tramitePadre,
-          descripcion,
-          honorarios,
-          recursos,
-        },
+        $set: tramitePadre
+          ? {
+              nombre,
+              codigo,
+              tramitePadre,
+              descripcion,
+              honorarios,
+              secciones,
+            }
+          : {
+              nombre,
+              codigo,
+              descripcion,
+              honorarios,
+              secciones,
+            },
       },
       {
         upsert: true,
         new: true,
       }
     );
+
+    if (expedientType.tramitePadre) {
+      const parentExpedient = await ExpedientType.findById(
+        expedientType.tramitePadre
+      ).select({ nombre: 1, _id: 1, codigo: 1 });
+      expedientType.tramitePadre = parentExpedient;
+    }
 
     res.send({
       expedientType,

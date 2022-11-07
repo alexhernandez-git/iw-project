@@ -98,9 +98,9 @@ export type FieldData = {
   descripcion: string;
   custom?: boolean;
   disabled?: boolean;
-  onDeleteField: (id: string) => void;
-  onEditField: (id: string, text: string) => void;
-  getFieldValue: (id: string) => string;
+  onDeleteField: (nombre: string) => void;
+  onEditField: (nombre: string, text: string) => void;
+  getFieldValue: (nombre: string) => string;
   formik: any;
 };
 

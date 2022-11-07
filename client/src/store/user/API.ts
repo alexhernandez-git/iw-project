@@ -1,10 +1,9 @@
-import { token, user } from "../../data";
 import { User } from "../../utils/types";
 import axios from "axios";
-// A mock function to mimic making an async request for data
+
 export function fetchUser(token: string) {
   return new Promise<{ data: User }>((resolve) =>
-    setTimeout(() => resolve({ data: user }), 2000)
+    resolve(axios.get(`http://localhost:8080/users/get-user/${token}`))
   );
 }
 

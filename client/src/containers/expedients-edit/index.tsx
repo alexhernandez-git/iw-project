@@ -8,8 +8,9 @@ import Sections from "../../components/sections";
 import { expedients } from "../../data";
 import DashboardLayout from "../../layouts/layout";
 import Requirements from "../../requirements-builder";
-import { RootState } from "../../store";
-import { getExpedient } from "../../store/expedient";
+import { RootState, useAppDispatch } from "../../store";
+import { editExpedient, getExpedient } from "../../store/expedient";
+import { updateExpedient } from "../../store/expedient/API";
 import { makeId } from "../../utils/helpers";
 import {
   FormInputType,
@@ -20,17 +21,11 @@ import {
 const ExpedientsEdit = () => {
   const { id } = useParams();
 
+  const dispatch = useDispatch();
+
   const { status, value: expedient } = useSelector(
     (state: RootState) => state.expedient
   );
-
-  const [requirements, setRequeriments] = useState(expedient?.recursos);
-
-  useEffect(() => {
-    if (expedient?.recursos) {
-      setRequeriments(expedient.recursos);
-    }
-  }, [expedient]);
 
   const formik = useFormik({
     initialValues: {
@@ -42,16 +37,16 @@ const ExpedientsEdit = () => {
       codigoClienteProvisional: expedient?.codigoClienteProvisional ?? "",
       honorariosYSuplidos: expedient?.honorariosYSuplidos ?? [],
       secciones: expedient?.secciones ?? [],
+      asunto: expedient?.asunto ?? "",
     },
     enableReinitialize: true,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      console.log({ values });
+      dispatch(editExpedient({ id, data: values }));
     },
   });
 
   const { handleSubmit, values } = formik;
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getExpedient(id));
@@ -66,18 +61,18 @@ const ExpedientsEdit = () => {
       }}
       pages={[
         {
-          name: "Expedientex",
+          name: "Expedientes",
           href: "/expedients",
           current: false,
         },
         {
-          name: "Expediente 3",
-          href: "/expedients/3",
+          name: `Expediente`,
+          href: `/expedients/${id}`,
           current: true,
         },
         {
           name: "Editar expediente",
-          href: "/expedients/edit/2",
+          href: `/expedients/edit/${id}`,
           current: true,
         },
       ]}
@@ -101,9 +96,15 @@ const ExpedientsEdit = () => {
                     name: "guardadoEn",
                     type: FormInputType.Select,
                     options: [
-                      StoredIn.EnCarpeta,
-                      StoredIn.CurrentExpedient,
-                      StoredIn.Fisico,
+                      { id: StoredIn.EnCarpeta, label: "En carpeta" },
+                      {
+                        id: StoredIn.CurrentExpedient,
+                        label: "Expediente vigente",
+                      },
+                      {
+                        id: StoredIn.Fisico,
+                        label: "En físico",
+                      },
                     ],
                   },
                   {

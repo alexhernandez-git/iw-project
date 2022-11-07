@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Combobox } from "@headlessui/react";
 
@@ -14,10 +14,24 @@ type Props = {
 
 const SelectInput = ({ label, options, name, formik }: Props) => {
   const [query, setQuery] = useState("");
-
+  console.log({ options });
   const [optionsValues, setOptionsValues] = useState(
-    formik.values[name] ?? "-"
+    options.find((optionItem) => optionItem.id === formik.values[name])
+      ?.label ?? "-"
   );
+
+  useEffect(() => {
+    console.log({ value: formik.values[name] });
+    console.log({ options });
+    console.log(
+      "option value",
+      options.find((optionItem) => optionItem.id === formik.values[name])
+    );
+    setOptionsValues(
+      options.find((optionItem) => optionItem.id === formik.values[name])
+        ?.label ?? "-"
+    );
+  }, [options, formik.values[name]]);
 
   const allOptions = useMemo(
     () => [{ id: "-", label: "-" }, ...options],
@@ -30,6 +44,7 @@ const SelectInput = ({ label, options, name, formik }: Props) => {
     );
     console.log("entra", selectedOption?.id);
     formik.setFieldValue(name, selectedOption?.id ?? null);
+    console.log({ value });
     setOptionsValues(value);
   };
 
@@ -39,6 +54,8 @@ const SelectInput = ({ label, options, name, formik }: Props) => {
       : allOptions.filter((option) => {
           return option.label.toLowerCase().includes(query.toLowerCase());
         });
+
+  console.log(optionsValues);
 
   return (
     <div className="col-span-6 sm:col-span-3">

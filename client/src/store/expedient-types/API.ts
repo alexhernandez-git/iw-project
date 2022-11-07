@@ -1,5 +1,6 @@
 import { expedientTypes } from "../../data";
 import { ExpedientType } from "../../utils/types";
+import axios from "axios";
 
 // A mock function to mimic making an async request for data
 export function fetchExpedientTypes({
@@ -19,26 +20,20 @@ export function fetchExpedientTypes({
       data: ExpedientType[];
     };
   }>((resolve) =>
-    setTimeout(
-      () =>
-        getAll
-          ? resolve({
-              data: {
-                count: expedientTypes.length,
-                page: 0,
-                size: expedientTypes.length,
-                data: expedientTypes,
-              },
-            })
-          : resolve({
-              data: {
-                count: 100,
-                page: 1,
-                size: 10,
-                data: expedientTypes,
-              },
-            }),
-      500
-    )
+    getAll
+      ? resolve(
+          axios.get("http://localhost:8080/expedient-types", {
+            headers: {
+              Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+            },
+          })
+        )
+      : resolve(
+          axios.get("http://localhost:8080/expedient-types?page=1&limit=10", {
+            headers: {
+              Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+            },
+          })
+        )
   );
 }

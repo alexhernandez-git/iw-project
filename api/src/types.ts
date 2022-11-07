@@ -148,5 +148,5 @@ export type ExpedientType = {
   tramitePadre: string;
   descripcio: string;
   honorarios: number;
-  requerimientos: ExpedientResource[];
+  recursos: ExpedientResource[];
 };

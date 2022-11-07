@@ -102,17 +102,19 @@ const RequirementsBuilder = ({
     );
   };
 
-  const getFieldValue = (nombre: string) => {
+  const getFieldValue = (nombre: string): string => {
+    let texto = "";
     values.secciones.forEach((sectionItem: Section) => {
       if (sectionItem.nombre === section.nombre) {
-        return sectionItem.recursos.find(
-          (requirement) => requirement.nombre === nombre
-        )?.texto;
+        texto =
+          sectionItem.recursos.find(
+            (requirement) => requirement.nombre === nombre
+          )?.texto ?? "";
       }
     });
+    return texto;
   };
 
-  console.log({ section });
   return (
     <div className="shadow sm:rounded-md bg-white py-6 px-4 sm:p-6">
       <div className="text-black">

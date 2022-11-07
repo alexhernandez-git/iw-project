@@ -1,19 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Form from "../../components/form";
 import DashboardLayout from "../../layouts/layout";
-import { FormInputType } from "../../utils/types";
+import { FormInputType, SliceState } from "../../utils/types";
 import { useFormik } from "formik";
 import Sections from "../../components/sections";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { newExpedientType } from "../../store/expedient-type";
+import { useNavigate } from "react-router-dom";
+import { getExpedientTypes } from "../../store/expedient-types";
 
 const ExpedientsTypesNew = () => {
+  const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getExpedientTypes({ getAll: true }));
+  }, []);
+
+  const { status: expedientTypesStatus, value: expedientTypes } =
+    useAppSelector((state) => state.expedientTypes);
+
   const formik = useFormik({
     initialValues: {
-      code: "",
-      name: "",
+      codigo: "",
+      nombre: "",
+      honorarios: "",
+      tramitePadre: "",
       secciones: [],
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      dispatch(newExpedientType(values))
+        .unwrap()
+        .then(() => navigate(`/expedients-types`))
+        .catch(() => {
+          alert("error");
+        });
     },
   });
 
@@ -47,34 +69,34 @@ const ExpedientsTypesNew = () => {
               inputs: [
                 {
                   label: "Codigo",
-                  name: "code",
-                  formik,
+                  name: "codigo",
                   type: FormInputType.Text,
                 },
                 {
                   label: "Nombre",
-                  name: "name",
-                  formik,
+                  name: "nombre",
                   type: FormInputType.Text,
                 },
                 {
                   label: "Honorarios",
-                  name: "codigo",
+                  name: "honorarios",
                   formik,
                   type: FormInputType.Text,
                 },
                 {
                   label: "Padre",
-                  name: "parent",
-                  options: [
-                    { id: "parent1", label: "parent1" },
-                    { id: "parent2", label: "parent2" },
-                    { id: "parent3", label: "parent3" },
-                  ],
-                  formik,
+                  name: "tramitePadre",
                   type: FormInputType.Select,
+                  options:
+                    expedientTypesStatus === SliceState.Success &&
+                    expedientTypes
+                      ? expedientTypes.data.map(({ nombre, codigo, _id }) => ({
+                          label: `Nombre: ${nombre} Codigo: ${codigo}`,
+                          id: _id,
+                        }))
+                      : [],
                 },
-              ],
+              ].map((item) => ({ ...item, formik })),
             },
           ]}
         >

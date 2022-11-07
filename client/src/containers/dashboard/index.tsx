@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../../layouts/layout";
 import { ScaleIcon } from "@heroicons/react/24/outline";
 import ExpedientsList from "../../components/expedients-list";
 import Card from "../../components/card";
 import { expedients } from "../../data";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { getExpedients } from "../../store/expedients";
+import HandleStatus from "../../components/handle-status";
 const cards = [
   { name: "Expedientes", href: "#", icon: ScaleIcon, amount: "42" },
   { name: "Expedientes en progreso", href: "#", icon: ScaleIcon, amount: "12" },
@@ -12,10 +15,21 @@ const cards = [
 ];
 
 const Dashboard = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getExpedients({}));
+  }, []);
+
+  const {
+    status,
+    value: { page, size, count, data },
+  } = useAppSelector((state) => state.expedients);
+
   return (
     <Layout>
       <div className="mt-8">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="">
           {/* <h2 className="text-lg font-medium leading-6 text-gray-900">
             Overview
           </h2> */}
@@ -26,11 +40,13 @@ const Dashboard = () => {
             ))}
           </div>
         </div>
-        <div className="mx-auto mt-8 max-w-6xl  sm:px-6">
-          <h2 className="text-lg font-medium leading-6 text-gray-900 sm:px-6 lg:px-8">
+        <div className="mx-auto mt-8 max-w-6xl px-6 sm:px-0">
+          <h2 className="text-lg font-medium leading-6 text-gray-900 px-1">
             Recent activity
           </h2>
-          <ExpedientsList {...{ expedients }} />
+          <HandleStatus status={status} data={data}>
+            <ExpedientsList home expedients={data.slice(0, 5)} />
+          </HandleStatus>
         </div>
       </div>
     </Layout>

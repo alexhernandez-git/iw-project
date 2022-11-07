@@ -32,11 +32,12 @@ const positions = [
   },
 ];
 
-export default function ExpedientsTypesList() {
+export default function ExpedientsTypesList({ expedientTypes }: any) {
+  console.log({ expedientTypes });
   return (
     <div className="overflow-hidden bg-white shadow sm:rounded-md">
       <ul role="list" className="divide-y divide-gray-200">
-        {positions.map((expedient) => (
+        {expedientTypes.map((expedient) => (
           <ExpedientsTypesCard expedient={expedient} />
         ))}
       </ul>

@@ -1,14 +1,11 @@
 import React, { useEffect } from "react";
 import DashboardLayout from "../../layouts/layout";
-import { expedientTypes } from "../../data";
 import DescriptionList from "../../components/description-list";
 import { ExpedientRequirementType, ListItemType } from "../../utils/types";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store";
 import HandleStatus from "../../components/handle-status";
 import { getExpedientType } from "../../store/expedient-type";
-
-const tipoDeExpediente = expedientTypes[0];
 
 const ExpedientsTypesView = () => {
   const navigate = useNavigate();
@@ -29,10 +26,14 @@ const ExpedientsTypesView = () => {
 
   return (
     <DashboardLayout
-      title={tipoDeExpediente.nombre}
+      title={
+        expedientType?.nombre ??
+        expedientType?.codigo ??
+        "Expediente sin nombre"
+      }
       button={{
         label: "Editar",
-        onClick: () => navigate("/expedients-types/edit/1"),
+        onClick: () => navigate(`/expedients-types/edit/${id}`),
       }}
       pages={[
         {
@@ -42,16 +43,15 @@ const ExpedientsTypesView = () => {
         },
         {
           name: "Tipo de expediente",
-          href: "/expedients-types/view",
+          href: `/expedients-types/${id}`,
           current: true,
         },
       ]}
     >
-      <HandleStatus status={status} data={expedientTypes}>
+      <HandleStatus status={status} data={expedientType}>
         <DescriptionList
           {...{
             title: "Datos del expediente",
-            description: "hola a todos",
             list: [
               {
                 type: ListItemType.Text,
@@ -59,29 +59,36 @@ const ExpedientsTypesView = () => {
                 value: expedientType?.nombre,
               },
               {
+                type: ListItemType.Text,
+                label: "Codigo",
+                value: expedientType?.codigo,
+              },
+              {
                 type: ListItemType.Button,
                 label: "Padre",
                 value: {
-                  label: "Expediente 1",
+                  label: expedientType?.tramitePadre?.codigo,
                   onClick: () => {
-                    alert("entra");
+                    window.open(
+                      `/expedients-types/${expedientType?.tramitePadre?._id}`,
+                      "_blank"
+                    );
                   },
                 },
               },
-              {
-                type: ListItemType.List,
-                label: "Hijos",
-                value: [
-                  {
-                    value: "Expediente 3",
-                    onClick: () => {},
-                  },
-                  {
-                    value: "Expediente 4",
-                    onClick: () => {},
-                  },
-                ],
-              },
+              // {
+              //   type: ListItemType.List,
+              //   label: "Hijos",
+              //   value: expedientType?.tramitesHijos.map((tramiteHijo) => ({
+              //     value: tramiteHijo.codigo,
+              //     onClick: () => {
+              //       window.open(
+              //         `/expedients-types/${tramiteHijo?._id}`,
+              //         "_blank"
+              //       );
+              //     },
+              //   })),
+              // },
             ],
           }}
         />
@@ -89,8 +96,7 @@ const ExpedientsTypesView = () => {
         {expedientType?.secciones.map((section) => (
           <DescriptionList
             {...{
-              title: "Requerimientos del expediente",
-              description: "hola a todos",
+              title: section.nombre,
               list: section?.recursos.map((requerimiento) =>
                 requerimiento.tipo === ExpedientRequirementType.Text ||
                 requerimiento.tipo === ExpedientRequirementType.LargeText

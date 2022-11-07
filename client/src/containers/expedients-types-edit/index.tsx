@@ -1,25 +1,20 @@
 import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Form from "../../components/form";
 import HandleStatus from "../../components/handle-status";
 import Sections from "../../components/sections";
 import DashboardLayout from "../../layouts/layout";
-import Requirements from "../../requirements-builder";
 import { useAppSelector } from "../../store";
-import { getExpedientType } from "../../store/expedient-type";
-import { getExpedientTypes } from "../../store/expedient-types";
-import { makeId } from "../../utils/helpers";
 import {
-  FormInputType,
-  ExpedientRequirementType,
-  SliceState,
-} from "../../utils/types";
+  editExpedientType,
+  getExpedientType,
+} from "../../store/expedient-type";
+import { getExpedientTypes } from "../../store/expedient-types";
+import { FormInputType, SliceState } from "../../utils/types";
 
 const ExpedientsTypesEdit = () => {
-  const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,21 +31,22 @@ const ExpedientsTypesEdit = () => {
   const { status: expedientTypesStatus, value: expedientTypes } =
     useAppSelector((state) => state.expedientTypes);
 
-  console.log({ expedientTypesStatus, expedientTypes });
-
   const formik = useFormik({
     initialValues: {
-      code: "",
-      name: "",
+      codigo: expedientType?.codigo ?? "",
+      nombre: expedientType?.nombre ?? "",
+      tramitePadre: expedientType?.tramitePadre?._id ?? "",
       secciones: [],
     },
     enableReinitialize: true,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      dispatch(editExpedientType({ id, data: values }));
     },
   });
 
-  const { values, handleSubmit } = formik;
+  const { handleSubmit } = formik;
+
+  console.log({ expedientType });
 
   return (
     <DashboardLayout
@@ -67,12 +63,12 @@ const ExpedientsTypesEdit = () => {
         },
         {
           name: "Tipo de expediente",
-          href: "/expedients-types/view",
-          current: true,
+          href: `/expedients-types/${id}`,
+          current: false,
         },
         {
           name: "Editar tipo de expediente",
-          href: "/expedients-types/edit/2",
+          href: `/expedients-types/edit/${id}`,
           current: true,
         },
       ]}
@@ -81,7 +77,7 @@ const ExpedientsTypesEdit = () => {
         <HandleStatus status={expedientTypesStatus} data={expedientTypes}>
           <div className="space-y-6 sm:px-6 lg:col-span-9 lg:px-0 mb-6">
             <Form
-              onSubmit={() => {}}
+              onSubmit={handleSubmit}
               data={[
                 {
                   label: "Información",
@@ -89,28 +85,29 @@ const ExpedientsTypesEdit = () => {
                   inputs: [
                     {
                       label: "Codigo",
-                      name: "code",
+                      name: "codigo",
                       type: FormInputType.Text,
                     },
                     {
                       label: "Nombre",
-                      name: "name",
+                      name: "nombre",
                       type: FormInputType.Text,
                     },
                     {
                       label: "Padre",
-                      name: "parent",
+                      name: "tramitePadre",
                       type: FormInputType.Select,
                       options:
                         expedientTypesStatus === SliceState.Success &&
                         expedientTypes
                           ? expedientTypes.data
-                              .map(({ nombre, codigo }) => ({
-                                label: nombre,
-                                id: codigo,
+                              .map(({ nombre, codigo, _id }) => ({
+                                label: `Nombre: ${nombre} Codigo: ${codigo}`,
+                                id: _id,
                               }))
                               .filter(
-                                (expedientType) => expedientType.id !== id
+                                (expedientTypeItem) =>
+                                  expedientTypeItem.id !== id
                               )
                           : [],
                     },

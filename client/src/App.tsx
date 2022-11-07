@@ -18,7 +18,7 @@ import { getUser } from "./store/user";
 function App() {
   const state = useSelector((state: RootState) => state);
 
-  console.log(state);
+  console.log({ state });
 
   const dispatch = useDispatch();
 

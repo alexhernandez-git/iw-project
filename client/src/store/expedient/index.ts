@@ -17,7 +17,7 @@ export const getExpedient = createAsyncThunk(
   "expedients/getExpedient",
   async (id: string) => {
     const response = await fetchExpedient(id);
-    return response.data;
+    return response.data.expedient;
   }
 );
 
@@ -31,9 +31,10 @@ export const newExpedient = createAsyncThunk(
 
 export const editExpedient = createAsyncThunk(
   "expedients/editExpedient",
-  async (id: string, data) => {
+  async ({ id, data }: { id: string; data: any }) => {
+    console.log({ data });
     const response = await updateExpedient(id, data);
-    return response.data;
+    return response.data.expedient;
   }
 );
 

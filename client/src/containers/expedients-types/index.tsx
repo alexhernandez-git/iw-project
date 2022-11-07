@@ -21,6 +21,8 @@ const ExpedientsTypes = () => {
     (state: RootState) => state.expedientTypes
   );
 
+  const { data } = expedientTypes;
+
   const [search, setSearch] = useSearch({
     callback: (searchValue) => {
       console.log("text-changed expedients types", searchValue);
@@ -43,7 +45,7 @@ const ExpedientsTypes = () => {
       search={{ search, setSearch }}
     >
       <HandleStatus status={status} data={expedientTypes}>
-        <ExpedientsTypesList {...{ expedientTypes }} />
+        <ExpedientsTypesList {...{ expedientTypes: data }} />
       </HandleStatus>
     </DashboardLayout>
   );
