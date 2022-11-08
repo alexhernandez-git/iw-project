@@ -2,6 +2,10 @@ import { Schema, model, Document } from "mongoose";
 import { ExpedientResourceType, Models } from "../types";
 
 const expedientTypeSchema = new Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: Models.User,
+  },
   nombre: { type: String },
   codigo: { type: String, unique: true },
   tramitePadre: {
@@ -27,6 +31,10 @@ const expedientTypeSchema = new Schema({
     },
   ],
 });
+
+expedientTypeSchema.set("timestamps", true);
+expedientTypeSchema.index({ createdAt: 1 });
+expedientTypeSchema.index({ updatedAt: 1 });
 
 const ExpedientType = model(Models.ExpedientType, expedientTypeSchema);
 export { ExpedientType };

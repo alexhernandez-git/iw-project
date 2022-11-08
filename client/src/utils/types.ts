@@ -48,6 +48,7 @@ export type FormInput = {
 
 export enum ExpedientState {
   Draft = "draft", // Para colaborador PENDIENTE
+  DocumentacionPendiente = "documentacionpendiente", // Para colaborador PENDIENTE
   DocumentacionCompleta = "documentacioncompleta", // Para colaborador PENDIENTE
   ExpedientCursadoNoConcluido = "expedientecursadonoconcluido", // Para colaborador EN TRAMITE
   // En este punto puede que se pida crear otro expediente amb orden (id del antiguo expediente)

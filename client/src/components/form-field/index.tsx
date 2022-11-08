@@ -19,7 +19,7 @@ const FormFieldLayout = ({
         <div className="flex justify-end" onClick={() => onDeleteField(id)}>
           <button
             type="button"
-            className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-esan-color focus:ring-offset-2"
           >
             <span className="sr-only">Close panel</span>
             <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -53,7 +53,7 @@ export const FormTextField = ({ data }: Props) => {
         onChange={(e: { target: { value: string } }) =>
           onEditField && onEditField(id, e.target.value)
         }
-        className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm"
+        className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-esan-color focus:ring-esan-color sm:max-w-xs sm:text-sm"
       />
     </FormFieldLayout>
   );
@@ -73,7 +73,7 @@ export const FormTextAreaField = ({ data }: Props) => {
         onChange={(e: { target: { value: string } }) =>
           onEditField && onEditField(id, e.target.value)
         }
-        className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-esan-color focus:ring-esan-color sm:text-sm"
         defaultValue={""}
       />
     </FormFieldLayout>
@@ -105,7 +105,7 @@ export const FormFileField = ({ data }: Props) => {
           <div className="flex text-sm text-gray-600">
             <label
               htmlFor="file-upload"
-              className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
+              className="relative cursor-pointer rounded-md bg-white font-medium text-esan-color focus-within:outline-none focus-within:ring-2 focus-within:ring-esan-color focus-within:ring-offset-2 hover:text-esan-color"
             >
               <span>Upload a file</span>
               <input

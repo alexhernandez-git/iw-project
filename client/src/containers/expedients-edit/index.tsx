@@ -16,6 +16,7 @@ import {
   FormInputType,
   StoredIn,
   ExpedientRequirementType,
+  ExpedientState,
 } from "../../utils/types";
 
 const ExpedientsEdit = () => {
@@ -32,7 +33,8 @@ const ExpedientsEdit = () => {
       tipo: expedient?.tipo ?? "",
       conexiones: expedient?.conexiones ?? "",
       guardadoEn: expedient?.guardadoEn ?? "",
-      responsable: expedient?.guardadoEn ?? "",
+      responsable: expedient?.responsable ?? "",
+      estado: expedient?.estado ?? "",
       codigoCliente: expedient?.codigoCliente ?? "",
       codigoClienteProvisional: expedient?.codigoClienteProvisional ?? "",
       honorariosYSuplidos: expedient?.honorariosYSuplidos ?? [],
@@ -86,6 +88,39 @@ const ExpedientsEdit = () => {
                 label: "Información",
                 description: "",
                 inputs: [
+                  {
+                    label: "Estado",
+                    name: "estado",
+                    type: FormInputType.Select,
+                    options: [
+                      { id: ExpedientState.Draft, label: "Draft" },
+                      {
+                        id: ExpedientState.DocumentacionPendiente,
+                        label: "Documentación pendiente",
+                      },
+                      {
+                        id: ExpedientState.DocumentacionCompleta,
+                        label: "Documentación completa",
+                      },
+                      {
+                        id: ExpedientState.ExpedientCursadoNoConcluido,
+                        label: "Expediente cursado no concluido",
+                      },
+                      { id: ExpedientState.Concluido, label: "Concluido" },
+                      {
+                        id: ExpedientState.ResolucionFaborable,
+                        label: "Resolución favorable",
+                      },
+                      {
+                        id: ExpedientState.ResolucionDeNegatoria,
+                        label: "Resolución de negatoria",
+                      },
+                      {
+                        id: ExpedientState.NoResolucion,
+                        label: "No resolución",
+                      },
+                    ],
+                  },
                   {
                     label: "Conexiones",
                     name: "conexiones",
@@ -147,11 +182,7 @@ const ExpedientsEdit = () => {
                     name: "plazoLegal",
                     type: FormInputType.Text,
                   },
-                  {
-                    label: "estado",
-                    name: "estado",
-                    type: FormInputType.Text,
-                  },
+
                   {
                     label: "empresa",
                     name: "empresa",

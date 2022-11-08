@@ -79,7 +79,7 @@ export default function NewField({
               value={formik.values.nombre}
               id="nombre"
               placeholder="Ej: DNI, dirección, codigo postal..."
-              className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm"
+              className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-esan-color focus:ring-esan-color sm:max-w-xs sm:text-sm"
             />
           </div>
         </div>
@@ -103,7 +103,7 @@ export default function NewField({
               className={({ checked, active }) =>
                 classNames(
                   checked ? "border-transparent" : "border-gray-300",
-                  active ? "border-indigo-500 ring-2 ring-indigo-500" : "",
+                  active ? "border-esan-color ring-2 ring-esan-color" : "",
                   "relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none"
                 )
               }
@@ -129,14 +129,14 @@ export default function NewField({
                   <CheckCircleIcon
                     className={classNames(
                       !checked ? "invisible" : "",
-                      "h-5 w-5 text-indigo-600"
+                      "h-5 w-5 text-esan-color"
                     )}
                     aria-hidden="true"
                   />
                   <span
                     className={classNames(
                       active ? "border" : "border-2",
-                      checked ? "border-indigo-500" : "border-transparent",
+                      checked ? "border-esan-color" : "border-transparent",
                       "pointer-events-none absolute -inset-px rounded-lg"
                     )}
                     aria-hidden="true"

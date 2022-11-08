@@ -7,24 +7,51 @@ import { expedients } from "../../data";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { getExpedients } from "../../store/expedients";
 import HandleStatus from "../../components/handle-status";
-const cards = [
-  { name: "Expedientes", href: "#", icon: ScaleIcon, amount: "42" },
-  { name: "Expedientes en progreso", href: "#", icon: ScaleIcon, amount: "12" },
-  { name: "Expedientes terminados", href: "#", icon: ScaleIcon, amount: "30" },
-  // More items...
-];
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getExpedients({}));
   }, []);
 
   const {
+    status: userStatus,
+    statistics: {
+      expedientesCount,
+      expedientesEnProgresoCount,
+      expedientesFinalizadosCount,
+    },
+  } = useAppSelector((state) => state.user);
+
+  const {
     status,
     value: { page, size, count, data },
   } = useAppSelector((state) => state.expedients);
+
+  const cards = [
+    {
+      name: "Expedientes",
+      href: "/expedients",
+      icon: ScaleIcon,
+      amount: expedientesCount,
+    },
+    {
+      name: "Expedientes en progreso",
+      href: "/expedients",
+      icon: ScaleIcon,
+      amount: expedientesEnProgresoCount,
+    },
+    {
+      name: "Expedientes terminados",
+      href: "/expedients",
+      icon: ScaleIcon,
+      amount: expedientesFinalizadosCount,
+    },
+  ];
 
   return (
     <Layout>

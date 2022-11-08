@@ -72,7 +72,7 @@ const ArrayInput = ({ label, name, formik: formFormik }: Props) => {
                 <button
                   type="button"
                   onClick={() => onDeleteInput(index)}
-                  className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-esan-color focus:ring-offset-2"
                 >
                   <span className="sr-only">Close panel</span>
                   <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -93,7 +93,7 @@ const ArrayInput = ({ label, name, formik: formFormik }: Props) => {
                       onEditInput({ index, tipo: e.target.value, cantidad })
                     }
                     id={tipo + index}
-                    className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-esan-color focus:outline-none focus:ring-esan-color sm:text-sm"
                   >
                     <option value="" label="Selecciona un tipo">
                       Selecciona un tipo{" "}
@@ -139,7 +139,7 @@ const ArrayInput = ({ label, name, formik: formFormik }: Props) => {
                       onEditInput({ index, cantidad: e.target.value, tipo })
                     }
                     id={cantidad + index}
-                    className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-esan-color focus:outline-none focus:ring-esan-color sm:text-sm"
                   />
                 </div>
               </div>
@@ -161,7 +161,7 @@ const ArrayInput = ({ label, name, formik: formFormik }: Props) => {
             onBlur={formik.handleBlur}
             name={"labelInput"}
             id={label}
-            className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-esan-color focus:outline-none focus:ring-esan-color sm:text-sm"
           >
             <option value="" label="Selecciona un tipo">
               Selecciona un tipo{" "}
@@ -200,7 +200,7 @@ const ArrayInput = ({ label, name, formik: formFormik }: Props) => {
             onBlur={formik.handleBlur}
             name={"valueInput"}
             id={"valueInput"}
-            className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            className="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-esan-color focus:outline-none focus:ring-esan-color sm:text-sm"
           />
         </div>
       </>

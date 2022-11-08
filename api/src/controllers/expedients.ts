@@ -2,7 +2,11 @@ import { Request, Response, NextFunction } from "express";
 import { Types } from "mongoose";
 import { Expedient } from "../models/expedient";
 import { ExpedientType } from "../models/expedient-type";
-import { ExpedientResourceType, HonorariosYSuplidosType } from "../types";
+import {
+  ExpedientResourceType,
+  ExpedientState,
+  HonorariosYSuplidosType,
+} from "../types";
 
 export const create = async (
   req: Request<{
@@ -30,6 +34,7 @@ export const create = async (
 ) => {
   try {
     const {
+      user,
       body: {
         tipo,
         vinculado,
@@ -39,12 +44,12 @@ export const create = async (
         guardadoEn,
       },
     } = req;
-    console.log({ tipo, vinculado, asunto, secciones });
 
     const expedient = await Expedient.create({
       tipo: new Types.ObjectId(tipo),
       vinculado,
       asunto,
+      user: user._id,
       secciones,
       guardadoEn,
       honorariosYSuplidos,
@@ -125,6 +130,7 @@ export const find = async (
 export const updateOne = async (
   req: Request<{
     id: string;
+    estado: ExpedientState;
     tipo: string;
     vinculado: string;
     guardadoEn: string;
@@ -153,19 +159,21 @@ export const updateOne = async (
         tipo,
         vinculado,
         asunto,
+        estado,
         secciones,
         honorariosYSuplidos,
         guardadoEn,
       },
       params: { id },
     } = req;
-    console.log(req.body);
+
     const expedient = await Expedient.findOneAndUpdate(
       { _id: id },
       {
         $set: {
           tipo,
           vinculado,
+          estado,
           guardadoEn,
           asunto,
           secciones,

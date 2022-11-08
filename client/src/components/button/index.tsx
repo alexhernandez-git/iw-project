@@ -37,7 +37,7 @@ const Button = ({
         rounded-md 
         border 
         border-transparent 
-        bg-indigo-600 
+        bg-esan-color 
         px-3 
         py-2 
         text-sm 
@@ -45,7 +45,7 @@ const Button = ({
         leading-4 
         text-white 
         shadow-sm 
-        hover:bg-indigo-700 
+        hover:bg-esan-color 
     ${className}
     `;
     switch (type) {
@@ -128,7 +128,7 @@ const ButtonSmall = ({ children, className = "", type, href }: Props) => {
           rounded-md 
           border 
           border-transparent 
-          bg-indigo-600 
+          bg-esan-color 
           px-3 
           py-2 
           text-sm 

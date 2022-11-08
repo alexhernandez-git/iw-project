@@ -22,7 +22,7 @@ export default function Tabs({ tabs, tabIndex, setTab }) {
         <select
           id="tabs"
           name="tabs"
-          className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+          className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-esan-color focus:outline-none focus:ring-esan-color sm:text-sm"
           defaultValue={currentTab}
         >
           {tabs.map((tab) => (
@@ -39,7 +39,7 @@ export default function Tabs({ tabs, tabIndex, setTab }) {
                 onClick={() => setTab(index)}
                 className={classNames(
                   isCurrent(tab)
-                    ? "border-indigo-500 text-indigo-600"
+                    ? "border-esan-color text-esan-color"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
                   "whitespace-nowrap cursor-pointer py-4 px-1 border-b-2 font-medium text-sm"
                 )}

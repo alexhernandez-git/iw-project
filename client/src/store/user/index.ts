@@ -5,12 +5,22 @@ import { fetchUser, userLogin } from "./API";
 
 export interface UserStateState {
   value: User | null;
+  statistics: {
+    expedientesCount: number;
+    expedientesEnProgresoCount: number;
+    expedientesFinalizadosCount: number;
+  };
   status: SliceState;
 }
 
 const initialState: UserStateState = {
   value: null,
   status: SliceState.Inactive,
+  statistics: {
+    expedientesCount: 0,
+    expedientesEnProgresoCount: 0,
+    expedientesFinalizadosCount: 0,
+  },
 };
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -63,6 +73,12 @@ export const userSlice = createSlice({
       .addCase(getUser.fulfilled, (state, action) => {
         state.status = SliceState.Success;
         state.value = action.payload.user;
+        state.statistics = {
+          expedientesCount: action.payload.expedientesCount,
+          expedientesEnProgresoCount: action.payload.expedientesEnProgresoCount,
+          expedientesFinalizadosCount:
+            action.payload.expedientesFinalizadosCount,
+        };
       })
       .addCase(getUser.rejected, (state) => {
         state.status = SliceState.Failed;

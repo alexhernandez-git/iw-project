@@ -80,7 +80,7 @@ const Sections = ({ formik }) => {
                 value={newSectionFormik.values.nombre}
                 id="nombre"
                 placeholder=""
-                className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm"
+                className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-esan-color focus:ring-esan-color sm:max-w-xs sm:text-sm"
               />
             </div>
           </div>

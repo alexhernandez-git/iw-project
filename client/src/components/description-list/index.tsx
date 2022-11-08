@@ -53,7 +53,7 @@ const DescriptionList = ({ title, description, list }: Props) => {
                         <Button
                           type={Type.Secondary}
                           onClick={item?.value.onClick}
-                          className="font-medium text-indigo-600 hover:text-indigo-500"
+                          className="font-medium text-esan-color hover:text-esan-color"
                         >
                           {item?.value?.buttonLabel ?? "Ir"}
                         </Button>

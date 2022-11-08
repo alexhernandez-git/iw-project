@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 type Props = {
   card: any;
@@ -28,12 +29,11 @@ const Card = ({ card }: Props) => {
       </div>
       <div className="bg-gray-50 px-5 py-3">
         <div className="text-sm">
-          <a
-            href={card.href}
-            className="font-medium text-cyan-700 hover:text-cyan-900"
-          >
-            Ir a {card.name}
-          </a>
+          <Link to={card.href}>
+            <span className="font-medium text-cyan-700 hover:text-cyan-900">
+              Ir a Expedientes
+            </span>
+          </Link>
         </div>
       </div>
     </div>

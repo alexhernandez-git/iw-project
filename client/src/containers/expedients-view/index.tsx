@@ -6,12 +6,14 @@ import {
   ExpedientRequirementType,
   SliceState,
   Section,
+  ExpedientState,
+  HonorariosYSuplidosType,
 } from "../../utils/types";
 import { useNavigate, useParams } from "react-router-dom";
 import Tabs from "../../components/tabs";
 import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getExpedient } from "../../store/expedient";
+import { editExpedient, getExpedient } from "../../store/expedient";
 import { RootState } from "../../store";
 import HandleStatus from "../../components/handle-status";
 
@@ -32,20 +34,46 @@ const ExpedientsView = () => {
     dispatch(getExpedient(id));
   }, []);
 
-  console.log({ expedient });
+  console.log({ expedient13211: expedient });
+
+  const handlePublishExpedient = () => {
+    dispatch(
+      editExpedient({
+        id,
+        data: {
+          estado: ExpedientState.DocumentacionPendiente,
+        },
+      })
+    );
+  };
 
   const [tabIndex, setTabIndex] = useState(0);
 
+  const getHonorariosYSuplidosLabel = (tipo) => {
+    switch (tipo) {
+      case HonorariosYSuplidosType.DenominacionSocial:
+        return "Denominación social";
+      case HonorariosYSuplidosType.Notaria:
+        return "Notaria";
+      case HonorariosYSuplidosType.RegistroMercantil:
+        return "Registro Mercantil";
+      case HonorariosYSuplidosType.Tasas:
+        return "Tasas";
+      default:
+        return "No definido";
+    }
+  };
+
   return (
     <DashboardLayout
-      title={expedient?.orden ?? expedient?._id ?? "Sin nombre"}
+      title={expedient?.orden ?? id ?? "Sin nombre"}
       buttonSecondary={{
-        label: "Crear expedient vinculado",
-        onClick: () => navigate(`/expedients/new/${expedient?._id}`),
+        label: "Crear expediente vinculado",
+        onClick: () => navigate(`/expedients/new/${id}`),
       }}
       button={{
         label: "Editar",
-        onClick: () => navigate(`/expedients/edit/${expedient?._id}`),
+        onClick: () => navigate(`/expedients/edit/${id}`),
       }}
       pages={[
         {
@@ -60,6 +88,18 @@ const ExpedientsView = () => {
         },
       ]}
     >
+      {expedient?.estado === ExpedientState.Draft && (
+        <span className="rounded bg-yellow-100 text-yellow-600 text-sm px-3 py-2 my-5 w-full block">
+          Este expediente esta en draft por lo que solo lo puedes ver tu, haz{" "}
+          <span
+            onClick={handlePublishExpedient}
+            className="cursor-pointer underline"
+          >
+            click aqui
+          </span>{" "}
+          para publicarlo
+        </span>
+      )}
       <Tabs
         tabIndex={tabIndex}
         setTab={setTabIndex}
@@ -88,6 +128,11 @@ const ExpedientsView = () => {
                     type: ListItemType.Text,
                     label: "identificador",
                     value: expedient?._id,
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "Estado",
+                    value: expedient?.estado,
                   },
                   {
                     type: ListItemType.Text,
@@ -191,9 +236,9 @@ const ExpedientsView = () => {
                       expedient?.honorariosYSuplidos &&
                       expedient?.honorariosYSuplidos.map(
                         (honorarioYSuplido) => ({
-                          value: `${honorarioYSuplido?.tipo} - ${
-                            honorarioYSuplido?.cantidad
-                          }$ ${
+                          value: `${getHonorariosYSuplidosLabel(
+                            honorarioYSuplido?.tipo
+                          )} - ${honorarioYSuplido?.cantidad}€ ${
                             honorarioYSuplido?.descripcion
                               ? "- " + honorarioYSuplido?.descripcion
                               : ""

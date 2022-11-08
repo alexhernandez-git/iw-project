@@ -35,6 +35,7 @@ const ExpedientsTypesEdit = () => {
     initialValues: {
       codigo: expedientType?.codigo ?? "",
       nombre: expedientType?.nombre ?? "",
+      honorarios: expedientType?.honorarios ?? "",
       tramitePadre: expedientType?.tramitePadre?._id ?? "",
       secciones: [],
     },
@@ -91,6 +92,11 @@ const ExpedientsTypesEdit = () => {
                     {
                       label: "Nombre",
                       name: "nombre",
+                      type: FormInputType.Text,
+                    },
+                    {
+                      label: "Honorarios",
+                      name: "honorarios",
                       type: FormInputType.Text,
                     },
                     {

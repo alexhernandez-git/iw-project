@@ -64,6 +64,11 @@ const ExpedientsTypesView = () => {
                 value: expedientType?.codigo,
               },
               {
+                type: ListItemType.Text,
+                label: "Honorarios",
+                value: expedientType?.honorarios,
+              },
+              {
                 type: ListItemType.Button,
                 label: "Padre",
                 value: {

@@ -25,6 +25,7 @@ export const create = async (
 ) => {
   try {
     const {
+      user,
       body: {
         nombre,
         codigo,
@@ -38,6 +39,7 @@ export const create = async (
     const expedientType = await ExpedientType.create(
       tramitePadre
         ? {
+            user: user._id,
             nombre,
             codigo,
             tramitePadre,
@@ -46,6 +48,7 @@ export const create = async (
             secciones,
           }
         : {
+            user: user._id,
             nombre,
             codigo,
             descripcion,
@@ -63,7 +66,6 @@ export const create = async (
 
     res.send({ expedientType, success: true });
   } catch (error) {
-    console.log(error);
     next({
       statusCode: 500,
       message: "Error creating user",

@@ -37,12 +37,15 @@ export enum PaymentType {
 }
 
 export enum ExpedientState {
-  EnEstudio = "enestudio", // Para colaborador PENDIENTE
-  PeticionDocumentacion = "peticiondocumentacion", // Para colaborador PENDIENTE
+  Draft = "draft", // Para colaborador PENDIENTE
+  DocumentacionPendiente = "documentacionpendiente", // Para colaborador PENDIENTE
   DocumentacionCompleta = "documentacioncompleta", // Para colaborador PENDIENTE
-  ExpedienteCursadoNoConcluido = "expedientecursadonoconcluido", // Para colaborador EN TRAMITE
+  ExpedientCursadoNoConcluido = "expedientecursadonoconcluido", // Para colaborador EN TRAMITE
   // En este punto puede que se pida crear otro expediente amb orden (id del antiguo expediente)
   Concluido = "concluido",
+  ResolucionFaborable = "resolucionfavorable",
+  ResolucionDeNegatoria = "resoluciondenegatoria",
+  NoResolucion = "noresolucion",
 }
 
 export enum HonorariosYSuplidosType {
@@ -61,6 +64,7 @@ export enum EstadoCivil {
 }
 
 export enum StoredIn {
+  SinEspecificar = "",
   EnCarpeta = "encarpeta",
   CurrentExpedient = "expedientevigente",
   Fisico = "fisico",

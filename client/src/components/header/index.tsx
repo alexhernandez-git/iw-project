@@ -22,11 +22,14 @@ type Props = {
 const Header = ({ setSidebarOpen, search }: Props) => {
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const userNavigation = [
     {
       name: "Sign out",
       onClick: () => {
         dispatch(signOut());
+        navigate("/login", { replace: true });
       },
     },
   ];
@@ -35,7 +38,7 @@ const Header = ({ setSidebarOpen, search }: Props) => {
     <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow">
       <button
         type="button"
-        className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
+        className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-esan-color md:hidden"
         onClick={() => setSidebarOpen(true)}
       >
         <span className="sr-only">Open sidebar</span>
@@ -76,7 +79,7 @@ const Header = ({ setSidebarOpen, search }: Props) => {
           {/* Profile dropdown */}
           <Menu as="div" className="relative ml-3">
             <div>
-              <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+              <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-esan-color focus:ring-offset-2">
                 <span className="sr-only">Open user menu</span>
                 <img
                   className="h-8 w-8 rounded-full"

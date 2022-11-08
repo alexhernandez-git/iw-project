@@ -9,6 +9,10 @@ import {
 } from "../types";
 
 const expedientSchema = new Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: Models.User,
+  },
   orden: { type: String },
   tipo: { type: Schema.Types.ObjectId, ref: Models.ExpedientType },
   vinculado: {
@@ -17,7 +21,11 @@ const expedientSchema = new Schema({
     ref: Models.Expedient,
   },
   conexiones: { type: String },
-  guardadoEn: { enum: StoredIn, type: String },
+  guardadoEn: {
+    enum: StoredIn,
+    type: String,
+    default: StoredIn.SinEspecificar,
+  },
   responsable: { type: String },
   codigoCliente: { type: String },
   codigoClienteProvisional: { type: String },
@@ -26,7 +34,7 @@ const expedientSchema = new Schema({
   asunto: { type: String },
   fechaSolicitudServicioNotificacion: { type: String },
   plazoLegal: { type: String },
-  estado: { enum: ExpedientState, type: String },
+  estado: { enum: ExpedientState, type: String, default: ExpedientState.Draft },
   empresa: { type: String },
   honorarios: { type: Number },
   formaDePago: { enum: PaymentType, type: String },
@@ -54,6 +62,10 @@ const expedientSchema = new Schema({
     },
   ],
 });
+
+expedientSchema.set("timestamps", true);
+expedientSchema.index({ createdAt: 1 });
+expedientSchema.index({ updatedAt: 1 });
 
 const Expedient = model(Models.Expedient, expedientSchema);
 export { Expedient };

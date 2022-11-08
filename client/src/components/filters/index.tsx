@@ -103,7 +103,7 @@ export default function Filters() {
                         name="price[]"
                         defaultValue={option.value}
                         type="checkbox"
-                        className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-esan-color focus:ring-esan-color"
                         defaultChecked={option.checked}
                       />
                       <label
@@ -129,7 +129,7 @@ export default function Filters() {
                         name="color[]"
                         defaultValue={option.value}
                         type="checkbox"
-                        className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-esan-color focus:ring-esan-color"
                         defaultChecked={option.checked}
                       />
                       <label
@@ -157,7 +157,7 @@ export default function Filters() {
                         name="size[]"
                         defaultValue={option.value}
                         type="checkbox"
-                        className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-esan-color focus:ring-esan-color"
                         defaultChecked={option.checked}
                       />
                       <label
@@ -183,7 +183,7 @@ export default function Filters() {
                         name="category[]"
                         defaultValue={option.value}
                         type="checkbox"
-                        className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-esan-color focus:ring-esan-color"
                         defaultChecked={option.checked}
                       />
                       <label

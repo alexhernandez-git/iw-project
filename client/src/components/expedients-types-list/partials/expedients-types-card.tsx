@@ -15,7 +15,7 @@ const ExpedientsTypesCard = ({ expedient }) => {
           <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
             <div className="truncate">
               <div className="text-sm">
-                <p className="truncate font-medium text-indigo-600">
+                <p className="truncate font-medium text-esan-color">
                   {expedient.nombre}
                 </p>
                 <p className="text-xs text-gray-600">{expedient.codigo}</p>

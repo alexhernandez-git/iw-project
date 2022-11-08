@@ -18,8 +18,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/users", usersRouter);
-app.use("/expedients", expedientsRouter, userAuthentication);
-app.use("/expedient-types", expedientTypesRouter, userAuthentication);
+app.use("/expedients", userAuthentication, expedientsRouter);
+app.use("/expedient-types", userAuthentication, expedientTypesRouter);
 app.use(
   "/",
   router.get("/", function (req, res, next) {

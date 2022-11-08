@@ -20,6 +20,10 @@ const userSchema = new Schema<IUser>({
   role: { type: String, enum: UserRoles },
 });
 
+userSchema.set("timestamps", true);
+userSchema.index({ createdAt: 1 });
+userSchema.index({ updatedAt: 1 });
+
 // 3. Create a Model.
 const User = model<IUser>("User", userSchema);
 export { User };

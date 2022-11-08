@@ -105,7 +105,7 @@ const actions = [
     descripcion:
       "Esta es una descripción de prueba para poner un poco de texto",
     href: "/expedients/new/1",
-    iconForeground: "text-indigo-700",
+    iconForeground: "text-esan-color",
     iconBackground: "bg-indigo-50",
   },
 ];
@@ -140,7 +140,9 @@ export default function NewExpedientType() {
       console.log({ createExpedientValues: values });
       dispatch(newExpedient(values))
         .unwrap()
-        .then(() => navigate(`/expedients`))
+        .then(({ expedient }) => {
+          navigate(`/expedients/${expedient._id}`);
+        })
         .catch(() => {
           alert("error");
         });
@@ -184,7 +186,7 @@ export default function NewExpedientType() {
               {
                 name: "Expediente 3",
                 href: "/expedients/3",
-                current: true,
+                current: false,
               },
               {
                 name: "Crear expediente vinculado",

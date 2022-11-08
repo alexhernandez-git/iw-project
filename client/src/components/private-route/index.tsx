@@ -17,14 +17,10 @@ const ProtectedRoute = ({ children }: Props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (
-      !user &&
-      status !== SliceState.Loading &&
-      status !== SliceState.Inactive
-    ) {
+    if (status === SliceState.Failed) {
       navigate("/login", { replace: true });
     }
-  }, [user]);
+  }, [user, status]);
 
   if (status === SliceState.Loading) return <Loading />;
 

@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction, Send } from "express";
-import { UserRoles, User as UserType } from "../types";
+import { UserRoles, User as UserType, ExpedientState } from "../types";
 import { User } from "../models/user";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { Expedient } from "../models/expedient";
 
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET ?? "1234";
 
@@ -60,15 +61,54 @@ export const login = async (
 ) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
+
+    let user = await User.findOne({ email });
+
     const { password: userRealPassword, _id, role } = user;
+
     const passValidation =
       password && (await bcrypt.compareSync(password, userRealPassword));
+
     if (passValidation) {
       const accessToken = jwt.sign({ _id, email, role }, ACCESS_TOKEN_SECRET, {
         expiresIn: ACCESS_TOKEN_EXPIRES_IN,
       });
-      res.send({ user, accessToken, success: true });
+
+      const expedientesCount = await Expedient.find({
+        user: _id,
+      }).count();
+
+      const expedientesEnProgresoCount = await Expedient.find({
+        user: _id,
+        estado: {
+          $in: [
+            ExpedientState.DocumentacionCompleta,
+            ExpedientState.DocumentacionPendiente,
+            ExpedientState.ExpedientCursadoNoConcluido,
+          ],
+        },
+      }).count();
+
+      const expedientesFinalizadosCount = await Expedient.find({
+        user: _id,
+        estado: {
+          $in: [
+            ExpedientState.Concluido,
+            ExpedientState.NoResolucion,
+            ExpedientState.ResolucionDeNegatoria,
+            ExpedientState.ResolucionFaborable,
+          ],
+        },
+      }).count();
+
+      res.send({
+        user,
+        accessToken,
+        expedientesCount,
+        expedientesEnProgresoCount,
+        expedientesFinalizadosCount,
+        success: true,
+      });
     }
   } catch (error) {
     next({
@@ -87,16 +127,54 @@ export const getByToken = async (
 ) => {
   try {
     const { token } = req.params;
+
     let _id = null;
+
     jwt.verify(token, accessTokenSecret, async (err, user) => {
       if (err) {
         return res.sendStatus(403);
       }
       _id = user._id;
     });
-    const user = await User.findById(_id);
-    res.send({ user, success: true });
+
+    let user = await User.findById(_id);
+
+    const expedientesCount = await Expedient.find({
+      user: _id,
+    }).count();
+
+    const expedientesEnProgresoCount = await Expedient.find({
+      user: _id,
+      estado: {
+        $in: [
+          ExpedientState.DocumentacionCompleta,
+          ExpedientState.DocumentacionPendiente,
+          ExpedientState.ExpedientCursadoNoConcluido,
+        ],
+      },
+    }).count();
+
+    const expedientesFinalizadosCount = await Expedient.find({
+      user: _id,
+      estado: {
+        $in: [
+          ExpedientState.Concluido,
+          ExpedientState.NoResolucion,
+          ExpedientState.ResolucionDeNegatoria,
+          ExpedientState.ResolucionFaborable,
+        ],
+      },
+    }).count();
+
+    res.send({
+      user,
+      expedientesCount,
+      expedientesEnProgresoCount,
+      expedientesFinalizadosCount,
+      success: true,
+    });
   } catch (error) {
+    console.log("error", error.message);
     next({
       statusCode: 500,
       message: "Error creating user",
