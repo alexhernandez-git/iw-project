@@ -110,6 +110,7 @@ export const login = async (
       });
     }
   } catch (error) {
+    console.log(error.message);
     next({
       statusCode: 500,
       message: "Error creating user",
