@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getExpedientTypes } from "../../store/expedient-types";
 import { RootState } from "../../store";
 import HandleStatus from "../../components/handle-status";
+import { UserRole } from "../../utils/types";
 
 const ExpedientsTypes = () => {
   const navigate = useNavigate();
@@ -21,6 +22,10 @@ const ExpedientsTypes = () => {
     (state: RootState) => state.expedientTypes
   );
 
+  const { status: userStatus, value: user } = useSelector(
+    (state: RootState) => state.user
+  );
+
   const { data } = expedientTypes;
 
   const [search, setSearch] = useSearch({
@@ -31,10 +36,12 @@ const ExpedientsTypes = () => {
   return (
     <DashboardLayout
       title={"Tipos de expediente"}
-      button={{
-        label: "Crear",
-        onClick: () => navigate("/expedients-types/new"),
-      }}
+      button={
+        [UserRole.SuperAdmin, UserRole.SuperAdmin].includes(user?.role) && {
+          label: "Crear nuevo",
+          onClick: () => navigate("/expedients-types/new"),
+        }
+      }
       pages={[
         {
           name: "Tipos de expediente",

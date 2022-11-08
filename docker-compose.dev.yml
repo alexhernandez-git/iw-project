@@ -16,7 +16,7 @@ services:
       - ./.envs/.local/.node
     command: npm run dev
   db:
-    image: mongo:6.0
+    image: mongo:5.0
     restart: unless-stopped
     ports:
       - 27017:27017

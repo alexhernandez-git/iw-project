@@ -43,7 +43,6 @@ export const create = async (
 
     res.send({ user, success: true });
   } catch (error) {
-    console.log(JSON.stringify(error));
     next({
       statusCode: 500,
       message: "Error creating user",
