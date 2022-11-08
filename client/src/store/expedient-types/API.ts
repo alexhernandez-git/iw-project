@@ -22,18 +22,21 @@ export function fetchExpedientTypes({
   }>((resolve) =>
     getAll
       ? resolve(
-          axios.get("http://localhost:8080/expedient-types", {
+          axios.get("http://185.23.117.129:8080/expedient-types", {
             headers: {
               Authorization: `Bearer ${window.localStorage.getItem("token")}`,
             },
           })
         )
       : resolve(
-          axios.get("http://localhost:8080/expedient-types?page=1&limit=10", {
-            headers: {
-              Authorization: `Bearer ${window.localStorage.getItem("token")}`,
-            },
-          })
+          axios.get(
+            "http://185.23.117.129:8080/expedient-types?page=1&limit=10",
+            {
+              headers: {
+                Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+              },
+            }
+          )
         )
   );
 }
