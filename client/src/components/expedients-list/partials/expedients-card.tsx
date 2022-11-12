@@ -13,7 +13,11 @@ const ExpedientCard = ({ expedient, selectedFields }: Props) => {
     <tr key={expedient._id} className="bg-white">
       {selectedFields.map((selectedField: { label: string; value: string }) => (
         <td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-500">
-          {expedient[selectedField]}
+          {selectedField === "vinculado"
+            ? expedient[selectedField]?._id
+            : selectedField === "tipo"
+            ? expedient[selectedField]?.nombre
+            : expedient[selectedField]}
         </td>
       ))}
       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
@@ -39,7 +43,7 @@ const ExpedientCardSmall = ({ expedient }: Props) => {
               aria-hidden="true"
             />
             <span className="flex flex-col truncate text-sm text-gray-500">
-              <span className="truncate">{expedient.tipo}</span>
+              <span className="truncate">{expedient.tipo.nombre}</span>
               <span>
                 <span className="font-medium text-gray-900">
                   {expedient.honorarios}€

@@ -51,7 +51,9 @@ export const findOne = async (
   try {
     const { id } = req.params;
 
-    const expedient = await Expedient.findById(id);
+    const expedient = await Expedient.findById(id, {
+      user: req.user._id,
+    }).populate(["tipo", "vinculado"]);
 
     if (!expedient) {
       return res.send({
@@ -86,7 +88,9 @@ export const find = async (
     //   .skip((page - 1) * limit)
     //   .exec();
 
-    const expedients = await Expedient.find();
+    const expedients = await Expedient.find({
+      user: req.user._id,
+    }).populate(["tipo", "vinculado"]);
 
     res.send({
       count: expedients.length,
@@ -136,7 +140,7 @@ export const updateOne = async (
     } = req;
 
     const expedient = await Expedient.findOneAndUpdate(
-      { _id: id },
+      { _id: id, user: req.user._id },
       {
         $set: body,
       },
@@ -144,7 +148,7 @@ export const updateOne = async (
         upsert: true,
         new: true,
       }
-    );
+    ).populate(["tipo", "vinculado"]);
 
     res.send({ expedient, success: true });
   } catch (error) {

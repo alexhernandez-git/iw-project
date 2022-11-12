@@ -143,7 +143,7 @@ const ExpedientsView = () => {
                     type: ListItemType.Button,
                     label: "vinculado",
                     value: {
-                      label: expedient?.vinculado,
+                      label: expedient?.vinculado?._id,
                       onClick: () => {
                         alert("Ir a expedient vinculado");
                       },
@@ -152,7 +152,7 @@ const ExpedientsView = () => {
                   {
                     type: ListItemType.Text,
                     label: "Tipo",
-                    value: expedient?.tipo,
+                    value: expedient?.tipo?.nombre,
                   },
                   {
                     type: ListItemType.Text,
