@@ -7,7 +7,7 @@ type Props = {
 };
 
 const FormFieldLayout = ({
-  data: { id, nombre, descripcion, custom, onDeleteField },
+  data: { id, nombre, descripcion, custom, onDeleteField, editable },
   children,
 }: {
   data: FieldData;
@@ -15,10 +15,11 @@ const FormFieldLayout = ({
 }) => {
   return (
     <div className="sm:border-t sm:border-gray-200  sm:pt-5">
-      {custom && (
-        <div className="flex justify-end" onClick={() => onDeleteField(id)}>
+      {(custom || editable) && (
+        <div className="flex justify-end">
           <button
             type="button"
+            onClick={() => onDeleteField(id)}
             className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-esan-color focus:ring-offset-2"
           >
             <span className="sr-only">Close panel</span>

@@ -2,6 +2,9 @@ import React, { ReactElement, useState } from "react";
 import ExpedientCard, { ExpedientCardSmall } from "./partials/expedients-card";
 import { Expedient } from "../../utils/types";
 import TableFilter from "./partials/table-filter";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { listFields } from "../../data";
+import { update } from "../../store/user";
 
 type Props = {
   expedients: Expedient[];
@@ -13,15 +16,23 @@ const ExpedientsList = ({ expedients, pagination, home = false }: Props) => {
   console.log(expedients);
   const [open, setOpen] = useState(false);
 
-  const [selectedFields, setSelectedFields] = useState<
-    Array<{ label: string; value: string }>
-  >([
-    { label: "Id", value: "_id" },
-    { label: "Empresa", value: "empresa" },
-    { label: "Tipo", value: "tipo" },
-    { label: "Honorarios", value: "honorarios" },
-  ]);
-  console.log(selectedFields);
+  const { value: user } = useAppSelector((state) => state.user);
+
+  const dispatch = useAppDispatch();
+
+  const { expedientsTableFields, _id } = user;
+
+  const handleUpdateExpedientsTableFields = (fields: string[]) => {
+    dispatch(
+      update({
+        id: _id,
+        user: {
+          expedientsTableFields: fields,
+        },
+      })
+    );
+  };
+
   return (
     <div className="block">
       {!home && (
@@ -41,7 +52,12 @@ const ExpedientsList = ({ expedients, pagination, home = false }: Props) => {
             </svg>
           </button>
           <TableFilter
-            {...{ open, setOpen, selectedFields, setSelectedFields }}
+            {...{
+              open,
+              setOpen,
+              expedientsTableFields,
+              handleUpdateExpedientsTableFields,
+            }}
           />
         </div>
       )}
@@ -53,12 +69,16 @@ const ExpedientsList = ({ expedients, pagination, home = false }: Props) => {
                 <table className="min-w-full divide-y divide-gray-300">
                   <thead className="bg-gray-50">
                     <tr>
-                      {selectedFields.map((selectedField) => (
+                      {expedientsTableFields.map((selectedField) => (
                         <th
                           scope="col"
                           className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
                         >
-                          {selectedField.label}
+                          {
+                            listFields.find(
+                              (field) => field.value === selectedField
+                            )?.label
+                          }
                         </th>
                       ))}
 
@@ -76,7 +96,7 @@ const ExpedientsList = ({ expedients, pagination, home = false }: Props) => {
                         <ExpedientCard
                           expedient={expedient}
                           key={index}
-                          selectedFields={selectedFields}
+                          selectedFields={expedientsTableFields}
                         />
                       ))}
                   </tbody>

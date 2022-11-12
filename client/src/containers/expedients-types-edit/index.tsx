@@ -37,7 +37,7 @@ const ExpedientsTypesEdit = () => {
       nombre: expedientType?.nombre ?? "",
       honorarios: expedientType?.honorarios ?? "",
       tramitePadre: expedientType?.tramitePadre?._id ?? "",
-      secciones: [],
+      secciones: expedientType?.secciones ?? [],
     },
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -121,7 +121,7 @@ const ExpedientsTypesEdit = () => {
                 },
               ]}
             >
-              <Sections formik={formik} />
+              <Sections formik={formik} editable />
             </Form>
           </div>
         </HandleStatus>

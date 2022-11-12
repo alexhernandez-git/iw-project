@@ -47,7 +47,7 @@ export type FormInput = {
 };
 
 export enum ExpedientState {
-  Draft = "draft", // Para colaborador PENDIENTE
+  Borrador = "borrador", // Para colaborador PENDIENTE
   DocumentacionPendiente = "documentacionpendiente", // Para colaborador PENDIENTE
   DocumentacionCompleta = "documentacioncompleta", // Para colaborador PENDIENTE
   ExpedientCursadoNoConcluido = "expedientecursadonoconcluido", // Para colaborador EN TRAMITE
@@ -98,6 +98,7 @@ export type FieldData = {
   expediente: string;
   descripcion: string;
   custom?: boolean;
+  editable?: boolean;
   disabled?: boolean;
   onDeleteField: (nombre: string) => void;
   onEditField: (nombre: string, text: string) => void;
@@ -129,7 +130,7 @@ export type Section = {
 export type Expedient = {
   _id: string;
   orden: string;
-  isDraft: boolean;
+  isBorrador: boolean;
   tipo: string;
   vinculado: string;
   conexiones: string;

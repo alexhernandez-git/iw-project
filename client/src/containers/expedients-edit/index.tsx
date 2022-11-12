@@ -39,7 +39,6 @@ const ExpedientsEdit = () => {
       codigoClienteProvisional: expedient?.codigoClienteProvisional ?? "",
       honorariosYSuplidos: expedient?.honorariosYSuplidos ?? [],
       secciones: expedient?.secciones ?? [],
-      asunto: expedient?.asunto ?? "",
     },
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -93,7 +92,7 @@ const ExpedientsEdit = () => {
                     name: "estado",
                     type: FormInputType.Select,
                     options: [
-                      { id: ExpedientState.Draft, label: "Draft" },
+                      { id: ExpedientState.Borrador, label: "Borrador" },
                       {
                         id: ExpedientState.DocumentacionPendiente,
                         label: "Documentación pendiente",

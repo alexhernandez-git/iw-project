@@ -13,6 +13,7 @@ services:
       - ./api:/api
     env_file:
       - ./.envs/.local/.mongo
+      - ./.envs/.local/.client
       - ./.envs/.local/.node
     command: npm run dev
   db:
@@ -38,6 +39,7 @@ services:
       - ./client:/client
     env_file:
       - ./.envs/.local/.mongo
+      - ./.envs/.local/.client
       - ./.envs/.local/.node
     command: yarn start
 volumes:

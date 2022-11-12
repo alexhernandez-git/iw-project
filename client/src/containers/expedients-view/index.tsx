@@ -88,9 +88,9 @@ const ExpedientsView = () => {
         },
       ]}
     >
-      {expedient?.estado === ExpedientState.Draft && (
+      {expedient?.estado === ExpedientState.Borrador && (
         <span className="rounded bg-yellow-100 text-yellow-600 text-sm px-3 py-2 my-5 w-full block">
-          Este expediente esta en draft por lo que solo lo puedes ver tu, haz{" "}
+          Este expediente esta en borrador por lo que solo lo puedes ver tu, haz{" "}
           <span
             onClick={handlePublishExpedient}
             className="cursor-pointer underline"
@@ -151,72 +151,67 @@ const ExpedientsView = () => {
                   },
                   {
                     type: ListItemType.Text,
-                    label: "tipo",
+                    label: "Tipo",
                     value: expedient?.tipo,
                   },
                   {
                     type: ListItemType.Text,
-                    label: "conexiones",
+                    label: "Conexiones",
                     value: expedient?.conexiones,
                   },
                   {
                     type: ListItemType.Text,
-                    label: "guardadoEn",
+                    label: "Guardado En",
                     value: expedient?.guardadoEn,
                   },
                   {
                     type: ListItemType.Text,
-                    label: "responsable",
+                    label: "Responsable",
                     value: expedient?.responsable,
                   },
                   {
                     type: ListItemType.Text,
-                    label: "codigoCliente",
+                    label: "Codigo Cliente",
                     value: expedient?.codigoCliente,
                   },
                   {
                     type: ListItemType.Text,
-                    label: "codigoClienteProvisional",
+                    label: "Codigo Cliente Provisional",
                     value: expedient?.codigoClienteProvisional,
                   },
                   {
                     type: ListItemType.Text,
-                    label: "cliente",
+                    label: "Cliente",
                     value: expedient?.cliente,
                   },
                   {
                     type: ListItemType.Text,
-                    label: "beneficiario",
+                    label: "Beneficiario",
                     value: expedient?.beneficiario,
                   },
                   {
                     type: ListItemType.Text,
-                    label: "asunto",
-                    value: expedient?.asunto,
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "fechaSolicitudServicioNotificacion",
+                    label: "Fecha Solicitud Servicio Notificación",
                     value: expedient?.fechaSolicitudServicioNotificacion,
                   },
                   {
                     type: ListItemType.Text,
-                    label: "plazoLegal",
+                    label: "Plazo Legal",
                     value: expedient?.plazoLegal,
                   },
                   {
                     type: ListItemType.Text,
-                    label: "estado",
+                    label: "Estado",
                     value: expedient?.estado,
                   },
                   {
                     type: ListItemType.Text,
-                    label: "empresa",
+                    label: "Empresa",
                     value: expedient?.empresa,
                   },
                   {
                     type: ListItemType.Text,
-                    label: "honorarios",
+                    label: "Honorarios",
                     value: expedient?.honorarios,
                   },
                 ],

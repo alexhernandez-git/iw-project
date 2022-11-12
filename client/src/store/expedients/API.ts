@@ -18,7 +18,7 @@ export function fetchExpedients({
     };
   }>((resolve) =>
     resolve(
-      axios.get("http://185.23.117.129:8080/expedients", {
+      axios.get("http://localhost:8080/expedients", {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
         },
@@ -31,7 +31,7 @@ export function createExpedient(data) {
   console.log({ data });
   return new Promise<{ data: Expedient }>((resolve) =>
     resolve(
-      axios.post("http://185.23.117.129:8080/expedients", data, {
+      axios.post("http://localhost:8080/expedients", data, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
         },

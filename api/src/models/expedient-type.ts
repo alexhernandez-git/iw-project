@@ -25,7 +25,6 @@ const expedientTypeSchema = new Schema({
           texto: { type: String },
           expediente: { type: String },
           descripcion: { type: String },
-          custom: { type: Boolean },
         },
       ],
     },

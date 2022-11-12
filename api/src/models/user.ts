@@ -9,6 +9,7 @@ export interface IUser extends Document {
   password: string;
   role: UserRoles;
   token: Token;
+  expedientsTableFields: string[];
 }
 
 // 2. Create a Schema corresponding to the document interface.
@@ -18,6 +19,15 @@ const userSchema = new Schema<IUser>({
   email: { type: String },
   password: { type: String },
   role: { type: String, enum: UserRoles },
+  expedientsTableFields: {
+    type: [String],
+    default: [
+      "_id",
+      "responsable",
+      "cliente",
+      "fechaSolicitudServicioNotificacion",
+    ],
+  },
 });
 
 userSchema.set("timestamps", true);

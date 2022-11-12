@@ -12,47 +12,23 @@ export const create = async (
   req: Request<{
     tipo: string;
     vinculado: string;
-    guardadoEn: string;
-    asunto: string;
-    secciones: {
-      nombre: string;
-      recursos: {
-        nombre: string;
-        tipo: ExpedientResourceType;
-        texto: string;
-        descripcion: string;
-        custom?: boolean = false;
-      }[];
-    }[];
-    honorariosYSuplidos: {
-      tipo: { enum: HonorariosYSuplidosType; type: String };
-      cantidad: { type: Number };
-    }[];
   }>,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const {
-      user,
-      body: {
-        tipo,
-        vinculado,
-        asunto,
-        secciones,
-        honorariosYSuplidos,
-        guardadoEn,
-      },
+      user: { _id },
+      body: { tipo, vinculado },
     } = req;
+
+    const expedientType = await ExpedientType.findById(tipo);
 
     const expedient = await Expedient.create({
       tipo: new Types.ObjectId(tipo),
-      vinculado,
-      asunto,
-      user: user._id,
-      secciones,
-      guardadoEn,
-      honorariosYSuplidos,
+      vinculado: vinculado,
+      secciones: expedientType?.secciones ?? [],
+      user: _id,
     });
 
     res.send({ expedient, success: true });
@@ -155,30 +131,14 @@ export const updateOne = async (
 ) => {
   try {
     const {
-      body: {
-        tipo,
-        vinculado,
-        asunto,
-        estado,
-        secciones,
-        honorariosYSuplidos,
-        guardadoEn,
-      },
+      body,
       params: { id },
     } = req;
 
     const expedient = await Expedient.findOneAndUpdate(
       { _id: id },
       {
-        $set: {
-          tipo,
-          vinculado,
-          estado,
-          guardadoEn,
-          asunto,
-          secciones,
-          honorariosYSuplidos,
-        },
+        $set: body,
       },
       {
         upsert: true,

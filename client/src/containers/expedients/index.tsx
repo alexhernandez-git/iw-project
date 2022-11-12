@@ -3,7 +3,7 @@ import ExpedientsList from "../../components/expedients-list";
 import DashboardLayout from "../../layouts/layout";
 import { useSearch } from "../../hooks/use-search";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { RootState, useAppSelector } from "../../store";
 import { SliceState } from "../../utils/types";
 import Loading from "../../components/loading";
 import { getExpedients } from "../../store/expedients";
@@ -18,7 +18,7 @@ const Expedients = () => {
 
   console.log({ data });
 
-  const { value: user } = useSelector((state: RootState) => state.user);
+  const { value: user } = useAppSelector((state) => state.user);
 
   const dispatch = useDispatch();
 

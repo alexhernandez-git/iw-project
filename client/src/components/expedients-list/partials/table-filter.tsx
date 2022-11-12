@@ -7,30 +7,34 @@ import { listFields } from "../../../data";
 type Props = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<any>>;
-  selectedFields: string[];
-  setSelectedFields: Dispatch<SetStateAction<any>>;
+  expedientsTableFields: string[];
+  handleUpdateExpedientsTableFields: (expedientsTableFields: string[]) => void;
 };
 
 export default function FieldsFilter({
   open,
   setOpen,
-  selectedFields,
-  setSelectedFields,
+  expedientsTableFields,
+  handleUpdateExpedientsTableFields,
 }: Props) {
   const onSelectField = (e) => {
     console.log(e.target.name);
     if (e.target.checked) {
       const newField = listFields.find(
-        (selectedField) => selectedField?.value === e.target.name
-      );
-      console.log({ newField, selectedFields });
-      setSelectedFields([...selectedFields, newField]);
+        (field) => field?.value === e.target.name
+      )?.value;
+      if (newField) {
+        console.log({ expedientsTableFields });
+        handleUpdateExpedientsTableFields([...expedientsTableFields, newField]);
+      }
     } else {
-      setSelectedFields(
-        selectedFields.filter((field) => field?.value !== e.target.name)
+      handleUpdateExpedientsTableFields(
+        expedientsTableFields.filter((field) => field !== e.target.name)
       );
     }
   };
+
+  console.log(expedientsTableFields);
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -76,10 +80,10 @@ export default function FieldsFilter({
                             <input
                               id={field?.value}
                               checked={
-                                selectedFields &&
-                                selectedFields.some(
+                                expedientsTableFields &&
+                                expedientsTableFields.some(
                                   (selectedFieldItem) =>
-                                    selectedFieldItem?.value === field?.value
+                                    selectedFieldItem === field?.value
                                 )
                               }
                               aria-describedby="comments-description"

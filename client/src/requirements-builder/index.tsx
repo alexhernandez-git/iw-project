@@ -21,10 +21,12 @@ type Props = {
   onEditSection: (sectionName: string, nombre: string) => void;
   onDeleteSection: (nombre: string) => void;
   section: Section;
+  editable?: boolean;
 };
 
 const RequirementsBuilder = ({
   section,
+  editable = false,
   formik,
   onEditSection,
   onDeleteSection,
@@ -122,6 +124,7 @@ const RequirementsBuilder = ({
           <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
             <FormSection
               title={section.nombre}
+              editable={section.custom || editable}
               onEditSection={onEditSection}
               onDeleteSection={onDeleteSection}
             >
@@ -133,6 +136,7 @@ const RequirementsBuilder = ({
                       onDeleteField,
                       onEditField,
                       formik,
+                      editable,
                       getFieldValue,
                     },
                   };

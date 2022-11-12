@@ -16,7 +16,6 @@ export const create = async (
         tipo: ExpedientResourceType;
         texto: string;
         descripcion: string;
-        custom?: boolean = false;
       }[];
     }[];
   }>,
@@ -66,6 +65,7 @@ export const create = async (
 
     res.send({ expedientType, success: true });
   } catch (error) {
+    console.log(error.message);
     next({
       statusCode: 500,
       message: "Error creating user",

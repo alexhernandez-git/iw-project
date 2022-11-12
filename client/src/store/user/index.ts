@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 import { SliceState, User } from "../../utils/types";
-import { fetchUser, userLogin } from "./API";
+import { fetchUser, updateUser, userLogin } from "./API";
 
 export interface UserStateState {
   value: User | null;
@@ -33,6 +33,25 @@ export const login = createAsyncThunk(
     const response = await userLogin({ username, password });
     console.log({ response });
     localStorage.setItem("token", response.data.accessToken);
+    return response.data.user;
+  }
+);
+
+export const update = createAsyncThunk(
+  "user/update",
+  async ({
+    id,
+    user,
+  }: {
+    id: string;
+    user: {
+      firstName?: string;
+      lastName?: string;
+      expedientsTableFields?: string[];
+    };
+  }) => {
+    console.log({ user });
+    const response = await updateUser(id, user);
     return response.data.user;
   }
 );
@@ -81,6 +100,12 @@ export const userSlice = createSlice({
         };
       })
       .addCase(getUser.rejected, (state) => {
+        state.status = SliceState.Failed;
+      })
+      .addCase(update.fulfilled, (state, action) => {
+        state.value = action.payload;
+      })
+      .addCase(update.rejected, (state) => {
         state.status = SliceState.Failed;
       });
   },

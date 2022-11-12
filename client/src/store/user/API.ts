@@ -3,7 +3,7 @@ import axios from "axios";
 
 export function fetchUser(token: string) {
   return new Promise<{ data: User }>((resolve) =>
-    resolve(axios.get(`http://185.23.117.129:8080/users/get-user/${token}`))
+    resolve(axios.get(`http://localhost:8080/users/get-user/${token}`))
   );
 }
 
@@ -16,10 +16,23 @@ export function userLogin({
 }) {
   return new Promise<{ data: { user: User; accessToken: string } }>((resolve) =>
     resolve(
-      axios.post("http://185.23.117.129:8080/users/login", {
+      axios.post("http://localhost:8080/users/login", {
         email: username,
         password,
       })
     )
+  );
+}
+
+export function updateUser(
+  id: string,
+  user: {
+    firstName?: string;
+    lastName?: string;
+    expedientsTableFields?: string[];
+  }
+) {
+  return new Promise<{ data: { user: User; accessToken: string } }>((resolve) =>
+    resolve(axios.patch(`http://localhost:8080/users/${id}`, user))
   );
 }

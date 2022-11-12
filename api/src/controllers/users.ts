@@ -31,6 +31,7 @@ export const create = async (
       password,
       role = UserRoles.User,
     } = req.body;
+
     const hashedPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUNDS);
 
     const user = await User.create({
@@ -40,6 +41,8 @@ export const create = async (
       role,
       password: hashedPassword,
     });
+
+    console.log(user);
 
     res.send({ user, success: true });
   } catch (error) {
@@ -175,6 +178,71 @@ export const getByToken = async (
     });
   } catch (error) {
     console.log("error", error.message);
+    next({
+      statusCode: 500,
+      message: "Error creating user",
+    });
+  }
+};
+
+export const updateOne = async (
+  req: Request<{
+    expedientsTableFields: string[];
+    firstName: string;
+    lastName: string;
+    id: string;
+  }>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const {
+      params: { id },
+      body,
+    } = req;
+
+    const template = {
+      firstName: null,
+      lastName: null,
+      expedientsTableFields: null,
+    };
+
+    const query = {};
+
+    for (let k in template) {
+      query[k] = body[k];
+    }
+
+    const user = await User.findOneAndUpdate(
+      { _id: id },
+      {
+        $set: query,
+      },
+      {
+        upsert: true,
+        new: true,
+      }
+    );
+
+    res.send({ user, success: true });
+  } catch (error) {
+    next({
+      statusCode: 500,
+      message: "Error creating user",
+    });
+  }
+};
+
+export const findAll = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const users = await User.find({});
+
+    res.send({ users, success: true });
+  } catch (error) {
     next({
       statusCode: 500,
       message: "Error creating user",

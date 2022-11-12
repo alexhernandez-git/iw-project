@@ -4,13 +4,19 @@ import RequirementsBuilder from "../../requirements-builder";
 import { Section, Type } from "../../utils/types";
 import Button from "../button";
 
-const Sections = ({ formik }) => {
+type Props = {
+  formik: any;
+  editable?: boolean;
+};
+
+const Sections = ({ formik, editable = false }: Props) => {
   const [isAddingSection, setIsAddingSection] = useState(false);
 
   const newSectionFormik = useFormik({
     initialValues: {
       nombre: "",
       recursos: [],
+      custom: true,
     },
     onSubmit: (data, { resetForm }) => {
       formik.setFieldValue("secciones", [...formik.values.secciones, data]);
@@ -34,6 +40,9 @@ const Sections = ({ formik }) => {
   };
 
   const onDeleteSection = (nombre: string) => {
+    if (!editable) {
+      return;
+    }
     formik.setFieldValue(
       "secciones",
       formik.values.secciones.filter(
@@ -56,6 +65,7 @@ const Sections = ({ formik }) => {
         {formik.values.secciones.map((section: Section) => (
           <RequirementsBuilder
             formik={formik}
+            editable={editable}
             section={section}
             onEditSection={onEditSection}
             onDeleteSection={onDeleteSection}
