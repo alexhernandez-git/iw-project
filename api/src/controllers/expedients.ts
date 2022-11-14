@@ -51,10 +51,12 @@ export const findOne = async (
   try {
     const { id } = req.params;
 
-    const expedient = await Expedient.findById(id, {
+    const expedient = await Expedient.findOne({
+      _id: id,
       user: req.user._id,
     }).populate(["tipo", "vinculado"]);
 
+    console.log({ expedient });
     if (!expedient) {
       return res.send({
         statusCode: 404,
@@ -80,21 +82,22 @@ export const find = async (
   res: Response,
   next: NextFunction
 ) => {
-  // const { page = 1, limit = 10 } = req.params;
+  let { page = 1, limit = 10 } = req.query;
+
+  console.log({ page, limit });
 
   try {
-    // const expedients = await Expedient.find()
-    //   .limit(limit * 1)
-    //   .skip((page - 1) * limit)
-    //   .exec();
-
     const expedients = await Expedient.find({
       user: req.user._id,
-    }).populate(["tipo", "vinculado"]);
+    })
+      .populate(["tipo", "vinculado"])
+      .limit(Number(limit) * 1)
+      .skip((Number(page) - 1) * Number(limit))
+      .exec();
 
     res.send({
-      count: expedients.length,
-      page: 0,
+      count: await Expedient.find({ user: req.user._id }).count(),
+      page: Number(page),
       size: expedients.length,
       data: expedients,
       success: true,
@@ -114,6 +117,7 @@ export const updateOne = async (
     tipo: string;
     vinculado: string;
     guardadoEn: string;
+    fechaSolicitudServicioNotificacion: string;
     asunto: string;
     honorariosYSuplidos: {
       tipo: { enum: HonorariosYSuplidosType; type: String };

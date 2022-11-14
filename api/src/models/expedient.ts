@@ -31,7 +31,7 @@ const expedientSchema = new Schema({
   codigoClienteProvisional: { type: String },
   cliente: { type: String },
   beneficiario: { type: String },
-  fechaSolicitudServicioNotificacion: { type: String },
+  fechaSolicitudServicioNotificacion: { type: Date },
   silencioAdministrativo: { type: Boolean },
   silencioAdministrativoTiempo: { type: Number },
   suspensionRequerimientoTiempo: { type: Number },

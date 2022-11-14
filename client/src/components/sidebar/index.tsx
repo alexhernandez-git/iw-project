@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
   FolderIcon,
+  FolderOpenIcon,
   HomeIcon,
   PlusIcon,
   XMarkIcon,
@@ -14,7 +15,11 @@ import EsanLogo from "../../images/esan-asesores-logo-hd.png";
 const navigation = [
   { name: "Home", href: "/", icon: HomeIcon },
   { name: "Expedientes", href: "/expedients", icon: FolderIcon },
-  { name: "Tipos de expediente", href: "/expedients-types", icon: FolderIcon },
+  {
+    name: "Tipos de expediente",
+    href: "/expedients-types",
+    icon: FolderOpenIcon,
+  },
 ];
 
 function classNames(...classes: string[]) {

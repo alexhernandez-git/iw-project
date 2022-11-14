@@ -27,9 +27,9 @@ const ExpedientsTypesView = () => {
   return (
     <DashboardLayout
       title={
-        expedientType?.nombre ??
-        expedientType?.codigo ??
-        "Expediente sin nombre"
+        expedientType?.codigo.length !== 0
+          ? expedientType?.codigo
+          : "Expediente sin codigo"
       }
       button={{
         label: "Editar",

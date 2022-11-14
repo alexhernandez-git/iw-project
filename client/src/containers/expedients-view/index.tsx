@@ -4,18 +4,21 @@ import DescriptionList from "../../components/description-list";
 import {
   ListItemType,
   ExpedientRequirementType,
-  SliceState,
   Section,
   ExpedientState,
   HonorariosYSuplidosType,
 } from "../../utils/types";
 import { useNavigate, useParams } from "react-router-dom";
 import Tabs from "../../components/tabs";
-import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { editExpedient, getExpedient } from "../../store/expedient";
 import { RootState } from "../../store";
 import HandleStatus from "../../components/handle-status";
+import {
+  getEstadoLabel,
+  getHonorariosYSuplidosLabel,
+} from "../../utils/helpers";
+import moment from "moment";
 
 const ExpedientsView = () => {
   const navigate = useNavigate();
@@ -48,21 +51,6 @@ const ExpedientsView = () => {
   };
 
   const [tabIndex, setTabIndex] = useState(0);
-
-  const getHonorariosYSuplidosLabel = (tipo) => {
-    switch (tipo) {
-      case HonorariosYSuplidosType.DenominacionSocial:
-        return "Denominación social";
-      case HonorariosYSuplidosType.Notaria:
-        return "Notaria";
-      case HonorariosYSuplidosType.RegistroMercantil:
-        return "Registro Mercantil";
-      case HonorariosYSuplidosType.Tasas:
-        return "Tasas";
-      default:
-        return "No definido";
-    }
-  };
 
   return (
     <DashboardLayout
@@ -132,7 +120,7 @@ const ExpedientsView = () => {
                   {
                     type: ListItemType.Text,
                     label: "Estado",
-                    value: expedient?.estado,
+                    value: getEstadoLabel(expedient?.estado),
                   },
                   {
                     type: ListItemType.Text,
@@ -145,7 +133,10 @@ const ExpedientsView = () => {
                     value: {
                       label: expedient?.vinculado?._id,
                       onClick: () => {
-                        alert("Ir a expedient vinculado");
+                        window.open(
+                          `/expedients/${expedient?.vinculado?._id}`,
+                          "_blank"
+                        );
                       },
                     },
                   },
@@ -192,17 +183,16 @@ const ExpedientsView = () => {
                   {
                     type: ListItemType.Text,
                     label: "Fecha Solicitud Servicio Notificación",
-                    value: expedient?.fechaSolicitudServicioNotificacion,
+                    value:
+                      expedient?.fechaSolicitudServicioNotificacion &&
+                      moment(
+                        expedient?.fechaSolicitudServicioNotificacion
+                      ).format("D-M-yyyy"),
                   },
                   {
                     type: ListItemType.Text,
                     label: "Plazo Legal",
                     value: expedient?.plazoLegal,
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Estado",
-                    value: expedient?.estado,
                   },
                   {
                     type: ListItemType.Text,

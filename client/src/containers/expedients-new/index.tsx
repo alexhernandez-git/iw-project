@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import Form from "../../components/form";
 import { newExpedient } from "../../store/expedient";
+import { useEffect } from "react";
+import { getExpedientTypes } from "../../store/expedient-types";
 
 export default function NewExpedientType() {
   const dispatch = useDispatch();
@@ -15,6 +17,10 @@ export default function NewExpedientType() {
   const { status, value: expedientTypes } = useSelector(
     (state: RootState) => state.expedientTypes
   );
+
+  useEffect(() => {
+    dispatch(getExpedientTypes({ getAll: true }));
+  }, []);
 
   const { vinculated } = useParams() ?? { vinculated: null };
 
@@ -79,7 +85,7 @@ export default function NewExpedientType() {
         onSubmit={handleSubmit}
         data={[
           {
-            label: "Información",
+            label: "Tipo de expediente",
             description: "",
             inputs: [
               {

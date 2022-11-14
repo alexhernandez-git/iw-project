@@ -142,12 +142,8 @@ export type Expedient = {
   beneficiario: string;
   silencioAdministrativo: boolean;
   silencioAdministrativoDias: number;
-  silencioAdministrativoMeses: number;
-  silencioAdministrativoAnos: number;
-  silencioAdministrativosTipo: number; // DIAS | MESES | AÑOS
   suspensionRequerimientoDias: number;
   fecharResolucion: Date;
-  tipoResolucion: string; // FABORABLE / NO FABORABLE
   documentoResolucion: string;
   asunto: string;
   fechaDePresentacion: Date;

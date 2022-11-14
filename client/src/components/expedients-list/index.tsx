@@ -101,7 +101,7 @@ const ExpedientsList = ({ expedients, pagination, home = false }: Props) => {
                       ))}
                   </tbody>
                 </table>
-                {/* {pagination && pagination} */}
+                {pagination && pagination}
               </div>
             </div>
           </div>

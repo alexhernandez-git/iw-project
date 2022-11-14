@@ -8,6 +8,7 @@ import { getExpedientTypes } from "../../store/expedient-types";
 import { RootState } from "../../store";
 import HandleStatus from "../../components/handle-status";
 import { UserRole } from "../../utils/types";
+import Pagination from "../../components/pagination";
 
 const ExpedientsTypes = () => {
   const navigate = useNavigate();
@@ -18,6 +19,14 @@ const ExpedientsTypes = () => {
     dispatch(getExpedientTypes({}));
   }, []);
 
+  const onPreviousPage = () => {
+    dispatch(getExpedientTypes({ page: page - 1 }));
+  };
+
+  const onNextPage = () => {
+    dispatch(getExpedientTypes({ page: page + 1 }));
+  };
+
   const { status, value: expedientTypes } = useSelector(
     (state: RootState) => state.expedientTypes
   );
@@ -26,7 +35,7 @@ const ExpedientsTypes = () => {
     (state: RootState) => state.user
   );
 
-  const { data } = expedientTypes;
+  const { data, count, size, page } = expedientTypes;
 
   const [search, setSearch] = useSearch({
     callback: (searchValue) => {
@@ -52,7 +61,18 @@ const ExpedientsTypes = () => {
       search={{ search, setSearch }}
     >
       <HandleStatus status={status} data={expedientTypes}>
-        <ExpedientsTypesList {...{ expedientTypes: data }} />
+        <ExpedientsTypesList
+          {...{ expedientTypes: data }}
+          pagination={
+            <Pagination
+              limit={10}
+              count={count}
+              page={page}
+              onNextPage={onNextPage}
+              onPreviousPage={onPreviousPage}
+            />
+          }
+        />
       </HandleStatus>
     </DashboardLayout>
   );

@@ -1,23 +1,15 @@
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Form from "../../components/form";
 import HandleStatus from "../../components/handle-status";
 import Sections from "../../components/sections";
-import { expedients } from "../../data";
 import DashboardLayout from "../../layouts/layout";
-import Requirements from "../../requirements-builder";
-import { RootState, useAppDispatch } from "../../store";
+import { RootState } from "../../store";
 import { editExpedient, getExpedient } from "../../store/expedient";
-import { updateExpedient } from "../../store/expedient/API";
-import { makeId } from "../../utils/helpers";
-import {
-  FormInputType,
-  StoredIn,
-  ExpedientRequirementType,
-  ExpedientState,
-} from "../../utils/types";
+import { FormInputType, StoredIn, ExpedientState } from "../../utils/types";
+import moment from "moment";
 
 const ExpedientsEdit = () => {
   const { id } = useParams();
@@ -36,18 +28,33 @@ const ExpedientsEdit = () => {
       responsable: expedient?.responsable ?? "",
       estado: expedient?.estado ?? "",
       codigoCliente: expedient?.codigoCliente ?? "",
+      cliente: expedient?.cliente ?? "",
+      empresa: expedient?.empresa ?? "",
+      plazoLegal: expedient?.plazoLegal ?? "",
+      beneficiario: expedient?.beneficiario ?? "",
+      honorarios: expedient?.honorarios ?? "",
       codigoClienteProvisional: expedient?.codigoClienteProvisional ?? "",
       honorariosYSuplidos: expedient?.honorariosYSuplidos ?? [],
+      fechaSolicitudServicioNotificacion:
+        expedient?.fechaSolicitudServicioNotificacion
+          ? moment(expedient?.fechaSolicitudServicioNotificacion).format(
+              "yyyy-M-D"
+            )
+          : null,
       secciones: expedient?.secciones ?? [],
     },
     enableReinitialize: true,
     onSubmit: (values) => {
-      console.log({ values });
+      values.fechaSolicitudServicioNotificacion = moment(
+        values.fechaSolicitudServicioNotificacion
+      );
+      console.log({ expedientValueeeeees: values });
       dispatch(editExpedient({ id, data: values }));
     },
   });
 
   const { handleSubmit, values } = formik;
+  console.log({ expedientValueeeeees: values });
 
   useEffect(() => {
     dispatch(getExpedient(id));
@@ -167,23 +174,23 @@ const ExpedientsEdit = () => {
                     type: FormInputType.Text,
                   },
                   {
-                    label: "fecha solicitud servicio notificacion",
+                    label: "Fecha solicitud servicio notificacion",
                     name: "fechaSolicitudServicioNotificacion",
                     type: FormInputType.Date,
                   },
                   {
-                    label: "plazoLegal",
+                    label: "Plazo legal",
                     name: "plazoLegal",
                     type: FormInputType.Text,
                   },
 
                   {
-                    label: "empresa",
+                    label: "Empresa",
                     name: "empresa",
                     type: FormInputType.Text,
                   },
                   {
-                    label: "honorarios",
+                    label: "Honorarios",
                     name: "honorarios",
                     type: FormInputType.Text,
                   },

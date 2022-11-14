@@ -1,5 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { CalendarIcon, MapPinIcon, UsersIcon } from "@heroicons/react/20/solid";
+import { ReactElement } from "react";
+import { ExpedientType } from "../../utils/types";
 import ExpedientsTypesCard from "./partials/expedients-types-card";
 
 const positions = [
@@ -32,15 +34,24 @@ const positions = [
   },
 ];
 
-export default function ExpedientsTypesList({ expedientTypes }: any) {
+type Props = {
+  expedientTypes: ExpedientType[];
+  pagination: ReactElement<any, any>;
+};
+
+export default function ExpedientsTypesList({
+  expedientTypes,
+  pagination,
+}: Props) {
   console.log({ expedientTypes });
   return (
     <div className="overflow-hidden bg-white shadow sm:rounded-md">
       <ul role="list" className="divide-y divide-gray-200">
-        {expedientTypes.map((expedient) => (
-          <ExpedientsTypesCard expedient={expedient} />
+        {expedientTypes.map((expedientType) => (
+          <ExpedientsTypesCard expedientType={expedientType} />
         ))}
       </ul>
+      {pagination && pagination}
     </div>
   );
 }

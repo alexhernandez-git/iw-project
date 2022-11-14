@@ -60,6 +60,9 @@ const Expedients = () => {
             expedients={data}
             pagination={
               <Pagination
+                limit={10}
+                count={count}
+                page={page}
                 onNextPage={onNextPage}
                 onPreviousPage={onPreviousPage}
               />

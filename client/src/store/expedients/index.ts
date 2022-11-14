@@ -25,7 +25,7 @@ const initialState: ExpedientsState = {
 
 export const getExpedients = createAsyncThunk(
   "expedients/getExpedients",
-  async ({ page = 0, search = "" }: { page?: number; search?: string }) => {
+  async ({ page = 1, search = "" }: { page?: number; search?: string }) => {
     const response = await fetchExpedients({ page, search });
     return response.data;
   }

@@ -119,15 +119,10 @@ export const find = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { page = 1, limit = null } = req.params;
+  const { page = 1, limit = null } = req.query;
   try {
-    // const expedientTypes = await ExpedientType.find()
-    //   .limit(limit * 1)
-    //   .skip((page - 1) * limit)
-    //   .exec();
-
     let expedientTypes = [];
-
+    console.log({ limit });
     if (!limit) {
       expedientTypes = await ExpedientType.find().select({
         nombre: 1,
@@ -137,12 +132,15 @@ export const find = async (
         secciones: 1,
       });
     } else {
-      expedientTypes = await ExpedientType.find();
+      expedientTypes = await ExpedientType.find()
+        .limit(Number(limit) * 1)
+        .skip((Number(page) - 1) * Number(limit))
+        .exec();
     }
 
     res.send({
-      count: expedientTypes.length,
-      page: 0,
+      count: await ExpedientType.find({}).count(),
+      page: Number(page),
       size: expedientTypes.length,
       data: expedientTypes,
       success: true,
