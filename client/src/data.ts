@@ -64,7 +64,6 @@ export const expedientTypes: ExpedientType[] = [
 
 export const expedient: Expedient = {
   _id: "1",
-  orden: "2",
   tipo: "Extrangeria",
   conexiones: "",
   guardadoEn: StoredIn.CurrentExpedient, // ¿?
@@ -132,7 +131,6 @@ export const expedient: Expedient = {
 export const expedients: Expedient[] = [
   {
     _id: "1",
-    orden: "2",
     tipo: "Extrangeria",
     conexiones: "",
     guardadoEn: StoredIn.CurrentExpedient, // ¿?
@@ -194,7 +192,6 @@ export const expedients: Expedient[] = [
   },
   {
     _id: "1",
-    orden: "2",
     tipo: "Extrangeria",
     conexiones: "",
     guardadoEn: StoredIn.EnCarpeta, // ¿?
@@ -225,7 +222,6 @@ export const expedients: Expedient[] = [
   },
   {
     _id: "1",
-    orden: "2",
     tipo: "Extrangeria",
     conexiones: "",
     guardadoEn: StoredIn.Fisico, // ¿?
@@ -256,7 +252,6 @@ export const expedients: Expedient[] = [
   },
   {
     _id: "1",
-    orden: "2",
     tipo: "Extrangeria",
     conexiones: "",
     guardadoEn: StoredIn.Fisico, // ¿?
@@ -289,11 +284,10 @@ export const expedients: Expedient[] = [
 
 export const listFields = [
   { label: "Id", value: "_id" },
-  { label: "Orden", value: "orden" },
   { label: "Tipo", value: "tipo" },
   { label: "Vinculado", value: "vinculado" },
   { label: "Conexiones", value: "conexiones" },
-  { label: "StoredIn", value: "guardadoEn" },
+  { label: "Guardado en", value: "guardadoEn" },
   { label: "Responsable", value: "responsable" },
   { label: "Codigo cliente", value: "codigoCliente" },
   { label: "Codigo cliente provisional", value: "codigoClienteProvisional" },
