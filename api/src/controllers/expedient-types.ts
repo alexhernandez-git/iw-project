@@ -128,15 +128,18 @@ export const find = async (
     let expedientTypes = [];
     console.log({ limit });
     if (!limit) {
-      expedientTypes = await ExpedientType.find().select({
-        nombre: 1,
-        _id: 1,
-        codigo: 1,
-        tramitePadre: 1,
-        secciones: 1,
-      });
+      expedientTypes = await ExpedientType.find()
+        .sort({ createdAt: -1 })
+        .select({
+          nombre: 1,
+          _id: 1,
+          codigo: 1,
+          tramitePadre: 1,
+          secciones: 1,
+        });
     } else {
       expedientTypes = await ExpedientType.find()
+        .sort({ createdAt: -1 })
         .limit(Number(limit) * 1)
         .skip((Number(page) - 1) * Number(limit))
         .exec();
@@ -179,6 +182,8 @@ export const updateOne = async (
   res: Response,
   next: NextFunction
 ) => {
+  console.log("files", req?.files);
+
   try {
     const {
       body: {

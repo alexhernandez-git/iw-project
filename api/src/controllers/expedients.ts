@@ -7,6 +7,7 @@ import {
   ExpedientState,
   HonorariosYSuplidosType,
 } from "../types";
+import moment from "moment";
 
 export const create = async (
   req: Request<{
@@ -46,8 +47,6 @@ export const create = async (
     };
 
     areaFuncional = await getAreaFuncional(tipo);
-
-    console.log(areaFuncional);
 
     const expedient = await Expedient.create({
       tipo: new Types.ObjectId(tipo),
@@ -110,12 +109,11 @@ export const find = async (
 ) => {
   let { page = 1, limit = 10 } = req.query;
 
-  console.log({ page, limit });
-
   try {
     const expedients = await Expedient.find({
       user: req.user._id,
     })
+      .sort({ createdAt: -1 })
       .populate(["tipo", "vinculado", "areaFuncional"])
       .limit(Number(limit) * 1)
       .skip((Number(page) - 1) * Number(limit))
@@ -165,14 +163,60 @@ export const updateOne = async (
 ) => {
   try {
     const {
+      files,
       body,
       params: { id },
     } = req;
 
+    const { data } = body;
+
+    let dataJSON = JSON.parse(data);
+
+    if (files) {
+      var fileKeys = Object.keys(files);
+      fileKeys.forEach(function (key) {
+        let path = "";
+        const [section, fieldName] = key.split("/");
+        console.log({ section, fieldName });
+        const file = files[key];
+        const itemNames = [];
+        if (Array.isArray(file)) {
+          file.forEach((fileItem) => {
+            const fileName = `${moment()}]-[${fileItem.name}`;
+            path = `./uploads/${section}/${fieldName}/${fileName}`;
+            fileItem.mv(path, { recursive: true });
+            itemNames.push(fileName);
+          });
+        } else {
+          const fileName = `${moment()}]-[${file.name}`;
+          path = `./uploads/${section}/${fieldName}/${fileName}`;
+          file.mv(path, { recursive: true });
+          itemNames.push(fileName);
+        }
+        dataJSON.secciones = dataJSON.secciones.map((sectionItem) =>
+          sectionItem.nombre === section
+            ? {
+                ...sectionItem,
+                recursos: sectionItem.recursos.map((resource) =>
+                  resource.nombre === fieldName
+                    ? {
+                        ...resource,
+                        archivos: itemNames,
+                      }
+                    : resource
+                ),
+              }
+            : sectionItem
+        );
+      });
+    }
+
+    console.log(JSON.stringify(dataJSON.secciones));
+
     const expedient = await Expedient.findOneAndUpdate(
       { _id: id, user: req.user._id },
       {
-        $set: body,
+        $set: dataJSON,
       },
       {
         upsert: true,
@@ -182,6 +226,7 @@ export const updateOne = async (
 
     res.send({ expedient, success: true });
   } catch (error) {
+    console.log(error.message);
     next({
       statusCode: 500,
       message: "Error creating user",

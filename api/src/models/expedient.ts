@@ -64,6 +64,7 @@ const expedientSchema = new Schema({
           nombre: { type: String },
           tipo: { type: String, enum: ExpedientResourceType },
           texto: { type: String },
+          archivos: [{ type: String }],
           expediente: { type: String },
           descripcion: { type: String },
         },
@@ -73,8 +74,8 @@ const expedientSchema = new Schema({
 });
 
 expedientSchema.set("timestamps", true);
-expedientSchema.index({ createdAt: 1 });
-expedientSchema.index({ updatedAt: 1 });
+expedientSchema.index({ createdAt: -1 });
+expedientSchema.index({ updatedAt: -1 });
 
 const Expedient = model(Models.Expedient, expedientSchema);
 export { Expedient };

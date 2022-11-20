@@ -33,8 +33,8 @@ const expedientTypeSchema = new Schema({
 });
 
 expedientTypeSchema.set("timestamps", true);
-expedientTypeSchema.index({ createdAt: 1 });
-expedientTypeSchema.index({ updatedAt: 1 });
+expedientTypeSchema.index({ createdAt: -1 });
+expedientTypeSchema.index({ updatedAt: -1 });
 
 const ExpedientType = model(Models.ExpedientType, expedientTypeSchema);
 export { ExpedientType };

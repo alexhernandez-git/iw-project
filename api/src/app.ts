@@ -4,17 +4,24 @@ import usersRouter from "./routes/users";
 import expedientsRouter from "./routes/expedients";
 import expedientTypesRouter from "./routes/expedient-types";
 import userAuthentication from "./middlewares/userAuthentication";
-
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
+var multer = require("multer");
+const _ = require("lodash");
+const fileUpload = require("express-fileupload");
 dotenv.config();
-
 const app: Express = express();
 var cors = require("cors");
+
+app.use(morgan("dev"));
 var path = require("path");
+
 const router = express.Router();
 
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(fileUpload());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/users", usersRouter);
