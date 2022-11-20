@@ -99,6 +99,7 @@ const ExpedientsTypesEdit = () => {
                       name: "honorarios",
                       type: FormInputType.Text,
                     },
+
                     {
                       label: "Padre",
                       name: "tramitePadre",

@@ -128,6 +128,11 @@ const ExpedientsView = () => {
                     value: expedient?.orden,
                   },
                   {
+                    type: ListItemType.Text,
+                    label: "Area funcional",
+                    value: expedient?.areaFuncional?.nombre,
+                  },
+                  {
                     type: ListItemType.Button,
                     label: "vinculado",
                     value: {

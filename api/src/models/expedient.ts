@@ -13,6 +13,10 @@ const expedientSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: Models.User,
   },
+  areaFuncional: {
+    type: Schema.Types.ObjectId,
+    ref: Models.ExpedientType,
+  },
   orden: { type: String },
   tipo: { type: Schema.Types.ObjectId, ref: Models.ExpedientType },
   vinculado: {

@@ -9,6 +9,7 @@ export const create = async (
     tramitePadre: string | null;
     descripcion: string;
     honorarios: number;
+    isAreaFuncional: boolean;
     secciones: {
       nombre: string;
       recursos: {
@@ -30,6 +31,7 @@ export const create = async (
         codigo,
         tramitePadre,
         descripcion,
+        isAreaFuncional,
         honorarios,
         secciones,
       },
@@ -43,6 +45,7 @@ export const create = async (
             codigo,
             tramitePadre,
             descripcion,
+            isAreaFuncional,
             honorarios,
             secciones,
           }
@@ -51,6 +54,7 @@ export const create = async (
             nombre,
             codigo,
             descripcion,
+            isAreaFuncional,
             honorarios,
             secciones,
           }
@@ -196,6 +200,7 @@ export const updateOne = async (
               nombre,
               codigo,
               tramitePadre,
+              isAreaFuncional,
               descripcion,
               honorarios,
               secciones,
@@ -204,6 +209,7 @@ export const updateOne = async (
               nombre,
               codigo,
               descripcion,
+              isAreaFuncional,
               honorarios,
               secciones,
             },

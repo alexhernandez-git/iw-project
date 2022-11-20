@@ -296,7 +296,7 @@ export const listFields = [
   { label: "Asunto", value: "asunto" },
   {
     label: "Fecha solicitud servicio notificacion",
-    value: "echaSolicitudServicioNotificacion",
+    value: "fechaSolicitudServicioNotificacion",
   },
   { label: "Plazo legal", value: "plazoLegal" },
   { label: "Estado", value: "estado" },

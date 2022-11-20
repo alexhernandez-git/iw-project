@@ -24,8 +24,34 @@ export const create = async (
 
     const expedientType = await ExpedientType.findById(tipo);
 
+    let areaFuncional = null;
+
+    if (expedientType.isAreaFuncional) {
+      areaFuncional = expedientType._id;
+    }
+
+    const getAreaFuncional = async (id) => {
+      const expedientTypeWithParents = await ExpedientType.findById(
+        id
+      ).populate("tramitePadre");
+      if (expedientTypeWithParents.isAreaFuncional) {
+        return expedientTypeWithParents;
+      }
+      if (!expedientTypeWithParents.tramitePadre) {
+        return null;
+      }
+      return await getAreaFuncional(
+        expedientTypeWithParents?.tramitePadre?._id
+      );
+    };
+
+    areaFuncional = await getAreaFuncional(tipo);
+
+    console.log(areaFuncional);
+
     const expedient = await Expedient.create({
       tipo: new Types.ObjectId(tipo),
+      areaFuncional,
       vinculado: vinculado,
       secciones: expedientType?.secciones ?? [],
       user: _id,
@@ -33,7 +59,7 @@ export const create = async (
 
     res.send({ expedient, success: true });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     next({
       statusCode: 500,
       message: "Error creating user",
@@ -54,7 +80,7 @@ export const findOne = async (
     const expedient = await Expedient.findOne({
       _id: id,
       user: req.user._id,
-    }).populate(["tipo", "vinculado"]);
+    }).populate(["tipo", "vinculado", "areaFuncional"]);
 
     console.log({ expedient });
     if (!expedient) {
@@ -90,7 +116,7 @@ export const find = async (
     const expedients = await Expedient.find({
       user: req.user._id,
     })
-      .populate(["tipo", "vinculado"])
+      .populate(["tipo", "vinculado", "areaFuncional"])
       .limit(Number(limit) * 1)
       .skip((Number(page) - 1) * Number(limit))
       .exec();

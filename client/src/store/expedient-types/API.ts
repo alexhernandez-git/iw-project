@@ -22,7 +22,7 @@ export function fetchExpedientTypes({
   }>((resolve) =>
     getAll
       ? resolve(
-          axios.get("http://3.253.49.204:8080/expedient-types", {
+          axios.get("http://localhost:8080/expedient-types", {
             headers: {
               Authorization: `Bearer ${window.localStorage.getItem("token")}`,
             },
@@ -30,7 +30,7 @@ export function fetchExpedientTypes({
         )
       : resolve(
           axios.get(
-            `http://3.253.49.204:8080/expedient-types?page=${page}&limit=10`,
+            `http://localhost:8080/expedient-types?page=${page}&limit=10`,
             {
               headers: {
                 Authorization: `Bearer ${window.localStorage.getItem("token")}`,

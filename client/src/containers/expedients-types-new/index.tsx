@@ -27,6 +27,7 @@ const ExpedientsTypesNew = () => {
       nombre: "",
       honorarios: "",
       tramitePadre: "",
+      isAreaFuncional: false,
       secciones: [],
     },
     onSubmit: (values) => {
@@ -82,6 +83,12 @@ const ExpedientsTypesNew = () => {
                   name: "honorarios",
                   formik,
                   type: FormInputType.Text,
+                },
+                {
+                  label: "Es area funcional",
+                  name: "isAreaFuncional",
+                  formik,
+                  type: FormInputType.Checkbox,
                 },
                 {
                   label: "Padre",

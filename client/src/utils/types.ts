@@ -23,6 +23,7 @@ export enum FormInputType {
   Select = "select",
   Array = "array",
   Date = "date",
+  Checkbox = "checkbox",
 }
 
 export enum UserRole {
@@ -130,6 +131,7 @@ export type Section = {
 export type Expedient = {
   _id: string;
   orden: string;
+  areaFuncional: ExpedientType;
   isBorrador: boolean;
   tipo: string;
   vinculado: string;
@@ -165,6 +167,7 @@ export type ExpedientType = {
   codigo: string;
   tramitePadre: string;
   descripcio: string;
+  isAreaFuncional: boolean;
   honorarios: number;
   secciones: Section[];
 };

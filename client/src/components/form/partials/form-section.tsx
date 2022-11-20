@@ -1,6 +1,7 @@
 import React from "react";
 import { FormInput, FormInputType } from "../../../utils/types";
 import ArrayInput from "./array-input";
+import CheckboxInput from "./checkbox-input";
 import DateInput from "./date-input";
 import SelectInput from "./select-input";
 import TextInput from "./text-input";
@@ -34,6 +35,8 @@ const FormSection = ({ label, description, inputs, onSave = null }: Props) => {
                 return <DateInput {...{ label, name, options, formik }} />;
               case FormInputType.Array:
                 return <ArrayInput {...{ label, name, formik }} />;
+              case FormInputType.Checkbox:
+                return <CheckboxInput {...{ label, name, formik }} />;
               default:
                 break;
             }

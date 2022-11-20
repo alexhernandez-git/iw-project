@@ -69,6 +69,11 @@ const ExpedientsTypesView = () => {
                 value: expedientType?.honorarios,
               },
               {
+                type: ListItemType.Text,
+                label: "Es area funcional",
+                value: expedientType?.isAreaFuncional ? "Si" : "No",
+              },
+              {
                 type: ListItemType.Button,
                 label: "Padre",
                 value: {
