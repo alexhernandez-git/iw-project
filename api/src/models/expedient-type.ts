@@ -24,6 +24,7 @@ const expedientTypeSchema = new Schema({
           nombre: { type: String },
           tipo: { type: String, enum: ExpedientResourceType },
           texto: { type: String },
+          archivos: [{ type: String }],
           expediente: { type: String },
           descripcion: { type: String },
         },

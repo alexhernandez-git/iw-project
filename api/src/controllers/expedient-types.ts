@@ -1,6 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { ExpedientType } from "../models/expedient-type";
 import { ExpedientResourceType } from "../types";
+import moment from "moment";
+import fs from "fs";
+
+const BASE_PATH = "./uploads";
 
 export const create = async (
   req: Request<{
@@ -24,48 +28,66 @@ export const create = async (
   next: NextFunction
 ) => {
   try {
-    const {
-      user,
-      body: {
-        nombre,
-        codigo,
-        tramitePadre,
-        descripcion,
-        isAreaFuncional,
-        honorarios,
-        secciones,
-      },
-    } = req;
+    const { user, files, body } = req;
 
-    const expedientType = await ExpedientType.create(
-      tramitePadre
-        ? {
-            user: user._id,
-            nombre,
-            codigo,
-            tramitePadre,
-            descripcion,
-            isAreaFuncional,
-            honorarios,
-            secciones,
-          }
-        : {
-            user: user._id,
-            nombre,
-            codigo,
-            descripcion,
-            isAreaFuncional,
-            honorarios,
-            secciones,
-          }
-    );
+    const { data } = body;
 
-    if (expedientType.tramitePadre) {
-      const parentExpedient = await ExpedientType.findById(
-        expedientType.tramitePadre
-      ).select({ nombre: 1, _id: 1, codigo: 1 });
-      expedientType.tramitePadre = parentExpedient;
+    let dataJSON = JSON.parse(data);
+
+    dataJSON.user = user._id;
+
+    if (!dataJSON.tramitePadre) {
+      delete dataJSON.tramitePadre;
     }
+
+    if (files) {
+      var fileKeys = Object.keys(files);
+      fileKeys.forEach(function (key) {
+        let path = "";
+        const [section, fieldName] = key.split("/");
+        console.log({ section, fieldName });
+        const file = files[key];
+        const itemNames = [];
+        if (Array.isArray(file)) {
+          file.forEach((fileItem) => {
+            const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
+              fileItem.name
+            }`;
+            path = `${BASE_PATH}/${fileName}`;
+            fileItem.mv(path);
+            itemNames.push(fileName);
+          });
+        } else {
+          const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
+            file.name
+          }`;
+          path = `${BASE_PATH}/${fileName}`;
+          file.mv(path);
+          itemNames.push(fileName);
+        }
+        dataJSON.secciones = dataJSON.secciones.map((sectionItem) =>
+          sectionItem.nombre === section
+            ? {
+                ...sectionItem,
+                recursos: sectionItem.recursos.map((resource) => {
+                  if (resource.nombre === fieldName) {
+                    return {
+                      ...resource,
+                      archivos: itemNames,
+                    };
+                  } else {
+                    return resource;
+                  }
+                }),
+              }
+            : sectionItem
+        );
+      });
+    }
+
+    const expedientType = await (
+      await ExpedientType.create(dataJSON)
+    ).populate("tramitePadre");
 
     res.send({ expedientType, success: true });
   } catch (error) {
@@ -182,55 +204,88 @@ export const updateOne = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("files", req?.files);
-
   try {
     const {
-      body: {
-        nombre,
-        codigo,
-        tramitePadre,
-        descripcion,
-        honorarios,
-        secciones,
-      },
+      body,
+      files,
       params: { id },
     } = req;
+
+    const { data } = body;
+
+    let dataJSON = JSON.parse(data);
+
+    if (!dataJSON.tramitePadre) {
+      delete dataJSON.tramitePadre;
+    }
+
+    if (files) {
+      var fileKeys = Object.keys(files);
+      fileKeys.forEach(function (key) {
+        let path = "";
+        const [section, fieldName] = key.split("/");
+        console.log({ section, fieldName });
+        const file = files[key];
+        const itemNames = [];
+        if (Array.isArray(file)) {
+          file.forEach((fileItem) => {
+            const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
+              fileItem.name
+            }`;
+            path = `${BASE_PATH}/${fileName}`;
+            fileItem.mv(path);
+            itemNames.push(fileName);
+          });
+        } else {
+          const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
+            file.name
+          }`;
+          path = `${BASE_PATH}/${fileName}`;
+          file.mv(path);
+          itemNames.push(fileName);
+        }
+        const filesToDelete = [];
+        dataJSON.secciones = dataJSON.secciones.map((sectionItem) =>
+          sectionItem.nombre === section
+            ? {
+                ...sectionItem,
+                recursos: sectionItem.recursos.map((resource) => {
+                  if (resource.nombre === fieldName) {
+                    filesToDelete.push([
+                      ...filesToDelete,
+                      ...resource.archivos,
+                    ]);
+                    return {
+                      ...resource,
+                      archivos: itemNames,
+                    };
+                  } else {
+                    return resource;
+                  }
+                }),
+              }
+            : sectionItem
+        );
+        filesToDelete.forEach((file) => {
+          fs.unlink(BASE_PATH + "/" + file, (err) => {
+            if (err) {
+              console.log("file error", err);
+            }
+          });
+        });
+      });
+    }
 
     const expedientType = await ExpedientType.findOneAndUpdate(
       { _id: id },
       {
-        $set: tramitePadre
-          ? {
-              nombre,
-              codigo,
-              tramitePadre,
-              isAreaFuncional,
-              descripcion,
-              honorarios,
-              secciones,
-            }
-          : {
-              nombre,
-              codigo,
-              descripcion,
-              isAreaFuncional,
-              honorarios,
-              secciones,
-            },
+        $set: dataJSON,
       },
       {
         upsert: true,
         new: true,
       }
-    );
-
-    if (expedientType.tramitePadre) {
-      const parentExpedient = await ExpedientType.findById(
-        expedientType.tramitePadre
-      ).select({ nombre: 1, _id: 1, codigo: 1 });
-      expedientType.tramitePadre = parentExpedient;
-    }
+    ).populate("tramitePadre");
 
     res.send({
       expedientType,
