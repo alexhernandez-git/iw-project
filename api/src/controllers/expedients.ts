@@ -8,7 +8,6 @@ import {
   HonorariosYSuplidosType,
 } from "../types";
 import moment from "moment";
-import fs from "fs";
 
 const BASE_PATH = "./uploads";
 
@@ -222,13 +221,13 @@ export const updateOne = async (
               }
             : sectionItem
         );
-        filesToDelete.forEach((file) => {
-          fs.unlink(BASE_PATH + "/" + file, (err) => {
-            if (err) {
-              console.log("file error", err);
-            }
-          });
-        });
+        // filesToDelete.forEach((file) => {
+        //   fs.unlink(BASE_PATH + "/" + file, (err) => {
+        //     if (err) {
+        //       console.log("file error", err);
+        //     }
+        //   });
+        // });
       });
     }
 
