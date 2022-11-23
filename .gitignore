@@ -25,3 +25,7 @@ yarn-error.log*
 
 .envs/*
 !.envs/.local.example/
+
+/uploads
+/api/uploads
+/api/uploads/*

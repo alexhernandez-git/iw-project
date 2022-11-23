@@ -19,7 +19,7 @@ const mailingLists = [
   },
   {
     id: ExpedientRequirementType.Files,
-    title: "Archivos",
+    title: "Archivo",
     description: "Ej: Foto DNI, foto pasaporte...",
   },
 ];

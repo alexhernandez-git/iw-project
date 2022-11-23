@@ -45,11 +45,36 @@ const ExpedientsEdit = () => {
     },
     enableReinitialize: true,
     onSubmit: (values) => {
-      values.fechaSolicitudServicioNotificacion = moment(
-        values.fechaSolicitudServicioNotificacion
-      );
-      console.log({ expedientValueeeeees: values });
-      dispatch(editExpedient({ id, data: values }));
+      try {
+        values.fechaSolicitudServicioNotificacion = moment(
+          values.fechaSolicitudServicioNotificacion
+        );
+
+        var formData = new FormData();
+
+        const files = values?.files;
+
+        delete values?.files;
+
+        formData.append("data", JSON.stringify(values));
+
+        console.log({ files });
+
+        if (files) {
+          for (const [key] of Object.entries(files)) {
+            console.log({ filesKeY: files[key] });
+            Array.from(files[key]).forEach((file) => {
+              console.log({ file });
+              formData.append(key, file, file?.name);
+            });
+          }
+        }
+
+        console.log({ expedientValueeeeees: formData });
+        dispatch(editExpedient({ id, data: formData }));
+      } catch (error) {
+        console.log({ error });
+      }
     },
   });
 

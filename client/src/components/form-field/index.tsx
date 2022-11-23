@@ -1,5 +1,5 @@
 import React from "react";
-import { ExpedientRequirement, FieldData } from "../../utils/types";
+import { FieldData } from "../../utils/types";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
 };
 
 const FormFieldLayout = ({
-  data: { id, nombre, descripcion, custom, onDeleteField, editable },
+  data: { nombre, descripcion, custom, onDeleteField, editable },
   children,
 }: {
   data: FieldData;
@@ -19,7 +19,7 @@ const FormFieldLayout = ({
         <div className="flex justify-end">
           <button
             type="button"
-            onClick={() => onDeleteField(id)}
+            onClick={() => onDeleteField(nombre)}
             className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-esan-color focus:ring-offset-2"
           >
             <span className="sr-only">Close panel</span>
@@ -42,7 +42,7 @@ const FormFieldLayout = ({
 };
 
 export const FormTextField = ({ data }: Props) => {
-  const { disabled, nombre, id, onEditField, getFieldValue } = data;
+  const { disabled, nombre, onEditField, getFieldValue } = data;
   console.log("get field value", getFieldValue("Certificado"));
   return (
     <FormFieldLayout data={data}>
@@ -52,7 +52,7 @@ export const FormTextField = ({ data }: Props) => {
         name={nombre}
         value={getFieldValue(nombre)}
         onChange={(e: { target: { value: string } }) =>
-          onEditField && onEditField(id, e.target.value)
+          onEditField && onEditField(nombre, e.target.value)
         }
         className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-esan-color focus:ring-esan-color sm:max-w-xs sm:text-sm"
       />
@@ -72,7 +72,7 @@ export const FormTextAreaField = ({ data }: Props) => {
         name={nombre}
         value={getFieldValue(nombre)}
         onChange={(e: { target: { value: string } }) =>
-          onEditField && onEditField(id, e.target.value)
+          onEditField && onEditField(nombre, e.target.value)
         }
         className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-esan-color focus:ring-esan-color sm:text-sm"
         defaultValue={""}
@@ -82,7 +82,8 @@ export const FormTextAreaField = ({ data }: Props) => {
 };
 
 export const FormFileField = ({ data }: Props) => {
-  const { disabled } = data;
+  const { disabled, nombre, onEditFileField, getFieldFiles } = data;
+
   return (
     <FormFieldLayout data={data}>
       <div
@@ -105,23 +106,34 @@ export const FormFileField = ({ data }: Props) => {
           </svg>
           <div className="flex text-sm text-gray-600">
             <label
-              htmlFor="file-upload"
+              htmlFor={nombre}
               className="relative cursor-pointer rounded-md bg-white font-medium text-esan-color focus-within:outline-none focus-within:ring-2 focus-within:ring-esan-color focus-within:ring-offset-2 hover:text-esan-color"
             >
-              <span>Upload a file</span>
+              <span>
+                {getFieldFiles(nombre).length === 0
+                  ? "Sube un archivo"
+                  : "Cambia el archivo"}
+              </span>
               <input
                 disabled={disabled}
-                id="file-upload"
-                name="file-upload"
+                onChange={(e) => onEditFileField(nombre, e.target.files)}
+                id={nombre}
+                name={nombre}
                 type="file"
                 className="sr-only"
               />
             </label>
-            <p className="pl-1">or drag and drop</p>
+
+            {/* <p className="pl-1">or drag and drop</p> */}
           </div>
           <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
         </div>
       </div>
+      {getFieldFiles(nombre).map((archivo) => (
+        <span className="inline-flex items-center mt-2 rounded-full bg-gray-100 px-3 py-0.5 text-xs font-medium text-gray-800">
+          {archivo.split("]-[")[1]}
+        </span>
+      ))}
     </FormFieldLayout>
   );
 };

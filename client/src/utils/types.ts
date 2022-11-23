@@ -103,7 +103,9 @@ export type FieldData = {
   disabled?: boolean;
   onDeleteField: (nombre: string) => void;
   onEditField: (nombre: string, text: string) => void;
+  onEditFileField: (nombre: string, files: any) => void;
   getFieldValue: (nombre: string) => string;
+  getFieldFiles: (nombre: string) => string[];
   formik: any;
 };
 
@@ -116,7 +118,7 @@ export type ExpedientRequirement = {
   id: string;
   nombre: string;
   tipo: ExpedientRequirementType;
-  archivo: ExpedientsRequirement[];
+  archivos: string[];
   texto: string;
   expediente: string;
   descripcion: string;

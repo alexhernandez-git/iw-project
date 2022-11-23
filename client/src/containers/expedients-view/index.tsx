@@ -256,10 +256,14 @@ const ExpedientsView = () => {
                                 type: ListItemType.Button,
                                 label: requerimiento?.nombre,
                                 value: {
-                                  label: "Descargar archivo",
+                                  label:
+                                    requerimiento?.archivos[0].split("]-[")[1],
                                   buttonLabel: "Descargar",
                                   onClick: () => {
-                                    alert("desargando archivo");
+                                    window.open(
+                                      "http://3.253.49.204:8080/files/" +
+                                        requerimiento?.archivos[0]
+                                    );
                                   },
                                 },
                               }

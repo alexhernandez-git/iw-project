@@ -41,7 +41,26 @@ const ExpedientsTypesEdit = () => {
     },
     enableReinitialize: true,
     onSubmit: (values) => {
-      dispatch(editExpedientType({ id, data: values }));
+      var formData = new FormData();
+
+      const files = values?.files;
+
+      delete values?.files;
+
+      formData.append("data", JSON.stringify(values));
+
+      console.log({ files });
+
+      if (files) {
+        for (const [key] of Object.entries(files)) {
+          console.log({ filesKeY: files[key] });
+          Array.from(files[key]).forEach((file) => {
+            console.log({ file });
+            formData.append(key, file, file?.name);
+          });
+        }
+      }
+      dispatch(editExpedientType({ id, data: formData }));
     },
   });
 

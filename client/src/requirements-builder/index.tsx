@@ -55,7 +55,6 @@ const RequirementsBuilder = ({
               recursos: [
                 ...sectionItem.recursos,
                 {
-                  id: makeId(10),
                   nombre,
                   tipo,
                   descripcion: descripcion ? descripcion : "",
@@ -104,6 +103,20 @@ const RequirementsBuilder = ({
     );
   };
 
+  console.log("fv", formik.values);
+
+  const onEditFileField = (id: string, files: any) => {
+    console.log({ id });
+    values.secciones.forEach((sectionItem: Section) => {
+      if (sectionItem.nombre === section.nombre) {
+        setFieldValue(`files`, {
+          ...formik.values.files,
+          [`${section.nombre}/${id}`]: files,
+        });
+      }
+    });
+  };
+
   const getFieldValue = (nombre: string): string => {
     let texto = "";
     values.secciones.forEach((sectionItem: Section) => {
@@ -115,6 +128,19 @@ const RequirementsBuilder = ({
       }
     });
     return texto;
+  };
+
+  const getFieldFiles = (nombre: string): string[] => {
+    let files: string[] = [];
+    values.secciones.forEach((sectionItem: Section) => {
+      if (sectionItem.nombre === section.nombre) {
+        files =
+          sectionItem.recursos.find(
+            (requirement) => requirement.nombre === nombre
+          )?.archivos ?? [];
+      }
+    });
+    return files;
   };
 
   return (
@@ -136,8 +162,10 @@ const RequirementsBuilder = ({
                       onDeleteField,
                       onEditField,
                       formik,
+                      getFieldFiles,
                       editable,
                       getFieldValue,
+                      onEditFileField,
                     },
                   };
                   switch (data.tipo) {

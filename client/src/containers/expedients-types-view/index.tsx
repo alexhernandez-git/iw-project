@@ -119,9 +119,19 @@ const ExpedientsTypesView = () => {
                       type: ListItemType.Button,
                       label: requerimiento.nombre,
                       value: {
-                        label: "imagen.png",
-                        onClick: () => alert("descargando"),
+                        label:
+                          requerimiento?.archivos &&
+                          requerimiento?.archivos.length > 0 &&
+                          requerimiento?.archivos[0].split("]-[")[1],
                         buttonLabel: "Descargar",
+                        onClick: () => {
+                          requerimiento?.archivos &&
+                            requerimiento?.archivos.length > 0 &&
+                            window.open(
+                              "http://3.253.49.204:8080/files/" +
+                                requerimiento?.archivos[0]
+                            );
+                        },
                       },
                     }
               ),
