@@ -45,7 +45,7 @@ const Button = ({
         leading-4 
         text-white 
         shadow-sm 
-        hover:bg-esan-color 
+        hover:opacity-70
     ${className}
     `;
     switch (type) {

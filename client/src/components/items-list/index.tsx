@@ -20,15 +20,26 @@ type Props = {
 const ItemsList = ({ data }: Props) => {
   const [openItems, setOpenItems] = useState<string[]>([]);
 
-  const getAllPosibleOpenItems = (items: ItemType[]): string[] => {
-    let allPosibleOpenItems = items.filter(
-      (item) => item.childrens && item.childrens.length > 0
-    );
+  const getAllPosibleOpenItems = (items: ItemType[]): string[] | undefined => {
+    if (!items) {
+      return;
+    }
+    let allPosibleOpenItems =
+      items &&
+      items?.length > 0 &&
+      items?.filter((item) => item.childrens && item.childrens.length > 0);
     let allPosible: string[] = [];
-    allPosibleOpenItems.forEach((item) => {
-      allPosible = getAllPosibleOpenItems(item.childrens);
-    });
-    return [...allPosibleOpenItems.map(({ _id }) => _id), ...allPosible];
+    allPosibleOpenItems &&
+      allPosibleOpenItems?.length > 0 &&
+      allPosibleOpenItems.forEach((item) => {
+        allPosible = getAllPosibleOpenItems(item.childrens);
+      });
+    return [
+      ...(allPosibleOpenItems && allPosibleOpenItems?.length > 0
+        ? allPosibleOpenItems.map(({ _id }) => _id)
+        : []),
+      ...allPosible,
+    ];
   };
 
   const handleToggleOpenAll = () => {
@@ -36,12 +47,14 @@ const ItemsList = ({ data }: Props) => {
     setOpenItems(openAll ? [] : allPosibleOpenItems);
   };
 
-  const handleToggleItem = (id: string) => {
+  const handleToggleItem = (e: any, id: string) => {
+    e.stopPropagation();
+    e.preventDefault();
     const index = openItems.indexOf(id);
 
     const copyOfOpenItems = [...openItems];
     if (index >= 0) {
-      copyOfOpenItems.splice(index, copyOfOpenItems.length);
+      copyOfOpenItems.splice(index, copyOfOpenItems?.length);
     } else {
       copyOfOpenItems.push(id);
     }
@@ -49,26 +62,29 @@ const ItemsList = ({ data }: Props) => {
   };
 
   const openAll = useMemo(
-    () => getAllPosibleOpenItems(data).length === openItems.length,
-    [data, openItems]
+    () => getAllPosibleOpenItems(data)?.length === openItems.length,
+    [data, openItems, getAllPosibleOpenItems]
   );
 
   return (
-    <div className="overflow-hidden bg-white shadow sm:rounded-md">
+    <div className="overflow-hidden bg-white p-3 shadow sm:rounded-md">
       <div className="mb-4 flex justify-end">
         <Button type={Type.Secondary} onClick={handleToggleOpenAll}>
-          {openAll ? "Close all" : "Open all"}
+          {openAll ? "Cerrar todos" : "Abrir todos"}
         </Button>
       </div>
       <ul role="list" className="divide-y divide-gray-200">
-        {data.map((item) => (
-          <Item
-            {...item}
-            key={item.title}
-            openItems={openItems}
-            handleToggleItem={handleToggleItem}
-          />
-        ))}
+        {data &&
+          data?.length > 0 &&
+          data.map((item) => (
+            <Item
+              {...item}
+              selected={true}
+              key={item.title}
+              openItems={openItems}
+              handleToggleItem={handleToggleItem}
+            />
+          ))}
       </ul>
     </div>
   );

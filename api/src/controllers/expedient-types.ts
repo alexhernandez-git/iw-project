@@ -3,6 +3,7 @@ import { ExpedientType } from "../models/expedient-type";
 import { ExpedientResourceType } from "../types";
 import moment from "moment";
 import fs from "fs";
+import { getAreaFuncional } from "../utils/helpers";
 
 const BASE_PATH = "./uploads";
 
@@ -88,6 +89,9 @@ export const create = async (
     const expedientType = await (
       await ExpedientType.create(dataJSON)
     ).populate("tramitePadre");
+
+    expedientType.areaFuncional = await getAreaFuncional(expedientType._id);
+    expedientType.save();
 
     res.send({ expedientType, success: true });
   } catch (error) {
@@ -183,17 +187,36 @@ export const find = async (
 };
 
 export const findAll = async (
-  req: Request,
+  req: Request<{
+    search?: string | null;
+  }>,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const expedientTypes = await ExpedientType.find().sort({ createdAt: -1 });
+    const { search } = req.query;
+    console.log({ search });
+    const expedientTypes = await ExpedientType.find(
+      search
+        ? {
+            $or: [
+              { nombre: search },
+              { codigo: search },
+              { "tramitePadre.nombre": search },
+              { "tramitePadre.codigo": search },
+              { "areaFuncional.nombre": search },
+              { "areaFuncional.codigo": search },
+            ],
+          }
+        : {}
+    ).sort({ createdAt: -1 });
+
     res.send({
       expedientTypes,
       success: true,
     });
   } catch (error) {
+    console.log(error.message);
     next({
       statusCode: 500,
       message: "Error creating user",

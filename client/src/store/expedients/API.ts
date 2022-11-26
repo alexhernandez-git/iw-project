@@ -18,11 +18,14 @@ export function fetchExpedients({
     };
   }>((resolve) =>
     resolve(
-      axios.get(`http://localhost:8080/expedients?page=${page}&limit=10`, {
-        headers: {
-          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
-        },
-      })
+      axios.get(
+        `http://localhost:8080/expedients?page=${page}&limit=10&search=${search}`,
+        {
+          headers: {
+            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+          },
+        }
+      )
     )
   );
 }

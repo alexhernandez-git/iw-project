@@ -9,7 +9,9 @@ import { getExpedientTypesAll } from "../../store/expedient-types";
 import HandleStatus from "../../components/handle-status";
 import SectionLayout from "../../components/section-layout";
 import ItemsList from "../../components/items-list";
-import { ExpedientType } from "../../utils/types";
+import { ExpedientType, ListItemType } from "../../utils/types";
+import DescriptionList from "../../components/description-list";
+import { useSearch } from "../../hooks/use-search";
 
 export default function NewExpedientType() {
   const dispatch = useDispatch();
@@ -20,9 +22,19 @@ export default function NewExpedientType() {
     (state: RootState) => state.expedientTypes
   );
 
+  const [search, setSearch] = useSearch({
+    callback: (searchValue) => {
+      console.log({ searchValue });
+      dispatch(getExpedientTypesAll({ search: searchValue }));
+    },
+  });
+
   useEffect(() => {
-    dispatch(getExpedientTypesAll({ parent }));
-  }, []);
+    if (!search || search.split(" ").join("") === "") {
+      console.log("entraaa");
+      dispatch(getExpedientTypesAll({}));
+    }
+  }, [search]);
 
   const { vinculated } = useParams() ?? { vinculated: null };
 
@@ -46,9 +58,32 @@ export default function NewExpedientType() {
 
   const { handleSubmit } = formik;
 
+  const handleSelect = (id: string) => {
+    console.log({ id });
+    formik.setFieldValue("tipo", id);
+  };
+
+  console.log("tipo", formik.values.tipo);
+
   const data = useMemo(() => {
-    let expedientTypesNested = [];
-    if (expedientTypes && expedientTypes?.length > 0) {
+    let expedientTypesData = expedientTypes;
+    if (search) {
+      expedientTypesData =
+        expedientTypesData &&
+        expedientTypesData?.length > 0 &&
+        expedientTypesData.map((item: ExpedientType) => ({
+          ...item,
+          title: item.nombre,
+          subtitle: item.codigo,
+          info: item.honorarios,
+          button: {
+            onClick: () => handleSelect(item._id),
+            label: "Selecionar",
+          },
+          childrens: [],
+        }));
+    }
+    if (!search && expedientTypes && expedientTypes?.length > 0) {
       const nest = (
         items: ExpedientType[],
         _id: null | string = null,
@@ -61,25 +96,38 @@ export default function NewExpedientType() {
             title: item.nombre,
             subtitle: item.codigo,
             info: item.honorarios,
-            onClick: () => {
-              setSelected(item._id);
+            button: {
+              onClick: () => handleSelect(item._id),
+              label: "Selecionar",
             },
             childrens: nest(items, item._id),
           }));
-      expedientTypesNested = nest(expedientTypes);
+      expedientTypesData = nest(expedientTypesData);
     }
-    return expedientTypesNested;
-  }, [expedientTypes]);
+    return expedientTypesData;
+  }, [expedientTypes, search]);
 
-  const [selected, setSelected] = useState<string>();
+  const selectedExpedientType = useMemo(
+    () =>
+      expedientTypes &&
+      expedientTypes?.length > 0 &&
+      expedientTypes.find(
+        (expedientType: ExpedientType) =>
+          expedientType._id === formik.values.tipo
+      ),
+    [formik.values.tipo, expedientTypes]
+  );
 
   console.log({ data });
-  console.log({ selected });
   return (
     <Layout
       button={{
         label: "Siguiente",
         onClick: handleSubmit,
+      }}
+      search={{
+        search,
+        setSearch,
       }}
       title={`Creación del expediente${
         vinculated ? " vinculado a expediente: " + vinculated : ""
@@ -113,8 +161,30 @@ export default function NewExpedientType() {
       }
     >
       <HandleStatus data={expedientTypes} status={status}>
-        <SectionLayout title={"Elige el tipo de expediente"}>
-          <ItemsList data={data} />
+        <SectionLayout
+          title={!selectedExpedientType ? "Elige el tipo de expediente" : null}
+          button={
+            selectedExpedientType && {
+              label: "Volver",
+              onClick: () => formik.setFieldValue("tipo", null),
+            }
+          }
+        >
+          {formik.values.tipo ? (
+            <DescriptionList
+              title={"Tipo de expediente: " + selectedExpedientType.codigo}
+              description={""}
+              list={[
+                {
+                  type: ListItemType.Text,
+                  label: "Nombre",
+                  value: selectedExpedientType?.nombre,
+                },
+              ]}
+            />
+          ) : (
+            <ItemsList data={data} />
+          )}
         </SectionLayout>
       </HandleStatus>
     </Layout>

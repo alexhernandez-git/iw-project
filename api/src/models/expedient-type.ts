@@ -8,6 +8,10 @@ const expedientTypeSchema = new Schema({
   },
   nombre: { type: String },
   codigo: { type: String, unique: true },
+  areaFuncional: {
+    type: Schema.Types.ObjectId,
+    ref: Models.ExpedientType,
+  },
   tramitePadre: {
     type: Schema.Types.ObjectId,
     default: null,

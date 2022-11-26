@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 type Props = {
   callback: (_?: any) => any;
 };
 
-export const useSearch = ({ callback }: Props) => {
+export const useSearch = ({
+  callback,
+}: Props): [string | undefined, Dispatch<SetStateAction<undefined>>] => {
   const [search, setSearch] = useState();
   const [debouncedSearch, setDebouncedSearch] = useState(search);
   useEffect(() => {

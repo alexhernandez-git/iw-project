@@ -55,8 +55,9 @@ export const getExpedientTypesByParent = createAsyncThunk(
 
 export const getExpedientTypesAll = createAsyncThunk(
   "expedients/getExpedientTypesAll",
-  async () => {
-    const response = await fetchExpedientTypesAll();
+  async ({ search = null }: { search?: string | null }) => {
+    console.log("entraaa");
+    const response = await fetchExpedientTypesAll({ search });
     return response.data.expedientTypes;
   }
 );

@@ -8,6 +8,7 @@ import {
   HonorariosYSuplidosType,
 } from "../types";
 import moment from "moment";
+import { getAreaFuncional } from "../utils/helpers";
 
 const BASE_PATH = "./uploads";
 
@@ -32,21 +33,6 @@ export const create = async (
     if (expedientType.isAreaFuncional) {
       areaFuncional = expedientType._id;
     }
-
-    const getAreaFuncional = async (id) => {
-      const expedientTypeWithParents = await ExpedientType.findById(
-        id
-      ).populate("tramitePadre");
-      if (expedientTypeWithParents.isAreaFuncional) {
-        return expedientTypeWithParents;
-      }
-      if (!expedientTypeWithParents.tramitePadre) {
-        return null;
-      }
-      return await getAreaFuncional(
-        expedientTypeWithParents?.tramitePadre?._id
-      );
-    };
 
     areaFuncional = await getAreaFuncional(tipo);
 

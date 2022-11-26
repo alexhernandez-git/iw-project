@@ -1,3 +1,5 @@
+import { ExpedientType } from "../models/expedient-type";
+
 const { spawn } = require("child_process");
 const path = require("path");
 
@@ -29,4 +31,17 @@ export const backUpDB = () => {
       console.log("back up success");
     }
   });
+};
+
+export const getAreaFuncional = async (id) => {
+  const expedientTypeWithParents = await ExpedientType.findById(id).populate(
+    "tramitePadre"
+  );
+  if (expedientTypeWithParents.isAreaFuncional) {
+    return expedientTypeWithParents;
+  }
+  if (!expedientTypeWithParents.tramitePadre) {
+    return null;
+  }
+  return await getAreaFuncional(expedientTypeWithParents?.tramitePadre?._id);
 };
