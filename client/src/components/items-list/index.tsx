@@ -19,14 +19,23 @@ type Props = {
 
 const ItemsList = ({ data }: Props) => {
   const [openItems, setOpenItems] = useState<string[]>([]);
-  const handleToggleOpenAll = () => {
-    setOpenItems(
-      openItems.length > 0
-        ? []
-        : data
-            .filter((item) => item.childrens && item.childrens.length > 0)
-            .map((item) => item._id)
+
+  const getAllPosibleOpenItems = (items: ItemType[]): string[] => {
+    let allPosibleOpenItems = items.filter(
+      (item) => item.childrens && item.childrens.length > 0
     );
+    let allPosible: string[] = [];
+    allPosibleOpenItems.forEach((item) => {
+      allPosible = getAllPosibleOpenItems(item.childrens);
+    });
+    return [...allPosibleOpenItems.map(({ _id }) => _id), ...allPosible];
+  };
+
+  const handleToggleOpenAll = () => {
+    const allPosibleOpenItems = getAllPosibleOpenItems(data);
+    console.log({ allPosibleOpenItems });
+    console.log({ openItems });
+    setOpenItems(openAll ? [] : allPosibleOpenItems);
   };
 
   const handleToggleItem = (id: string) => {
@@ -42,9 +51,7 @@ const ItemsList = ({ data }: Props) => {
   };
 
   const openAll = useMemo(
-    () =>
-      data.filter(({ childrens }) => childrens && childrens.length > 0)
-        .length === openItems.length,
+    () => getAllPosibleOpenItems(data).length === openItems.length,
     [data, openItems]
   );
 

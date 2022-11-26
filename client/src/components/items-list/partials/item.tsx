@@ -89,6 +89,8 @@ const Item = ({
               {...item}
               childrenDeep={Number(childrenDeep) + 1}
               key={item.title}
+              openItems={openItems}
+              handleToggleItem={handleToggleItem}
             />
           ))}
         </ul>

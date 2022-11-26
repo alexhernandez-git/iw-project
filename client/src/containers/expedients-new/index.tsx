@@ -96,7 +96,7 @@ export default function NewExpedientType() {
             data={[
               {
                 _id: "1",
-                title: "Titulo",
+                title: "1",
                 subtitle: "subtitulo",
                 info: "información",
                 onClick: () => {
@@ -104,8 +104,8 @@ export default function NewExpedientType() {
                 },
                 childrens: [
                   {
-                    _id: "1",
-                    title: "Titulo",
+                    _id: "2",
+                    title: "2",
                     subtitle: "subtitulo",
                     info: "información",
                     onClick: () => {
@@ -114,14 +114,46 @@ export default function NewExpedientType() {
                     childrens: [],
                   },
                   {
-                    _id: "1",
-                    title: "Titulo",
+                    _id: "3",
+                    title: "3",
                     subtitle: "subtitulo",
                     info: "información",
                     onClick: () => {
                       setSelected("Titulo");
                     },
-                    childrens: [],
+                    childrens: [
+                      {
+                        _id: "4",
+                        title: "4",
+                        subtitle: "subtitulo",
+                        info: "información",
+                        onClick: () => {
+                          setSelected("Titulo");
+                        },
+                        childrens: [
+                          {
+                            _id: "5",
+                            title: "5",
+                            subtitle: "subtitulo",
+                            info: "información",
+                            onClick: () => {
+                              setSelected("Titulo");
+                            },
+                            childrens: [],
+                          },
+                        ],
+                      },
+                      {
+                        _id: "6",
+                        title: "6",
+                        subtitle: "subtitulo",
+                        info: "información",
+                        onClick: () => {
+                          setSelected("Titulo");
+                        },
+                        childrens: [],
+                      },
+                    ],
                   },
                 ],
               },
