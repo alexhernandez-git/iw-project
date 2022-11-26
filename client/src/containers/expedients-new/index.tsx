@@ -4,11 +4,12 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { newExpedient } from "../../store/expedient";
-import { useEffect, useState } from "react";
-import { getExpedientTypesByParent } from "../../store/expedient-types";
+import { useEffect, useMemo, useState } from "react";
+import { getExpedientTypesAll } from "../../store/expedient-types";
 import HandleStatus from "../../components/handle-status";
 import SectionLayout from "../../components/section-layout";
 import ItemsList from "../../components/items-list";
+import { ExpedientType } from "../../utils/types";
 
 export default function NewExpedientType() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export default function NewExpedientType() {
   );
 
   useEffect(() => {
-    dispatch(getExpedientTypesByParent({}));
+    dispatch(getExpedientTypesAll({ parent }));
   }, []);
 
   const { vinculated } = useParams() ?? { vinculated: null };
@@ -45,14 +46,35 @@ export default function NewExpedientType() {
 
   const { handleSubmit } = formik;
 
-  const handleGetChildrens = (parent: string) => {
-    dispatch(getExpedientTypesByParent({ parent }));
-  };
+  const data = useMemo(() => {
+    let expedientTypesNested = [];
+    if (expedientTypes && expedientTypes?.length > 0) {
+      const nest = (
+        items: ExpedientType[],
+        _id: null | string = null,
+        link: string = "tramitePadre"
+      ) =>
+        items
+          .filter((item: ExpedientType) => item[link] === _id)
+          .map((item: ExpedientType) => ({
+            ...item,
+            title: item.nombre,
+            subtitle: item.codigo,
+            info: item.honorarios,
+            onClick: () => {
+              setSelected(item._id);
+            },
+            childrens: nest(items, item._id),
+          }));
+      expedientTypesNested = nest(expedientTypes);
+    }
+    return expedientTypesNested;
+  }, [expedientTypes]);
 
   const [selected, setSelected] = useState<string>();
 
+  console.log({ data });
   console.log({ selected });
-
   return (
     <Layout
       button={{
@@ -92,73 +114,7 @@ export default function NewExpedientType() {
     >
       <HandleStatus data={expedientTypes} status={status}>
         <SectionLayout title={"Elige el tipo de expediente"}>
-          <ItemsList
-            data={[
-              {
-                _id: "1",
-                title: "1",
-                subtitle: "subtitulo",
-                info: "información",
-                onClick: () => {
-                  setSelected("Titulo");
-                },
-                childrens: [
-                  {
-                    _id: "2",
-                    title: "2",
-                    subtitle: "subtitulo",
-                    info: "información",
-                    onClick: () => {
-                      setSelected("Titulo");
-                    },
-                    childrens: [],
-                  },
-                  {
-                    _id: "3",
-                    title: "3",
-                    subtitle: "subtitulo",
-                    info: "información",
-                    onClick: () => {
-                      setSelected("Titulo");
-                    },
-                    childrens: [
-                      {
-                        _id: "4",
-                        title: "4",
-                        subtitle: "subtitulo",
-                        info: "información",
-                        onClick: () => {
-                          setSelected("Titulo");
-                        },
-                        childrens: [
-                          {
-                            _id: "5",
-                            title: "5",
-                            subtitle: "subtitulo",
-                            info: "información",
-                            onClick: () => {
-                              setSelected("Titulo");
-                            },
-                            childrens: [],
-                          },
-                        ],
-                      },
-                      {
-                        _id: "6",
-                        title: "6",
-                        subtitle: "subtitulo",
-                        info: "información",
-                        onClick: () => {
-                          setSelected("Titulo");
-                        },
-                        childrens: [],
-                      },
-                    ],
-                  },
-                ],
-              },
-            ]}
-          />
+          <ItemsList data={data} />
         </SectionLayout>
       </HandleStatus>
     </Layout>

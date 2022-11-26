@@ -40,13 +40,9 @@ const ExpedientsTypesNew = () => {
 
       formData.append("data", JSON.stringify(values));
 
-      console.log({ files });
-
       if (files) {
         for (const [key] of Object.entries(files)) {
-          console.log({ filesKeY: files[key] });
           Array.from(files[key]).forEach((file) => {
-            console.log({ file });
             formData.append(key, file, file?.name);
           });
         }

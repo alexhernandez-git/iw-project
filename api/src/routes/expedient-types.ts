@@ -6,12 +6,14 @@ import {
   findOne,
   updateOne,
 } from "../controllers/expedient-types";
+import { findAll } from "../controllers/expedient-types";
 
 var express = require("express");
 var router = express.Router();
 
 router.post("/", create);
 router.get("/", find);
+router.get("/all", findAll);
 router.get("/parent/:parent?", findByParent);
 router.patch("/:id", updateOne);
 router.get("/:id", findOne);

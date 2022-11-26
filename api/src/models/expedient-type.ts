@@ -36,7 +36,7 @@ const expedientTypeSchema = new Schema({
 expedientTypeSchema.set("timestamps", true);
 expedientTypeSchema.index({ createdAt: -1 });
 expedientTypeSchema.index({ updatedAt: -1 });
-expedientTypeSchema.virtual("hijos", {
+expedientTypeSchema.virtual("childrens", {
   ref: Models.ExpedientType, // The model to use
   localField: "_id", // Find people where localField
   foreignField: "tramitePadre", // is equal to foreignField

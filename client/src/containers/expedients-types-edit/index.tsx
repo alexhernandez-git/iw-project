@@ -53,9 +53,7 @@ const ExpedientsTypesEdit = () => {
 
       if (files) {
         for (const [key] of Object.entries(files)) {
-          console.log({ filesKeY: files[key] });
           Array.from(files[key]).forEach((file) => {
-            console.log({ file });
             formData.append(key, file, file?.name);
           });
         }
@@ -65,8 +63,6 @@ const ExpedientsTypesEdit = () => {
   });
 
   const { handleSubmit } = formik;
-
-  console.log({ expedientType });
 
   return (
     <DashboardLayout

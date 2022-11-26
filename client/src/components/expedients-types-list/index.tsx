@@ -47,9 +47,10 @@ export default function ExpedientsTypesList({
   return (
     <div className="overflow-hidden bg-white shadow sm:rounded-md">
       <ul role="list" className="divide-y divide-gray-200">
-        {expedientTypes.map((expedientType) => (
-          <ExpedientsTypesCard expedientType={expedientType} />
-        ))}
+        {expedientTypes &&
+          expedientTypes.map((expedientType) => (
+            <ExpedientsTypesCard expedientType={expedientType} />
+          ))}
       </ul>
       {pagination && pagination}
     </div>

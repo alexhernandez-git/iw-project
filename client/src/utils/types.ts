@@ -165,6 +165,7 @@ export type Expedient = {
 };
 
 export type ExpedientType = {
+  _id: string;
   nombre: string;
   codigo: string;
   tramitePadre: string;

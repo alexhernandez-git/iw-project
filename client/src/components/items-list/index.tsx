@@ -33,8 +33,6 @@ const ItemsList = ({ data }: Props) => {
 
   const handleToggleOpenAll = () => {
     const allPosibleOpenItems = getAllPosibleOpenItems(data);
-    console.log({ allPosibleOpenItems });
-    console.log({ openItems });
     setOpenItems(openAll ? [] : allPosibleOpenItems);
   };
 
@@ -54,8 +52,6 @@ const ItemsList = ({ data }: Props) => {
     () => getAllPosibleOpenItems(data).length === openItems.length,
     [data, openItems]
   );
-
-  console.log({ openItems });
 
   return (
     <div className="overflow-hidden bg-white shadow sm:rounded-md">

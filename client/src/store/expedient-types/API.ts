@@ -62,3 +62,16 @@ export function fetchExpedientTypesByParent({
     )
   );
 }
+export function fetchExpedientTypesAll() {
+  return new Promise<{
+    data: ExpedientType[];
+  }>((resolve) =>
+    resolve(
+      axios.get(`http://localhost:8080/expedient-types/all`, {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+        },
+      })
+    )
+  );
+}

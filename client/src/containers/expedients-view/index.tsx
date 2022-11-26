@@ -27,8 +27,6 @@ const ExpedientsView = () => {
     (state: RootState) => state.expedient
   );
 
-  console.log({ status, expedient });
-
   const { id } = useParams();
 
   const dispatch = useDispatch();
@@ -36,8 +34,6 @@ const ExpedientsView = () => {
   useEffect(() => {
     dispatch(getExpedient(id));
   }, []);
-
-  console.log({ expedient13211: expedient });
 
   const handlePublishExpedient = () => {
     dispatch(

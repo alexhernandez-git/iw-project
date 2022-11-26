@@ -1,15 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
 import { SliceState, ExpedientType } from "../../utils/types";
-import { fetchExpedientTypes, fetchExpedientTypesByParent } from "./API";
+import {
+  fetchExpedientTypes,
+  fetchExpedientTypesAll,
+  fetchExpedientTypesByParent,
+} from "./API";
 
 export interface ExpedientTypesState {
-  value: {
-    count: number;
-    page: number;
-    size: number;
-    data: ExpedientType[];
-  };
+  value:
+    | {
+        count: number;
+        page: number;
+        size: number;
+        data: ExpedientType[];
+      }
+    | ExpedientType[];
   status: SliceState;
 }
 
@@ -47,6 +53,14 @@ export const getExpedientTypesByParent = createAsyncThunk(
   }
 );
 
+export const getExpedientTypesAll = createAsyncThunk(
+  "expedients/getExpedientTypesAll",
+  async () => {
+    const response = await fetchExpedientTypesAll();
+    return response.data.expedientTypes;
+  }
+);
+
 export const counterSlice = createSlice({
   name: "expedientTypes",
   initialState,
@@ -74,6 +88,16 @@ export const counterSlice = createSlice({
         state.value = action.payload;
       })
       .addCase(getExpedientTypesByParent.rejected, (state) => {
+        state.status = SliceState.Failed;
+      })
+      .addCase(getExpedientTypesAll.pending, (state) => {
+        state.status = SliceState.Loading;
+      })
+      .addCase(getExpedientTypesAll.fulfilled, (state, action) => {
+        state.status = SliceState.Success;
+        state.value = action.payload;
+      })
+      .addCase(getExpedientTypesAll.rejected, (state) => {
         state.status = SliceState.Failed;
       });
   },

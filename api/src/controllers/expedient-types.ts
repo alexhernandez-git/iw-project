@@ -182,6 +182,25 @@ export const find = async (
   }
 };
 
+export const findAll = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const expedientTypes = await ExpedientType.find().sort({ createdAt: -1 });
+    res.send({
+      expedientTypes,
+      success: true,
+    });
+  } catch (error) {
+    next({
+      statusCode: 500,
+      message: "Error creating user",
+    });
+  }
+};
+
 export const findByParent = async (
   req: Request<{
     parent: number;
