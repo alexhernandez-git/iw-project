@@ -1,5 +1,20 @@
 // guardar on edit create
 
+export type Filters = {
+  label: string;
+  name: string;
+  value: string;
+  options: {
+    label: string;
+    value: string | number;
+  }[];
+};
+
+export enum FiltersTypes {
+  OneChoice = "onechoice",
+  MultipleChoice = "multiplechoice",
+}
+
 export enum SliceState {
   Inactive = "idle",
   Loading = "loading",

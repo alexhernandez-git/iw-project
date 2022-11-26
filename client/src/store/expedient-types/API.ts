@@ -63,13 +63,6 @@ export function fetchExpedientTypesByParent({
   );
 }
 export function fetchExpedientTypesAll({ search }: { search: string | null }) {
-  console.log({ search });
-  console.log(
-    `http://localhost:8080/expedient-types/all${
-      search ? `?search=${search}` : ""
-    }`
-  );
-  console.log("entraaaaa");
   return new Promise<{
     data: ExpedientType[];
   }>((resolve) =>
@@ -84,6 +77,34 @@ export function fetchExpedientTypesAll({ search }: { search: string | null }) {
           },
         }
       )
+    )
+  );
+}
+
+export function fetchExpedientTypesNames() {
+  return new Promise<{
+    data: ExpedientType[];
+  }>((resolve) =>
+    resolve(
+      axios.get(`http://localhost:8080/expedient-types/names`, {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+        },
+      })
+    )
+  );
+}
+
+export function fetchExpedientTypesFunctionalAreas() {
+  return new Promise<{
+    data: ExpedientType[];
+  }>((resolve) =>
+    resolve(
+      axios.get(`http://localhost:8080/expedient-types/funcional-areas`, {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+        },
+      })
     )
   );
 }

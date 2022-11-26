@@ -5,10 +5,21 @@ import axios from "axios";
 export function fetchExpedients({
   page,
   search,
+  filters,
 }: {
   page: number;
   search: string;
+  filters: { [x: string]: string }[];
 }) {
+  let filtersQuery = "";
+  for (var i in filters) {
+    console.log(i);
+    for (var key in filters[i]) {
+      console.log(key + ": " + filters[i][key]);
+      filtersQuery += `&${key}=${filters[i][key]}`;
+    }
+  }
+
   return new Promise<{
     data: {
       count: number;
@@ -19,7 +30,7 @@ export function fetchExpedients({
   }>((resolve) =>
     resolve(
       axios.get(
-        `http://localhost:8080/expedients?page=${page}&limit=10&search=${search}`,
+        `http://localhost:8080/expedients?page=${page}&limit=10&search=${search}${filtersQuery}`,
         {
           headers: {
             Authorization: `Bearer ${window.localStorage.getItem("token")}`,

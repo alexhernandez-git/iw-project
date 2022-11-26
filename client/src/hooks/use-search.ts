@@ -1,13 +1,14 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 type Props = {
-  callback: (_?: any) => any;
+  callback: (search: string) => void;
 };
 
 export const useSearch = ({
   callback,
 }: Props): [string | undefined, Dispatch<SetStateAction<undefined>>] => {
   const [search, setSearch] = useState();
+
   const [debouncedSearch, setDebouncedSearch] = useState(search);
   useEffect(() => {
     const timer = setTimeout(() => setSearch(debouncedSearch), 500);

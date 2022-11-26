@@ -3,6 +3,8 @@ import {
   deleteOne,
   find,
   findByParent,
+  findFuncionalAreas,
+  findNames,
   findOne,
   updateOne,
 } from "../controllers/expedient-types";
@@ -14,6 +16,8 @@ var router = express.Router();
 router.post("/", create);
 router.get("/", find);
 router.get("/all", findAll);
+router.get("/funcional-areas", findFuncionalAreas);
+router.get("/names", findNames);
 router.get("/parent/:parent?", findByParent);
 router.patch("/:id", updateOne);
 router.get("/:id", findOne);

@@ -18,7 +18,7 @@ const CheckboxInput = ({
             onChange={handleChange}
             onBlur={handleBlur}
             type="checkbox"
-            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+            className="h-4 w-4 rounded border-gray-300 text-esan-color focus:ring-esan-color"
           />
         </div>
         <div className="ml-3 text-sm">

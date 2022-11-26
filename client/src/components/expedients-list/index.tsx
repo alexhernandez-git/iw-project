@@ -13,8 +13,7 @@ type Props = {
 };
 
 const ExpedientsList = ({ expedients, pagination, home = false }: Props) => {
-  console.log(expedients);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const { value: user } = useAppSelector((state) => state.user);
 
@@ -35,6 +34,14 @@ const ExpedientsList = ({ expedients, pagination, home = false }: Props) => {
 
   return (
     <div className="block">
+      <TableFilter
+        {...{
+          open,
+          setOpen,
+          expedientsTableFields,
+          handleUpdateExpedientsTableFields,
+        }}
+      />
       {!home && (
         <div className="flex justify-end my-2">
           <button

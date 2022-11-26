@@ -200,6 +200,48 @@ export const find = async (
   }
 };
 
+export const findFuncionalAreas = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const expedientTypes = await ExpedientType.find({
+      areaFuncional: { $na: null },
+    })
+      .populate("areaFuncional")
+      .select("areaFuncional");
+    res.send({
+      expedientTypes,
+      success: true,
+    });
+  } catch (error) {
+    next({
+      statusCode: 500,
+      message: "Error creating user",
+    });
+  }
+};
+
+export const findNames = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const expedientTypes = await ExpedientType.find({}).select("nombre");
+    res.send({
+      expedientTypes,
+      success: true,
+    });
+  } catch (error) {
+    next({
+      statusCode: 500,
+      message: "Error creating user",
+    });
+  }
+};
+
 export const findAll = async (
   req: Request<{
     search?: string | null;

@@ -5,6 +5,8 @@ import {
   fetchExpedientTypes,
   fetchExpedientTypesAll,
   fetchExpedientTypesByParent,
+  fetchExpedientTypesFunctionalAreas,
+  fetchExpedientTypesNames,
 } from "./API";
 
 export interface ExpedientTypesState {
@@ -57,6 +59,22 @@ export const getExpedientTypesAll = createAsyncThunk(
   "expedients/getExpedientTypesAll",
   async ({ search = null }: { search?: string | null }) => {
     const response = await fetchExpedientTypesAll({ search });
+    return response.data.expedientTypes;
+  }
+);
+
+export const getExpedientTypesFunctionalAreas = createAsyncThunk(
+  "expedients/getExpedientTypesFunctionalAreas",
+  async () => {
+    const response = await fetchExpedientTypesFunctionalAreas();
+    return response.data.expedientTypes;
+  }
+);
+
+export const getExpedientTypesNames = createAsyncThunk(
+  "expedients/getExpedientTypesNames",
+  async () => {
+    const response = await fetchExpedientTypesNames();
     return response.data.expedientTypes;
   }
 );

@@ -12,197 +12,172 @@
   }
   ```
 */
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon, FunnelIcon } from "@heroicons/react/20/solid";
+import { Fragment, useState } from "react";
+import {
+  Dialog,
+  Disclosure,
+  Menu,
+  Popover,
+  Transition,
+} from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
-const filters = {
-  price: [
-    { value: "0", label: "$0 - $25", checked: false },
-    { value: "25", label: "$25 - $50", checked: false },
-    { value: "50", label: "$50 - $75", checked: false },
-    { value: "75", label: "$75+", checked: false },
-  ],
-  color: [
-    { value: "white", label: "White", checked: false },
-    { value: "beige", label: "Beige", checked: false },
-    { value: "blue", label: "Blue", checked: true },
-    { value: "brown", label: "Brown", checked: false },
-    { value: "green", label: "Green", checked: false },
-    { value: "purple", label: "Purple", checked: false },
-  ],
-  size: [
-    { value: "xs", label: "XS", checked: false },
-    { value: "s", label: "S", checked: true },
-    { value: "m", label: "M", checked: false },
-    { value: "l", label: "L", checked: false },
-    { value: "xl", label: "XL", checked: false },
-    { value: "2xl", label: "2XL", checked: false },
-  ],
-  category: [
-    { value: "all-new-arrivals", label: "All New Arrivals", checked: false },
-    { value: "tees", label: "Tees", checked: false },
-    { value: "objects", label: "Objects", checked: false },
-    { value: "sweatshirts", label: "Sweatshirts", checked: false },
-    { value: "pants-and-shorts", label: "Pants & Shorts", checked: false },
-  ],
-};
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
   { name: "Best Rating", href: "#", current: false },
   { name: "Newest", href: "#", current: false },
 ];
+const filters = [
+  {
+    id: "category",
+    name: "Category",
+    options: [
+      { value: "new-arrivals", label: "All New Arrivals", checked: false },
+      { value: "tees", label: "Tees", checked: false },
+      { value: "objects", label: "Objects", checked: true },
+    ],
+  },
+  {
+    id: "color",
+    name: "Color",
+    options: [
+      { value: "white", label: "White", checked: false },
+      { value: "beige", label: "Beige", checked: false },
+      { value: "blue", label: "Blue", checked: false },
+    ],
+  },
+  {
+    id: "sizes",
+    name: "Sizes",
+    options: [
+      { value: "s", label: "S", checked: false },
+      { value: "m", label: "M", checked: false },
+      { value: "l", label: "L", checked: false },
+    ],
+  },
+];
+const activeFilters = [{ value: "objects", label: "Objects" }];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Filters() {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="bg-white">
+      {/* Mobile filter dialog */}
+      <Transition.Root show={open} as={Fragment}>
+        <Dialog as="div" className="relative z-40 sm:hidden" onClose={setOpen}>
+          <Transition.Child
+            as={Fragment}
+            enter="transition-opacity ease-linear duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity ease-linear duration-300"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 z-40 flex">
+            <Transition.Child
+              as={Fragment}
+              enter="transition ease-in-out duration-300 transform"
+              enterFrom="translate-x-full"
+              enterTo="translate-x-0"
+              leave="transition ease-in-out duration-300 transform"
+              leaveFrom="translate-x-0"
+              leaveTo="translate-x-full"
+            >
+              <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
+                <div className="flex items-center justify-between px-4">
+                  <h2 className="text-lg font-medium text-gray-900">Filters</h2>
+                  <button
+                    type="button"
+                    className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
+                    onClick={() => setOpen(false)}
+                  >
+                    <span className="sr-only">Close menu</span>
+                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
+                </div>
+
+                {/* Filters */}
+                <form className="mt-4">
+                  {filters.map((section) => (
+                    <Disclosure
+                      as="div"
+                      key={section.name}
+                      className="border-t border-gray-200 px-4 py-6"
+                    >
+                      {({ open }) => (
+                        <>
+                          <h3 className="-mx-2 -my-3 flow-root">
+                            <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-sm text-gray-400">
+                              <span className="font-medium text-gray-900">
+                                {section.name}
+                              </span>
+                              <span className="ml-6 flex items-center">
+                                <ChevronDownIcon
+                                  className={classNames(
+                                    open ? "-rotate-180" : "rotate-0",
+                                    "h-5 w-5 transform"
+                                  )}
+                                  aria-hidden="true"
+                                />
+                              </span>
+                            </Disclosure.Button>
+                          </h3>
+                          <Disclosure.Panel className="pt-6">
+                            <div className="space-y-6">
+                              {section.options.map((option, optionIdx) => (
+                                <div
+                                  key={option.value}
+                                  className="flex items-center"
+                                >
+                                  <input
+                                    id={`filter-mobile-${section.id}-${optionIdx}`}
+                                    name={`${section.id}[]`}
+                                    defaultValue={option.value}
+                                    type="checkbox"
+                                    defaultChecked={option.checked}
+                                    className="h-4 w-4 rounded border-gray-300 text-esan-color focus:ring-esan-color"
+                                  />
+                                  <label
+                                    htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
+                                    className="ml-3 text-sm text-gray-500"
+                                  >
+                                    {option.label}
+                                  </label>
+                                </div>
+                              ))}
+                            </div>
+                          </Disclosure.Panel>
+                        </>
+                      )}
+                    </Disclosure>
+                  ))}
+                </form>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition.Root>
+
       {/* Filters */}
-      <Disclosure
-        as="section"
-        aria-labelledby="filter-heading"
-        className="grid items-center"
-      >
+      <section aria-labelledby="filter-heading">
         <h2 id="filter-heading" className="sr-only">
-          Filtros
+          Filters
         </h2>
-        <div className="relative col-start-1 row-start-1 py-4">
-          <div className="mx-auto flex max-w-7xl space-x-6 divide-x divide-gray-200 px-4 text-sm sm:px-6 lg:px-8">
-            <div>
-              <Disclosure.Button className="group flex items-center font-medium text-gray-700">
-                <FunnelIcon
-                  className="mr-2 h-5 w-5 flex-none text-gray-400 group-hover:text-gray-500"
-                  aria-hidden="true"
-                />
-                2 Filtros
-              </Disclosure.Button>
-            </div>
-            <div className="pl-6">
-              <button type="button" className="text-gray-500">
-                Borrar todo
-              </button>
-            </div>
-          </div>
-        </div>
-        <Disclosure.Panel className="border-t border-gray-200 py-10">
-          <div className="mx-auto grid max-w-7xl grid-cols-2 gap-x-4 px-4 text-sm sm:px-6 md:gap-x-6 lg:px-8">
-            <div className="grid auto-rows-min grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-6">
-              <fieldset>
-                <legend className="block font-medium">Price</legend>
-                <div className="space-y-6 pt-6 sm:space-y-4 sm:pt-4">
-                  {filters.price.map((option, optionIdx) => (
-                    <div
-                      key={option.value}
-                      className="flex items-center text-base sm:text-sm"
-                    >
-                      <input
-                        id={`price-${optionIdx}`}
-                        name="price[]"
-                        defaultValue={option.value}
-                        type="checkbox"
-                        className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-esan-color focus:ring-esan-color"
-                        defaultChecked={option.checked}
-                      />
-                      <label
-                        htmlFor={`price-${optionIdx}`}
-                        className="ml-3 min-w-0 flex-1 text-gray-600"
-                      >
-                        {option.label}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </fieldset>
-              <fieldset>
-                <legend className="block font-medium">Color</legend>
-                <div className="space-y-6 pt-6 sm:space-y-4 sm:pt-4">
-                  {filters.color.map((option, optionIdx) => (
-                    <div
-                      key={option.value}
-                      className="flex items-center text-base sm:text-sm"
-                    >
-                      <input
-                        id={`color-${optionIdx}`}
-                        name="color[]"
-                        defaultValue={option.value}
-                        type="checkbox"
-                        className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-esan-color focus:ring-esan-color"
-                        defaultChecked={option.checked}
-                      />
-                      <label
-                        htmlFor={`color-${optionIdx}`}
-                        className="ml-3 min-w-0 flex-1 text-gray-600"
-                      >
-                        {option.label}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </fieldset>
-            </div>
-            <div className="grid auto-rows-min grid-cols-1 gap-y-10 md:grid-cols-2 md:gap-x-6">
-              <fieldset>
-                <legend className="block font-medium">Size</legend>
-                <div className="space-y-6 pt-6 sm:space-y-4 sm:pt-4">
-                  {filters.size.map((option, optionIdx) => (
-                    <div
-                      key={option.value}
-                      className="flex items-center text-base sm:text-sm"
-                    >
-                      <input
-                        id={`size-${optionIdx}`}
-                        name="size[]"
-                        defaultValue={option.value}
-                        type="checkbox"
-                        className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-esan-color focus:ring-esan-color"
-                        defaultChecked={option.checked}
-                      />
-                      <label
-                        htmlFor={`size-${optionIdx}`}
-                        className="ml-3 min-w-0 flex-1 text-gray-600"
-                      >
-                        {option.label}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </fieldset>
-              <fieldset>
-                <legend className="block font-medium">Category</legend>
-                <div className="space-y-6 pt-6 sm:space-y-4 sm:pt-4">
-                  {filters.category.map((option, optionIdx) => (
-                    <div
-                      key={option.value}
-                      className="flex items-center text-base sm:text-sm"
-                    >
-                      <input
-                        id={`category-${optionIdx}`}
-                        name="category[]"
-                        defaultValue={option.value}
-                        type="checkbox"
-                        className="h-4 w-4 flex-shrink-0 rounded border-gray-300 text-esan-color focus:ring-esan-color"
-                        defaultChecked={option.checked}
-                      />
-                      <label
-                        htmlFor={`category-${optionIdx}`}
-                        className="ml-3 min-w-0 flex-1 text-gray-600"
-                      >
-                        {option.label}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </fieldset>
-            </div>
-          </div>
-        </Disclosure.Panel>
-        <div className="col-start-1 row-start-1 py-4">
-          <div className="mx-auto flex max-w-7xl justify-end px-4 sm:px-6 lg:px-8">
-            <Menu as="div" className="relative inline-block">
-              <div className="flex">
+
+        <div className="border-b border-gray-200 bg-white py-4">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+            <Menu as="div" className="relative inline-block text-left">
+              <div>
                 <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                   Sort
                   <ChevronDownIcon
@@ -221,7 +196,7 @@ export default function Filters() {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="absolute left-0 z-10 mt-2 w-40 origin-top-left rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
                     {sortOptions.map((option) => (
                       <Menu.Item key={option.name}>
@@ -245,9 +220,127 @@ export default function Filters() {
                 </Menu.Items>
               </Transition>
             </Menu>
+
+            <button
+              type="button"
+              className="inline-block text-sm font-medium text-gray-700 hover:text-gray-900 sm:hidden"
+              onClick={() => setOpen(true)}
+            >
+              Filters
+            </button>
+
+            <div className="hidden sm:block">
+              <div className="flow-root">
+                <Popover.Group className="-mx-4 flex items-center divide-x divide-gray-200">
+                  {filters.map((section, sectionIdx) => (
+                    <Popover
+                      key={section.name}
+                      className="relative inline-block px-4 text-left"
+                    >
+                      <Popover.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                        <span>{section.name}</span>
+                        {sectionIdx === 0 ? (
+                          <span className="ml-1.5 rounded bg-gray-200 py-0.5 px-1.5 text-xs font-semibold tabular-nums text-gray-700">
+                            1
+                          </span>
+                        ) : null}
+                        <ChevronDownIcon
+                          className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                          aria-hidden="true"
+                        />
+                      </Popover.Button>
+
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                      >
+                        <Popover.Panel className="absolute right-0 z-10 mt-2 origin-top-right rounded-md bg-white p-4 shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          <form className="space-y-4">
+                            {section.options.map((option, optionIdx) => (
+                              <div
+                                key={option.value}
+                                className="flex items-center"
+                              >
+                                <input
+                                  id={`filter-${section.id}-${optionIdx}`}
+                                  name={`${section.id}[]`}
+                                  defaultValue={option.value}
+                                  type="checkbox"
+                                  defaultChecked={option.checked}
+                                  className="h-4 w-4 rounded border-gray-300 text-esan-color focus:ring-esan-color"
+                                />
+                                <label
+                                  htmlFor={`filter-${section.id}-${optionIdx}`}
+                                  className="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900"
+                                >
+                                  {option.label}
+                                </label>
+                              </div>
+                            ))}
+                          </form>
+                        </Popover.Panel>
+                      </Transition>
+                    </Popover>
+                  ))}
+                </Popover.Group>
+              </div>
+            </div>
           </div>
         </div>
-      </Disclosure>
+
+        {/* Active filters */}
+        <div className="bg-gray-100">
+          <div className="mx-auto max-w-7xl py-3 px-4 sm:flex sm:items-center sm:px-6 lg:px-8">
+            <h3 className="text-sm font-medium text-gray-500">
+              Filters
+              <span className="sr-only">, active</span>
+            </h3>
+
+            <div
+              aria-hidden="true"
+              className="hidden h-5 w-px bg-gray-300 sm:ml-4 sm:block"
+            />
+
+            <div className="mt-2 sm:mt-0 sm:ml-4">
+              <div className="-m-1 flex flex-wrap items-center">
+                {activeFilters.map((activeFilter) => (
+                  <span
+                    key={activeFilter.value}
+                    className="m-1 inline-flex items-center rounded-full border border-gray-200 bg-white py-1.5 pl-3 pr-2 text-sm font-medium text-gray-900"
+                  >
+                    <span>{activeFilter.label}</span>
+                    <button
+                      type="button"
+                      className="ml-1 inline-flex h-4 w-4 flex-shrink-0 rounded-full p-1 text-gray-400 hover:bg-gray-200 hover:text-gray-500"
+                    >
+                      <span className="sr-only">
+                        Remove filter for {activeFilter.label}
+                      </span>
+                      <svg
+                        className="h-2 w-2"
+                        stroke="currentColor"
+                        fill="none"
+                        viewBox="0 0 8 8"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeWidth="1.5"
+                          d="M1 1l6 6m0-6L1 7"
+                        />
+                      </svg>
+                    </button>
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
