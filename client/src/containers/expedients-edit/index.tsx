@@ -27,7 +27,6 @@ const ExpedientsEdit = () => {
       guardadoEn: expedient?.guardadoEn ?? "",
       responsable: expedient?.responsable ?? "",
       estado: expedient?.estado ?? "",
-      codigoCliente: expedient?.codigoCliente ?? "",
       cliente: expedient?.cliente ?? "",
       empresa: expedient?.empresa ?? "",
       plazoLegal: expedient?.plazoLegal ?? "",
@@ -124,7 +123,10 @@ const ExpedientsEdit = () => {
                     name: "estado",
                     type: FormInputType.Select,
                     options: [
-                      { id: ExpedientState.Borrador, label: "Borrador" },
+                      {
+                        id: ExpedientState.DocumentacionPendiente,
+                        label: "DocumentacionPendiente",
+                      },
                       {
                         id: ExpedientState.DocumentacionPendiente,
                         label: "Documentación pendiente",
@@ -179,12 +181,7 @@ const ExpedientsEdit = () => {
                     type: FormInputType.Text,
                   },
                   {
-                    label: "codigo cliente",
-                    name: "codigoCliente",
-                    type: FormInputType.Text,
-                  },
-                  {
-                    label: "codigo cliente provisional",
+                    label: "Codigo Cliente Provisional",
                     name: "codigoClienteProvisional",
                     type: FormInputType.Text,
                   },

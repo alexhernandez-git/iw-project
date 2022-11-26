@@ -16,6 +16,13 @@ const HandleStatus = ({ children, status, data }: Props) => {
     return "error";
   }
   console.log(status);
+  if (([SliceState.Success].includes(status) && !data) || data?.length === 0) {
+    return (
+      <span className="text-sm text-gray-500">
+        No se ha encontrado resultados
+      </span>
+    );
+  }
   if ([SliceState.Success].includes(status)) {
     return children;
   }

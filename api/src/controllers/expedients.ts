@@ -6,6 +6,7 @@ import {
   ExpedientResourceType,
   ExpedientState,
   HonorariosYSuplidosType,
+  UserRoles,
 } from "../types";
 import moment from "moment";
 import { getAreaFuncional } from "../utils/helpers";
@@ -79,6 +80,7 @@ export const findOne = async (
 
     res.send({ expedient, success: true });
   } catch (error) {
+    console.log(error.message);
     next({
       statusCode: 500,
       message: "Error buscando expediente",
@@ -95,11 +97,24 @@ export const find = async (
   res: Response,
   next: NextFunction
 ) => {
-  let { page = 1, limit = 10 } = req.query;
-
+  let { page = 1, limit = 10, search } = req.query;
+  console.log({ search });
   try {
     const expedients = await Expedient.find({
-      user: req.user._id,
+      ...(req.user.role !== UserRoles.SuperAdmin
+        ? {
+            user: req.user._id,
+          }
+        : {}),
+      ...(search
+        ? {
+            $or: [
+              { conexiones: { $regex: search, $options: "i" } },
+              { empresa: { $regex: search, $options: "i" } },
+              { responsable: { $regex: search, $options: "i" } },
+            ],
+          }
+        : {}),
     })
       .sort({ createdAt: -1 })
       .populate(["tipo", "vinculado", "areaFuncional"])
@@ -115,6 +130,7 @@ export const find = async (
       success: true,
     });
   } catch (error) {
+    console.log(error.message);
     next({
       statusCode: 500,
       message: "Error creating user",

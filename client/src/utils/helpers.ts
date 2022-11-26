@@ -28,8 +28,8 @@ export const getHonorariosYSuplidosLabel = (tipo: HonorariosYSuplidosType) => {
 
 export const getEstadoLabel = (estado: ExpedientState) => {
   switch (estado) {
-    case ExpedientState.Borrador:
-      return "Borrador";
+    case ExpedientState.DocumentacionPendiente:
+      return "DocumentacionPendiente";
     case ExpedientState.DocumentacionPendiente:
       return "Documentación pendiente";
     case ExpedientState.DocumentacionCompleta:

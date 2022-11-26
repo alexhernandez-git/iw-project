@@ -29,7 +29,7 @@ export function fetchExpedientTypes({
         )
       : resolve(
           axios.get(
-            `http://localhost:8080/expedient-types?page=${page}&limit=10`,
+            `http://localhost:8080/expedient-types?page=${page}&limit=10&search=${search}`,
             {
               headers: {
                 Authorization: `Bearer ${window.localStorage.getItem("token")}`,

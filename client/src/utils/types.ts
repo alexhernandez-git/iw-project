@@ -48,7 +48,6 @@ export type FormInput = {
 };
 
 export enum ExpedientState {
-  Borrador = "borrador", // Para colaborador PENDIENTE
   DocumentacionPendiente = "documentacionpendiente", // Para colaborador PENDIENTE
   DocumentacionCompleta = "documentacioncompleta", // Para colaborador PENDIENTE
   ExpedientCursadoNoConcluido = "expedientecursadonoconcluido", // Para colaborador EN TRAMITE
@@ -134,7 +133,7 @@ export type Expedient = {
   _id: string;
   orden: string;
   areaFuncional: ExpedientType;
-  isBorrador: boolean;
+  isDocumentacionPendiente: boolean;
   tipo: string;
   vinculado: string;
   conexiones: string;

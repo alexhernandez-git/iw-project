@@ -72,31 +72,19 @@ const ExpedientsView = () => {
         },
       ]}
     >
-      {expedient?.estado === ExpedientState.Borrador && (
-        <span className="rounded bg-yellow-100 text-yellow-600 text-sm px-3 py-2 my-5 w-full block">
-          Este expediente esta en borrador por lo que solo lo puedes ver tu, haz{" "}
-          <span
-            onClick={handlePublishExpedient}
-            className="cursor-pointer underline"
-          >
-            click aqui
-          </span>{" "}
-          para publicarlo
-        </span>
-      )}
       <Tabs
         tabIndex={tabIndex}
         setTab={setTabIndex}
         tabs={
           expedient?.secciones
             ? [
-                "Información",
+                "Ficha",
                 "Honorarios y Suplidos",
                 ...expedient.secciones.map(
                   (section: Section) => section.nombre
                 ),
               ]
-            : ["Información"]
+            : ["Ficha"]
         }
       />
 

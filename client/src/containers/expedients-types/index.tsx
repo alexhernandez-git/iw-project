@@ -15,9 +15,18 @@ const ExpedientsTypes = () => {
 
   const dispatch = useDispatch();
 
+  const [search, setSearch] = useSearch({
+    callback: (searchValue) => {
+      console.log("text-changed expedients types", searchValue);
+      dispatch(getExpedientTypes({ search: searchValue }));
+    },
+  });
+
   useEffect(() => {
-    dispatch(getExpedientTypes({}));
-  }, []);
+    if (!search || search.split(" ").join("") === "") {
+      dispatch(getExpedientTypes({}));
+    }
+  }, [search]);
 
   const onPreviousPage = () => {
     dispatch(getExpedientTypes({ page: page - 1 }));
@@ -37,11 +46,6 @@ const ExpedientsTypes = () => {
 
   const { data, count, size, page } = expedientTypes;
 
-  const [search, setSearch] = useSearch({
-    callback: (searchValue) => {
-      console.log("text-changed expedients types", searchValue);
-    },
-  });
   return (
     <DashboardLayout
       title={"Tipos de expediente"}
@@ -60,7 +64,7 @@ const ExpedientsTypes = () => {
       ]}
       search={{ search, setSearch }}
     >
-      <HandleStatus status={status} data={expedientTypes}>
+      <HandleStatus status={status} data={expedientTypes?.data}>
         <ExpedientsTypesList
           {...{ expedientTypes: data }}
           pagination={

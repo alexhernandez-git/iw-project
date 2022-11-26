@@ -78,9 +78,9 @@ const Item = ({
         <div className="flex justify-end items-center">
           <div
             onClick={(e) => handleToggleItem(e, _id)}
-            className="flex flex-1 shadow justify-between items-center cursor-pointer hover:bg-gray-100 rounded p-3"
+            className="flex flex-1 shadow justify-between items-center cursor-pointer text-esan-color bg-white hover:opacity-70 rounded p-3"
           >
-            <span className="flex items-center text-sm text-gray-500 mr-2">
+            <span className="flex items-center text-xs mr-2">
               {isOpen
                 ? `Esconder ${childrens.length} hijos`
                 : `Desplegar ${childrens.length} hijos`}
@@ -88,12 +88,12 @@ const Item = ({
             <div>
               {isOpen ? (
                 <ChevronDownIcon
-                  className="h-4 w-4 text-gray-400"
+                  className="h-4 w-4 text-esan-color"
                   aria-hidden="true"
                 />
               ) : (
                 <ChevronRightIcon
-                  className="h-4 w-4 text-gray-400"
+                  className="h-4 w-4 text-esan-color"
                   aria-hidden="true"
                 />
               )}

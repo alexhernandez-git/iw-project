@@ -37,7 +37,6 @@ export enum PaymentType {
 }
 
 export enum ExpedientState {
-  Borrador = "borrador", // Para colaborador PENDIENTE
   DocumentacionPendiente = "documentacionpendiente", // Para colaborador PENDIENTE
   DocumentacionCompleta = "documentacioncompleta", // Para colaborador PENDIENTE
   ExpedientCursadoNoConcluido = "expedientecursadonoconcluido", // Para colaborador EN TRAMITE

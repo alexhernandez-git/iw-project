@@ -46,7 +46,8 @@ const Button = ({
         text-white 
         shadow-sm 
         hover:opacity-70
-    ${className}
+        ${disabled ? "opacity-70" : "opacity-100"}
+        ${className}
     `;
     switch (type) {
       case Type.Primary:
@@ -69,6 +70,7 @@ const Button = ({
         font-medium 
         text-gray-700 
         hover:bg-gray-50
+        ${disabled ? "opacity-70" : "opacity-100"}
         ${className}
         `);
         break;
@@ -82,7 +84,6 @@ const Button = ({
     () => (
       <button
         onClick={onClick}
-        style={{ opacity: disabled ? 0.7 : 1 }}
         disabled={disabled}
         type="button"
         className={currentClassName}

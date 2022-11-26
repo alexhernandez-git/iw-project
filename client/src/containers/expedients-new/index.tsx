@@ -22,17 +22,23 @@ export default function NewExpedientType() {
     (state: RootState) => state.expedientTypes
   );
 
+  const [isAll, setIsAll] = useState(false);
+
   const [search, setSearch] = useSearch({
     callback: (searchValue) => {
       console.log({ searchValue });
-      dispatch(getExpedientTypesAll({ search: searchValue }));
+      dispatch(getExpedientTypesAll({ search: searchValue }))
+        .unwrap()
+        .then(() => setIsAll(true));
     },
   });
 
   useEffect(() => {
     if (!search || search.split(" ").join("") === "") {
       console.log("entraaa");
-      dispatch(getExpedientTypesAll({}));
+      dispatch(getExpedientTypesAll({}))
+        .unwrap()
+        .then(() => setIsAll(false));
     }
   }, [search]);
 
@@ -67,7 +73,7 @@ export default function NewExpedientType() {
 
   const data = useMemo(() => {
     let expedientTypesData = expedientTypes;
-    if (search) {
+    if (isAll) {
       expedientTypesData =
         expedientTypesData &&
         expedientTypesData?.length > 0 &&
@@ -75,7 +81,7 @@ export default function NewExpedientType() {
           ...item,
           title: item.nombre,
           subtitle: item.codigo,
-          info: item.honorarios,
+          info: item.honorarios + "€",
           button: {
             onClick: () => handleSelect(item._id),
             label: "Selecionar",
@@ -83,7 +89,7 @@ export default function NewExpedientType() {
           childrens: [],
         }));
     }
-    if (!search && expedientTypes && expedientTypes?.length > 0) {
+    if (!isAll && expedientTypes && expedientTypes?.length > 0) {
       const nest = (
         items: ExpedientType[],
         _id: null | string = null,
@@ -95,7 +101,7 @@ export default function NewExpedientType() {
             ...item,
             title: item.nombre,
             subtitle: item.codigo,
-            info: item.honorarios,
+            info: item.honorarios + "€",
             button: {
               onClick: () => handleSelect(item._id),
               label: "Selecionar",
@@ -105,7 +111,7 @@ export default function NewExpedientType() {
       expedientTypesData = nest(expedientTypesData);
     }
     return expedientTypesData;
-  }, [expedientTypes, search]);
+  }, [expedientTypes, isAll, handleSelect]);
 
   const selectedExpedientType = useMemo(
     () =>
@@ -122,7 +128,7 @@ export default function NewExpedientType() {
   return (
     <Layout
       button={{
-        label: "Siguiente",
+        label: "Crear",
         onClick: handleSubmit,
       }}
       search={{
@@ -160,19 +166,22 @@ export default function NewExpedientType() {
             ]
       }
     >
-      <HandleStatus data={expedientTypes} status={status}>
-        <SectionLayout
-          title={!selectedExpedientType ? "Elige el tipo de expediente" : null}
-          button={
-            selectedExpedientType && {
-              label: "Volver",
-              onClick: () => formik.setFieldValue("tipo", null),
-            }
+      <SectionLayout
+        title={!selectedExpedientType ? "Elige el tipo de expediente" : null}
+        button={
+          selectedExpedientType && {
+            label: "Volver",
+            onClick: () => formik.setFieldValue("tipo", null),
           }
-        >
+        }
+      >
+        <HandleStatus data={expedientTypes} status={status}>
           {formik.values.tipo ? (
             <DescriptionList
-              title={"Tipo de expediente: " + selectedExpedientType.codigo}
+              title={
+                "Tipo de expediente selecionado: " +
+                selectedExpedientType.codigo
+              }
               description={""}
               list={[
                 {
@@ -180,13 +189,23 @@ export default function NewExpedientType() {
                   label: "Nombre",
                   value: selectedExpedientType?.nombre,
                 },
+                {
+                  type: ListItemType.Text,
+                  label: "Codigo",
+                  value: selectedExpedientType?.codigo,
+                },
+                {
+                  type: ListItemType.Text,
+                  label: "Honorarios",
+                  value: selectedExpedientType?.honorarios,
+                },
               ]}
             />
           ) : (
             <ItemsList data={data} />
           )}
-        </SectionLayout>
-      </HandleStatus>
+        </HandleStatus>
+      </SectionLayout>
     </Layout>
   );
 }

@@ -28,6 +28,7 @@ import Header from "../../components/header";
 import LayoutHeader from "../layout-header";
 import Filters from "../../components/filters";
 import Breadcrumb from "../../components/breadcrumb";
+import TableFilter from "../../components/expedients-list/partials/table-filter";
 
 type Props = {
   children: ReactNode;
@@ -77,6 +78,7 @@ export default function Layout({
       <Sidebar {...sidebarProps} />
       <div className="flex flex-1 flex-col md:pl-64">
         <Header {...headerProps} search={search} />
+        <TableFilter />
         {pages && <Breadcrumb {...{ pages }} />}
         <main className="flex-1">
           {title ? (

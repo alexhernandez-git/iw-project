@@ -145,11 +145,12 @@ export const find = async (
   req: Request<{
     page: number;
     limit: number;
+    search: string;
   }>,
   res: Response,
   next: NextFunction
 ) => {
-  const { page = 1, limit = null } = req.query;
+  const { page = 1, limit = null, search } = req.query;
   try {
     let expedientTypes = [];
     console.log({ limit });
@@ -164,7 +165,20 @@ export const find = async (
           secciones: 1,
         });
     } else {
-      expedientTypes = await ExpedientType.find()
+      expedientTypes = await ExpedientType.find(
+        search
+          ? {
+              $or: [
+                { nombre: { $regex: search, $options: "i" } },
+                { codigo: { $regex: search, $options: "i" } },
+                { "tramitePadre.nombre": { $regex: search, $options: "i" } },
+                { "tramitePadre.codigo": { $regex: search, $options: "i" } },
+                { "areaFuncional.nombre": { $regex: search, $options: "i" } },
+                { "areaFuncional.codigo": { $regex: search, $options: "i" } },
+              ],
+            }
+          : {}
+      )
         .sort({ createdAt: -1 })
         .limit(Number(limit) * 1)
         .skip((Number(page) - 1) * Number(limit))
@@ -200,12 +214,12 @@ export const findAll = async (
       search
         ? {
             $or: [
-              { nombre: search },
-              { codigo: search },
-              { "tramitePadre.nombre": search },
-              { "tramitePadre.codigo": search },
-              { "areaFuncional.nombre": search },
-              { "areaFuncional.codigo": search },
+              { nombre: { $regex: search, $options: "i" } },
+              { codigo: { $regex: search, $options: "i" } },
+              { "tramitePadre.nombre": { $regex: search, $options: "i" } },
+              { "tramitePadre.codigo": { $regex: search, $options: "i" } },
+              { "areaFuncional.nombre": { $regex: search, $options: "i" } },
+              { "areaFuncional.codigo": { $regex: search, $options: "i" } },
             ],
           }
         : {}
@@ -334,7 +348,7 @@ export const updateOne = async (
                   if (resource.nombre === fieldName) {
                     filesToDelete.push([
                       ...filesToDelete,
-                      ...resource.archivos,
+                      ...(resource?.archivos ? resource.archivos : []),
                     ]);
                     return {
                       ...resource,

@@ -43,7 +43,7 @@ const expedientSchema = new Schema({
   estado: {
     enum: ExpedientState,
     type: String,
-    default: ExpedientState.Borrador,
+    default: ExpedientState.DocumentacionPendiente,
   },
   empresa: { type: String },
   honorarios: { type: Number },

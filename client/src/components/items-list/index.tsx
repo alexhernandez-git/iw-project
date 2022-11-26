@@ -68,24 +68,32 @@ const ItemsList = ({ data }: Props) => {
 
   return (
     <div className="overflow-hidden bg-white p-3 shadow sm:rounded-md">
-      <div className="mb-4 flex justify-end">
-        <Button type={Type.Secondary} onClick={handleToggleOpenAll}>
-          {openAll ? "Cerrar todos" : "Abrir todos"}
-        </Button>
-      </div>
-      <ul role="list" className="divide-y divide-gray-200">
-        {data &&
-          data?.length > 0 &&
-          data.map((item) => (
-            <Item
-              {...item}
-              selected={true}
-              key={item.title}
-              openItems={openItems}
-              handleToggleItem={handleToggleItem}
-            />
-          ))}
-      </ul>
+      {data ? (
+        <>
+          <div className="mb-4 flex justify-end">
+            <Button type={Type.Secondary} onClick={handleToggleOpenAll}>
+              {openAll ? "Cerrar todos" : "Abrir todos"}
+            </Button>
+          </div>
+          <ul role="list" className="divide-y divide-gray-200">
+            {data &&
+              data?.length > 0 &&
+              data.map((item) => (
+                <Item
+                  {...item}
+                  selected={true}
+                  key={item.title}
+                  openItems={openItems}
+                  handleToggleItem={handleToggleItem}
+                />
+              ))}
+          </ul>
+        </>
+      ) : (
+        <span className="text-sm text-gray-500">
+          No se han encontrado tipos de expediente
+        </span>
+      )}
     </div>
   );
 };
