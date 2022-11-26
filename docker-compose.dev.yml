@@ -11,13 +11,9 @@ services:
       - db
     volumes:
       - ./api:/api
-    env_file:
-      - ./.envs/.local/.mongo
-      - ./.envs/.local/.client
-      - ./.envs/.local/.node
     command: npm run dev
   db:
-    image: mongo:4.4.6
+    image: mongo:6
     restart: unless-stopped
     ports:
       - 27017:27017
@@ -37,10 +33,6 @@ services:
       - db
     volumes:
       - ./client:/client
-    env_file:
-      - ./.envs/.local/.mongo
-      - ./.envs/.local/.client
-      - ./.envs/.local/.node
     command: yarn start
 volumes:
   mongodb:

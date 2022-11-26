@@ -1,4 +1,3 @@
-import { expedientTypes } from "../../data";
 import { ExpedientType } from "../../utils/types";
 import axios from "axios";
 
@@ -22,7 +21,7 @@ export function fetchExpedientTypes({
   }>((resolve) =>
     getAll
       ? resolve(
-          axios.get("http://3.253.49.204:8080/expedient-types", {
+          axios.get(`http://localhost:8080/expedient-types`, {
             headers: {
               Authorization: `Bearer ${window.localStorage.getItem("token")}`,
             },
@@ -30,7 +29,7 @@ export function fetchExpedientTypes({
         )
       : resolve(
           axios.get(
-            `http://3.253.49.204:8080/expedient-types?page=${page}&limit=10`,
+            `http://localhost:8080/expedient-types?page=${page}&limit=10`,
             {
               headers: {
                 Authorization: `Bearer ${window.localStorage.getItem("token")}`,
@@ -38,5 +37,28 @@ export function fetchExpedientTypes({
             }
           )
         )
+  );
+}
+
+export function fetchExpedientTypesByParent({
+  parent,
+}: {
+  parent: string | null;
+}) {
+  return new Promise<{
+    data: ExpedientType[];
+  }>((resolve) =>
+    resolve(
+      axios.get(
+        `http://localhost:8080/expedient-types/parent${
+          parent ? "?parent=" + parent : ""
+        }`,
+        {
+          headers: {
+            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+          },
+        }
+      )
+    )
   );
 }

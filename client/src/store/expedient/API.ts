@@ -1,4 +1,3 @@
-import { expedient } from "../../data";
 import { Expedient } from "../../utils/types";
 import axios from "axios";
 
@@ -6,7 +5,7 @@ import axios from "axios";
 export function fetchExpedient(id: string) {
   return new Promise<{ data: Expedient }>((resolve) =>
     resolve(
-      axios.get(`http://3.253.49.204:8080/expedients/${id}`, {
+      axios.get(`http://localhost:8080/expedients/${id}`, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
         },
@@ -18,7 +17,7 @@ export function fetchExpedient(id: string) {
 export function createExpedient(data) {
   return new Promise<{ data: Expedient }>((resolve) =>
     resolve(
-      axios.post("http://3.253.49.204:8080/expedients", data, {
+      axios.post(`http://localhost:8080/expedients`, data, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
         },
@@ -31,7 +30,7 @@ export function updateExpedient(id, data) {
   console.log({ data });
   return new Promise<{ data: any }>((resolve) =>
     resolve(
-      axios.patch(`http://3.253.49.204:8080/expedients/${id}`, data, {
+      axios.patch(`http://localhost:8080/expedients/${id}`, data, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
         },

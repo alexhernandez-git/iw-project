@@ -36,6 +36,13 @@ const expedientTypeSchema = new Schema({
 expedientTypeSchema.set("timestamps", true);
 expedientTypeSchema.index({ createdAt: -1 });
 expedientTypeSchema.index({ updatedAt: -1 });
+expedientTypeSchema.virtual("hijos", {
+  ref: Models.ExpedientType, // The model to use
+  localField: "_id", // Find people where localField
+  foreignField: "tramitePadre", // is equal to foreignField
+});
+expedientTypeSchema.set("toObject", { virtuals: true });
+expedientTypeSchema.set("toJSON", { virtuals: true });
 
 const ExpedientType = model(Models.ExpedientType, expedientTypeSchema);
 export { ExpedientType };

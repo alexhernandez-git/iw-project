@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
 import { SliceState, ExpedientType } from "../../utils/types";
-import { fetchExpedientTypes } from "./API";
+import { fetchExpedientTypes, fetchExpedientTypesByParent } from "./API";
 
 export interface ExpedientTypesState {
   value: {
@@ -39,6 +39,14 @@ export const getExpedientTypes = createAsyncThunk(
   }
 );
 
+export const getExpedientTypesByParent = createAsyncThunk(
+  "expedients/getExpedientTypesByParent",
+  async ({ parent = null }: { parent?: string | null }) => {
+    const response = await fetchExpedientTypesByParent({ parent });
+    return response.data.expedientTypes;
+  }
+);
+
 export const counterSlice = createSlice({
   name: "expedientTypes",
   initialState,
@@ -56,6 +64,16 @@ export const counterSlice = createSlice({
         state.value = action.payload;
       })
       .addCase(getExpedientTypes.rejected, (state) => {
+        state.status = SliceState.Failed;
+      })
+      .addCase(getExpedientTypesByParent.pending, (state) => {
+        state.status = SliceState.Loading;
+      })
+      .addCase(getExpedientTypesByParent.fulfilled, (state, action) => {
+        state.status = SliceState.Success;
+        state.value = action.payload;
+      })
+      .addCase(getExpedientTypesByParent.rejected, (state) => {
         state.status = SliceState.Failed;
       });
   },

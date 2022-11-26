@@ -1,13 +1,14 @@
 import Layout from "../../layouts/layout";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
-import { FormInputType, SliceState } from "../../utils/types";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
-import Form from "../../components/form";
 import { newExpedient } from "../../store/expedient";
-import { useEffect } from "react";
-import { getExpedientTypes } from "../../store/expedient-types";
+import { useEffect, useState } from "react";
+import { getExpedientTypesByParent } from "../../store/expedient-types";
+import HandleStatus from "../../components/handle-status";
+import SectionLayout from "../../components/section-layout";
+import ItemsList from "../../components/items-list";
 
 export default function NewExpedientType() {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export default function NewExpedientType() {
   );
 
   useEffect(() => {
-    dispatch(getExpedientTypes({ getAll: true }));
+    dispatch(getExpedientTypesByParent({}));
   }, []);
 
   const { vinculated } = useParams() ?? { vinculated: null };
@@ -43,6 +44,14 @@ export default function NewExpedientType() {
   });
 
   const { handleSubmit } = formik;
+
+  const handleGetChildrens = (parent: string) => {
+    dispatch(getExpedientTypesByParent({ parent }));
+  };
+
+  const [selected, setSelected] = useState<string>();
+
+  console.log({ selected });
 
   return (
     <Layout
@@ -81,29 +90,45 @@ export default function NewExpedientType() {
             ]
       }
     >
-      <Form
-        onSubmit={handleSubmit}
-        data={[
-          {
-            label: "Tipo de expediente",
-            description: "",
-            inputs: [
+      <HandleStatus data={expedientTypes} status={status}>
+        <SectionLayout title={"Elige el tipo de expediente"}>
+          <ItemsList
+            data={[
               {
-                label: "Tipo",
-                name: "tipo",
-                type: FormInputType.Select,
-                options:
-                  status === SliceState.Success && expedientTypes
-                    ? expedientTypes.data.map(({ nombre, codigo, _id }) => ({
-                        label: `Nombre: ${nombre} Codigo: ${codigo}`,
-                        id: _id,
-                      }))
-                    : [],
+                _id: "1",
+                title: "Titulo",
+                subtitle: "subtitulo",
+                info: "información",
+                onClick: () => {
+                  setSelected("Titulo");
+                },
+                childrens: [
+                  {
+                    _id: "1",
+                    title: "Titulo",
+                    subtitle: "subtitulo",
+                    info: "información",
+                    onClick: () => {
+                      setSelected("Titulo");
+                    },
+                    childrens: [],
+                  },
+                  {
+                    _id: "1",
+                    title: "Titulo",
+                    subtitle: "subtitulo",
+                    info: "información",
+                    onClick: () => {
+                      setSelected("Titulo");
+                    },
+                    childrens: [],
+                  },
+                ],
               },
-            ].map((item) => ({ ...item, formik })),
-          },
-        ]}
-      />
+            ]}
+          />
+        </SectionLayout>
+      </HandleStatus>
     </Layout>
   );
 }

@@ -182,6 +182,45 @@ export const find = async (
   }
 };
 
+export const findByParent = async (
+  req: Request<{
+    parent: number;
+  }>,
+  res: Response,
+  next: NextFunction
+) => {
+  const { parent = null } = req.query;
+  try {
+    let expedientTypes = [];
+    if (parent) {
+      expedientTypes = await ExpedientType.find({ tramitePadre: parent })
+        .populate({ path: "hijos" })
+        .sort({
+          createdAt: -1,
+        })
+        .exec();
+    } else {
+      expedientTypes = await ExpedientType.find({
+        tramitePadre: null,
+      })
+        .populate({ path: "hijos" })
+        .sort({ createdAt: -1 })
+        .exec();
+    }
+
+    res.send({
+      expedientTypes,
+      success: true,
+    });
+  } catch (error) {
+    console.log(error.message);
+    next({
+      statusCode: 500,
+      message: "Error creating user",
+    });
+  }
+};
+
 export const updateOne = async (
   req: Request<{
     id: string;
