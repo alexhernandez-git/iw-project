@@ -1,10 +1,17 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import ExpedientsList from "../../components/expedients-list";
 import DashboardLayout from "../../layouts/layout";
 import { useSearch } from "../../hooks/use-search";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, useAppSelector } from "../../store";
-import { ExpedientState, SliceState, StoredIn } from "../../utils/types";
+import {
+  ExpedientState,
+  ExpedientType,
+  SliceState,
+  SortOptions,
+  SortOptionsValues,
+  StoredIn,
+} from "../../utils/types";
 import Loading from "../../components/loading";
 import { getExpedients } from "../../store/expedients";
 import Pagination from "../../components/pagination";
@@ -38,36 +45,75 @@ const Expedients = () => {
     },
   });
 
-  const functionalAreas = useMemo(() => {
-    let result: { label: string; value: string }[] = [];
+  const [functionalAreas, setFunctionalAreas] = useState<
+    {
+      label: string;
+      value: string;
+      checked: boolean;
+    }[]
+  >([]);
+
+  const [expedientTypesNames, setExpedientTypesNames] = useState<
+    {
+      label: string;
+      value: string;
+      checked: boolean;
+    }[]
+  >([]);
+
+  useEffect(() => {
     dispatch(getExpedientTypesFunctionalAreas())
       .unwrap()
       .then((data: { nombre: string; _id: string }[]) => {
-        result = data.map((item) => ({
-          label: item.nombre,
-          value: item._id,
-        }));
+        console.log({
+          dataaa: data.map((item) => ({
+            label: item.nombre,
+            value: item._id,
+            checked: false,
+          })),
+        });
+        setFunctionalAreas(
+          data.map((item) => ({
+            label: item.nombre,
+            value: item._id,
+            checked: false,
+          }))
+        );
       });
-    return result;
-  }, []);
-
-  const expedientTypesNames = useMemo(() => {
-    let result: { label: string; value: string }[] = [];
     dispatch(getExpedientTypesNames())
       .unwrap()
       .then((data: { nombre: string; _id: string }[]) => {
-        result = data.map((item) => ({
-          label: item.nombre,
-          value: item._id,
-        }));
+        setExpedientTypesNames(
+          data.map((item) => ({
+            label: item.nombre,
+            value: item._id,
+            checked: false,
+          }))
+        );
       });
-    return result;
   }, []);
 
-  const { resetFilters, filters } = useFilters({
+  const { resetFilters, filters, sortOptions } = useFilters({
     callback: (filters) => {
       dispatch(getExpedients({ search, filters }));
     },
+    sortOptions: [
+      {
+        name: SortOptionsValues.NewestFirst,
+        label: "Nuevos primero",
+        current: true,
+      },
+      {
+        name: SortOptionsValues.OldestFirst,
+        label: "Antiguos primero",
+        current: false,
+      },
+      {
+        name: SortOptionsValues.LegalTermCloseToDeadline,
+        label: "Plazo legal finalizando",
+        current: false,
+      },
+    ],
     filters: [
       {
         label: "Estado",
@@ -77,30 +123,37 @@ const Expedients = () => {
           {
             label: "Documentación pendiente",
             value: ExpedientState.DocumentacionPendiente,
+            checked: false,
           },
           {
             label: "Documentación completa",
             value: ExpedientState.DocumentacionCompleta,
+            checked: false,
           },
           {
             label: "Expediente cursado no concluido",
             value: ExpedientState.ExpedientCursadoNoConcluido,
+            checked: false,
           },
           {
             label: "No resolución",
             value: ExpedientState.NoResolucion,
+            checked: false,
           },
           {
             label: "Resolución de negatoria",
             value: ExpedientState.ResolucionDeNegatoria,
+            checked: false,
           },
           {
             label: "Resolución favorable",
             value: ExpedientState.ResolucionFaborable,
+            checked: false,
           },
           {
             label: "No resolución",
             value: ExpedientState.NoResolucion,
+            checked: false,
           },
         ],
       },
@@ -112,14 +165,17 @@ const Expedients = () => {
           {
             label: "Expediente vigente",
             value: StoredIn.CurrentExpedient,
+            checked: false,
           },
           {
             label: "En carpeta",
             value: StoredIn.EnCarpeta,
+            checked: false,
           },
           {
             label: "En físico",
             value: StoredIn.Fisico,
+            checked: false,
           },
         ],
       },
@@ -130,26 +186,13 @@ const Expedients = () => {
         options: [
           {
             label: "Facturado",
-            value: 1,
+            checked: false,
+            value: "facturado",
           },
           {
             label: "No facturado",
-            value: 0,
-          },
-        ],
-      },
-      {
-        label: "Filtrar",
-        name: "sort",
-        value: "",
-        options: [
-          {
-            label: "Nuevos primero",
-            value: "createdAt:1",
-          },
-          {
-            label: "Antiguos primero",
-            value: "createdAt:-1",
+            checked: true,
+            value: "facturado",
           },
         ],
       },
@@ -180,7 +223,10 @@ const Expedients = () => {
     <>
       <DashboardLayout
         title={"Expedients"}
-        filters={{}}
+        filters={{
+          filters,
+          sortOptions,
+        }}
         search={{ search, setSearch }}
         pages={[
           {

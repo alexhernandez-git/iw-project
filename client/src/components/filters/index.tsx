@@ -22,48 +22,20 @@ import {
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { Filters as FiltersType, SortOptions } from "../../utils/types";
 
-const sortOptions = [
-  { name: "Most Popular", href: "#", current: true },
-  { name: "Best Rating", href: "#", current: false },
-  { name: "Newest", href: "#", current: false },
-];
-const filters = [
-  {
-    id: "category",
-    name: "Category",
-    options: [
-      { value: "new-arrivals", label: "All New Arrivals", checked: false },
-      { value: "tees", label: "Tees", checked: false },
-      { value: "objects", label: "Objects", checked: true },
-    ],
-  },
-  {
-    id: "color",
-    name: "Color",
-    options: [
-      { value: "white", label: "White", checked: false },
-      { value: "beige", label: "Beige", checked: false },
-      { value: "blue", label: "Blue", checked: false },
-    ],
-  },
-  {
-    id: "sizes",
-    name: "Sizes",
-    options: [
-      { value: "s", label: "S", checked: false },
-      { value: "m", label: "M", checked: false },
-      { value: "l", label: "L", checked: false },
-    ],
-  },
-];
 const activeFilters = [{ value: "objects", label: "Objects" }];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Filters() {
+type Props = {
+  filters: FiltersType[];
+  sortOptions: SortOptions[];
+};
+
+export default function Filters({ filters, sortOptions }: Props) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -201,18 +173,17 @@ export default function Filters() {
                     {sortOptions.map((option) => (
                       <Menu.Item key={option.name}>
                         {({ active }) => (
-                          <a
-                            href={option.href}
+                          <span
                             className={classNames(
                               option.current
                                 ? "font-medium text-gray-900"
                                 : "text-gray-500",
                               active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm"
+                              "block px-4 py-2 text-sm cursor-pointer"
                             )}
                           >
-                            {option.name}
-                          </a>
+                            {option.label}
+                          </span>
                         )}
                       </Menu.Item>
                     ))}
@@ -238,7 +209,7 @@ export default function Filters() {
                       className="relative inline-block px-4 text-left"
                     >
                       <Popover.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                        <span>{section.name}</span>
+                        <span>{section.label}</span>
                         {sectionIdx === 0 ? (
                           <span className="ml-1.5 rounded bg-gray-200 py-0.5 px-1.5 text-xs font-semibold tabular-nums text-gray-700">
                             1

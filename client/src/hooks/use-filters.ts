@@ -1,21 +1,25 @@
 import { useFormik } from "formik";
-import { Filters } from "../utils/types";
+import { Filters, SortOptions } from "../utils/types";
 
 type Props = {
-  callback: (filters: { [x: string]: string }[]) => void;
+  callback: (filters: { [x: string]: any }[]) => void;
   filters: Filters[];
+  sortOptions: SortOptions[];
 };
 
 export const useFilters = ({
   callback,
   filters = [],
+  sortOptions = [],
 }: Props): {
   resetFilters: () => void;
   filters: Filters[];
+  sortOptions: SortOptions[];
 } => {
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: filters.map((filter) => ({
-      [filter.name]: filter.value,
+      [filter.name]: null,
     })),
     onSubmit: (filters) => {
       callback(filters);
@@ -29,5 +33,6 @@ export const useFilters = ({
   return {
     resetFilters,
     filters,
+    sortOptions,
   };
 };

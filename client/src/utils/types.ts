@@ -7,12 +7,25 @@ export type Filters = {
   options: {
     label: string;
     value: string | number;
+    checked: boolean;
   }[];
+};
+
+export type SortOptions = {
+  label: string;
+  name: string;
+  current: boolean;
 };
 
 export enum FiltersTypes {
   OneChoice = "onechoice",
   MultipleChoice = "multiplechoice",
+}
+
+export enum SortOptionsValues {
+  NewestFirst = "newestfirst",
+  OldestFirst = "oldestfirst",
+  LegalTermCloseToDeadline = "legaltermclosetodeadline",
 }
 
 export enum SliceState {

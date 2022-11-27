@@ -207,10 +207,11 @@ export const findFuncionalAreas = async (
 ) => {
   try {
     const expedientTypes = await ExpedientType.find({
-      areaFuncional: { $na: null },
-    })
-      .populate("areaFuncional")
-      .select("areaFuncional");
+      isAreaFuncional: true,
+    }).select({
+      nombre: 1,
+      _id: 1,
+    });
     res.send({
       expedientTypes,
       success: true,
@@ -229,7 +230,10 @@ export const findNames = async (
   next: NextFunction
 ) => {
   try {
-    const expedientTypes = await ExpedientType.find({}).select("nombre");
+    const expedientTypes = await ExpedientType.find({}).select({
+      nombre: 1,
+      _id: 1,
+    });
     res.send({
       expedientTypes,
       success: true,

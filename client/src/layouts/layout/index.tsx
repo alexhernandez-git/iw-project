@@ -28,6 +28,7 @@ import Header from "../../components/header";
 import LayoutHeader from "../layout-header";
 import Filters from "../../components/filters";
 import Breadcrumb from "../../components/breadcrumb";
+import { Filters as FiltersType, SortOptions } from "../../utils/types";
 
 type Props = {
   children: ReactNode;
@@ -44,7 +45,10 @@ type Props = {
     search: string;
     setSearch: Dispatch<SetStateAction<string>>;
   };
-  filters?: { name: string; options: string[] }[];
+  filters?: {
+    filters: FiltersType[];
+    sortOptions: SortOptions[];
+  } | null;
   pages?: {
     name: string;
     href: string;
@@ -77,7 +81,12 @@ export default function Layout({
       <Sidebar {...sidebarProps} />
       <div className="flex flex-1 flex-col md:pl-64">
         <Header {...headerProps} search={search} />
-        {filters && <Filters />}
+        {filters && (
+          <Filters
+            filters={filters.filters}
+            sortOptions={filters.sortOptions}
+          />
+        )}
         {pages && <Breadcrumb {...{ pages }} />}
         <main className="flex-1">
           {title ? (
