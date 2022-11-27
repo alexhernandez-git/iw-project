@@ -35,8 +35,10 @@ const Expedients = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getExpedients({}));
-  }, []);
+    if (!search || search.split(" ").join("") === "") {
+      dispatch(getExpedients({}));
+    }
+  }, [search]);
 
   const [search, setSearch] = useSearch({
     callback: (searchValue) => {
