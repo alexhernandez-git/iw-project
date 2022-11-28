@@ -4,15 +4,7 @@ import DashboardLayout from "../../layouts/layout";
 import { useSearch } from "../../hooks/use-search";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, useAppSelector } from "../../store";
-import {
-  ExpedientState,
-  ExpedientType,
-  SliceState,
-  SortOptions,
-  SortOptionsValues,
-  StoredIn,
-} from "../../utils/types";
-import Loading from "../../components/loading";
+import { ExpedientState, SortOptionsValues, StoredIn } from "../../utils/types";
 import { getExpedients } from "../../store/expedients";
 import Pagination from "../../components/pagination";
 import HandleStatus from "../../components/handle-status";
@@ -87,6 +79,8 @@ const Expedients = () => {
 
   const { onFiltersChange, filters, sortOptions } = useFilters({
     callback: (filters) => {
+      console.log({ filters });
+
       dispatch(getExpedients({ search, filters }));
     },
     sortOptions: [
@@ -150,7 +144,7 @@ const Expedients = () => {
       },
       {
         label: "Guardado en",
-        name: "guardadoEn",
+        name: "guardadoen",
         options: [
           {
             label: "Expediente vigente",

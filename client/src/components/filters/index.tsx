@@ -293,7 +293,7 @@ export default function Filters({
         </div>
 
         {/* Active filters */}
-        <div className="bg-gray-100">
+        {/* <div className="bg-gray-100">
           <div className="mx-auto max-w-7xl py-3 px-4 sm:flex sm:items-center sm:px-6 lg:px-8">
             <h3 className="text-sm font-medium text-gray-500">
               Filters
@@ -338,7 +338,7 @@ export default function Filters({
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </section>
     </div>
   );

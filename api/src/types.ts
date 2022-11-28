@@ -36,6 +36,12 @@ export enum PaymentType {
   Cheque = "cheque",
 }
 
+export enum SortOptionsValues {
+  NewestFirst = "newestfirst",
+  OldestFirst = "oldestfirst",
+  LegalTermCloseToDeadline = "legaltermclosetodeadline",
+}
+
 export enum ExpedientState {
   DocumentacionPendiente = "documentacionpendiente", // Para colaborador PENDIENTE
   DocumentacionCompleta = "documentacioncompleta", // Para colaborador PENDIENTE

@@ -40,16 +40,15 @@ export const useFilters = ({
   const onFiltersChange = useCallback(
     (name: string, value: string, checked?: string) => {
       const copyOfResult = { ...result };
+      console.log({ name, value, sortOptions });
       if (name === "sort") {
-        setFieldValue(
-          "sortOptions",
-          sortOptions.map((sortOption) =>
-            checked && sortOption.name === value
-              ? { ...sortOption, checked: true }
-              : { ...sortOption, checked: false }
-          )
+        const newSortOptions = sortOptions.map((sortOption) =>
+          sortOption.name === value
+            ? { ...sortOption, current: true }
+            : { ...sortOption, current: false }
         );
-
+        console.log({ newSortOptions });
+        setFieldValue("sortOptions", newSortOptions);
         // Update result
         copyOfResult[name] = [value];
         setResult(copyOfResult);
@@ -93,10 +92,9 @@ export const useFilters = ({
             }
           }
         }
-
         setResult(copyOfResult);
-        callback(copyOfResult);
       }
+      callback(copyOfResult);
     },
     [callback, setResult, result, filters, sortOptions, setFieldValue]
   );

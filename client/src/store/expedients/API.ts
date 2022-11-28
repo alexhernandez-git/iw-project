@@ -9,16 +9,17 @@ export function fetchExpedients({
 }: {
   page: number;
   search: string;
-  filters: { [x: string]: string }[];
+  filters: { [x: string]: string[] };
 }) {
-  let filtersQuery = "";
-  for (var i in filters) {
-    console.log(i);
-    for (var key in filters[i]) {
-      console.log(key + ": " + filters[i][key]);
-      filtersQuery += `&${key}=${filters[i][key]}`;
-    }
+  let queryFilters = "";
+  for (const [key, value] of Object.entries(filters)) {
+    console.log(`${key}: ${value}`);
+    queryFilters += `&${key}=${value}`;
   }
+
+  console.log(
+    `http://localhost:8080/expedients?page=${page}&limit=10&search=${search}${queryFilters}`
+  );
 
   return new Promise<{
     data: {
@@ -29,14 +30,17 @@ export function fetchExpedients({
     };
   }>((resolve) =>
     resolve(
-      axios.get(
-        `http://localhost:8080/expedients?page=${page}&limit=10&search=${search}${filtersQuery}`,
-        {
-          headers: {
-            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
-          },
-        }
-      )
+      axios.get(`http://localhost:8080/expedients`, {
+        params: {
+          page,
+          limit: 10,
+          search,
+          ...filters,
+        },
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+        },
+      })
     )
   );
 }

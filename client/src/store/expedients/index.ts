@@ -28,11 +28,11 @@ export const getExpedients = createAsyncThunk(
   async ({
     page = 1,
     search = "",
-    filters = [],
+    filters = {},
   }: {
     page?: number;
     search?: string;
-    filters?: { [x: string]: string }[];
+    filters?: { [x: string]: string[] };
   }) => {
     const response = await fetchExpedients({ page, search, filters });
     return response.data;

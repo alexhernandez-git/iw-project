@@ -6,6 +6,8 @@ import {
   ExpedientResourceType,
   ExpedientState,
   HonorariosYSuplidosType,
+  SortOptionsValues,
+  StoredIn,
   UserRoles,
 } from "../types";
 import moment from "moment";
@@ -92,16 +94,47 @@ export const find = async (
     search: string;
     page: number;
     limit: number;
+    estado?: ExpedientState[];
+    guardadoen?: StoredIn[];
+    facturado?: boolean[];
+    areafuncional?: string[];
+    tipo?: string[];
+    sort?: SortOptionsValues;
   }>,
   res: Response,
   next: NextFunction
 ) => {
-  let { page = 1, limit = 10, search } = req.query;
+  let {
+    page = 1,
+    limit = 10,
+    search,
+    estado = null,
+    guardadoen = null,
+    facturado = null,
+    areafuncional = null,
+    tipo = null,
+    sort = null,
+  } = req.query;
+
+  console.log({
+    estado,
+    guardadoen,
+    facturado,
+    areafuncional,
+    tipo,
+    sort,
+  });
+
   try {
     const expedients = await Expedient.find({
       ...(req.user.role !== UserRoles.SuperAdmin
         ? {
             user: req.user._id,
+          }
+        : {}),
+      ...(estado
+        ? {
+            estado: { $in: estado },
           }
         : {}),
       ...(search
