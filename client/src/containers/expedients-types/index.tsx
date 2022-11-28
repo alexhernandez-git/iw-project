@@ -17,7 +17,6 @@ const ExpedientsTypes = () => {
 
   const [search, setSearch] = useSearch({
     callback: (searchValue) => {
-      console.log("text-changed expedients types", searchValue);
       dispatch(getExpedientTypes({ search: searchValue }));
     },
   });

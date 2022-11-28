@@ -49,13 +49,11 @@ export default function NewField({
 }: Props) {
   const [fieldType, setFieldType] = useState(mailingLists[0]);
   const tipo = useRef<ExpedientRequirementType>(mailingLists[0].id);
-  console.log({ tipo });
   const formik = useFormik({
     initialValues: {
       nombre: "",
     },
     onSubmit: ({ nombre }) => {
-      console.log({ nombre });
       onAddField({
         nombre,
         tipo: tipo.current,

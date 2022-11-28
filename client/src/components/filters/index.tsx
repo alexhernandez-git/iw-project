@@ -33,16 +33,25 @@ function classNames(...classes) {
 type Props = {
   filters: FiltersType[];
   sortOptions: SortOptions[];
+  onFiltersChange: (
+    name: string,
+    value: string | number | boolean,
+    checked?: string
+  ) => void;
 };
 
-export default function Filters({ filters, sortOptions }: Props) {
+export default function Filters({
+  filters,
+  sortOptions,
+  onFiltersChange,
+}: Props) {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="bg-white">
       {/* Mobile filter dialog */}
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-40 sm:hidden" onClose={setOpen}>
+        <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
           <Transition.Child
             as={Fragment}
             enter="transition-opacity ease-linear duration-300"
@@ -91,7 +100,7 @@ export default function Filters({ filters, sortOptions }: Props) {
                           <h3 className="-mx-2 -my-3 flow-root">
                             <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-sm text-gray-400">
                               <span className="font-medium text-gray-900">
-                                {section.name}
+                                {section.label}
                               </span>
                               <span className="ml-6 flex items-center">
                                 <ChevronDownIcon
@@ -112,15 +121,24 @@ export default function Filters({ filters, sortOptions }: Props) {
                                   className="flex items-center"
                                 >
                                   <input
-                                    id={`filter-mobile-${section.id}-${optionIdx}`}
-                                    name={`${section.id}[]`}
+                                    id={`filter-mobile-${section.name}-${optionIdx}`}
+                                    name={`${section.name}[]`}
                                     defaultValue={option.value}
                                     type="checkbox"
+                                    onChange={(e) =>
+                                      onFiltersChange(
+                                        section.name,
+                                        option.value,
+                                        e.target.checked
+                                      )
+                                    }
+                                    value={option.value}
+                                    checked={option.checked}
                                     defaultChecked={option.checked}
                                     className="h-4 w-4 rounded border-gray-300 text-esan-color focus:ring-esan-color"
                                   />
                                   <label
-                                    htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
+                                    htmlFor={`filter-mobile-${section.name}-${optionIdx}`}
                                     className="ml-3 text-sm text-gray-500"
                                   >
                                     {option.label}
@@ -174,6 +192,7 @@ export default function Filters({ filters, sortOptions }: Props) {
                       <Menu.Item key={option.name}>
                         {({ active }) => (
                           <span
+                            onClick={() => onFiltersChange("sort", option.name)}
                             className={classNames(
                               option.current
                                 ? "font-medium text-gray-900"
@@ -194,13 +213,13 @@ export default function Filters({ filters, sortOptions }: Props) {
 
             <button
               type="button"
-              className="inline-block text-sm font-medium text-gray-700 hover:text-gray-900 sm:hidden"
+              className="inline-block text-sm font-medium text-gray-700 hover:text-gray-900 lg:hidden"
               onClick={() => setOpen(true)}
             >
               Filters
             </button>
 
-            <div className="hidden sm:block">
+            <div className="hidden lg:block">
               <div className="flow-root">
                 <Popover.Group className="-mx-4 flex items-center divide-x divide-gray-200">
                   {filters.map((section, sectionIdx) => (
@@ -238,15 +257,24 @@ export default function Filters({ filters, sortOptions }: Props) {
                                 className="flex items-center"
                               >
                                 <input
-                                  id={`filter-${section.id}-${optionIdx}`}
-                                  name={`${section.id}[]`}
+                                  id={`filter-${section.name}-${optionIdx}`}
+                                  name={`${section.name}[]`}
                                   defaultValue={option.value}
                                   type="checkbox"
+                                  onChange={(e) =>
+                                    onFiltersChange(
+                                      section.name,
+                                      option.value,
+                                      e.target.checked
+                                    )
+                                  }
+                                  value={option.value}
+                                  checked={option.checked}
                                   defaultChecked={option.checked}
                                   className="h-4 w-4 rounded border-gray-300 text-esan-color focus:ring-esan-color"
                                 />
                                 <label
-                                  htmlFor={`filter-${section.id}-${optionIdx}`}
+                                  htmlFor={`filter-${section.name}-${optionIdx}`}
                                   className="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-gray-900"
                                 >
                                   {option.label}
@@ -274,7 +302,7 @@ export default function Filters({ filters, sortOptions }: Props) {
 
             <div
               aria-hidden="true"
-              className="hidden h-5 w-px bg-gray-300 sm:ml-4 sm:block"
+              className="hidden h-5 w-px bg-gray-300 sm:ml-4 lg:block"
             />
 
             <div className="mt-2 sm:mt-0 sm:ml-4">

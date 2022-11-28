@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import ExpedientsList from "../../components/expedients-list";
 import DashboardLayout from "../../layouts/layout";
 import { useSearch } from "../../hooks/use-search";
@@ -28,24 +28,21 @@ const Expedients = () => {
     value: { page, size, count, data },
   } = useSelector((state: RootState) => state.expedients);
 
-  console.log({ data });
-
   const { value: user } = useAppSelector((state) => state.user);
 
   const dispatch = useDispatch();
+
+  const [search, setSearch] = useSearch({
+    callback: (searchValue) => {
+      dispatch(getExpedients({ search: searchValue }));
+    },
+  });
 
   useEffect(() => {
     if (!search || search.split(" ").join("") === "") {
       dispatch(getExpedients({}));
     }
   }, [search]);
-
-  const [search, setSearch] = useSearch({
-    callback: (searchValue) => {
-      console.log("text-changed expedients", searchValue);
-      dispatch(getExpedients({ search: searchValue }));
-    },
-  });
 
   const [functionalAreas, setFunctionalAreas] = useState<
     {
@@ -67,13 +64,6 @@ const Expedients = () => {
     dispatch(getExpedientTypesFunctionalAreas())
       .unwrap()
       .then((data: { nombre: string; _id: string }[]) => {
-        console.log({
-          dataaa: data.map((item) => ({
-            label: item.nombre,
-            value: item._id,
-            checked: false,
-          })),
-        });
         setFunctionalAreas(
           data.map((item) => ({
             label: item.nombre,
@@ -95,7 +85,7 @@ const Expedients = () => {
       });
   }, []);
 
-  const { resetFilters, filters, sortOptions } = useFilters({
+  const { onFiltersChange, filters, sortOptions } = useFilters({
     callback: (filters) => {
       dispatch(getExpedients({ search, filters }));
     },
@@ -120,7 +110,6 @@ const Expedients = () => {
       {
         label: "Estado",
         name: "estado",
-        value: "",
         options: [
           {
             label: "Documentación pendiente",
@@ -162,7 +151,6 @@ const Expedients = () => {
       {
         label: "Guardado en",
         name: "guardadoEn",
-        value: "",
         options: [
           {
             label: "Expediente vigente",
@@ -184,42 +172,39 @@ const Expedients = () => {
       {
         label: "Facturado",
         name: "facturado",
-        value: "",
         options: [
           {
             label: "Facturado",
             checked: false,
-            value: "facturado",
+            value: true,
           },
           {
             label: "No facturado",
-            checked: true,
-            value: "facturado",
+            checked: false,
+            value: false,
           },
         ],
       },
       {
         label: "Area funcional",
         name: "areafuncional",
-        value: "",
         options: functionalAreas,
       },
       {
         label: "Tipo",
         name: "tipo",
-        value: "",
         options: expedientTypesNames,
       },
     ],
   });
 
-  const onPreviousPage = () => {
+  const onPreviousPage = useCallback(() => {
     dispatch(getExpedients({ page: page - 1 }));
-  };
+  }, [dispatch, page]);
 
-  const onNextPage = () => {
+  const onNextPage = useCallback(() => {
     dispatch(getExpedients({ page: page + 1 }));
-  };
+  }, [dispatch, page]);
 
   return (
     <>
@@ -228,6 +213,7 @@ const Expedients = () => {
         filters={{
           filters,
           sortOptions,
+          onFiltersChange,
         }}
         search={{ search, setSearch }}
         pages={[

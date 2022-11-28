@@ -48,6 +48,11 @@ type Props = {
   filters?: {
     filters: FiltersType[];
     sortOptions: SortOptions[];
+    onFiltersChange: (
+      name: string,
+      value: string | number | boolean,
+      checked?: string
+    ) => void;
   } | null;
   pages?: {
     name: string;
@@ -81,12 +86,7 @@ export default function Layout({
       <Sidebar {...sidebarProps} />
       <div className="flex flex-1 flex-col md:pl-64">
         <Header {...headerProps} search={search} />
-        {filters && (
-          <Filters
-            filters={filters.filters}
-            sortOptions={filters.sortOptions}
-          />
-        )}
+        {filters && <Filters {...filters} />}
         {pages && <Breadcrumb {...{ pages }} />}
         <main className="flex-1">
           {title ? (

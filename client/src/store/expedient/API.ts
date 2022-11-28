@@ -27,7 +27,6 @@ export function createExpedient(data) {
 }
 
 export function updateExpedient(id, data) {
-  console.log({ data });
   return new Promise<{ data: any }>((resolve) =>
     resolve(
       axios.patch(`http://localhost:8080/expedients/${id}`, data, {

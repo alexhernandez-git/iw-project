@@ -31,7 +31,6 @@ export const login = createAsyncThunk(
   "user/login",
   async ({ username, password }: { username: string; password: string }) => {
     const response = await userLogin({ username, password });
-    console.log({ response });
     localStorage.setItem("token", response.data.accessToken);
     return response.data.user;
   }
@@ -50,7 +49,6 @@ export const update = createAsyncThunk(
       expedientsTableFields?: string[];
     };
   }) => {
-    console.log({ user });
     const response = await updateUser(id, user);
     return response.data.user;
   }
@@ -59,7 +57,6 @@ export const update = createAsyncThunk(
 export const getUser = createAsyncThunk("user/getUser", async () => {
   const token = localStorage.getItem("token") ?? "";
   const response = await fetchUser(token);
-  console.log({ response });
   return response.data;
 });
 

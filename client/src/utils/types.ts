@@ -3,10 +3,9 @@
 export type Filters = {
   label: string;
   name: string;
-  value: string;
   options: {
     label: string;
-    value: string | number;
+    value: string | number | boolean;
     checked: boolean;
   }[];
 };

@@ -4,7 +4,6 @@ import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 
 const ExpedientsTypesCard = ({ expedientType }) => {
-  console.log({ expedientType });
   return (
     <li key={expedientType.id}>
       <Link

@@ -42,8 +42,6 @@ export const create = async (
       password: hashedPassword,
     });
 
-    console.log(user);
-
     res.send({ user, success: true });
   } catch (error) {
     next({

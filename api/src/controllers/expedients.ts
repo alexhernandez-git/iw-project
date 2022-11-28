@@ -70,7 +70,6 @@ export const findOne = async (
       user: req.user._id,
     }).populate(["tipo", "vinculado", "areaFuncional"]);
 
-    console.log({ expedient });
     if (!expedient) {
       return res.send({
         statusCode: 404,
@@ -98,7 +97,6 @@ export const find = async (
   next: NextFunction
 ) => {
   let { page = 1, limit = 10, search } = req.query;
-  console.log({ search });
   try {
     const expedients = await Expedient.find({
       ...(req.user.role !== UserRoles.SuperAdmin
@@ -181,7 +179,6 @@ export const updateOne = async (
       fileKeys.forEach(function (key) {
         let path = "";
         const [section, fieldName] = key.split("/");
-        console.log({ section, fieldName });
         const file = files[key];
         const itemNames = [];
         if (Array.isArray(file)) {

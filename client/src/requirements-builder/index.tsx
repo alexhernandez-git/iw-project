@@ -35,8 +35,6 @@ const RequirementsBuilder = ({
 
   const [isAddingNewField, setIsAddingNewField] = useState(false);
 
-  console.log({ values });
-
   const onAddField = ({
     nombre,
     tipo,
@@ -103,10 +101,7 @@ const RequirementsBuilder = ({
     );
   };
 
-  console.log("fv", formik.values);
-
   const onEditFileField = (id: string, files: any) => {
-    console.log({ id });
     values.secciones.forEach((sectionItem: Section) => {
       if (sectionItem.nombre === section.nombre) {
         setFieldValue(`files`, {

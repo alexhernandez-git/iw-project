@@ -49,8 +49,6 @@ const ExpedientsTypesEdit = () => {
 
       formData.append("data", JSON.stringify(values));
 
-      console.log({ files });
-
       if (files) {
         for (const [key] of Object.entries(files)) {
           Array.from(files[key]).forEach((file) => {

@@ -5,7 +5,6 @@ const CheckboxInput = ({
   name,
   formik: { values, handleChange, handleBlur },
 }) => {
-  console.log(values[name]);
   return (
     <div className="col-span-6 sm:col-span-4">
       <div className="relative flex items-start">
@@ -18,7 +17,7 @@ const CheckboxInput = ({
             onChange={handleChange}
             onBlur={handleBlur}
             type="checkbox"
-            className="h-4 w-4 rounded border-gray-300 text-esan-color focus:ring-esan-color"
+            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
           />
         </div>
         <div className="ml-3 text-sm">

@@ -25,7 +25,6 @@ function App() {
   useEffect(() => {
     dispatch(getUser());
   }, []);
-  console.log(process.env.BACKEND_URL);
 
   return (
     <Router>

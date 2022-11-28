@@ -26,7 +26,6 @@ export default function NewExpedientType() {
 
   const [search, setSearch] = useSearch({
     callback: (searchValue) => {
-      console.log({ searchValue });
       dispatch(getExpedientTypesAll({ search: searchValue }))
         .unwrap()
         .then(() => setIsAll(true));
@@ -35,7 +34,6 @@ export default function NewExpedientType() {
 
   useEffect(() => {
     if (!search || search.split(" ").join("") === "") {
-      console.log("entraaa");
       dispatch(getExpedientTypesAll({}))
         .unwrap()
         .then(() => setIsAll(false));
@@ -65,11 +63,8 @@ export default function NewExpedientType() {
   const { handleSubmit } = formik;
 
   const handleSelect = (id: string) => {
-    console.log({ id });
     formik.setFieldValue("tipo", id);
   };
-
-  console.log("tipo", formik.values.tipo);
 
   const data = useMemo(() => {
     let expedientTypesData = expedientTypes;
@@ -124,7 +119,6 @@ export default function NewExpedientType() {
     [formik.values.tipo, expedientTypes]
   );
 
-  console.log({ data });
   return (
     <Layout
       button={{

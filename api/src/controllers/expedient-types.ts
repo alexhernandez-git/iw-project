@@ -46,7 +46,6 @@ export const create = async (
       fileKeys.forEach(function (key) {
         let path = "";
         const [section, fieldName] = key.split("/");
-        console.log({ section, fieldName });
         const file = files[key];
         const itemNames = [];
         if (Array.isArray(file)) {
@@ -153,7 +152,6 @@ export const find = async (
   const { page = 1, limit = null, search } = req.query;
   try {
     let expedientTypes = [];
-    console.log({ limit });
     if (!limit) {
       expedientTypes = await ExpedientType.find()
         .sort({ createdAt: -1 })
@@ -255,7 +253,6 @@ export const findAll = async (
 ) => {
   try {
     const { search } = req.query;
-    console.log({ search });
     const expedientTypes = await ExpedientType.find(
       search
         ? {
@@ -365,7 +362,6 @@ export const updateOne = async (
       fileKeys.forEach(function (key) {
         let path = "";
         const [section, fieldName] = key.split("/");
-        console.log({ section, fieldName });
         const file = files[key];
         const itemNames = [];
         if (Array.isArray(file)) {

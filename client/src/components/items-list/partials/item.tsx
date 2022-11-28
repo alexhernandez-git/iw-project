@@ -44,8 +44,6 @@ const Item = ({
     [childrens]
   );
 
-  console.log({ haveChildrens });
-
   return (
     <li key={title} className="p-1 shadow">
       <span className={`block`}>
@@ -102,7 +100,7 @@ const Item = ({
         </div>
       )}
       {isOpen && haveChildrens && (
-        <ul className=" shadow-inner sm:rounded-m divide-y m-1 divide-gray-200">
+        <ul className="shadow-inner sm:rounded-m divide-y m-1 divide-gray-200">
           {childrens.map((item) => (
             <Item
               {...item}

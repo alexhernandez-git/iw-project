@@ -18,13 +18,11 @@ export default function FieldsFilter({
   handleUpdateExpedientsTableFields,
 }: Props) {
   const onSelectField = (e) => {
-    console.log(e.target.name);
     if (e.target.checked) {
       const newField = listFields.find(
         (field) => field?.value === e.target.name
       )?.value;
       if (newField) {
-        console.log({ expedientsTableFields });
         handleUpdateExpedientsTableFields([...expedientsTableFields, newField]);
       }
     } else {
@@ -33,8 +31,6 @@ export default function FieldsFilter({
       );
     }
   };
-
-  console.log(expedientsTableFields);
 
   return (
     <Transition.Root show={open} as={Fragment}>

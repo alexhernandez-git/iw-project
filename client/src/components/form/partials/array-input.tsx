@@ -60,8 +60,6 @@ const ArrayInput = ({ label, name, formik: formFormik }: Props) => {
     );
   };
 
-  console.log(formFormik.values);
-
   return (
     <>
       {formFormik.values[name].map(

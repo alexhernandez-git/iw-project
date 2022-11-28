@@ -57,19 +57,14 @@ const ExpedientsEdit = () => {
 
         formData.append("data", JSON.stringify(values));
 
-        console.log({ files });
-
         if (files) {
           for (const [key] of Object.entries(files)) {
-            console.log({ filesKeY: files[key] });
             Array.from(files[key]).forEach((file) => {
-              console.log({ file });
               formData.append(key, file, file?.name);
             });
           }
         }
 
-        console.log({ expedientValueeeeees: formData });
         dispatch(editExpedient({ id, data: formData }));
       } catch (error) {
         console.log({ error });
@@ -78,7 +73,6 @@ const ExpedientsEdit = () => {
   });
 
   const { handleSubmit, values } = formik;
-  console.log({ expedientValueeeeees: values });
 
   useEffect(() => {
     dispatch(getExpedient(id));
