@@ -229,11 +229,11 @@ export default function Filters({
                     >
                       <Popover.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                         <span>{section.label}</span>
-                        {sectionIdx === 0 ? (
+                        {/* {sectionIdx === 0 ? (
                           <span className="ml-1.5 rounded bg-gray-200 py-0.5 px-1.5 text-xs font-semibold tabular-nums text-gray-700">
                             1
                           </span>
-                        ) : null}
+                        ) : null} */}
                         <ChevronDownIcon
                           className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                           aria-hidden="true"

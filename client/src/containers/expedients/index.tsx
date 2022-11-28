@@ -79,8 +79,6 @@ const Expedients = () => {
 
   const { onFiltersChange, filters, sortOptions } = useFilters({
     callback: (filters) => {
-      console.log({ filters });
-
       dispatch(getExpedients({ search, filters }));
     },
     sortOptions: [

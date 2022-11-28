@@ -11,16 +11,6 @@ export function fetchExpedients({
   search: string;
   filters: { [x: string]: string[] };
 }) {
-  let queryFilters = "";
-  for (const [key, value] of Object.entries(filters)) {
-    console.log(`${key}: ${value}`);
-    queryFilters += `&${key}=${value}`;
-  }
-
-  console.log(
-    `http://localhost:8080/expedients?page=${page}&limit=10&search=${search}${queryFilters}`
-  );
-
   return new Promise<{
     data: {
       count: number;

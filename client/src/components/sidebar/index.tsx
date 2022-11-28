@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useMemo } from "react";
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
@@ -12,15 +12,6 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import Button, { ButtonSmall } from "../button";
 import { Type } from "../../utils/types";
 import EsanLogo from "../../images/esan-asesores-logo-hd.png";
-const navigation = [
-  { name: "Home", href: "/", icon: HomeIcon },
-  { name: "Expedientes", href: "/expedients", icon: FolderIcon },
-  {
-    name: "Tipos de expediente",
-    href: "/expedients-types",
-    icon: FolderOpenIcon,
-  },
-];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -34,6 +25,20 @@ type Props = {
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  const navigation = useMemo(
+    () => [
+      { name: "Home", href: "/", icon: HomeIcon },
+      { name: "Expedientes", href: "/expedients", icon: FolderIcon },
+      {
+        name: "Tipos de expediente",
+        href: "/expedients-types",
+        icon: FolderOpenIcon,
+      },
+    ],
+    []
+  );
+
   return (
     <>
       <Transition.Root show={sidebarOpen} as={Fragment}>
