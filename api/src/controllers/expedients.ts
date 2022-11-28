@@ -137,6 +137,26 @@ export const find = async (
             estado: { $in: estado },
           }
         : {}),
+      ...(guardadoen
+        ? {
+            guardadoEn: { $in: guardadoen },
+          }
+        : {}),
+      ...(facturado
+        ? {
+            facturado: { $in: facturado },
+          }
+        : {}),
+      ...(areafuncional
+        ? {
+            areafuncional: { $in: areafuncional },
+          }
+        : {}),
+      ...(tipo
+        ? {
+            tipo: { $in: tipo },
+          }
+        : {}),
       ...(search
         ? {
             $or: [
@@ -147,7 +167,7 @@ export const find = async (
           }
         : {}),
     })
-      .sort({ createdAt: -1 })
+      .sort({ createdAt: sort === SortOptionsValues.OldestFirst ? 1 : -1 })
       .populate(["tipo", "vinculado", "areaFuncional"])
       .limit(Number(limit) * 1)
       .skip((Number(page) - 1) * Number(limit))
@@ -273,6 +293,30 @@ export const updateOne = async (
         new: true,
       }
     ).populate(["tipo", "vinculado"]);
+
+    //Check if expedient is ready to DocumentacionCompleta
+    if (expedient.estado === ExpedientState.DocumentacionPendiente) {
+      let haveEmptyFields: boolean = true;
+      expedient.secciones.forEach((seccion) => {
+        seccion.recursos.forEach((recurso) => {
+          if (
+            recurso.tipo === ExpedientResourceType.Files &&
+            recurso.archivos.length === 0
+          ) {
+            haveEmptyFields = true;
+          } else if (
+            recurso.tipo === ExpedientResourceType.Text ||
+            (recurso.tipo === ExpedientResourceType.LargeText && !recurso.texto)
+          ) {
+            haveEmptyFields = true;
+          }
+        });
+      });
+      if (!haveEmptyFields) {
+        expedient.estado = ExpedientState.DocumentacionCompleta;
+        expedient.save();
+      }
+    }
 
     res.send({ expedient, success: true });
   } catch (error) {

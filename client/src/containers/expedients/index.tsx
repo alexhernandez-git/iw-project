@@ -94,11 +94,6 @@ const Expedients = () => {
         label: "Antiguos primero",
         current: false,
       },
-      {
-        name: SortOptionsValues.LegalTermCloseToDeadline,
-        label: "Plazo legal finalizando",
-        current: false,
-      },
     ],
     filters: [
       {

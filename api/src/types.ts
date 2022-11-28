@@ -86,12 +86,6 @@ export type ExpedienteTipo = {
   archivoDeRequerimientos: string;
 };
 
-export enum ExpedientResourceType {
-  Texto = "texto",
-  TextoLargo = "textolargo",
-  Archivo = "archivo",
-}
-
 export type RequerimientoDelExpediente = {
   nombre: string;
   tipo: ExpedientResourceType;

@@ -26,6 +26,7 @@ const Sections = ({ formik, editable = false }: Props) => {
   });
 
   const onEditSection = (sectionName: string, nombre: string) => {
+    console.log("entraaa");
     formik.setFieldValue(
       "secciones",
       formik.values.secciones.map((sectionItem: Section) =>

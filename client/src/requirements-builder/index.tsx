@@ -91,7 +91,7 @@ const RequirementsBuilder = ({
           ? {
               ...sectionItem,
               recursos: sectionItem.recursos.map((requeriment) =>
-                requeriment.id === id
+                requeriment.nombre === id
                   ? { ...requeriment, texto: text }
                   : requeriment
               ),

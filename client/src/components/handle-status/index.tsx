@@ -15,7 +15,6 @@ const HandleStatus = ({ children, status, data }: Props) => {
   if (status === SliceState.Failed) {
     return "error";
   }
-  console.log(status);
   if (([SliceState.Success].includes(status) && !data) || data?.length === 0) {
     return (
       <span className="text-sm text-gray-500">
