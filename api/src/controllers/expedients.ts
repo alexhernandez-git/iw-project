@@ -136,6 +136,10 @@ export const find = async (
         ? {
             user: { $in: usersFilter },
           }
+        : usersFilter.length > 0
+        ? {
+            user: { $in: usersFilter },
+          }
         : {}),
       ...(estado
         ? {
