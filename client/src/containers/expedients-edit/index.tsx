@@ -119,10 +119,6 @@ const ExpedientsEdit = () => {
                     options: [
                       {
                         id: ExpedientState.DocumentacionPendiente,
-                        label: "DocumentacionPendiente",
-                      },
-                      {
-                        id: ExpedientState.DocumentacionPendiente,
                         label: "Documentación pendiente",
                       },
                       {
