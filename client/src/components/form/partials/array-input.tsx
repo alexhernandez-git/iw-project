@@ -203,7 +203,7 @@ const ArrayInput = ({ label, name, formik: formFormik }: Props) => {
         </div>
       </>
       <div className="col-span-6 sm:col-span-4">
-        <Button onClick={formik.handleSubmit}>Add value</Button>
+        <Button onClick={formik.handleSubmit}>Añadir valor</Button>
       </div>
     </>
   );

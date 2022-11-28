@@ -124,13 +124,17 @@ export const find = async (
 
   try {
     let usersFilter =
-      req.user.role !== UserRoles.SuperAdmin ? [req.user._id] : [];
+      req.user.role !== UserRoles.SuperAdmin ||
+      req.user.role !== UserRoles.Admin
+        ? [req.user._id]
+        : [];
 
     if (partners) {
-      usersFilter = [...usersFilter, ...partners];
+      usersFilter = partners;
     }
     const expedients = await Expedient.find({
-      ...(req.user.role !== UserRoles.SuperAdmin
+      ...(req.user.role !== UserRoles.SuperAdmin ||
+      req.user.role !== UserRoles.Admin
         ? {
             user: { $in: usersFilter },
           }
