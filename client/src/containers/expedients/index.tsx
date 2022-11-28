@@ -73,7 +73,7 @@ const Expedients = () => {
   const { isAdmin, isSuperAdmin } = useUserRole();
 
   useEffect(() => {
-    if (user && isAdmin && isSuperAdmin) {
+    if (user && (isAdmin || isSuperAdmin)) {
       dispatch(getExpedientTypesFunctionalAreas())
         .unwrap()
         .then((data: { nombre: string; _id: string }[]) => {
