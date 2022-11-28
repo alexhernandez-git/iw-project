@@ -35,17 +35,6 @@ const ExpedientsView = () => {
     dispatch(getExpedient(id));
   }, []);
 
-  const handlePublishExpedient = () => {
-    dispatch(
-      editExpedient({
-        id,
-        data: {
-          estado: ExpedientState.DocumentacionPendiente,
-        },
-      })
-    );
-  };
-
   const [tabIndex, setTabIndex] = useState(0);
 
   return (
