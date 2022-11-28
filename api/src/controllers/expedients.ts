@@ -31,13 +31,7 @@ export const create = async (
 
     const expedientType = await ExpedientType.findById(tipo);
 
-    let areaFuncional = null;
-
-    if (expedientType.isAreaFuncional) {
-      areaFuncional = expedientType._id;
-    }
-
-    areaFuncional = await getAreaFuncional(tipo);
+    let areaFuncional = await getAreaFuncional(tipo);
 
     const expedient = await Expedient.create({
       tipo: new Types.ObjectId(tipo),
@@ -99,6 +93,7 @@ export const find = async (
     facturado?: boolean[];
     areafuncional?: string[];
     tipo?: string[];
+    partners?: string[];
     sort?: SortOptionsValues;
   }>,
   res: Response,
@@ -108,6 +103,7 @@ export const find = async (
     page = 1,
     limit = 10,
     search,
+    partners = null,
     estado = null,
     guardadoen = null,
     facturado = null,
@@ -120,16 +116,25 @@ export const find = async (
     estado,
     guardadoen,
     facturado,
+    partners,
     areafuncional,
     tipo,
     sort,
   });
 
+  console.log({ areafuncional });
+
   try {
+    let usersFilter =
+      req.user.role !== UserRoles.SuperAdmin ? [req.user._id] : [];
+
+    if (partners) {
+      usersFilter = [...usersFilter, ...partners];
+    }
     const expedients = await Expedient.find({
       ...(req.user.role !== UserRoles.SuperAdmin
         ? {
-            user: req.user._id,
+            user: { $in: usersFilter },
           }
         : {}),
       ...(estado
@@ -149,7 +154,7 @@ export const find = async (
         : {}),
       ...(areafuncional
         ? {
-            areafuncional: { $in: areafuncional },
+            areaFuncional: { $in: areafuncional },
           }
         : {}),
       ...(tipo

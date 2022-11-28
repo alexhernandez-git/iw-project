@@ -7,10 +7,12 @@ import expedients from "./expedients";
 import expedient from "./expedient";
 import expedientTypes from "./expedient-types";
 import expedientType from "./expedient-type";
+import users from "./users";
 
 export const store = configureStore({
   reducer: {
     user,
+    users,
     expedients,
     expedient,
     expedientTypes,

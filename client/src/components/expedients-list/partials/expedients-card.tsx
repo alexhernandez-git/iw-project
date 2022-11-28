@@ -2,6 +2,7 @@ import React from "react";
 import { BanknotesIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { Expediente } from "../../../utils/types";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 type Props = {
   expedient: Expediente;
@@ -17,6 +18,8 @@ const ExpedientCard = ({ expedient, selectedFields }: Props) => {
             ? expedient[selectedField]?._id
             : selectedField === "tipo"
             ? expedient[selectedField]?.nombre
+            : selectedField === "fechaSolicitudServicioNotificacion"
+            ? moment(expedient[selectedField]).format("D-M-yyyy")
             : expedient[selectedField]}
         </td>
       ))}

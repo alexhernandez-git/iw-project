@@ -38,7 +38,7 @@ export const getAreaFuncional = async (id) => {
     "tramitePadre"
   );
   if (expedientTypeWithParents.isAreaFuncional) {
-    return expedientTypeWithParents;
+    return expedientTypeWithParents._id;
   }
   if (!expedientTypeWithParents.tramitePadre) {
     return null;

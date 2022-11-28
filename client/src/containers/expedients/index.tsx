@@ -4,7 +4,13 @@ import DashboardLayout from "../../layouts/layout";
 import { useSearch } from "../../hooks/use-search";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, useAppSelector } from "../../store";
-import { ExpedientState, SortOptionsValues, StoredIn } from "../../utils/types";
+import {
+  ExpedientState,
+  SortOptionsValues,
+  StoredIn,
+  User,
+  UserRole,
+} from "../../utils/types";
 import { getExpedients } from "../../store/expedients";
 import Pagination from "../../components/pagination";
 import HandleStatus from "../../components/handle-status";
@@ -13,6 +19,8 @@ import {
   getExpedientTypesFunctionalAreas,
   getExpedientTypesNames,
 } from "../../store/expedient-types";
+import { getUsers } from "../../store/users";
+import useUserRole from "../../hooks/use-user-role";
 
 const Expedients = () => {
   const {
@@ -20,7 +28,9 @@ const Expedients = () => {
     value: { page, size, count, data },
   } = useSelector((state: RootState) => state.expedients);
 
-  const { value: user } = useAppSelector((state) => state.user);
+  const { value: user, status: useStatus } = useAppSelector(
+    (state) => state.user
+  );
 
   const dispatch = useDispatch();
 
@@ -52,137 +62,157 @@ const Expedients = () => {
     }[]
   >([]);
 
+  const [partners, setPartners] = useState<
+    {
+      label: string;
+      value: string;
+      checked: boolean;
+    }[]
+  >([]);
+
+  const { isAdmin, isSuperAdmin } = useUserRole();
+
   useEffect(() => {
-    dispatch(getExpedientTypesFunctionalAreas())
-      .unwrap()
-      .then((data: { nombre: string; _id: string }[]) => {
-        setFunctionalAreas(
-          data.map((item) => ({
-            label: item.nombre,
-            value: item._id,
-            checked: false,
-          }))
-        );
-      });
-    dispatch(getExpedientTypesNames())
-      .unwrap()
-      .then((data: { nombre: string; _id: string }[]) => {
-        setExpedientTypesNames(
-          data.map((item) => ({
-            label: item.nombre,
-            value: item._id,
-            checked: false,
-          }))
-        );
-      });
-  }, []);
+    if (user && isAdmin && isSuperAdmin) {
+      dispatch(getExpedientTypesFunctionalAreas())
+        .unwrap()
+        .then((data: { nombre: string; _id: string }[]) => {
+          setFunctionalAreas(
+            data.map((item) => ({
+              label: item.nombre,
+              value: item._id,
+              checked: false,
+            }))
+          );
+        });
+      dispatch(getExpedientTypesNames())
+        .unwrap()
+        .then((data: { nombre: string; _id: string }[]) => {
+          setExpedientTypesNames(
+            data.map((item) => ({
+              label: item.nombre,
+              value: item._id,
+              checked: false,
+            }))
+          );
+        });
+      dispatch(getUsers())
+        .unwrap()
+        .then((data: { nombre: string; _id: string }[]) => {
+          setPartners(
+            data
+              .filter((item: User) => item._id !== user._id)
+              .map((item: User) => ({
+                label: item?.firstName + " " + item?.lastName,
+                value: item?._id,
+                checked: false,
+              }))
+          );
+        });
+    }
+  }, [user]);
 
   const { onFiltersChange, filters, sortOptions } = useFilters({
     callback: (filters) => {
       dispatch(getExpedients({ search, filters }));
     },
-    sortOptions: [
-      {
-        name: SortOptionsValues.NewestFirst,
-        label: "Nuevos primero",
-        current: true,
-      },
-      {
-        name: SortOptionsValues.OldestFirst,
-        label: "Antiguos primero",
-        current: false,
-      },
-    ],
-    filters: [
-      {
-        label: "Estado",
-        name: "estado",
-        options: [
-          {
-            label: "Documentación pendiente",
-            value: ExpedientState.DocumentacionPendiente,
-            checked: false,
-          },
-          {
-            label: "Documentación completa",
-            value: ExpedientState.DocumentacionCompleta,
-            checked: false,
-          },
-          {
-            label: "Expediente cursado no concluido",
-            value: ExpedientState.ExpedientCursadoNoConcluido,
-            checked: false,
-          },
-          {
-            label: "No resolución",
-            value: ExpedientState.NoResolucion,
-            checked: false,
-          },
-          {
-            label: "Resolución de negatoria",
-            value: ExpedientState.ResolucionDeNegatoria,
-            checked: false,
-          },
-          {
-            label: "Resolución favorable",
-            value: ExpedientState.ResolucionFaborable,
-            checked: false,
-          },
-          {
-            label: "No resolución",
-            value: ExpedientState.NoResolucion,
-            checked: false,
-          },
-        ],
-      },
-      {
-        label: "Guardado en",
-        name: "guardadoen",
-        options: [
-          {
-            label: "Expediente vigente",
-            value: StoredIn.CurrentExpedient,
-            checked: false,
-          },
-          {
-            label: "En carpeta",
-            value: StoredIn.EnCarpeta,
-            checked: false,
-          },
-          {
-            label: "En físico",
-            value: StoredIn.Fisico,
-            checked: false,
-          },
-        ],
-      },
-      {
-        label: "Facturado",
-        name: "facturado",
-        options: [
-          {
-            label: "Facturado",
-            checked: false,
-            value: true,
-          },
-          {
-            label: "No facturado",
-            checked: false,
-            value: false,
-          },
-        ],
-      },
-      {
-        label: "Area funcional",
-        name: "areafuncional",
-        options: functionalAreas,
-      },
-      {
-        label: "Tipo",
-        name: "tipo",
-        options: expedientTypesNames,
-      },
-    ],
+    sortOptions:
+      isAdmin || isSuperAdmin
+        ? [
+            {
+              name: SortOptionsValues.NewestFirst,
+              label: "Nuevos primero",
+              current: true,
+            },
+            {
+              name: SortOptionsValues.OldestFirst,
+              label: "Antiguos primero",
+              current: false,
+            },
+          ]
+        : [],
+    filters:
+      isAdmin || isSuperAdmin
+        ? [
+            {
+              label: "Estado",
+              name: "estado",
+              options: [
+                {
+                  label: "Documentación pendiente",
+                  value: ExpedientState.DocumentacionPendiente,
+                  checked: false,
+                },
+                {
+                  label: "Documentación completa",
+                  value: ExpedientState.DocumentacionCompleta,
+                  checked: false,
+                },
+                {
+                  label: "Expediente cursado no concluido",
+                  value: ExpedientState.ExpedientCursadoNoConcluido,
+                  checked: false,
+                },
+                {
+                  label: "No resolución",
+                  value: ExpedientState.NoResolucion,
+                  checked: false,
+                },
+                {
+                  label: "Resolución de negatoria",
+                  value: ExpedientState.ResolucionDeNegatoria,
+                  checked: false,
+                },
+                {
+                  label: "Resolución favorable",
+                  value: ExpedientState.ResolucionFaborable,
+                  checked: false,
+                },
+                {
+                  label: "No resolución",
+                  value: ExpedientState.NoResolucion,
+                  checked: false,
+                },
+              ],
+            },
+            {
+              label: "Guardado en",
+              name: "guardadoen",
+              options: [
+                {
+                  label: "Expediente vigente",
+                  value: StoredIn.CurrentExpedient,
+                  checked: false,
+                },
+                {
+                  label: "En carpeta",
+                  value: StoredIn.EnCarpeta,
+                  checked: false,
+                },
+                {
+                  label: "En físico",
+                  value: StoredIn.Fisico,
+                  checked: false,
+                },
+              ],
+            },
+            {
+              label: "Colaboradores",
+              name: "partners",
+              options: partners,
+            },
+            {
+              label: "Area funcional",
+              name: "areafuncional",
+              options: functionalAreas,
+            },
+            {
+              label: "Tipo",
+              name: "tipo",
+              options: expedientTypesNames,
+            },
+          ]
+        : [],
   });
 
   const onPreviousPage = useCallback(() => {
@@ -197,11 +227,15 @@ const Expedients = () => {
     <>
       <DashboardLayout
         title={"Expedients"}
-        filters={{
-          filters,
-          sortOptions,
-          onFiltersChange,
-        }}
+        filters={
+          isAdmin || isSuperAdmin
+            ? {
+                filters,
+                sortOptions,
+                onFiltersChange,
+              }
+            : null
+        }
         search={{ search, setSearch }}
         pages={[
           {

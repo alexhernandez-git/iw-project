@@ -12,6 +12,7 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import Button, { ButtonSmall } from "../button";
 import { Type } from "../../utils/types";
 import EsanLogo from "../../images/esan-asesores-logo-hd.png";
+import useUserRole from "../../hooks/use-user-role";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -26,16 +27,24 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  const { isAdmin, isSuperAdmin } = useUserRole();
+
   const navigation = useMemo(
-    () => [
-      { name: "Home", href: "/", icon: HomeIcon },
-      { name: "Expedientes", href: "/expedients", icon: FolderIcon },
-      {
-        name: "Tipos de expediente",
-        href: "/expedients-types",
-        icon: FolderOpenIcon,
-      },
-    ],
+    () =>
+      isAdmin || isSuperAdmin
+        ? [
+            { name: "Home", href: "/", icon: HomeIcon },
+            { name: "Expedientes", href: "/expedients", icon: FolderIcon },
+            {
+              name: "Tipos de expediente",
+              href: "/expedients-types",
+              icon: FolderOpenIcon,
+            },
+          ]
+        : [
+            { name: "Home", href: "/", icon: HomeIcon },
+            { name: "Expedientes", href: "/expedients", icon: FolderIcon },
+          ],
     []
   );
 

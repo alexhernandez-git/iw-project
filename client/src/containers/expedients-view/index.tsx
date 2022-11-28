@@ -50,7 +50,7 @@ const ExpedientsView = () => {
 
   return (
     <DashboardLayout
-      title={expedient?.orden ?? id ?? "Sin nombre"}
+      title={id ?? "Sin nombre"}
       buttonSecondary={{
         label: "Crear expediente vinculado",
         onClick: () => navigate(`/expedients/new/${id}`),
@@ -108,11 +108,6 @@ const ExpedientsView = () => {
                   },
                   {
                     type: ListItemType.Text,
-                    label: "orden",
-                    value: expedient?.orden,
-                  },
-                  {
-                    type: ListItemType.Text,
                     label: "Area funcional",
                     value: expedient?.areaFuncional?.nombre,
                   },
@@ -148,11 +143,6 @@ const ExpedientsView = () => {
                     type: ListItemType.Text,
                     label: "Responsable",
                     value: expedient?.responsable,
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Codigo Cliente",
-                    value: expedient?.codigoCliente,
                   },
                   {
                     type: ListItemType.Text,

@@ -21,11 +21,21 @@ type Props = {
         | Array<{ value: string; onClick?: (_: any) => any }>;
     }
   ];
+  noMarginBottom?: boolean;
 };
 
-const DescriptionList = ({ title, description, list }: Props) => {
+const DescriptionList = ({
+  title,
+  description,
+  list,
+  noMarginBottom = false,
+}: Props) => {
   return (
-    <div className="overflow-hidden bg-white shadow sm:rounded-lg">
+    <div
+      className={`overflow-hidden bg-white shadow sm:rounded-lg ${
+        !noMarginBottom ? "mb-6" : ""
+      }`}
+    >
       <div className="px-4 py-5 sm:px-6">
         <h3 className="text-lg font-medium leading-6 text-gray-900">{title}</h3>
         <p className="mt-1 max-w-2xl text-sm text-gray-500">{description}</p>

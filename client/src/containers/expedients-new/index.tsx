@@ -172,6 +172,7 @@ export default function NewExpedientType() {
         <HandleStatus data={expedientTypes} status={status}>
           {formik.values.tipo ? (
             <DescriptionList
+              noMarginBottom
               title={
                 "Tipo de expediente selecionado: " +
                 selectedExpedientType.codigo

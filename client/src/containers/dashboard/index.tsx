@@ -68,8 +68,8 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="mx-auto mt-8 max-w-6xl px-6 sm:px-0">
-          <h2 className="text-lg font-medium leading-6 text-gray-900 px-1">
-            Recent activity
+          <h2 className="text-lg font-medium leading-6 text-gray-900">
+            Actividad reciente
           </h2>
           <HandleStatus status={status} data={data}>
             <ExpedientsList home expedients={data.slice(0, 5)} />
