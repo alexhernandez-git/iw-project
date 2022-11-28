@@ -122,8 +122,6 @@ export const find = async (
     sort,
   });
 
-  console.log({ areafuncional });
-
   try {
     let usersFilter =
       req.user.role !== UserRoles.SuperAdmin ? [req.user._id] : [];
