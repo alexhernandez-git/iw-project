@@ -122,6 +122,10 @@ export const find = async (
     sort,
   });
 
+  console.log(
+    sort?.length > 0 && sort[0] === SortOptionsValues.LegalTermCloseToDeadline
+  );
+
   try {
     let usersFilter =
       req.user.role !== UserRoles.SuperAdmin ||
@@ -168,6 +172,13 @@ export const find = async (
             tipo: { $in: tipo },
           }
         : {}),
+
+      ...(sort?.length > 0 &&
+      sort[0] === SortOptionsValues.LegalTermCloseToDeadline
+        ? {
+            plazoLegal: { $gte: new Date() },
+          }
+        : {}),
       ...(search
         ? {
             $or: [
@@ -178,7 +189,18 @@ export const find = async (
           }
         : {}),
     })
-      .sort({ createdAt: sort === SortOptionsValues.OldestFirst ? 1 : -1 })
+      .sort({
+        ...(sort?.length > 0 && sort[0] === SortOptionsValues.OldestFirst
+          ? { createdAt: 1 }
+          : {}),
+        ...(sort?.length > 0 && sort[0] === SortOptionsValues.NewestFirst
+          ? { createdAt: -1 }
+          : {}),
+        ...(sort?.length > 0 &&
+        sort[0] === SortOptionsValues.LegalTermCloseToDeadline
+          ? { plazoLegal: 1 }
+          : {}),
+      })
       .populate(["tipo", "vinculado", "areaFuncional"])
       .limit(Number(limit) * 1)
       .skip((Number(page) - 1) * Number(limit))

@@ -160,7 +160,9 @@ const ExpedientsView = () => {
                   {
                     type: ListItemType.Text,
                     label: "Plazo Legal",
-                    value: expedient?.plazoLegal,
+                    value:
+                      expedient?.plazoLegal &&
+                      moment(expedient?.plazoLegal).format("D-M-yyyy"),
                   },
                   {
                     type: ListItemType.Text,

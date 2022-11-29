@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ExpedientsList from "../../components/expedients-list";
 import DashboardLayout from "../../layouts/layout";
 import { useSearch } from "../../hooks/use-search";
@@ -9,7 +9,6 @@ import {
   SortOptionsValues,
   StoredIn,
   User,
-  UserRole,
 } from "../../utils/types";
 import { getExpedients } from "../../store/expedients";
 import Pagination from "../../components/pagination";
@@ -127,6 +126,11 @@ const Expedients = () => {
             {
               name: SortOptionsValues.OldestFirst,
               label: "Antiguos primero",
+              current: false,
+            },
+            {
+              name: SortOptionsValues.LegalTermCloseToDeadline,
+              label: "Plazo legal cercano",
               current: false,
             },
           ]

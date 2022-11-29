@@ -29,11 +29,13 @@ const ExpedientsEdit = () => {
       estado: expedient?.estado ?? "",
       cliente: expedient?.cliente ?? "",
       empresa: expedient?.empresa ?? "",
-      plazoLegal: expedient?.plazoLegal ?? "",
       beneficiario: expedient?.beneficiario ?? "",
       honorarios: expedient?.honorarios ?? "",
       codigoClienteProvisional: expedient?.codigoClienteProvisional ?? "",
       honorariosYSuplidos: expedient?.honorariosYSuplidos ?? [],
+      plazoLegal: expedient?.plazoLegal
+        ? moment(expedient?.plazoLegal).format("yyyy-M-D")
+        : null,
       fechaSolicitudServicioNotificacion:
         expedient?.fechaSolicitudServicioNotificacion
           ? moment(expedient?.fechaSolicitudServicioNotificacion).format(
@@ -193,7 +195,7 @@ const ExpedientsEdit = () => {
                   {
                     label: "Plazo legal",
                     name: "plazoLegal",
-                    type: FormInputType.Text,
+                    type: FormInputType.Date,
                   },
 
                   {

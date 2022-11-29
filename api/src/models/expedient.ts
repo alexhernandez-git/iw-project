@@ -39,7 +39,7 @@ const expedientSchema = new Schema({
   silencioAdministrativo: { type: Boolean },
   silencioAdministrativoTiempo: { type: Number },
   suspensionRequerimientoTiempo: { type: Number },
-  plazoLegal: { type: String },
+  plazoLegal: { type: Date },
   estado: {
     enum: ExpedientState,
     type: String,
