@@ -72,7 +72,7 @@ const Expedients = () => {
   const { isAdmin, isSuperAdmin } = useUserRole();
 
   useEffect(() => {
-    if (user && (isAdmin || isSuperAdmin)) {
+    if (user) {
       dispatch(getExpedientTypesFunctionalAreas())
         .unwrap()
         .then((data: { nombre: string; _id: string }[]) => {
@@ -95,19 +95,21 @@ const Expedients = () => {
             }))
           );
         });
-      dispatch(getUsers())
-        .unwrap()
-        .then((data: { nombre: string; _id: string }[]) => {
-          setPartners(
-            data
-              .filter((item: User) => item._id !== user._id)
-              .map((item: User) => ({
-                label: item?.firstName + " " + item?.lastName,
-                value: item?._id,
-                checked: false,
-              }))
-          );
-        });
+      if (isAdmin || isSuperAdmin) {
+        dispatch(getUsers())
+          .unwrap()
+          .then((data: { nombre: string; _id: string }[]) => {
+            setPartners(
+              data
+                .filter((item: User) => item._id !== user._id)
+                .map((item: User) => ({
+                  label: item?.firstName + " " + item?.lastName,
+                  value: item?._id,
+                  checked: false,
+                }))
+            );
+          });
+      }
     }
   }, [user]);
 
@@ -115,26 +117,23 @@ const Expedients = () => {
     callback: (filters) => {
       dispatch(getExpedients({ search, filters }));
     },
-    sortOptions:
-      isAdmin || isSuperAdmin
-        ? [
-            {
-              name: SortOptionsValues.NewestFirst,
-              label: "Nuevos primero",
-              current: true,
-            },
-            {
-              name: SortOptionsValues.OldestFirst,
-              label: "Antiguos primero",
-              current: false,
-            },
-            {
-              name: SortOptionsValues.LegalTermCloseToDeadline,
-              label: "Plazo legal cercano",
-              current: false,
-            },
-          ]
-        : [],
+    sortOptions: [
+      {
+        name: SortOptionsValues.NewestFirst,
+        label: "Nuevos primero",
+        current: true,
+      },
+      {
+        name: SortOptionsValues.OldestFirst,
+        label: "Antiguos primero",
+        current: false,
+      },
+      {
+        name: SortOptionsValues.LegalTermCloseToDeadline,
+        label: "Plazo legal cercano",
+        current: false,
+      },
+    ],
     filters:
       isAdmin || isSuperAdmin
         ? [
@@ -216,7 +215,80 @@ const Expedients = () => {
               options: expedientTypesNames,
             },
           ]
-        : [],
+        : [
+            {
+              label: "Estado",
+              name: "estado",
+              options: [
+                {
+                  label: "Documentación pendiente",
+                  value: ExpedientState.DocumentacionPendiente,
+                  checked: false,
+                },
+                {
+                  label: "Documentación completa",
+                  value: ExpedientState.DocumentacionCompleta,
+                  checked: false,
+                },
+                {
+                  label: "Expediente cursado no concluido",
+                  value: ExpedientState.ExpedientCursadoNoConcluido,
+                  checked: false,
+                },
+                {
+                  label: "No resolución",
+                  value: ExpedientState.NoResolucion,
+                  checked: false,
+                },
+                {
+                  label: "Resolución de negatoria",
+                  value: ExpedientState.ResolucionDeNegatoria,
+                  checked: false,
+                },
+                {
+                  label: "Resolución favorable",
+                  value: ExpedientState.ResolucionFaborable,
+                  checked: false,
+                },
+                {
+                  label: "No resolución",
+                  value: ExpedientState.NoResolucion,
+                  checked: false,
+                },
+              ],
+            },
+            {
+              label: "Guardado en",
+              name: "guardadoen",
+              options: [
+                {
+                  label: "Expediente vigente",
+                  value: StoredIn.CurrentExpedient,
+                  checked: false,
+                },
+                {
+                  label: "En carpeta",
+                  value: StoredIn.EnCarpeta,
+                  checked: false,
+                },
+                {
+                  label: "En físico",
+                  value: StoredIn.Fisico,
+                  checked: false,
+                },
+              ],
+            },
+            {
+              label: "Area funcional",
+              name: "areafuncional",
+              options: functionalAreas,
+            },
+            {
+              label: "Tipo",
+              name: "tipo",
+              options: expedientTypesNames,
+            },
+          ],
   });
 
   const onPreviousPage = useCallback(() => {
@@ -231,15 +303,11 @@ const Expedients = () => {
     <>
       <DashboardLayout
         title={"Expedients"}
-        filters={
-          isAdmin || isSuperAdmin
-            ? {
-                filters,
-                sortOptions,
-                onFiltersChange,
-              }
-            : null
-        }
+        filters={{
+          filters,
+          sortOptions,
+          onFiltersChange,
+        }}
         search={{ search, setSearch }}
         pages={[
           {
