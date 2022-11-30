@@ -80,8 +80,8 @@ const Item = ({
           >
             <span className="flex items-center text-xs mr-2">
               {isOpen
-                ? `Esconder ${childrens.length} hijos`
-                : `Desplegar ${childrens.length} hijos`}
+                ? `Esconder ${childrens.length} subtramites`
+                : `Desplegar ${childrens.length} subtramites`}
             </span>
             <div>
               {isOpen ? (

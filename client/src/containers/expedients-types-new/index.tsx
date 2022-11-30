@@ -66,7 +66,7 @@ const ExpedientsTypesNew = () => {
       }}
       pages={[
         {
-          name: "Tipos de expediente",
+          name: "Tipos de tramites",
           href: "/expedients-types",
           current: false,
         },

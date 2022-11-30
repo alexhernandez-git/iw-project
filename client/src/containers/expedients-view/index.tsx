@@ -92,7 +92,7 @@ const ExpedientsView = () => {
                   },
                   {
                     type: ListItemType.Text,
-                    label: "identificador",
+                    label: "Identificador",
                     value: expedient?._id,
                   },
                   {
@@ -107,7 +107,7 @@ const ExpedientsView = () => {
                   },
                   {
                     type: ListItemType.Button,
-                    label: "vinculado",
+                    label: "Vinculado",
                     value: {
                       label: expedient?.vinculado?._id,
                       onClick: () => {
@@ -227,6 +227,8 @@ const ExpedientsView = () => {
                                 label: requerimiento?.nombre,
                                 value: {
                                   label:
+                                    requerimiento?.archivos &&
+                                    requerimiento?.archivos.length > 0 &&
                                     requerimiento?.archivos[0].split("]-[")[1],
                                   buttonLabel: "Descargar",
                                   onClick: () => {
