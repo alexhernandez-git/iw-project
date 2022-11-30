@@ -53,6 +53,7 @@ const ExpedientsEdit = () => {
         values.fechaSolicitudServicioNotificacion = moment(
           values.fechaSolicitudServicioNotificacion
         );
+        values.plazoLegal = moment(values.plazoLegal);
 
         var formData = new FormData();
 
@@ -205,7 +206,6 @@ const ExpedientsEdit = () => {
                           name: "plazoLegal",
                           type: FormInputType.Date,
                         },
-
                         {
                           label: "Empresa",
                           name: "empresa",
