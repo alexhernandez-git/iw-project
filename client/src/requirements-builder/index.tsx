@@ -14,6 +14,7 @@ import {
   Section,
   Type,
 } from "../utils/types";
+import useUserRole from "../hooks/use-user-role";
 
 type Props = {
   requirements: any;
@@ -138,6 +139,8 @@ const RequirementsBuilder = ({
     return files;
   };
 
+  const { isAdmin, isSuperAdmin } = useUserRole();
+
   return (
     <div className="shadow sm:rounded-md bg-white py-6 px-4 sm:p-6">
       <div className="text-black">
@@ -179,22 +182,24 @@ const RequirementsBuilder = ({
           </div>
         </form>
       </div>
-      <div className="py-4">
-        {isAddingNewField ? (
-          <NewField
-            setIsAddingNewField={setIsAddingNewField}
-            isAddingNewField={isAddingNewField}
-            onAddField={onAddField}
-          />
-        ) : (
-          <Button
-            type={Type.Secondary}
-            onClick={() => setIsAddingNewField(true)}
-          >
-            Añadir campo
-          </Button>
-        )}
-      </div>
+      {(isAdmin || isSuperAdmin) && (
+        <div className="py-4">
+          {isAddingNewField ? (
+            <NewField
+              setIsAddingNewField={setIsAddingNewField}
+              isAddingNewField={isAddingNewField}
+              onAddField={onAddField}
+            />
+          ) : (
+            <Button
+              type={Type.Secondary}
+              onClick={() => setIsAddingNewField(true)}
+            >
+              Añadir campo
+            </Button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

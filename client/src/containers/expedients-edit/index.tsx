@@ -10,6 +10,7 @@ import { RootState } from "../../store";
 import { editExpedient, getExpedient } from "../../store/expedient";
 import { FormInputType, StoredIn, ExpedientState } from "../../utils/types";
 import moment from "moment";
+import useUserRole from "../../hooks/use-user-role";
 
 const ExpedientsEdit = () => {
   const { id } = useParams();
@@ -19,6 +20,8 @@ const ExpedientsEdit = () => {
   const { status, value: expedient } = useSelector(
     (state: RootState) => state.expedient
   );
+
+  const { isAdmin, isSuperAdmin } = useUserRole();
 
   const formik = useFormik({
     initialValues: {
@@ -109,119 +112,126 @@ const ExpedientsEdit = () => {
         <div className="space-y-6 sm:px-6 lg:col-span-9 lg:px-0 mb-6">
           <Form
             onSubmit={handleSubmit}
-            data={[
-              {
-                label: "Información",
-                description: "",
-                inputs: [
-                  {
-                    label: "Estado",
-                    name: "estado",
-                    type: FormInputType.Select,
-                    options: [
-                      {
-                        id: ExpedientState.DocumentacionPendiente,
-                        label: "Documentación pendiente",
-                      },
-                      {
-                        id: ExpedientState.DocumentacionCompleta,
-                        label: "Documentación completa",
-                      },
-                      {
-                        id: ExpedientState.ExpedientCursadoNoConcluido,
-                        label: "Expediente cursado no concluido",
-                      },
-                      { id: ExpedientState.Concluido, label: "Concluido" },
-                      {
-                        id: ExpedientState.ResolucionFaborable,
-                        label: "Resolución favorable",
-                      },
-                      {
-                        id: ExpedientState.ResolucionDeNegatoria,
-                        label: "Resolución de negatoria",
-                      },
-                      {
-                        id: ExpedientState.NoResolucion,
-                        label: "No resolución",
-                      },
-                    ],
-                  },
-                  {
-                    label: "Conexiones",
-                    name: "conexiones",
-                    type: FormInputType.Text,
-                  },
-                  {
-                    label: "Guardado en",
-                    name: "guardadoEn",
-                    type: FormInputType.Select,
-                    options: [
-                      { id: StoredIn.EnCarpeta, label: "En carpeta" },
-                      {
-                        id: StoredIn.CurrentExpedient,
-                        label: "Expediente vigente",
-                      },
-                      {
-                        id: StoredIn.Fisico,
-                        label: "En físico",
-                      },
-                    ],
-                  },
-                  {
-                    label: "Responsable",
-                    name: "responsable",
-                    type: FormInputType.Text,
-                  },
-                  {
-                    label: "Codigo Cliente Provisional",
-                    name: "codigoClienteProvisional",
-                    type: FormInputType.Text,
-                  },
-                  {
-                    label: "Cliente",
-                    name: "cliente",
-                    type: FormInputType.Text,
-                  },
-                  {
-                    label: "Beneficiario",
-                    name: "beneficiario",
-                    type: FormInputType.Text,
-                  },
-                  {
-                    label: "Fecha solicitud servicio notificacion",
-                    name: "fechaSolicitudServicioNotificacion",
-                    type: FormInputType.Date,
-                  },
-                  {
-                    label: "Plazo legal",
-                    name: "plazoLegal",
-                    type: FormInputType.Date,
-                  },
+            data={
+              isAdmin || isSuperAdmin
+                ? [
+                    {
+                      label: "Información",
+                      description: "",
+                      inputs: [
+                        {
+                          label: "Estado",
+                          name: "estado",
+                          type: FormInputType.Select,
+                          options: [
+                            {
+                              id: ExpedientState.DocumentacionPendiente,
+                              label: "Documentación pendiente",
+                            },
+                            {
+                              id: ExpedientState.DocumentacionCompleta,
+                              label: "Documentación completa",
+                            },
+                            {
+                              id: ExpedientState.ExpedientCursadoNoConcluido,
+                              label: "Expediente cursado no concluido",
+                            },
+                            {
+                              id: ExpedientState.Concluido,
+                              label: "Concluido",
+                            },
+                            {
+                              id: ExpedientState.ResolucionFaborable,
+                              label: "Resolución favorable",
+                            },
+                            {
+                              id: ExpedientState.ResolucionDeNegatoria,
+                              label: "Resolución de negatoria",
+                            },
+                            {
+                              id: ExpedientState.NoResolucion,
+                              label: "No resolución",
+                            },
+                          ],
+                        },
+                        {
+                          label: "Conexiones",
+                          name: "conexiones",
+                          type: FormInputType.Text,
+                        },
+                        {
+                          label: "Guardado en",
+                          name: "guardadoEn",
+                          type: FormInputType.Select,
+                          options: [
+                            { id: StoredIn.EnCarpeta, label: "En carpeta" },
+                            {
+                              id: StoredIn.CurrentExpedient,
+                              label: "Expediente vigente",
+                            },
+                            {
+                              id: StoredIn.Fisico,
+                              label: "En físico",
+                            },
+                          ],
+                        },
+                        {
+                          label: "Responsable",
+                          name: "responsable",
+                          type: FormInputType.Text,
+                        },
+                        {
+                          label: "Codigo Cliente Provisional",
+                          name: "codigoClienteProvisional",
+                          type: FormInputType.Text,
+                        },
+                        {
+                          label: "Cliente",
+                          name: "cliente",
+                          type: FormInputType.Text,
+                        },
+                        {
+                          label: "Beneficiario",
+                          name: "beneficiario",
+                          type: FormInputType.Text,
+                        },
+                        {
+                          label: "Fecha solicitud servicio notificacion",
+                          name: "fechaSolicitudServicioNotificacion",
+                          type: FormInputType.Date,
+                        },
+                        {
+                          label: "Plazo legal",
+                          name: "plazoLegal",
+                          type: FormInputType.Date,
+                        },
 
-                  {
-                    label: "Empresa",
-                    name: "empresa",
-                    type: FormInputType.Text,
-                  },
-                  {
-                    label: "Honorarios",
-                    name: "honorarios",
-                    type: FormInputType.Text,
-                  },
-                ].map((item) => ({ ...item, formik })),
-              },
-              {
-                label: "Honorarios y Suplidos",
-                description: "",
-                inputs: [
-                  {
-                    label: "Honorarios y Suplidos",
-                    name: "honorariosYSuplidos",
-                    type: FormInputType.Array,
-                  },
-                ].map((item) => ({ ...item, formik })),
-              },
-            ]}
+                        {
+                          label: "Empresa",
+                          name: "empresa",
+                          type: FormInputType.Text,
+                        },
+                        {
+                          label: "Honorarios",
+                          name: "honorarios",
+                          type: FormInputType.Text,
+                        },
+                      ].map((item) => ({ ...item, formik })),
+                    },
+                    {
+                      label: "Honorarios y Suplidos",
+                      description: "",
+                      inputs: [
+                        {
+                          label: "Honorarios y Suplidos",
+                          name: "honorariosYSuplidos",
+                          type: FormInputType.Array,
+                        },
+                      ].map((item) => ({ ...item, formik })),
+                    },
+                  ]
+                : []
+            }
           >
             <Sections formik={formik} />
           </Form>

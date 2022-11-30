@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { Filters, SortOptions } from "../utils/types";
 
 type Props = {
