@@ -226,7 +226,7 @@ const ExpedientsView = () => {
                                   buttonLabel: "Descargar",
                                   onClick: () => {
                                     window.open(
-                                      "http://localhost:8080/files/" +
+                                      "http://3.253.49.204:8080/files/" +
                                         requerimiento?.archivos[0]
                                     );
                                   },

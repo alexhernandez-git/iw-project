@@ -7,7 +7,7 @@ export function fetchExpedientType(id: string) {
     data: ExpedientType;
   }>((resolve) =>
     resolve(
-      axios.get(`http://localhost:8080/expedient-types/${id}`, {
+      axios.get(`http://3.253.49.204:8080/expedient-types/${id}`, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem(`token`)}`,
         },
@@ -19,7 +19,7 @@ export function fetchExpedientType(id: string) {
 export function createExpedientType(data) {
   return new Promise<{ data: ExpedientType }>((resolve) =>
     resolve(
-      axios.post(`http://localhost:8080/expedient-types`, data, {
+      axios.post(`http://3.253.49.204:8080/expedient-types`, data, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem(`token`)}`,
         },
@@ -31,7 +31,7 @@ export function createExpedientType(data) {
 export function updateExpedientType(id, data) {
   return new Promise<{ data: ExpedientType }>((resolve) =>
     resolve(
-      axios.patch(`http://localhost:8080/expedient-types/${id}`, data, {
+      axios.patch(`http://3.253.49.204:8080/expedient-types/${id}`, data, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem(`token`)}`,
         },
