@@ -64,7 +64,7 @@ export const findOne = async (
     const expedient = await Expedient.findOne({
       _id: id,
       user: req.user._id,
-    }).populate(["tipo", "vinculado", "areaFuncional"]);
+    }).populate(["tipo", "vinculado", "areaFuncional", "user"]);
 
     if (!expedient) {
       return res.send({
@@ -201,7 +201,7 @@ export const find = async (
           ? { plazoLegal: 1 }
           : {}),
       })
-      .populate(["tipo", "vinculado", "areaFuncional"])
+      .populate(["tipo", "vinculado", "areaFuncional", "user"])
       .limit(Number(limit) * 1)
       .skip((Number(page) - 1) * Number(limit))
       .exec();

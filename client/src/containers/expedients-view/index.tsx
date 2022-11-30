@@ -87,6 +87,11 @@ const ExpedientsView = () => {
                 list: [
                   {
                     type: ListItemType.Text,
+                    label: "Collaborator email",
+                    value: expedient?.user?.email,
+                  },
+                  {
+                    type: ListItemType.Text,
                     label: "identificador",
                     value: expedient?._id,
                   },
