@@ -10,10 +10,11 @@ import ExpedientsTypesNew from "./containers/expedients-types-new";
 import ExpedientsTypesEdit from "./containers/expedients-types-edit";
 import ExpedientsView from "./containers/expedients-view";
 import ExpedientsEdit from "./containers/expedients-edit";
-import ProtectedRoute from "./components/private-route";
+import ProtectedRoute from "./components/protected-route";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./store";
 import { getUser } from "./store/user";
+import ProtectedAdminRoute from "./components/protected-admin-route";
 
 function App() {
   const state = useSelector((state: RootState) => state);
@@ -66,33 +67,33 @@ function App() {
         <Route
           path={"/expedients-types"}
           element={
-            <ProtectedRoute>
+            <ProtectedAdminRoute>
               <ExpedientsTypes />
-            </ProtectedRoute>
+            </ProtectedAdminRoute>
           }
         />
         <Route
           path={"/expedients-types/:id"}
           element={
-            <ProtectedRoute>
+            <ProtectedAdminRoute>
               <ExpedientsTypesView />
-            </ProtectedRoute>
+            </ProtectedAdminRoute>
           }
         />
         <Route
           path={"/expedients-types/new"}
           element={
-            <ProtectedRoute>
+            <ProtectedAdminRoute>
               <ExpedientsTypesNew />
-            </ProtectedRoute>
+            </ProtectedAdminRoute>
           }
         />
         <Route
           path={"/expedients-types/edit/:id"}
           element={
-            <ProtectedRoute>
+            <ProtectedAdminRoute>
               <ExpedientsTypesEdit />
-            </ProtectedRoute>
+            </ProtectedAdminRoute>
           }
         />
         <Route
