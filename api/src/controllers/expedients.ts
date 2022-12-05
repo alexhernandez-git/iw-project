@@ -296,7 +296,7 @@ export const updateOne = async (
                   if (resource.nombre === fieldName) {
                     filesToDelete.push([
                       ...filesToDelete,
-                      ...resource.archivos,
+                      ...(resource.archivos ?? []),
                     ]);
                     return {
                       ...resource,
