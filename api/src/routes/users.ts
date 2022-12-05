@@ -1,5 +1,6 @@
 import {
   create,
+  deleteOne,
   findAll,
   getByToken,
   login,
@@ -14,5 +15,6 @@ router.post("/login", login);
 router.patch("/:id", updateOne);
 router.get("/", findAll);
 router.get("/get-user/:token", getByToken);
+router.delete("/:id", deleteOne);
 
 export default router;

@@ -234,7 +234,7 @@ export const updateOne = async (
     vinculado: string;
     guardadoEn: string;
     fechaNotificacion: string;
-    fechaSolicitudServicioNotificacion: string;
+    fechaSolicitud: string;
     plazoLegal: string;
     silencioAdministrativo: string;
     asunto: string;

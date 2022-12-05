@@ -169,10 +169,10 @@ const ExpedientsView = () => {
                           type: ListItemType.Text,
                           label: "Fecha Solicitud",
                           value:
-                            expedient?.fechaSolicitudServicioNotificacion &&
-                            moment(
-                              expedient?.fechaSolicitudServicioNotificacion
-                            ).format("D-M-yyyy"),
+                            expedient?.fechaSolicitud &&
+                            moment(expedient?.fechaSolicitud).format(
+                              "D-M-yyyy"
+                            ),
                         },
                         {
                           type: ListItemType.Text,
@@ -250,10 +250,10 @@ const ExpedientsView = () => {
                           type: ListItemType.Text,
                           label: "Fecha Solicitud",
                           value:
-                            expedient?.fechaSolicitudServicioNotificacion &&
-                            moment(
-                              expedient?.fechaSolicitudServicioNotificacion
-                            ).format("D-M-yyyy"),
+                            expedient?.fechaSolicitud &&
+                            moment(expedient?.fechaSolicitud).format(
+                              "D-M-yyyy"
+                            ),
                         },
                         {
                           type: ListItemType.Text,

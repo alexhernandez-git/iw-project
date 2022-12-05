@@ -39,12 +39,9 @@ const ExpedientsEdit = () => {
       plazoLegal: expedient?.plazoLegal
         ? moment(expedient?.plazoLegal).format("yyyy-M-D")
         : null,
-      fechaSolicitudServicioNotificacion:
-        expedient?.fechaSolicitudServicioNotificacion
-          ? moment(expedient?.fechaSolicitudServicioNotificacion).format(
-              "yyyy-M-D"
-            )
-          : null,
+      fechaSolicitud: expedient?.fechaSolicitud
+        ? moment(expedient?.fechaSolicitud).format("yyyy-M-D")
+        : null,
       silencioAdministrativo: expedient?.silencioAdministrativo
         ? moment(expedient?.silencioAdministrativo).format("yyyy-M-D")
         : null,
@@ -56,9 +53,7 @@ const ExpedientsEdit = () => {
     enableReinitialize: true,
     onSubmit: (values) => {
       try {
-        values.fechaSolicitudServicioNotificacion = moment(
-          values.fechaSolicitudServicioNotificacion
-        );
+        values.fechaSolicitud = moment(values.fechaSolicitud);
         values.plazoLegal = moment(values.plazoLegal);
         values.silencioAdministrativo = moment(values.silencioAdministrativo);
         values.fechaNotificacion = moment(values.fechaNotificacion);
@@ -206,7 +201,7 @@ const ExpedientsEdit = () => {
                         },
                         {
                           label: "Fecha solicitud", // si // creacion
-                          name: "fechaSolicitudServicioNotificacion",
+                          name: "fechaSolicitud",
                           type: FormInputType.Date,
                         },
                         {
@@ -300,7 +295,7 @@ const ExpedientsEdit = () => {
                         },
                         {
                           label: "Fecha solicitud", // si // creacion
-                          name: "fechaSolicitudServicioNotificacion",
+                          name: "fechaSolicitud",
                           type: FormInputType.Date,
                         },
                         {

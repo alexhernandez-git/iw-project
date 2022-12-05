@@ -175,7 +175,7 @@ export type Expedient = {
   asunto: string;
   fechaDePresentacion: Date;
   fechaNotificacionRequerimiento: Date;
-  fechaSolicitudServicioNotificacion: string;
+  fechaSolicitud: string;
   fechaNotificacion: string;
   silencioAdministrativo: string;
   plazoLegal: string;

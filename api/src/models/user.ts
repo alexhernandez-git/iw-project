@@ -21,12 +21,7 @@ const userSchema = new Schema<IUser>({
   role: { type: String, enum: UserRoles },
   expedientsTableFields: {
     type: [String],
-    default: [
-      "_id",
-      "responsable",
-      "cliente",
-      "fechaSolicitudServicioNotificacion",
-    ],
+    default: ["_id", "responsable", "cliente", "fechaSolicitud"],
   },
 });
 

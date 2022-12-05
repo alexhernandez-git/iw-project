@@ -117,7 +117,7 @@ export type Expediente = {
   silencioAdministrativoTiempo: number;
   suspensionRequerimientoTiempo: number;
   fecharResolucion: Date;
-  fechaSolicitudServicioNotificacion: string;
+  fechaSolicitud: string;
   plazoLegal: string;
   estado: ExpedientState;
   empresa: string;
