@@ -275,8 +275,10 @@ export const updateOne = async (
       var fileKeys = Object.keys(files);
       fileKeys.forEach(function (key) {
         let path = "";
-        const [section, fieldName] = key.split("/");
+        const [uglySection, uglyFieldName] = key.split("/");
         console.log({ key });
+        const section = Buffer.from(uglySection, "utf-8").toString();
+        const fieldName = Buffer.from(uglyFieldName, "utf-8").toString();
         console.log({ section });
         console.log({ fieldName });
         const file = files[key];
