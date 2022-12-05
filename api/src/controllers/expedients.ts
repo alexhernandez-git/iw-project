@@ -294,6 +294,7 @@ export const updateOne = async (
         }
 
         console.log({ itemNames });
+        console.log({ fieldName });
 
         dataJSON.secciones = dataJSON.secciones.map((sectionItem) =>
           sectionItem.nombre === section
