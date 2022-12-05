@@ -268,20 +268,22 @@ export const updateOne = async (
 
     let dataJSON = JSON.parse(data);
 
+    let newExpedient = null;
+
     if (files) {
       var fileKeys = Object.keys(files);
-      fileKeys.forEach(async function (key) {
+      fileKeys.forEach(function (key) {
         let path = "";
         const [section, fieldName] = key.split("/");
         const file = files[key];
         const itemNames = [];
         if (Array.isArray(file)) {
-          file.forEach(async (fileItem) => {
+          file.forEach((fileItem) => {
             const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
               fileItem.name
             }`;
             path = `${BASE_PATH}/${fileName}`;
-            await fileItem.mv(path);
+            fileItem.mv(path);
             itemNames.push(fileName);
           });
         } else {
@@ -289,48 +291,46 @@ export const updateOne = async (
             file.name
           }`;
           path = `${BASE_PATH}/${fileName}`;
-          await file.mv(path);
+          file.mv(path);
           itemNames.push(fileName);
         }
 
         console.log({ itemNames });
         console.log({ fieldName });
-
-        dataJSON.secciones = dataJSON.secciones.map((sectionItem) =>
-          sectionItem.nombre === section
-            ? {
-                ...sectionItem,
-                recursos: sectionItem.recursos.map((resource) => {
-                  if (resource.nombre === fieldName) {
-                    return {
-                      ...resource,
-                      archivos: itemNames,
-                    };
-                  } else {
-                    return resource;
-                  }
-                }),
-              }
-            : sectionItem
-        );
-        // filesToDelete.forEach((file) => {
-        //   fs.unlink(BASE_PATH + "/" + file, (err) => {
-        //     if (err) {
-        //       console.log("file error", err);
-        //     }
-        //   });
-        // });
+        newExpedient = {
+          ...dataJSON,
+          secciones: dataJSON.secciones.map((sectionItem) =>
+            sectionItem.nombre === section
+              ? {
+                  ...sectionItem,
+                  recursos: sectionItem.recursos.map((resource) => {
+                    console.log("resource nombre", resource.nombre);
+                    console.log({ fieldName });
+                    if (resource.nombre === fieldName) {
+                      console.log("entra 2");
+                      return {
+                        ...resource,
+                        archivos: itemNames,
+                      };
+                    } else {
+                      return resource;
+                    }
+                  }),
+                }
+              : sectionItem
+          ),
+        };
       });
     }
 
-    console.log({ data });
+    console.log("entra 1");
 
-    console.log(JSON.stringify(dataJSON, null, 2)); // spacing level = 2)
+    console.log(JSON.stringify(newExpedient, null, 2)); // spacing level = 2)
 
     const expedient = await Expedient.findOneAndUpdate(
       { _id: id, user: req.user._id },
       {
-        $set: dataJSON,
+        $set: newExpedient,
       },
       {
         upsert: true,
