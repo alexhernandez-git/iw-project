@@ -24,12 +24,12 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/files", express.static("/api/uploads"));
-app.use("/users", usersRouter);
-app.use("/expedients", userAuthentication, expedientsRouter);
-app.use("/expedient-types", userAuthentication, expedientTypesRouter);
+app.use("/api/files", express.static("/api/uploads"));
+app.use("/api/users", usersRouter);
+app.use("/api/expedients", userAuthentication, expedientsRouter);
+app.use("/api/expedient-types", userAuthentication, expedientTypesRouter);
 app.use(
-  "/",
+  "api/",
   router.get("/", function (req, res, next) {
     res.send({ response: "ok" });
   })

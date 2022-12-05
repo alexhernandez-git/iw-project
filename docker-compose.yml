@@ -11,13 +11,9 @@ services:
       - db
     volumes:
       - ./api:/api
-      - /api/node_modules
-    env_file:
-      - ./.envs/.local/.mongo
-      - ./.envs/.local/.node
     command: npm run dev
   db:
-    image: mongo:4.4.6
+    image: mongo:6
     restart: unless-stopped
     ports:
       - 27017:27017
@@ -25,6 +21,19 @@ services:
       - mongodb:/data/db
     env_file:
       - ./.envs/.local/.mongo
+
+  nginx:
+    image: nginx:1.19-alpine
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - server
+      - client
+    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+
   client:
     build:
       context: ./client
@@ -37,10 +46,8 @@ services:
       - db
     volumes:
       - ./client:/client
-      - /client/node_modules
-    env_file:
-      - ./.envs/.local/.mongo
-      - ./.envs/.local/.node
     command: yarn start
+
 volumes:
+  nginx_static_files: {}
   mongodb:

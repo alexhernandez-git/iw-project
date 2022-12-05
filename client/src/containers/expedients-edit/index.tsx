@@ -215,6 +215,16 @@ const ExpedientsEdit = () => {
                           type: FormInputType.Date,
                         },
                         {
+                          label: "Silencio Administrativo",
+                          name: "silencioAdministrativo",
+                          type: FormInputType.Date,
+                        },
+                        {
+                          label: "Fecha notificación",
+                          name: "fechaNotificacion",
+                          type: FormInputType.Date,
+                        },
+                        {
                           label: "Empresa",
                           name: "empresa",
                           type: FormInputType.Text,
