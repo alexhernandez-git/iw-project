@@ -271,10 +271,14 @@ export const updateOne = async (
     let newExpedient = null;
 
     if (files) {
+      console.log("entra 3");
       var fileKeys = Object.keys(files);
       fileKeys.forEach(function (key) {
         let path = "";
         const [section, fieldName] = key.split("/");
+        console.log({ key });
+        console.log({ section });
+        console.log({ fieldName });
         const file = files[key];
         const itemNames = [];
         if (Array.isArray(file)) {
