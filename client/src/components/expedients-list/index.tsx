@@ -73,11 +73,10 @@ const ExpedientsList = ({ expedients, pagination, home = false }: Props) => {
                           scope="col"
                           className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
                         >
-                          {
+                          {user?.role &&
                             listFields[user?.role].find(
                               (field) => field.value === selectedField
-                            )?.label
-                          }
+                            )?.label}
                         </th>
                       ))}
 

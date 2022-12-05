@@ -22,9 +22,10 @@ export default function FieldsFilter({
 
   const onSelectField = (e) => {
     if (e.target.checked) {
-      const newField = listFields[user?.role].find(
-        (field) => field?.value === e.target.name
-      )?.value;
+      const newField =
+        user?.role &&
+        listFields[user?.role].find((field) => field?.value === e.target.name)
+          ?.value;
       if (newField) {
         handleUpdateExpedientsTableFields([...expedientsTableFields, newField]);
       }
@@ -73,42 +74,43 @@ export default function FieldsFilter({
                     </div>
                     <div className="relative mt-6 flex-1 px-4 sm:px-6 divide-y divide-gray-200">
                       {/* Replace with your content */}
-                      {listFields.map((field) => (
-                        <div className="relative flex items-start py-2">
-                          <div className="flex h-5 items-center">
-                            <input
-                              id={field?.value}
-                              checked={
-                                expedientsTableFields &&
-                                expedientsTableFields.some(
-                                  (selectedFieldItem) =>
-                                    selectedFieldItem === field?.value
-                                )
-                              }
-                              aria-describedby="comments-description"
-                              name={field?.value}
-                              onChange={onSelectField}
-                              type="checkbox"
-                              className="h-4 w-4 rounded border-gray-300 text-esan-color focus:ring-esan-color"
-                            />
-                          </div>
-                          <div className="ml-3 text-sm">
-                            <label
-                              htmlFor={field?.value}
-                              className="font-medium text-gray-700"
-                            >
-                              {field?.label}
-                            </label>
-                            {/* <p
+                      {user?.role &&
+                        listFields[user?.role].map((field) => (
+                          <div className="relative flex items-start py-2">
+                            <div className="flex h-5 items-center">
+                              <input
+                                id={field?.value}
+                                checked={
+                                  expedientsTableFields &&
+                                  expedientsTableFields.some(
+                                    (selectedFieldItem) =>
+                                      selectedFieldItem === field?.value
+                                  )
+                                }
+                                aria-describedby="comments-description"
+                                name={field?.value}
+                                onChange={onSelectField}
+                                type="checkbox"
+                                className="h-4 w-4 rounded border-gray-300 text-esan-color focus:ring-esan-color"
+                              />
+                            </div>
+                            <div className="ml-3 text-sm">
+                              <label
+                                htmlFor={field?.value}
+                                className="font-medium text-gray-700"
+                              >
+                                {field?.label}
+                              </label>
+                              {/* <p
                               id="comments-description"
                               className="text-gray-500"
                             >
                               Get notified when someones posts a comment on a
                               posting.
                             </p> */}
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
                       {/* /End replace */}
                     </div>
                   </div>
