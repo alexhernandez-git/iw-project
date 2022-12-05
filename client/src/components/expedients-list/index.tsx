@@ -5,7 +5,6 @@ import TableFilter from "./partials/table-filter";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { listFields } from "../../data";
 import { update } from "../../store/user";
-import moment from "moment";
 
 type Props = {
   expedients: Expedient[];
@@ -75,7 +74,7 @@ const ExpedientsList = ({ expedients, pagination, home = false }: Props) => {
                           className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
                         >
                           {
-                            listFields.find(
+                            listFields[user?.role].find(
                               (field) => field.value === selectedField
                             )?.label
                           }

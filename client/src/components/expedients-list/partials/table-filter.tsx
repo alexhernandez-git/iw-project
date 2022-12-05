@@ -3,6 +3,7 @@ import { Dispatch, Fragment, SetStateAction, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { listFields } from "../../../data";
+import { useAppSelector } from "../../../store";
 
 type Props = {
   open: boolean;
@@ -17,9 +18,11 @@ export default function FieldsFilter({
   expedientsTableFields,
   handleUpdateExpedientsTableFields,
 }: Props) {
+  const { value: user } = useAppSelector((state) => state.user);
+
   const onSelectField = (e) => {
     if (e.target.checked) {
-      const newField = listFields.find(
+      const newField = listFields[user?.role].find(
         (field) => field?.value === e.target.name
       )?.value;
       if (newField) {
