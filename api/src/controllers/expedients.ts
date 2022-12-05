@@ -128,6 +128,7 @@ export const find = async (
 
   try {
     console.log(req.user);
+    console.log({ partners });
     let usersFilter =
       req.user.role === UserRoles.SuperAdmin &&
       req.user.role === UserRoles.Admin
