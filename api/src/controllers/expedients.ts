@@ -324,6 +324,8 @@ export const updateOne = async (
 
     console.log({ data });
 
+    console.log(JSON.stringify(dataJSON, null, 2)); // spacing level = 2)
+
     const expedient = await Expedient.findOneAndUpdate(
       { _id: id, user: req.user._id },
       {
