@@ -320,7 +320,11 @@ const ExpedientsView = () => {
                                     requerimiento?.archivos &&
                                     requerimiento?.archivos.length > 0 &&
                                     requerimiento?.archivos[0].split("]-[")[1],
-                                  buttonLabel: "Descargar",
+                                  buttonLabel:
+                                    requerimiento?.archivos &&
+                                    requerimiento?.archivos.length > 0
+                                      ? "Descargar"
+                                      : "",
                                   onClick: () => {
                                     window.open(
                                       "http://3.253.49.204/api/files/" +

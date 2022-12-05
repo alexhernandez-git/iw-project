@@ -123,7 +123,11 @@ const ExpedientsTypesView = () => {
                           requerimiento?.archivos &&
                           requerimiento?.archivos.length > 0 &&
                           requerimiento?.archivos[0].split("]-[")[1],
-                        buttonLabel: "Descargar",
+                        buttonLabel:
+                          requerimiento?.archivos &&
+                          requerimiento?.archivos.length > 0
+                            ? "Descargar"
+                            : "",
                         onClick: () => {
                           requerimiento?.archivos &&
                             requerimiento?.archivos.length > 0 &&
