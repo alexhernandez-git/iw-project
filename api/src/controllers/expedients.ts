@@ -270,18 +270,18 @@ export const updateOne = async (
 
     if (files) {
       var fileKeys = Object.keys(files);
-      fileKeys.forEach(function (key) {
+      fileKeys.forEach(async function (key) {
         let path = "";
         const [section, fieldName] = key.split("/");
         const file = files[key];
         const itemNames = [];
         if (Array.isArray(file)) {
-          file.forEach((fileItem) => {
+          file.forEach(async (fileItem) => {
             const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
               fileItem.name
             }`;
             path = `${BASE_PATH}/${fileName}`;
-            fileItem.mv(path);
+            await fileItem.mv(path);
             itemNames.push(fileName);
           });
         } else {
@@ -289,9 +289,12 @@ export const updateOne = async (
             file.name
           }`;
           path = `${BASE_PATH}/${fileName}`;
-          file.mv(path);
+          await file.mv(path);
           itemNames.push(fileName);
         }
+
+        console.log({ itemNames });
+
         dataJSON.secciones = dataJSON.secciones.map((sectionItem) =>
           sectionItem.nombre === section
             ? {
