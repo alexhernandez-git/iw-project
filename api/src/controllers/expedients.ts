@@ -141,7 +141,7 @@ export const find = async (
 
     console.log({ usersFilter });
     const expedients = await Expedient.find({
-      ...(req.user.role !== UserRoles.SuperAdmin ||
+      ...(req.user.role !== UserRoles.SuperAdmin &&
       req.user.role !== UserRoles.Admin
         ? {
             user: { $in: usersFilter },
