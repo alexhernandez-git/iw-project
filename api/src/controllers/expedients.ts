@@ -292,17 +292,12 @@ export const updateOne = async (
           file.mv(path);
           itemNames.push(fileName);
         }
-        const filesToDelete = [];
         dataJSON.secciones = dataJSON.secciones.map((sectionItem) =>
           sectionItem.nombre === section
             ? {
                 ...sectionItem,
                 recursos: sectionItem.recursos.map((resource) => {
                   if (resource.nombre === fieldName) {
-                    filesToDelete.push([
-                      ...filesToDelete,
-                      ...(resource.archivos ?? []),
-                    ]);
                     return {
                       ...resource,
                       archivos: itemNames,
