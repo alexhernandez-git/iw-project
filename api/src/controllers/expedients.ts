@@ -38,6 +38,7 @@ export const create = async (
       areaFuncional,
       vinculado: vinculado,
       secciones: expedientType?.secciones ?? [],
+      fechaSolicitud: Date.now(),
       user: _id,
     });
 

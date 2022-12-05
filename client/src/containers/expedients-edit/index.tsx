@@ -294,11 +294,6 @@ const ExpedientsEdit = () => {
                           type: FormInputType.Text,
                         },
                         {
-                          label: "Fecha solicitud", // si // creacion
-                          name: "fechaSolicitud",
-                          type: FormInputType.Date,
-                        },
-                        {
                           label: "Fecha notificación", // si
                           name: "fechaNotificacion",
                           type: FormInputType.Date,

@@ -295,7 +295,7 @@ export const listFields = [
   { label: "Beneficiario", value: "beneficiario" },
   { label: "Asunto", value: "asunto" },
   {
-    label: "Fecha solicitud servicio notificacion",
+    label: "Fecha solicitud",
     value: "fechaSolicitud",
   },
   {
