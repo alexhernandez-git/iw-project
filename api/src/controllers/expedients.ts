@@ -319,6 +319,8 @@ export const updateOne = async (
       });
     }
 
+    console.log({ dataJSON });
+
     const expedient = await Expedient.findOneAndUpdate(
       { _id: id, user: req.user._id },
       {
