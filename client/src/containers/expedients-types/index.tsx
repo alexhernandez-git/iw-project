@@ -47,7 +47,7 @@ const ExpedientsTypes = () => {
 
   return (
     <DashboardLayout
-      title={"Tipos de tramites"}
+      title={"Tipos de trámites"}
       button={
         [UserRole.Admin, UserRole.SuperAdmin].includes(user?.role) && {
           label: "Crear nuevo",
@@ -56,7 +56,7 @@ const ExpedientsTypes = () => {
       }
       pages={[
         {
-          name: "Tipos de tramites",
+          name: "Tipos de trámites",
           href: "/expedients-types",
           current: true,
         },

@@ -170,15 +170,14 @@ export type Expedient = {
   codigoClienteProvisional: string;
   cliente: string;
   beneficiario: string;
-  silencioAdministrativo: boolean;
-  silencioAdministrativoDias: number;
-  suspensionRequerimientoDias: number;
   fecharResolucion: Date;
   documentoResolucion: string;
   asunto: string;
   fechaDePresentacion: Date;
   fechaNotificacionRequerimiento: Date;
   fechaSolicitudServicioNotificacion: string;
+  fechaNotificacion: string;
+  silencioAdministrativo: string;
   plazoLegal: string;
   estado: ExpedientState;
   empresa: string;

@@ -32,6 +32,15 @@ export const create = async (
       role = UserRoles.User,
     } = req.body;
 
+    const usersWithThisEmail = await User.exists({ email });
+
+    if (usersWithThisEmail) {
+      next({
+        statusCode: 404,
+        message: "There are users with this email",
+      });
+    }
+
     const hashedPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUNDS);
 
     const user = await User.create({
@@ -240,6 +249,29 @@ export const findAll = async (
     const users = await User.find({});
 
     res.send({ users, success: true });
+  } catch (error) {
+    next({
+      statusCode: 500,
+      message: "Error creating user",
+    });
+  }
+};
+
+export const deleteOne = async (
+  req: Request<{
+    id: string;
+  }>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const {
+      params: { id },
+    } = req;
+
+    await User.deleteOne({ _id: id });
+
+    res.send({ success: true });
   } catch (error) {
     next({
       statusCode: 500,

@@ -37,7 +37,7 @@ const ExpedientsTypesView = () => {
       }}
       pages={[
         {
-          name: "Tipos de tramites",
+          name: "Tipos de trámites",
           href: "/expedients-types",
           current: false,
         },
@@ -89,7 +89,7 @@ const ExpedientsTypesView = () => {
               // {
               //   type: ListItemType.List,
               //   label: "Hijos",
-              //   value: expedientType?.tramitesHijos.map((tramiteHijo) => ({
+              //   value: expedientType?.trámitesHijos.map((tramiteHijo) => ({
               //     value: tramiteHijo.codigo,
               //     onClick: () => {
               //       window.open(

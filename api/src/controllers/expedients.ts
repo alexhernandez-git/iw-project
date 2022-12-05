@@ -229,7 +229,10 @@ export const updateOne = async (
     tipo: string;
     vinculado: string;
     guardadoEn: string;
+    fechaNotificacion: string;
     fechaSolicitudServicioNotificacion: string;
+    plazoLegal: string;
+    silencioAdministrativo: string;
     asunto: string;
     honorariosYSuplidos: {
       tipo: { enum: HonorariosYSuplidosType; type: String };

@@ -71,7 +71,7 @@ const ExpedientsTypesEdit = () => {
       }}
       pages={[
         {
-          name: "Tipos de tramites",
+          name: "Tipos de trámites",
           href: "/expedients-types",
           current: false,
         },

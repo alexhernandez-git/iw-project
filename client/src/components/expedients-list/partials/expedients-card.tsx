@@ -22,6 +22,10 @@ const ExpedientCard = ({ expedient, selectedFields }: Props) => {
             ? moment(expedient[selectedField]).format("D-M-yyyy")
             : selectedField === "plazoLegal"
             ? moment(expedient[selectedField]).format("D-M-yyyy")
+            : selectedField === "silencioAdministrativo"
+            ? moment(expedient[selectedField]).format("D-M-yyyy")
+            : selectedField === "fechaNotificacion"
+            ? moment(expedient[selectedField]).format("D-M-yyyy")
             : expedient[selectedField]}
         </td>
       ))}

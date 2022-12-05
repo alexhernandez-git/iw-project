@@ -164,6 +164,22 @@ const ExpedientsView = () => {
                   },
                   {
                     type: ListItemType.Text,
+                    label: "Silencio Administrativo",
+                    value:
+                      expedient?.silencioAdministrativo &&
+                      moment(expedient?.silencioAdministrativo).format(
+                        "D-M-yyyy"
+                      ),
+                  },
+                  {
+                    type: ListItemType.Text,
+                    label: "Fecha Notificación",
+                    value:
+                      expedient?.fechaNotificacion &&
+                      moment(expedient?.fechaNotificacion).format("D-M-yyyy"),
+                  },
+                  {
+                    type: ListItemType.Text,
                     label: "Plazo Legal",
                     value:
                       expedient?.plazoLegal &&

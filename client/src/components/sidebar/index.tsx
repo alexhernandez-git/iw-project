@@ -36,7 +36,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
             { name: "Home", href: "/", icon: HomeIcon },
             { name: "Expedientes", href: "/expedients", icon: FolderIcon },
             {
-              name: "Tipos de tramites",
+              name: "Tipos de trámites",
               href: "/expedients-types",
               icon: FolderOpenIcon,
             },

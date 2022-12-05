@@ -36,10 +36,9 @@ const expedientSchema = new Schema({
   cliente: { type: String },
   beneficiario: { type: String },
   fechaSolicitudServicioNotificacion: { type: Date },
-  silencioAdministrativo: { type: Boolean },
-  silencioAdministrativoTiempo: { type: Number },
-  suspensionRequerimientoTiempo: { type: Number },
   plazoLegal: { type: Date },
+  silencioAdministrativo: { type: Date },
+  fechaNotificacion: { type: Date },
   estado: {
     enum: ExpedientState,
     type: String,

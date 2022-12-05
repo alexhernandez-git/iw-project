@@ -298,6 +298,14 @@ export const listFields = [
     label: "Fecha solicitud servicio notificacion",
     value: "fechaSolicitudServicioNotificacion",
   },
+  {
+    label: "Silencio administrativo",
+    value: "silencioAdministrativo",
+  },
+  {
+    label: "Fecha notificación",
+    value: "fechaNotificacion",
+  },
   { label: "Plazo legal", value: "plazoLegal" },
   { label: "Estado", value: "estado" },
   { label: "Empresa", value: "empresa" },

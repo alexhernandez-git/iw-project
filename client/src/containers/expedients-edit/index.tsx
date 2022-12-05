@@ -45,6 +45,12 @@ const ExpedientsEdit = () => {
               "yyyy-M-D"
             )
           : null,
+      silencioAdministrativo: expedient?.silencioAdministrativo
+        ? moment(expedient?.silencioAdministrativo).format("yyyy-M-D")
+        : null,
+      fechaNotificacion: expedient?.fechaNotificacion
+        ? moment(expedient?.fechaNotificacion).format("yyyy-M-D")
+        : null,
       secciones: expedient?.secciones ?? [],
     },
     enableReinitialize: true,
@@ -54,6 +60,8 @@ const ExpedientsEdit = () => {
           values.fechaSolicitudServicioNotificacion
         );
         values.plazoLegal = moment(values.plazoLegal);
+        values.silencioAdministrativo = moment(values.silencioAdministrativo);
+        values.fechaNotificacion = moment(values.fechaNotificacion);
 
         var formData = new FormData();
 
