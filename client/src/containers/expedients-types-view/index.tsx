@@ -128,7 +128,7 @@ const ExpedientsTypesView = () => {
                           requerimiento?.archivos &&
                             requerimiento?.archivos.length > 0 &&
                             window.open(
-                              "http://localhost/api/files/" +
+                              "http://3.253.49.204/api/files/" +
                                 requerimiento?.archivos[0]
                             );
                         },
