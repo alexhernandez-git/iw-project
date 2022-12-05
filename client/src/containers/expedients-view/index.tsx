@@ -19,6 +19,7 @@ import {
   getHonorariosYSuplidosLabel,
 } from "../../utils/helpers";
 import moment from "moment";
+import useUserRole from "../../hooks/use-user-role";
 
 const ExpedientsView = () => {
   const navigate = useNavigate();
@@ -36,6 +37,8 @@ const ExpedientsView = () => {
   }, []);
 
   const [tabIndex, setTabIndex] = useState(0);
+
+  const { isAdmin, isSuperAdmin } = useUserRole();
 
   return (
     <DashboardLayout
@@ -66,13 +69,20 @@ const ExpedientsView = () => {
         setTab={setTabIndex}
         tabs={
           expedient?.secciones
-            ? [
-                "Ficha",
-                "Honorarios y Suplidos",
-                ...expedient.secciones.map(
-                  (section: Section) => section.nombre
-                ),
-              ]
+            ? isAdmin || isSuperAdmin
+              ? [
+                  "Ficha",
+                  "Honorarios y Suplidos",
+                  ...expedient.secciones.map(
+                    (section: Section) => section.nombre
+                  ),
+                ]
+              : [
+                  "Ficha",
+                  ...expedient.secciones.map(
+                    (section: Section) => section.nombre
+                  ),
+                ]
             : ["Ficha"]
         }
       />
@@ -84,122 +94,186 @@ const ExpedientsView = () => {
               {...{
                 title: "Datos del expediente",
                 description: "",
-                list: [
-                  {
-                    type: ListItemType.Text,
-                    label: "Collaborator email",
-                    value: expedient?.user?.email,
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Identificador",
-                    value: expedient?._id,
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Estado",
-                    value: getEstadoLabel(expedient?.estado),
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Area funcional",
-                    value: expedient?.areaFuncional?.nombre,
-                  },
-                  {
-                    type: ListItemType.Button,
-                    label: "Vinculado",
-                    value: {
-                      label: expedient?.vinculado?._id,
-                      onClick: () => {
-                        window.open(
-                          `/expedients/${expedient?.vinculado?._id}`,
-                          "_blank"
-                        );
-                      },
-                    },
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Tipo",
-                    value: expedient?.tipo?.nombre,
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Conexiones",
-                    value: expedient?.conexiones,
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Guardado En",
-                    value: expedient?.guardadoEn,
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Responsable",
-                    value: expedient?.responsable,
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Codigo Cliente Provisional",
-                    value: expedient?.codigoClienteProvisional,
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Cliente",
-                    value: expedient?.cliente,
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Beneficiario",
-                    value: expedient?.beneficiario,
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Fecha Solicitud Servicio Notificación",
-                    value:
-                      expedient?.fechaSolicitudServicioNotificacion &&
-                      moment(
-                        expedient?.fechaSolicitudServicioNotificacion
-                      ).format("D-M-yyyy"),
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Silencio Administrativo",
-                    value:
-                      expedient?.silencioAdministrativo &&
-                      moment(expedient?.silencioAdministrativo).format(
-                        "D-M-yyyy"
-                      ),
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Fecha Notificación",
-                    value:
-                      expedient?.fechaNotificacion &&
-                      moment(expedient?.fechaNotificacion).format("D-M-yyyy"),
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Plazo Legal",
-                    value:
-                      expedient?.plazoLegal &&
-                      moment(expedient?.plazoLegal).format("D-M-yyyy"),
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Empresa",
-                    value: expedient?.empresa,
-                  },
-                  {
-                    type: ListItemType.Text,
-                    label: "Honorarios",
-                    value: expedient?.honorarios,
-                  },
-                ],
+                list:
+                  isAdmin || isSuperAdmin
+                    ? [
+                        {
+                          type: ListItemType.Text,
+                          label: "Collaborator email",
+                          value: expedient?.user?.email,
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Identificador",
+                          value: expedient?._id,
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Estado",
+                          value: getEstadoLabel(expedient?.estado),
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Area funcional",
+                          value: expedient?.areaFuncional?.nombre,
+                        },
+                        {
+                          type: ListItemType.Button,
+                          label: "Vinculado",
+                          value: {
+                            label: expedient?.vinculado?._id,
+                            onClick: () => {
+                              window.open(
+                                `/expedients/${expedient?.vinculado?._id}`,
+                                "_blank"
+                              );
+                            },
+                          },
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Tipo",
+                          value: expedient?.tipo?.nombre,
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Conexiones",
+                          value: expedient?.conexiones,
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Guardado En",
+                          value: expedient?.guardadoEn,
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Responsable",
+                          value: expedient?.responsable,
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Codigo Cliente Provisional",
+                          value: expedient?.codigoClienteProvisional,
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Cliente",
+                          value: expedient?.cliente,
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Beneficiario",
+                          value: expedient?.beneficiario,
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Fecha Solicitud",
+                          value:
+                            expedient?.fechaSolicitudServicioNotificacion &&
+                            moment(
+                              expedient?.fechaSolicitudServicioNotificacion
+                            ).format("D-M-yyyy"),
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Silencio Administrativo",
+                          value:
+                            expedient?.silencioAdministrativo &&
+                            moment(expedient?.silencioAdministrativo).format(
+                              "D-M-yyyy"
+                            ),
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Fecha Notificación",
+                          value:
+                            expedient?.fechaNotificacion &&
+                            moment(expedient?.fechaNotificacion).format(
+                              "D-M-yyyy"
+                            ),
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Plazo Legal",
+                          value:
+                            expedient?.plazoLegal &&
+                            moment(expedient?.plazoLegal).format("D-M-yyyy"),
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Empresa",
+                          value: expedient?.empresa,
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Honorarios",
+                          value: expedient?.honorarios,
+                        },
+                      ]
+                    : [
+                        {
+                          type: ListItemType.Text,
+                          label: "Identificador",
+                          value: expedient?._id,
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Estado",
+                          value: getEstadoLabel(expedient?.estado),
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Area funcional",
+                          value: expedient?.areaFuncional?.nombre,
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Tipo",
+                          value: expedient?.tipo?.nombre,
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Responsable",
+                          value: expedient?.responsable,
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Cliente",
+                          value: expedient?.cliente,
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Beneficiario",
+                          value: expedient?.beneficiario,
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Fecha Solicitud",
+                          value:
+                            expedient?.fechaSolicitudServicioNotificacion &&
+                            moment(
+                              expedient?.fechaSolicitudServicioNotificacion
+                            ).format("D-M-yyyy"),
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Fecha Notificación",
+                          value:
+                            expedient?.fechaNotificacion &&
+                            moment(expedient?.fechaNotificacion).format(
+                              "D-M-yyyy"
+                            ),
+                        },
+                        {
+                          type: ListItemType.Text,
+                          label: "Empresa",
+                          value: expedient?.empresa,
+                        },
+                      ],
               }}
             />
           )}
-          {tabIndex === 1 && (
+          {(isAdmin || isSuperAdmin) && tabIndex === 1 && (
             <DescriptionList
               {...{
                 title: "Datos del expediente",
@@ -229,7 +303,7 @@ const ExpedientsView = () => {
           {expedient?.secciones &&
             expedient?.secciones.map(
               (section, index) =>
-                index + 2 === tabIndex && (
+                index + (isAdmin || isSuperAdmin ? 2 : 1) === tabIndex && (
                   <DescriptionList
                     {...{
                       title: section.nombre,

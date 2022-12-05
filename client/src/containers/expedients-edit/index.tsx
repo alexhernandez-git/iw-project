@@ -129,7 +129,7 @@ const ExpedientsEdit = () => {
                       description: "",
                       inputs: [
                         {
-                          label: "Estado",
+                          label: "Estado", // si
                           name: "estado",
                           type: FormInputType.Select,
                           options: [
@@ -164,12 +164,12 @@ const ExpedientsEdit = () => {
                           ],
                         },
                         {
-                          label: "Conexiones",
+                          label: "Conexiones", // no
                           name: "conexiones",
                           type: FormInputType.Text,
                         },
                         {
-                          label: "Guardado en",
+                          label: "Guardado en", // no
                           name: "guardadoEn",
                           type: FormInputType.Select,
                           options: [
@@ -185,47 +185,47 @@ const ExpedientsEdit = () => {
                           ],
                         },
                         {
-                          label: "Responsable",
+                          label: "Responsable", // no
                           name: "responsable",
                           type: FormInputType.Text,
                         },
                         {
-                          label: "Codigo Cliente Provisional",
+                          label: "Codigo Cliente Provisional", // no
                           name: "codigoClienteProvisional",
                           type: FormInputType.Text,
                         },
                         {
-                          label: "Cliente",
+                          label: "Cliente", // si
                           name: "cliente",
                           type: FormInputType.Text,
                         },
                         {
-                          label: "Beneficiario",
+                          label: "Beneficiario", // si
                           name: "beneficiario",
                           type: FormInputType.Text,
                         },
                         {
-                          label: "Fecha solicitud servicio notificacion",
+                          label: "Fecha solicitud", // si // creacion
                           name: "fechaSolicitudServicioNotificacion",
                           type: FormInputType.Date,
                         },
                         {
-                          label: "Plazo legal",
+                          label: "Plazo legal", // no
                           name: "plazoLegal",
                           type: FormInputType.Date,
                         },
                         {
-                          label: "Silencio Administrativo",
+                          label: "Silencio Administrativo", // no
                           name: "silencioAdministrativo",
                           type: FormInputType.Date,
                         },
                         {
-                          label: "Fecha notificación",
+                          label: "Fecha notificación", // si
                           name: "fechaNotificacion",
                           type: FormInputType.Date,
                         },
                         {
-                          label: "Empresa",
+                          label: "Empresa", // no
                           name: "empresa",
                           type: FormInputType.Text,
                         },
@@ -248,7 +248,69 @@ const ExpedientsEdit = () => {
                       ].map((item) => ({ ...item, formik })),
                     },
                   ]
-                : []
+                : [
+                    {
+                      label: "Información",
+                      description: "",
+                      inputs: [
+                        {
+                          label: "Estado", // si
+                          name: "estado",
+                          type: FormInputType.Select,
+                          options: [
+                            {
+                              id: ExpedientState.DocumentacionPendiente,
+                              label: "Documentación pendiente",
+                            },
+                            {
+                              id: ExpedientState.DocumentacionCompleta,
+                              label: "Documentación completa",
+                            },
+                            {
+                              id: ExpedientState.ExpedientCursadoNoConcluido,
+                              label: "Expediente cursado no concluido",
+                            },
+                            {
+                              id: ExpedientState.Concluido,
+                              label: "Concluido",
+                            },
+                            {
+                              id: ExpedientState.ResolucionFaborable,
+                              label: "Resolución favorable",
+                            },
+                            {
+                              id: ExpedientState.ResolucionDeNegatoria,
+                              label: "Resolución de negatoria",
+                            },
+                            {
+                              id: ExpedientState.NoResolucion,
+                              label: "No resolución",
+                            },
+                          ],
+                        },
+                        {
+                          label: "Cliente", // si
+                          name: "cliente",
+                          type: FormInputType.Text,
+                        },
+                        {
+                          label: "Beneficiario", // si
+                          name: "beneficiario",
+                          type: FormInputType.Text,
+                        },
+                        {
+                          label: "Fecha solicitud", // si // creacion
+                          name: "fechaSolicitudServicioNotificacion",
+                          type: FormInputType.Date,
+                        },
+                        {
+                          label: "Fecha notificación", // si
+                          name: "fechaNotificacion",
+                          type: FormInputType.Date,
+                        },
+                      ].map((item) => ({ ...item, formik })),
+                    },
+                  ]
             }
           >
             <Sections formik={formik} />
