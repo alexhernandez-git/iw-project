@@ -271,16 +271,13 @@ export const updateOne = async (
     let dataJSON = JSON.parse(data);
 
     let newExpedient = null;
-    const decoder = new TextDecoder("utf-8");
-    const encoder = new TextEncoder();
+
     if (files) {
       console.log("entra 3");
       var fileKeys = Object.keys(files);
       fileKeys.forEach(function (key) {
         let path = "";
-        const [section, fieldName] = Buffer.from(key)
-          .toString("utf8")
-          .split("/");
+        const [section, fieldName] = key.split("/");
         console.log({ key });
         console.log({ section });
         console.log({ fieldName });
