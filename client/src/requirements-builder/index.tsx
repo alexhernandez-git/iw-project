@@ -104,10 +104,10 @@ const RequirementsBuilder = ({
   const onEditFileField = (id: string, files: any) => {
     values.secciones.forEach((sectionItem: Section) => {
       if (sectionItem.nombre === section.nombre) {
-        setFieldValue(`files`, {
+        setFieldValue(`files`, [
           ...formik.values.files,
-          [`${section.nombre}/${id}`]: files,
-        });
+          {id: `${section.nombre}/${id}`, files: files},
+        ]);
       }
     });
   };
