@@ -327,7 +327,7 @@ const ExpedientsView = () => {
                                       : "",
                                   onClick: () => {
                                     window.open(
-                                      "http://3.253.49.204/api/files/" +
+                                      "http://localhost/api/files/" +
                                         requerimiento?.archivos[0]
                                     );
                                   },

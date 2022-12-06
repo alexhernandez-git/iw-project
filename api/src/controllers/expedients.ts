@@ -12,6 +12,7 @@ import {
 } from "../types";
 import moment from "moment";
 import { getAreaFuncional } from "../utils/helpers";
+import utf8 from "utf8";
 
 const BASE_PATH = "./uploads";
 
@@ -271,13 +272,13 @@ export const updateOne = async (
     let dataJSON = JSON.parse(data);
 
     let newExpedient = null;
-
+    console.log("entraaaa");
     if (files) {
       console.log("entra 3");
       var fileKeys = Object.keys(files);
       fileKeys.forEach(function (key) {
         let path = "";
-        const [section, fieldName] = key.split("/");
+        const [section, fieldName] = utf8.decode(key).split("/");
         console.log({ key });
         console.log({ section });
         console.log({ fieldName });

@@ -67,13 +67,11 @@ const ExpedientsEdit = () => {
         formData.append("data", JSON.stringify(values));
 
         if (files) {
-          files.forEach((fileItem) => {
-            const { id } = fileItem;
-            fileItem.files.forEach((file) => {
-              console.log("file name ", file?.name);
-              formData.append(id, file, file?.name);
+          for (const [key] of Object.entries(files)) {
+            Array.from(files[key]).forEach((file) => {
+              formData.append(key, file, file?.name);
             });
-          });
+          }
         }
 
         dispatch(editExpedient({ id, data: formData }));
