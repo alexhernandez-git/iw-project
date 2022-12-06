@@ -2,8 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import { ExpedientType } from "../models/expedient-type";
 import { ExpedientResourceType } from "../types";
 import moment from "moment";
-import fs from "fs";
 import { getAreaFuncional } from "../utils/helpers";
+import utf8 from "utf8";
 
 const BASE_PATH = "./uploads";
 
@@ -361,7 +361,7 @@ export const updateOne = async (
       var fileKeys = Object.keys(files);
       fileKeys.forEach(function (key) {
         let path = "";
-        const [section, fieldName] = key.split("/");
+        const [section, fieldName] = utf8.decode(key).split("/");
         const file = files[key];
         const itemNames = [];
         if (Array.isArray(file)) {
