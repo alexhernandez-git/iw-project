@@ -100,6 +100,7 @@ export const find = async (
   res: Response,
   next: NextFunction
 ) => {
+  req.get("Accept-Charset");
   req.acceptsCharsets("UTF-8");
   let {
     page = 1,
