@@ -17,7 +17,6 @@ import {
 import useUserRole from "../hooks/use-user-role";
 
 type Props = {
-  requirements: any;
   formik: any;
   onEditSection: (sectionName: string, nombre: string) => void;
   onDeleteSection: (nombre: string) => void;

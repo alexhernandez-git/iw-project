@@ -100,6 +100,7 @@ export const find = async (
   res: Response,
   next: NextFunction
 ) => {
+  req.acceptsCharsets("UTF-8");
   let {
     page = 1,
     limit = 10,
@@ -275,9 +276,7 @@ export const updateOne = async (
       var fileKeys = Object.keys(files);
       fileKeys.forEach(function (key) {
         let path = "";
-        const [section, fieldName] = Buffer.from(key, "utf-8")
-          .toString()
-          .split("/");
+        const [section, fieldName] = key.split("/");
         console.log({ key });
         console.log({ section });
         console.log({ fieldName });
