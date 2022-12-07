@@ -26,7 +26,7 @@ const Header = ({ setSidebarOpen, search }: Props) => {
 
   const userNavigation = [
     {
-      name: "Sign out",
+      name: "Cerrar sesión",
       onClick: () => {
         dispatch(signOut());
         navigate("/login", { replace: true });
