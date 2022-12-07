@@ -271,7 +271,6 @@ export const updateOne = async (
 
     let dataJSON = JSON.parse(data);
 
-    let newExpedient = null;
     console.log("entraaaa");
     if (files) {
       console.log("entra 3");
@@ -304,7 +303,7 @@ export const updateOne = async (
 
         console.log({ itemNames });
         console.log({ fieldName });
-        newExpedient = {
+        dataJSON = {
           ...dataJSON,
           secciones: dataJSON.secciones.map((sectionItem) =>
             sectionItem.nombre === section
@@ -332,12 +331,12 @@ export const updateOne = async (
 
     console.log("entra 1");
 
-    console.log(JSON.stringify(newExpedient, null, 2)); // spacing level = 2)
+    console.log(JSON.stringify(dataJSON, null, 2)); // spacing level = 2)
 
     const expedient = await Expedient.findOneAndUpdate(
       { _id: id, user: req.user._id },
       {
-        $set: newExpedient,
+        $set: dataJSON,
       },
       {
         upsert: true,

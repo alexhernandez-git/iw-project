@@ -65,23 +65,29 @@ export const create = async (
           file.mv(path);
           itemNames.push(fileName);
         }
-        dataJSON.secciones = dataJSON.secciones.map((sectionItem) =>
-          sectionItem.nombre === section
-            ? {
-                ...sectionItem,
-                recursos: sectionItem.recursos.map((resource) => {
-                  if (resource.nombre === fieldName) {
-                    return {
-                      ...resource,
-                      archivos: itemNames,
-                    };
-                  } else {
-                    return resource;
-                  }
-                }),
-              }
-            : sectionItem
-        );
+        dataJSON = {
+          ...dataJSON,
+          secciones: dataJSON.secciones.map((sectionItem) =>
+            sectionItem.nombre === section
+              ? {
+                  ...sectionItem,
+                  recursos: sectionItem.recursos.map((resource) => {
+                    console.log("resource nombre", resource.nombre);
+                    console.log({ fieldName });
+                    if (resource.nombre === fieldName) {
+                      console.log("entra 2");
+                      return {
+                        ...resource,
+                        archivos: itemNames,
+                      };
+                    } else {
+                      return resource;
+                    }
+                  }),
+                }
+              : sectionItem
+          ),
+        };
       });
     }
 

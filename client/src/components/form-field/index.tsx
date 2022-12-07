@@ -85,7 +85,8 @@ export const FormFileField = ({ data }: Props) => {
 
   return (
     <FormFieldLayout data={data}>
-      <div
+      <label
+        htmlFor={nombre}
         className={`flex max-w-lg justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6`}
       >
         <div className="space-y-1 text-center">
@@ -104,10 +105,7 @@ export const FormFileField = ({ data }: Props) => {
             />
           </svg>
           <div className="flex text-sm text-gray-600">
-            <label
-              htmlFor={nombre}
-              className="relative cursor-pointer rounded-md bg-white font-medium text-esan-color focus-within:outline-none focus-within:ring-2 focus-within:ring-esan-color focus-within:ring-offset-2 hover:text-esan-color"
-            >
+            <span className="relative cursor-pointer rounded-md bg-white font-medium text-esan-color focus-within:outline-none focus-within:ring-2 focus-within:ring-esan-color focus-within:ring-offset-2 hover:text-esan-color">
               <span>
                 {getFieldFiles(nombre).length === 0
                   ? "Sube un archivo"
@@ -121,13 +119,13 @@ export const FormFileField = ({ data }: Props) => {
                 type="file"
                 className="sr-only"
               />
-            </label>
+            </span>
 
             {/* <p className="pl-1">or drag and drop</p> */}
           </div>
           <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
         </div>
-      </div>
+      </label>
       {getFieldFiles(nombre).map((archivo) => (
         <span className="inline-flex items-center mt-2 rounded-full bg-gray-100 px-3 py-0.5 text-xs font-medium text-gray-800">
           {archivo.split("]-[")[1]}
