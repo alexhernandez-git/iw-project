@@ -20,7 +20,7 @@ export function fetchExpedients({
     };
   }>((resolve) =>
     resolve(
-      axios.get(`http://localhost/api/expedients`, {
+      axios.get(`http://3.253.49.204/api/expedients`, {
         params: {
           page,
           limit: 10,
@@ -39,7 +39,7 @@ export function createExpedient(data) {
   console.log({ data });
   return new Promise<{ data: Expedient }>((resolve) =>
     resolve(
-      axios.post(`http://localhost/api/expedients`, data, {
+      axios.post(`http://3.253.49.204/api/expedients`, data, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
         },

@@ -5,7 +5,7 @@ import axios from "axios";
 export function fetchExpedient(id: string) {
   return new Promise<{ data: Expedient }>((resolve) =>
     resolve(
-      axios.get(`http://localhost/api/expedients/${id}`, {
+      axios.get(`http://3.253.49.204/api/expedients/${id}`, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
         },
@@ -17,7 +17,7 @@ export function fetchExpedient(id: string) {
 export function createExpedient(data) {
   return new Promise<{ data: Expedient }>((resolve) =>
     resolve(
-      axios.post(`http://localhost/api/expedients`, data, {
+      axios.post(`http://3.253.49.204/api/expedients`, data, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
         },
@@ -29,7 +29,7 @@ export function createExpedient(data) {
 export function updateExpedient(id, data) {
   return new Promise<{ data: any }>((resolve) =>
     resolve(
-      axios.patch(`http://localhost/api/expedients/${id}`, data, {
+      axios.patch(`http://3.253.49.204/api/expedients/${id}`, data, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
         },
