@@ -95,7 +95,7 @@ export const FormFileField = ({ data }: Props) => {
         htmlFor={nombre}
         className={`flex max-w-lg cursor-pointer justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6`}
       >
-        <div className="space-y-1 text-center">
+        <div className="space-y-1 text-center flex flex-col items-center">
           <svg
             className="mx-auto h-12 w-12 text-gray-400"
             stroke="currentColor"
@@ -132,17 +132,19 @@ export const FormFileField = ({ data }: Props) => {
           <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
         </div>
       </label>
-      {getNotUploadedFieldFiles(nombre).length === 0 &&
-        getFieldFiles(nombre).map((archivo) => (
-          <span className="inline-flex items-center mt-2 rounded-full bg-gray-100 px-3 py-0.5 text-xs font-medium text-gray-800">
-            {archivo.split("]-[")[1]}
+      <div className="flex justify-center">
+        {getNotUploadedFieldFiles(nombre).length === 0 &&
+          getFieldFiles(nombre).map((archivo) => (
+            <span className="inline-flex items-center mt-2 rounded-full bg-gray-100 px-3 py-0.5 text-xs font-medium text-gray-800">
+              {archivo.split("]-[")[1]}
+            </span>
+          ))}
+        {getNotUploadedFieldFiles(nombre).map((archivo: string) => (
+          <span className="inline-flex items-center mt-2 rounded-full bg-green-100 px-3 py-0.5 text-xs font-medium text-green-800">
+            {archivo}
           </span>
         ))}
-      {getNotUploadedFieldFiles(nombre).map((archivo: string) => (
-        <span className="inline-flex items-center mt-2 rounded-full bg-green-100 px-3 py-0.5 text-xs font-medium text-green-800">
-          {archivo}
-        </span>
-      ))}
+      </div>
     </FormFieldLayout>
   );
 };
