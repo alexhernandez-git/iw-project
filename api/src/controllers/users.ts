@@ -279,3 +279,42 @@ export const deleteOne = async (
     });
   }
 };
+
+export const resetPassword = async (
+  req: Request<{
+    id: string;
+    password: string;
+    newPassword: string;
+  }>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { password, newPassword } = req.body;
+
+    const { id } = req.params;
+
+    let user = await User.findById(id);
+
+    const { password: userRealPassword } = user;
+
+    const passValidation =
+      password && (await bcrypt.compareSync(password, userRealPassword));
+
+    if (passValidation) {
+      const hashedPassword = await bcrypt.hash(newPassword, BCRYPT_SALT_ROUNDS);
+      user.password = hashedPassword;
+      user.save();
+      res.send({ success: true });
+    }
+    next({
+      statusCode: 500,
+      message: "Error creating user",
+    });
+  } catch (error) {
+    next({
+      statusCode: 500,
+      message: "Error creating user",
+    });
+  }
+};

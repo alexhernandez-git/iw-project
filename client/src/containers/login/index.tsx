@@ -1,8 +1,11 @@
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import HandleStatus from "../../components/handle-status";
 import EsanLogo from "../../images/esan-asesores-logo-hd.png";
+import { useAppSelector } from "../../store";
 import { login } from "../../store/user";
+import { SliceState } from "../../utils/types";
 
 /*
   This example requires Tailwind CSS v2.0+ 
@@ -40,6 +43,8 @@ export default function Login() {
     },
   });
 
+  const { status, value } = useAppSelector((state) => state.user);
+
   return (
     <>
       {/*
@@ -73,6 +78,11 @@ export default function Login() {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            {status === SliceState.Failed && (
+              <span className="text-red-500 flex-1 justify-center text-sm w-full mb-3 flex text-center rounded-full px-3 py-2 bg-red-200">
+                Algo ha ido mal
+              </span>
+            )}
             <form
               className="space-y-6"
               onSubmit={formik.handleSubmit}
