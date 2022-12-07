@@ -165,7 +165,7 @@ export default function Login() {
                   type="submit"
                   className="flex w-full justify-center rounded-md border border-transparent bg-esan-color py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-esan-color focus:outline-none focus:ring-2 focus:ring-esan-color focus:ring-offset-2"
                 >
-                  Sign in
+                  Iniciar sesión
                 </button>
               </div>
             </form>
