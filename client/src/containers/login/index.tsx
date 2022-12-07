@@ -78,11 +78,6 @@ export default function Login() {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            {status === SliceState.Failed && (
-              <span className="text-red-500 flex-1 justify-center text-sm w-full mb-3 flex text-center rounded-full px-3 py-2 bg-red-200">
-                Algo ha ido mal
-              </span>
-            )}
             <form
               className="space-y-6"
               onSubmit={formik.handleSubmit}
