@@ -132,6 +132,7 @@ export type FieldData = {
   onEditFileField: (nombre: string, files: any) => void;
   getFieldValue: (nombre: string) => string;
   getFieldFiles: (nombre: string) => string[];
+  getNotUploadedFieldFiles: (nombre: string) => string[];
   formik: any;
 };
 

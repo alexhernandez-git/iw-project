@@ -138,6 +138,28 @@ const RequirementsBuilder = ({
     return files;
   };
 
+  const getNotUploadedFieldFiles = (nombre: string): string[] => {
+    let files: string[] = [];
+    if (values?.files) {
+      var fileKeys = Object.keys(values?.files);
+      console.log({ fileKeys });
+      fileKeys.forEach(function (key) {
+        const [sectionName, fieldName] = key.split("/");
+        if (sectionName === section.nombre && nombre === fieldName) {
+          for (let i = 0; i < values.files[key].length; i++) {
+            let file = values.files[key].item(i);
+            console.log({ file });
+            files = [...files, file?.name];
+          }
+        }
+      });
+    }
+    console.log({ files });
+    return files;
+  };
+
+  console.log(values.files);
+
   const { isAdmin, isSuperAdmin } = useUserRole();
 
   return (
@@ -163,6 +185,7 @@ const RequirementsBuilder = ({
                       editable,
                       getFieldValue,
                       onEditFileField,
+                      getNotUploadedFieldFiles,
                     },
                   };
                   switch (data.tipo) {
