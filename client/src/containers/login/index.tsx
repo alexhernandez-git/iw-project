@@ -98,7 +98,7 @@ export default function Login() {
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Email address
+                  Correo electrónico
                 </label>
                 <div className="mt-1">
                   <input
@@ -119,7 +119,7 @@ export default function Login() {
                   htmlFor="password"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Password
+                  Contraseña
                 </label>
                 <div className="mt-1">
                   <input
