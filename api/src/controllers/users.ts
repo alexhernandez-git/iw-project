@@ -90,29 +90,6 @@ export const login = async (
       });
 
       if (user.role === UserRoles.User) {
-        expedientesCount = await Expedient.find({}).count();
-
-        expedientesEnProgresoCount = await Expedient.find({
-          estado: {
-            $in: [
-              ExpedientState.DocumentacionCompleta,
-              ExpedientState.DocumentacionPendiente,
-              ExpedientState.ExpedientCursadoNoConcluido,
-            ],
-          },
-        }).count();
-
-        expedientesFinalizadosCount = await Expedient.find({
-          estado: {
-            $in: [
-              ExpedientState.Concluido,
-              ExpedientState.NoResolucion,
-              ExpedientState.ResolucionDeNegatoria,
-              ExpedientState.ResolucionFaborable,
-            ],
-          },
-        }).count();
-      } else {
         expedientesCount = await Expedient.find({
           user: _id,
         }).count();
@@ -130,6 +107,29 @@ export const login = async (
 
         expedientesFinalizadosCount = await Expedient.find({
           user: _id,
+          estado: {
+            $in: [
+              ExpedientState.Concluido,
+              ExpedientState.NoResolucion,
+              ExpedientState.ResolucionDeNegatoria,
+              ExpedientState.ResolucionFaborable,
+            ],
+          },
+        }).count();
+      } else {
+        expedientesCount = await Expedient.find({}).count();
+
+        expedientesEnProgresoCount = await Expedient.find({
+          estado: {
+            $in: [
+              ExpedientState.DocumentacionCompleta,
+              ExpedientState.DocumentacionPendiente,
+              ExpedientState.ExpedientCursadoNoConcluido,
+            ],
+          },
+        }).count();
+
+        expedientesFinalizadosCount = await Expedient.find({
           estado: {
             $in: [
               ExpedientState.Concluido,
