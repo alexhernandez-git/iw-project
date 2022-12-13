@@ -65,7 +65,6 @@ export const findOne = async (
 
     const expedient = await Expedient.findOne({
       _id: id,
-      user: req.user._id,
     }).populate(["tipo", "vinculado", "areaFuncional", "user"]);
 
     if (!expedient) {
