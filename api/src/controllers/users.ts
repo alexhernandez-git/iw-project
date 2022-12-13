@@ -78,37 +78,68 @@ export const login = async (
     const passValidation =
       password && (await bcrypt.compareSync(password, userRealPassword));
 
+    let expedientesCount = 0;
+
+    let expedientesEnProgresoCount = 0;
+
+    let expedientesFinalizadosCount = 0;
+
     if (passValidation) {
       const accessToken = jwt.sign({ _id, email, role }, ACCESS_TOKEN_SECRET, {
         expiresIn: ACCESS_TOKEN_EXPIRES_IN,
       });
 
-      const expedientesCount = await Expedient.find({
-        user: _id,
-      }).count();
+      if (user.role === UserRoles.User) {
+        expedientesCount = await Expedient.find({}).count();
 
-      const expedientesEnProgresoCount = await Expedient.find({
-        user: _id,
-        estado: {
-          $in: [
-            ExpedientState.DocumentacionCompleta,
-            ExpedientState.DocumentacionPendiente,
-            ExpedientState.ExpedientCursadoNoConcluido,
-          ],
-        },
-      }).count();
+        expedientesEnProgresoCount = await Expedient.find({
+          estado: {
+            $in: [
+              ExpedientState.DocumentacionCompleta,
+              ExpedientState.DocumentacionPendiente,
+              ExpedientState.ExpedientCursadoNoConcluido,
+            ],
+          },
+        }).count();
 
-      const expedientesFinalizadosCount = await Expedient.find({
-        user: _id,
-        estado: {
-          $in: [
-            ExpedientState.Concluido,
-            ExpedientState.NoResolucion,
-            ExpedientState.ResolucionDeNegatoria,
-            ExpedientState.ResolucionFaborable,
-          ],
-        },
-      }).count();
+        expedientesFinalizadosCount = await Expedient.find({
+          estado: {
+            $in: [
+              ExpedientState.Concluido,
+              ExpedientState.NoResolucion,
+              ExpedientState.ResolucionDeNegatoria,
+              ExpedientState.ResolucionFaborable,
+            ],
+          },
+        }).count();
+      } else {
+        expedientesCount = await Expedient.find({
+          user: _id,
+        }).count();
+
+        expedientesEnProgresoCount = await Expedient.find({
+          user: _id,
+          estado: {
+            $in: [
+              ExpedientState.DocumentacionCompleta,
+              ExpedientState.DocumentacionPendiente,
+              ExpedientState.ExpedientCursadoNoConcluido,
+            ],
+          },
+        }).count();
+
+        expedientesFinalizadosCount = await Expedient.find({
+          user: _id,
+          estado: {
+            $in: [
+              ExpedientState.Concluido,
+              ExpedientState.NoResolucion,
+              ExpedientState.ResolucionDeNegatoria,
+              ExpedientState.ResolucionFaborable,
+            ],
+          },
+        }).count();
+      }
 
       res.send({
         user,
