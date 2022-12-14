@@ -1,20 +1,16 @@
 import React, { useState } from "react";
-import Button from "../components/button";
-import {
-  FormFileField,
-  FormTextAreaField,
-  FormTextField,
-} from "../components/form-field";
-import FormSection from "../components/form-section";
+import Button from "../button";
+import { FormFileField, FormTextAreaField, FormTextField } from "../form-field";
+import FormSection from "../form-section";
 import NewField from "./partials/new-field";
-import { makeId } from "../utils/helpers";
+import { makeId } from "../../utils/helpers";
 import {
   ExpedientRequirement,
   ExpedientRequirementType,
   Section,
   Type,
-} from "../utils/types";
-import useUserRole from "../hooks/use-user-role";
+} from "../../utils/types";
+import useUserRole from "../../hooks/use-user-role";
 
 type Props = {
   formik: any;
@@ -68,18 +64,22 @@ const RequirementsBuilder = ({
   };
 
   const onDeleteField = (id: string) => {
+    console.log({ id });
     setFieldValue(
       "secciones",
-      values.secciones.map((sectionItem: Section) =>
-        sectionItem.nombre === section.nombre
-          ? {
-              ...sectionItem,
-              recursos: sectionItem.recursos?.filter(
-                (requirement: ExpedientRequirement) => requirement.id !== id
-              ),
-            }
-          : sectionItem
-      )
+      values.secciones.map((sectionItem: Section) => {
+        if (sectionItem.nombre === section.nombre) {
+          console.log({ sectionItem });
+          return {
+            ...sectionItem,
+            recursos: sectionItem.recursos?.filter(
+              (requirement: ExpedientRequirement) => requirement.id !== id
+            ),
+          };
+        } else {
+          return sectionItem;
+        }
+      })
     );
   };
 

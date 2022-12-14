@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import React, { useEffect, useRef, useState } from "react";
 import useUserRole from "../../hooks/use-user-role";
-import RequirementsBuilder from "../../requirements-builder";
+import RequirementsBuilder from "../requirements-builder";
 import { Section, Type } from "../../utils/types";
 import Button from "../button";
 

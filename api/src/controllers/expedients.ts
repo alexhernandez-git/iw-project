@@ -270,9 +270,7 @@ export const updateOne = async (
 
     let dataJSON = JSON.parse(data);
 
-    console.log("entraaaa");
     if (files) {
-      console.log("entra 3");
       var fileKeys = Object.keys(files);
       fileKeys.forEach(function (key) {
         let path = "";
