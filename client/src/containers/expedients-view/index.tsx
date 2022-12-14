@@ -152,12 +152,12 @@ const ExpedientsView = () => {
                         },
                         {
                           type: ListItemType.Text,
-                          label: "Codigo Cliente Provisional",
+                          label: "Codigo Cliente",
                           value: expedient?.codigoClienteProvisional,
                         },
                         {
                           type: ListItemType.Text,
-                          label: "Cliente",
+                          label: "Nombre Cliente",
                           value: expedient?.cliente,
                         },
                         {

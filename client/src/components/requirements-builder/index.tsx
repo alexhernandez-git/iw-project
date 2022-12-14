@@ -3,7 +3,6 @@ import Button from "../button";
 import { FormFileField, FormTextAreaField, FormTextField } from "../form-field";
 import FormSection from "../form-section";
 import NewField from "./partials/new-field";
-import { makeId } from "../../utils/helpers";
 import {
   ExpedientRequirement,
   ExpedientRequirementType,
