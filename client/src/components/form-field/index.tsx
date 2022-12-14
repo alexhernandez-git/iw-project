@@ -93,7 +93,7 @@ export const FormFileField = ({ data }: Props) => {
     <FormFieldLayout data={data}>
       <label
         htmlFor={nombre}
-        className={`flex max-w-lg cursor-pointer justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6`}
+        className={`flex max-w-lg cursor-pointer justify-center rounded-md px-6 pt-5 pb-6`}
       >
         <div className="space-y-1 text-center flex flex-col items-center">
           <svg
