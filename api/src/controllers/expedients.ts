@@ -207,6 +207,7 @@ export const find = async (
         sort[0] === SortOptionsValues.LegalTermCloseToDeadline
           ? { plazoLegal: 1 }
           : {}),
+        ...(sort?.length === 0 ? { createdAt: -1 } : {}),
       })
       .populate(["tipo", "vinculado", "areaFuncional", "user"])
       .limit(Number(limit) * 1)
