@@ -73,7 +73,7 @@ const RequirementsBuilder = ({
           return {
             ...sectionItem,
             recursos: sectionItem.recursos?.filter(
-              (requirement: ExpedientRequirement) => requirement.id !== id
+              (requirement: ExpedientRequirement) => requirement.nombre !== id
             ),
           };
         } else {
