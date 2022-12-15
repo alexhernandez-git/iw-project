@@ -45,7 +45,7 @@ export const create = async (
       var fileKeys = Object.keys(files);
       fileKeys.forEach(function (key) {
         let path = "";
-        const [section, fieldName] = key.split("/");
+        const [section, fieldName] = key.split("]-[");
         const file = files[key];
         const itemNames = [];
         if (Array.isArray(file)) {
@@ -367,7 +367,7 @@ export const updateOne = async (
       var fileKeys = Object.keys(files);
       fileKeys.forEach(function (key) {
         let path = "";
-        const [section, fieldName] = utf8.decode(key).split("/");
+        const [section, fieldName] = utf8.decode(key).split("]-[");
         const file = files[key];
         const itemNames = [];
         if (Array.isArray(file)) {

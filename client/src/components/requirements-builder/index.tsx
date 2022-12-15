@@ -105,7 +105,7 @@ const RequirementsBuilder = ({
       if (sectionItem.nombre === section.nombre) {
         setFieldValue(`files`, {
           ...formik.values.files,
-          [`${section.nombre}/${id}`]: files,
+          [`${section.nombre}]-[${id}`]: files,
         });
       }
     });
@@ -143,7 +143,7 @@ const RequirementsBuilder = ({
       var fileKeys = Object.keys(values?.files);
       console.log({ fileKeys });
       fileKeys.forEach(function (key) {
-        const [sectionName, fieldName] = key.split("/");
+        const [sectionName, fieldName] = key.split("]-[");
         if (sectionName === section.nombre && nombre === fieldName) {
           for (let i = 0; i < values.files[key].length; i++) {
             let file = values.files[key].item(i);

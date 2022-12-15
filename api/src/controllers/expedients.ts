@@ -275,7 +275,7 @@ export const updateOne = async (
       var fileKeys = Object.keys(files);
       fileKeys.forEach(function (key) {
         let path = "";
-        const [section, fieldName] = utf8.decode(key).split("/");
+        const [section, fieldName] = utf8.decode(key).split("]-[");
         console.log({ key });
         console.log({ section });
         console.log({ fieldName });
