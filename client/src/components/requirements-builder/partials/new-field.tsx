@@ -77,7 +77,7 @@ export default function NewField({
               value={formik.values.nombre}
               id="nombre"
               placeholder="Ej: DNI, dirección, codigo postal..."
-              className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-esan-color focus:ring-esan-color sm:max-w-xs sm:text-sm"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-esan-color focus:ring-esan-color sm:max-w-xs sm:text-sm"
             />
           </div>
         </div>

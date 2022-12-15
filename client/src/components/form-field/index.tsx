@@ -73,7 +73,7 @@ export const FormTextAreaField = ({ data }: Props) => {
         onChange={(e: { target: { value: string } }) =>
           onEditField && onEditField(nombre, e.target.value)
         }
-        className="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-esan-color focus:ring-esan-color sm:text-sm"
+        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-esan-color focus:ring-esan-color sm:text-sm"
         defaultValue={""}
       />
     </FormFieldLayout>
@@ -93,7 +93,7 @@ export const FormFileField = ({ data }: Props) => {
     <FormFieldLayout data={data}>
       <label
         htmlFor={nombre}
-        className={`flex max-w-lg cursor-pointer justify-center rounded-md`}
+        className={`flex cursor-pointer justify-center rounded-md`}
       >
         <div className="space-y-1 text-center flex flex-col items-center">
           <svg
