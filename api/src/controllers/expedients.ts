@@ -284,6 +284,7 @@ export const updateOne = async (
           console.log("entra 2");
 
           file.forEach((fileItem) => {
+            console.log({ fileItem });
             const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
               fileItem.name
             }`;
