@@ -303,7 +303,7 @@ const ExpedientsEdit = () => {
                   ]
             }
           >
-            <Sections formik={formik} />
+            <Sections formik={formik} editable={isAdmin && isSuperAdmin} />
           </Form>
         </div>
       </HandleStatus>
