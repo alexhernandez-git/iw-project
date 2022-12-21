@@ -147,7 +147,7 @@ const Expedients = () => {
                   checked: false,
                 },
                 {
-                  label: "Documentación completa",
+                  label: "Para cursar",
                   value: ExpedientState.DocumentacionCompleta,
                   checked: false,
                 },
@@ -226,7 +226,7 @@ const Expedients = () => {
                   checked: false,
                 },
                 {
-                  label: "Documentación completa",
+                  label: "Para cursar",
                   value: ExpedientState.DocumentacionCompleta,
                   checked: false,
                 },

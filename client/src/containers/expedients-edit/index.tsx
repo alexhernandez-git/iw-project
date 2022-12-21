@@ -134,7 +134,7 @@ const ExpedientsEdit = () => {
                             },
                             {
                               id: ExpedientState.DocumentacionCompleta,
-                              label: "Documentación completa",
+                              label: "Para cursar",
                             },
                             {
                               id: ExpedientState.ExpedientCursadoNoConcluido,
@@ -259,7 +259,7 @@ const ExpedientsEdit = () => {
                             },
                             {
                               id: ExpedientState.DocumentacionCompleta,
-                              label: "Documentación completa",
+                              label: "Para cursar",
                             },
                             {
                               id: ExpedientState.ExpedientCursadoNoConcluido,
