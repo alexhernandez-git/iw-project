@@ -372,17 +372,19 @@ export const updateOne = async (
         const itemNames = [];
         if (Array.isArray(file)) {
           file.forEach((fileItem) => {
-            const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
-              fileItem.name + "." + fileItem.mimetype.split("/")[-1]
-            }`;
+            const mimetype = fileItem.mimetype.split("/")[1];
+            const fileName = `${moment().format(
+              "YYYY-MM-DD HH:mm:ss"
+            )}]-[${fileItem.name.replace(mimetype, "." + mimetype)}`;
             path = `${BASE_PATH}/${fileName}`;
             fileItem.mv(path);
             itemNames.push(fileName);
           });
         } else {
-          const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
-            file.name + "." + file.mimetype.split("/")[-1]
-          }`;
+          const mimetype = file.mimetype.split("/")[1];
+          const fileName = `${moment().format(
+            "YYYY-MM-DD HH:mm:ss"
+          )}]-[${file.name.replace(mimetype, "." + mimetype)}`;
           path = `${BASE_PATH}/${fileName}`;
           file.mv(path);
           itemNames.push(fileName);

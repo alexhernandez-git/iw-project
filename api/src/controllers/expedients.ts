@@ -284,20 +284,19 @@ export const updateOne = async (
           console.log("entra 2");
 
           file.forEach((fileItem) => {
-            const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
-              fileItem.name
-            }`;
+            const mimetype = fileItem.mimetype.split("/")[1];
+            const fileName = `${moment().format(
+              "YYYY-MM-DD HH:mm:ss"
+            )}]-[${fileItem.name.replace(mimetype, "." + mimetype)}`;
             path = `${BASE_PATH}/${fileName}`;
             fileItem.mv(path);
             itemNames.push(fileName);
           });
         } else {
-          console.log({ file: file.mimetype.split("/")[1] });
-          const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
-            file.name + "." + file.mimetype.split("/")[-1]
-          }`;
-          console.log("entra 4");
-
+          const mimetype = file.mimetype.split("/")[1];
+          const fileName = `${moment().format(
+            "YYYY-MM-DD HH:mm:ss"
+          )}]-[${file.name.replace(mimetype, "." + mimetype)}`;
           path = `${BASE_PATH}/${fileName}`;
           file.mv(path);
           itemNames.push(fileName);
