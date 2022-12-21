@@ -29,9 +29,7 @@ export const getHonorariosYSuplidosLabel = (tipo: HonorariosYSuplidosType) => {
 export const getEstadoLabel = (estado: ExpedientState) => {
   switch (estado) {
     case ExpedientState.DocumentacionPendiente:
-      return "DocumentacionPendiente";
-    case ExpedientState.DocumentacionPendiente:
-      return "Documentación pendiente";
+      return "Pendiente";
     case ExpedientState.DocumentacionCompleta:
       return "Para cursar";
     case ExpedientState.ExpedientCursadoNoConcluido:

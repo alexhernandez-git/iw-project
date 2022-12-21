@@ -130,7 +130,7 @@ const ExpedientsEdit = () => {
                           options: [
                             {
                               id: ExpedientState.DocumentacionPendiente,
-                              label: "Documentación pendiente",
+                              label: "Pendiente",
                             },
                             {
                               id: ExpedientState.DocumentacionCompleta,
@@ -255,7 +255,7 @@ const ExpedientsEdit = () => {
                           options: [
                             {
                               id: ExpedientState.DocumentacionPendiente,
-                              label: "Documentación pendiente",
+                              label: "Pendiente",
                             },
                             {
                               id: ExpedientState.DocumentacionCompleta,

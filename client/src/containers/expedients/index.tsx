@@ -142,7 +142,7 @@ const Expedients = () => {
               name: "estado",
               options: [
                 {
-                  label: "Documentación pendiente",
+                  label: "Pendiente",
                   value: ExpedientState.DocumentacionPendiente,
                   checked: false,
                 },
@@ -221,7 +221,7 @@ const Expedients = () => {
               name: "estado",
               options: [
                 {
-                  label: "Documentación pendiente",
+                  label: "Pendiente",
                   value: ExpedientState.DocumentacionPendiente,
                   checked: false,
                 },
