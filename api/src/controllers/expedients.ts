@@ -269,6 +269,8 @@ export const updateOne = async (
 
     const { data } = body;
 
+    console.log("files", { files });
+
     let dataJSON = JSON.parse(data);
     console.log("entra 1");
     if (files) {
