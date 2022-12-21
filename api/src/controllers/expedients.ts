@@ -285,18 +285,18 @@ export const updateOne = async (
 
           file.forEach((fileItem) => {
             const mimetype = fileItem.mimetype.split("/")[1];
-            const fileName = `${moment().format(
-              "YYYY-MM-DD HH:mm:ss"
-            )}]-[${fileItem.name.replace(mimetype, "." + mimetype)}`;
+            const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
+              fileItem.name.replace(mimetype, "") + "." + mimetype
+            }`;
             path = `${BASE_PATH}/${fileName}`;
             fileItem.mv(path);
             itemNames.push(fileName);
           });
         } else {
           const mimetype = file.mimetype.split("/")[1];
-          const fileName = `${moment().format(
-            "YYYY-MM-DD HH:mm:ss"
-          )}]-[${file.name.replace(mimetype, "." + mimetype)}`;
+          const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
+            file.name.replace(mimetype, "") + "." + mimetype
+          }`;
           path = `${BASE_PATH}/${fileName}`;
           file.mv(path);
           itemNames.push(fileName);
