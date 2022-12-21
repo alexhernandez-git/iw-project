@@ -375,6 +375,7 @@ export const updateOne = async (
 
     res.send({ expedient, success: true });
   } catch (error) {
+    console.log("entra message error");
     console.log(error.message);
     next({
       statusCode: 500,
