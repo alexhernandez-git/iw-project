@@ -292,7 +292,7 @@ export const updateOne = async (
             itemNames.push(fileName);
           });
         } else {
-          console.log({ file });
+          console.log({ file: file.mimetype.split("/")[1] });
           const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
             file.name + "." + file.mimetype.split("/")[-1]
           }`;
