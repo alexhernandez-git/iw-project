@@ -337,8 +337,8 @@ export const updateOne = async (
 
     console.log(JSON.stringify(dataJSON, null, 2)); // spacing level = 2)
 
-    const expedient = await Expedient.findOneAndUpdate(
-      { _id: id, user: req.user._id },
+    const expedient = await Expedient.findByIdAndUpdate(
+      id,
       {
         $set: dataJSON,
       },
@@ -358,14 +358,13 @@ export const updateOne = async (
             recurso.archivos.length > 0
           ) {
             haveEmptyFields = false;
+          } else if (
+            (recurso.tipo === ExpedientResourceType.Text ||
+              recurso.tipo === ExpedientResourceType.LargeText) &&
+            recurso.texto
+          ) {
+            haveEmptyFields = false;
           }
-          //  else if (
-          //   (recurso.tipo === ExpedientResourceType.Text ||
-          //     recurso.tipo === ExpedientResourceType.LargeText) &&
-          //   recurso.texto
-          // ) {
-          //   haveEmptyFields = false;
-          // }
         });
       });
       if (!haveEmptyFields) {
