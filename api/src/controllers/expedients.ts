@@ -286,7 +286,7 @@ export const updateOne = async (
           file.forEach((fileItem) => {
             console.log({ fileItem });
             const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
-              fileItem.name
+              fileItem.name + "." + fileItem.mimetype.split("/")[-1]
             }`;
             path = `${BASE_PATH}/${fileName}`;
             fileItem.mv(path);
@@ -294,7 +294,7 @@ export const updateOne = async (
           });
         } else {
           const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
-            file.name
+            file.name + "." + file.mimetype.split("/")[-1]
           }`;
           console.log("entra 4");
 
