@@ -353,8 +353,9 @@ export const updateOne = async (
           ) {
             haveEmptyFields = false;
           } else if (
-            recurso.tipo === ExpedientResourceType.Text ||
-            (recurso.tipo === ExpedientResourceType.LargeText && recurso.texto)
+            (recurso.tipo === ExpedientResourceType.Text ||
+              recurso.tipo === ExpedientResourceType.LargeText) &&
+            recurso.texto
           ) {
             haveEmptyFields = false;
           }
