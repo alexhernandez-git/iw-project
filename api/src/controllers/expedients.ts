@@ -275,10 +275,8 @@ export const updateOne = async (
     console.log("entra 1");
     if (files) {
       var fileKeys = Object.keys(files);
-
       fileKeys.forEach(function (key) {
         let path = "";
-        console.log({ key });
         const [section, fieldName] = utf8.decode(key).split("]-[");
         const file = files[key];
         const itemNames = [];
@@ -286,19 +284,19 @@ export const updateOne = async (
           console.log("entra 2");
 
           file.forEach((fileItem) => {
-            const mimetype = fileItem.mimetype.split("/")[1];
             const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
-              fileItem.name.replace(mimetype, "") + "." + mimetype
+              fileItem.name
             }`;
             path = `${BASE_PATH}/${fileName}`;
             fileItem.mv(path);
             itemNames.push(fileName);
           });
         } else {
-          const mimetype = file.mimetype.split("/")[1];
           const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
-            file.name.replace(mimetype, "") + "." + mimetype
+            file.name
           }`;
+          console.log("entra 4");
+
           path = `${BASE_PATH}/${fileName}`;
           file.mv(path);
           itemNames.push(fileName);
