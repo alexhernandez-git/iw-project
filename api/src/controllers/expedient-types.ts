@@ -367,6 +367,7 @@ export const updateOne = async (
       var fileKeys = Object.keys(files);
       fileKeys.forEach(function (key) {
         let path = "";
+        console.log({ key });
         const [section, fieldName] = utf8.decode(key).split("]-[");
         const file = files[key];
         const itemNames = [];
