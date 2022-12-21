@@ -276,9 +276,6 @@ export const updateOne = async (
       fileKeys.forEach(function (key) {
         let path = "";
         const [section, fieldName] = utf8.decode(key).split("]-[");
-        console.log({ key });
-        console.log({ section });
-        console.log({ fieldName });
         const file = files[key];
         const itemNames = [];
         if (Array.isArray(file)) {
@@ -298,32 +295,35 @@ export const updateOne = async (
           file.mv(path);
           itemNames.push(fileName);
         }
-
-        console.log({ itemNames });
-        console.log({ fieldName });
-        dataJSON = {
-          ...dataJSON,
-          secciones: dataJSON.secciones.map((sectionItem) =>
-            sectionItem.nombre === section
-              ? {
-                  ...sectionItem,
-                  recursos: sectionItem.recursos.map((resource) => {
-                    console.log("resource nombre", resource.nombre);
-                    console.log({ fieldName });
-                    if (resource.nombre === fieldName) {
-                      console.log("entra 2");
-                      return {
-                        ...resource,
-                        archivos: itemNames,
-                      };
-                    } else {
-                      return resource;
-                    }
-                  }),
-                }
-              : sectionItem
-          ),
-        };
+        const filesToDelete = [];
+        dataJSON.secciones = dataJSON.secciones.map((sectionItem) =>
+          sectionItem.nombre === section
+            ? {
+                ...sectionItem,
+                recursos: sectionItem.recursos.map((resource) => {
+                  if (resource.nombre === fieldName) {
+                    filesToDelete.push([
+                      ...filesToDelete,
+                      ...(resource?.archivos ? resource.archivos : []),
+                    ]);
+                    return {
+                      ...resource,
+                      archivos: itemNames,
+                    };
+                  } else {
+                    return resource;
+                  }
+                }),
+              }
+            : sectionItem
+        );
+        // filesToDelete.forEach((file) => {
+        //   fs.unlink(BASE_PATH + "/" + file, (err) => {
+        //     if (err) {
+        //       console.log("file error", err);
+        //     }
+        //   });
+        // });
       });
     }
 
