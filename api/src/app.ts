@@ -14,7 +14,7 @@ var cors = require("cors");
 app.use(morgan("dev"));
 var path = require("path");
 const router = express.Router();
-app.use(cors());
+app.use(cors({ optionsSuccessStatus: 200 }));
 app.use(
   fileUpload({
     limits: { fileSize: 50 * 1024 * 1024 },
