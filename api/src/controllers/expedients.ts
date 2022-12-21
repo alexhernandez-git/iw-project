@@ -270,7 +270,7 @@ export const updateOne = async (
     const { data } = body;
 
     let dataJSON = JSON.parse(data);
-
+    console.log("entra 1");
     if (files) {
       var fileKeys = Object.keys(files);
       fileKeys.forEach(function (key) {
@@ -279,6 +279,8 @@ export const updateOne = async (
         const file = files[key];
         const itemNames = [];
         if (Array.isArray(file)) {
+          console.log("entra 2");
+
           file.forEach((fileItem) => {
             const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
               fileItem.name
@@ -291,6 +293,8 @@ export const updateOne = async (
           const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
             file.name
           }`;
+          console.log("entra 4");
+
           path = `${BASE_PATH}/${fileName}`;
           file.mv(path);
           itemNames.push(fileName);
@@ -327,7 +331,7 @@ export const updateOne = async (
       });
     }
 
-    console.log("entra 1");
+    console.log("entra 4");
 
     console.log(JSON.stringify(dataJSON, null, 2)); // spacing level = 2)
 
