@@ -33,11 +33,11 @@ export const getEstadoLabel = (estado: ExpedientState) => {
     case ExpedientState.DocumentacionCompleta:
       return "Para cursar";
     case ExpedientState.ExpedientCursadoNoConcluido:
-      return "Expediente cursado no concluido";
+      return "Cursado no concluido";
     case ExpedientState.NoResolucion:
       return "No resolución";
     case ExpedientState.ResolucionDeNegatoria:
-      return "Resolución de negatoria";
+      return "Resolución denegatoria";
     case ExpedientState.ResolucionFaborable:
       return "Resolución favorable";
     default:

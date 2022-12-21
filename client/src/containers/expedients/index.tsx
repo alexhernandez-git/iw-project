@@ -152,7 +152,7 @@ const Expedients = () => {
                   checked: false,
                 },
                 {
-                  label: "Expediente cursado no concluido",
+                  label: "Cursado no concluido",
                   value: ExpedientState.ExpedientCursadoNoConcluido,
                   checked: false,
                 },
@@ -162,7 +162,7 @@ const Expedients = () => {
                   checked: false,
                 },
                 {
-                  label: "Resolución de negatoria",
+                  label: "Resolución denegatoria",
                   value: ExpedientState.ResolucionDeNegatoria,
                   checked: false,
                 },
@@ -231,7 +231,7 @@ const Expedients = () => {
                   checked: false,
                 },
                 {
-                  label: "Expediente cursado no concluido",
+                  label: "Cursado no concluido",
                   value: ExpedientState.ExpedientCursadoNoConcluido,
                   checked: false,
                 },
@@ -241,7 +241,7 @@ const Expedients = () => {
                   checked: false,
                 },
                 {
-                  label: "Resolución de negatoria",
+                  label: "Resolución denegatoria",
                   value: ExpedientState.ResolucionDeNegatoria,
                   checked: false,
                 },

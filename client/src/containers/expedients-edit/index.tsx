@@ -138,7 +138,7 @@ const ExpedientsEdit = () => {
                             },
                             {
                               id: ExpedientState.ExpedientCursadoNoConcluido,
-                              label: "Expediente cursado no concluido",
+                              label: "Cursado no concluido",
                             },
                             {
                               id: ExpedientState.Concluido,
@@ -150,7 +150,7 @@ const ExpedientsEdit = () => {
                             },
                             {
                               id: ExpedientState.ResolucionDeNegatoria,
-                              label: "Resolución de negatoria",
+                              label: "Resolución denegatoria",
                             },
                             {
                               id: ExpedientState.NoResolucion,
@@ -263,7 +263,7 @@ const ExpedientsEdit = () => {
                             },
                             {
                               id: ExpedientState.ExpedientCursadoNoConcluido,
-                              label: "Expediente cursado no concluido",
+                              label: "Cursado no concluido",
                             },
                             {
                               id: ExpedientState.Concluido,
@@ -275,7 +275,7 @@ const ExpedientsEdit = () => {
                             },
                             {
                               id: ExpedientState.ResolucionDeNegatoria,
-                              label: "Resolución de negatoria",
+                              label: "Resolución denegatoria",
                             },
                             {
                               id: ExpedientState.NoResolucion,
