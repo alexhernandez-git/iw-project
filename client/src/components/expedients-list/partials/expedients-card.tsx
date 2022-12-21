@@ -3,6 +3,7 @@ import { BanknotesIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { Expediente } from "../../../utils/types";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import { getEstadoLabel } from "../../../utils/helpers";
 
 type Props = {
   expedient: Expediente;
@@ -16,6 +17,8 @@ const ExpedientCard = ({ expedient, selectedFields }: Props) => {
         <td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-500">
           {selectedField === "vinculado"
             ? expedient[selectedField]?._id
+            : selectedField === "estado"
+            ? getEstadoLabel(expedient[selectedField]?.estado)
             : selectedField === "tipo"
             ? expedient[selectedField]?.nombre
             : selectedField === "fechaSolicitud"
