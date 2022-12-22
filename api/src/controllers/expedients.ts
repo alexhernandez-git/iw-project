@@ -352,7 +352,7 @@ export const updateOne = async (
     //Check if expedient is ready to DocumentacionCompleta
     if (expedient.estado === ExpedientState.DocumentacionPendiente) {
       let haveEmptyFields: boolean = true;
-      expedient.secciones.forEach((seccion) => {
+      dataJSON.secciones.forEach((seccion) => {
         console.log({ recursos: seccion.recursos });
         seccion.recursos.forEach((recurso) => {
           if (
