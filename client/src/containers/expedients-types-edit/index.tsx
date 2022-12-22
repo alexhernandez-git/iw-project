@@ -11,7 +11,7 @@ import {
   editExpedientType,
   getExpedientType,
 } from "../../store/expedient-type";
-import { getExpedientTypesFunctionalAreas } from "../../store/expedient-types";
+import { getExpedientTypes } from "../../store/expedient-types";
 import { FormInputType, SliceState } from "../../utils/types";
 
 const ExpedientsTypesEdit = () => {
@@ -19,7 +19,7 @@ const ExpedientsTypesEdit = () => {
 
   useEffect(() => {
     dispatch(getExpedientType(id));
-    dispatch(getExpedientTypesFunctionalAreas());
+    dispatch(getExpedientTypes({ getAll: true }));
   }, []);
 
   const { id } = useParams();
@@ -30,8 +30,6 @@ const ExpedientsTypesEdit = () => {
 
   const { status: expedientTypesStatus, value: expedientTypes } =
     useAppSelector((state) => state.expedientTypes);
-
-  console.log({ expedientTypes });
 
   const formik = useFormik({
     initialValues: {
@@ -121,7 +119,8 @@ const ExpedientsTypesEdit = () => {
                       options:
                         expedientTypesStatus === SliceState.Success &&
                         expedientTypes
-                          ? expedientTypes
+                          ? expedientTypes.data
+                              .filter(({ isAreaFuncional }) => isAreaFuncional)
                               .map(({ nombre, codigo, _id }) => ({
                                 label: `Nombre: ${nombre} Codigo: ${codigo}`,
                                 id: _id,

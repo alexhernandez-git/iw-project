@@ -166,6 +166,7 @@ export const find = async (
           _id: 1,
           codigo: 1,
           tramitePadre: 1,
+          isAreaFuncional: 1,
           secciones: 1,
         });
     } else {
