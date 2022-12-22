@@ -120,6 +120,7 @@ const ExpedientsTypesEdit = () => {
                         expedientTypesStatus === SliceState.Success &&
                         expedientTypes
                           ? expedientTypes.data
+                              .filter(({ isAreaFuncional }) => isAreaFuncional)
                               .map(({ nombre, codigo, _id }) => ({
                                 label: `Nombre: ${nombre} Codigo: ${codigo}`,
                                 id: _id,
