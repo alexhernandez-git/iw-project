@@ -207,6 +207,7 @@ const RequirementsBuilder = ({
                       onEditField,
                       formik,
                       getFieldFiles,
+                      onEditFieldLabel,
                       editable,
                       getFieldValue,
                       onEditFileField,
