@@ -88,6 +88,7 @@ const RequirementsBuilder = ({
       "secciones",
       values.secciones.map((sectionItem: Section) => {
         if (sectionItem.nombre === section.nombre) {
+          console.log({ id, nombre });
           console.log({ sectionItem });
           return {
             ...sectionItem,
