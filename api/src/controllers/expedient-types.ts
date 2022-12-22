@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { ExpedientType } from "../models/expedient-type";
 import { ExpedientResourceType } from "../types";
 import moment from "moment";
-import { getAreaFuncional } from "../utils/helpers";
+import { getAreaFuncional, getFileName } from "../utils/helpers";
 import utf8 from "utf8";
 
 const BASE_PATH = "./uploads";
@@ -372,17 +372,17 @@ export const updateOne = async (
         const itemNames = [];
         if (Array.isArray(file)) {
           file.forEach((fileItem) => {
-            const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
-              fileItem.name
-            }`;
+            const fileName = `${moment().format(
+              "YYYY-MM-DD HH:mm:ss"
+            )}]-[${getFileName(fileItem.name)}`;
             path = `${BASE_PATH}/${fileName}`;
             fileItem.mv(path);
             itemNames.push(fileName);
           });
         } else {
-          const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${
-            file.name
-          }`;
+          const fileName = `${moment().format(
+            "YYYY-MM-DD HH:mm:ss"
+          )}]-[${getFileName(file.name)}`;
           path = `${BASE_PATH}/${fileName}`;
           file.mv(path);
           itemNames.push(fileName);
