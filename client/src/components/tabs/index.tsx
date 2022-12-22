@@ -33,7 +33,10 @@ export default function Tabs({ tabs, tabIndex, setTab }) {
       </div>
       <div className="hidden sm:block">
         <div className="border-b border-gray-200">
-          <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+          <nav
+            className="-mb-px flex space-x-8 overflow-auto"
+            aria-label="Tabs"
+          >
             {tabs.map((tab, index) => (
               <span
                 key={tab}
