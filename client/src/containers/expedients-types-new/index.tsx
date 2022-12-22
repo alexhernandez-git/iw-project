@@ -7,7 +7,7 @@ import Sections from "../../components/sections";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { newExpedientType } from "../../store/expedient-type";
 import { useNavigate } from "react-router-dom";
-import { getExpedientTypes } from "../../store/expedient-types";
+import { getExpedientTypesFunctionalAreas } from "../../store/expedient-types";
 
 const ExpedientsTypesNew = () => {
   const dispatch = useAppDispatch();
@@ -15,7 +15,7 @@ const ExpedientsTypesNew = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getExpedientTypes({ getAll: true }));
+    dispatch(getExpedientTypesFunctionalAreas());
   }, []);
 
   const { status: expedientTypesStatus, value: expedientTypes } =
@@ -114,12 +114,10 @@ const ExpedientsTypesNew = () => {
                   options:
                     expedientTypesStatus === SliceState.Success &&
                     expedientTypes
-                      ? expedientTypes.data
-                          .filter(({ isAreaFuncional }) => isAreaFuncional)
-                          .map(({ nombre, codigo, _id }) => ({
-                            label: `Nombre: ${nombre} Codigo: ${codigo}`,
-                            id: _id,
-                          }))
+                      ? expedientTypes.map(({ nombre, codigo, _id }) => ({
+                          label: `Nombre: ${nombre} Codigo: ${codigo}`,
+                          id: _id,
+                        }))
                       : [],
                 },
               ].map((item) => ({ ...item, formik })),
