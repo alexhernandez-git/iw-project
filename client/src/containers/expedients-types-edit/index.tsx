@@ -31,6 +31,8 @@ const ExpedientsTypesEdit = () => {
   const { status: expedientTypesStatus, value: expedientTypes } =
     useAppSelector((state) => state.expedientTypes);
 
+  console.log({ expedientTypes });
+
   const formik = useFormik({
     initialValues: {
       codigo: expedientType?.codigo ?? "",
