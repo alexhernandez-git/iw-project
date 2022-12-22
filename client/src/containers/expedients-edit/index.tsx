@@ -188,7 +188,7 @@ const ExpedientsEdit = () => {
                           type: FormInputType.Text,
                         },
                         {
-                          label: "Codigo Cliente Provisional", // no
+                          label: "Codigo Cliente", // no
                           name: "codigoClienteProvisional",
                           type: FormInputType.Text,
                         },
