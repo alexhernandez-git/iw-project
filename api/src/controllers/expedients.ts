@@ -351,7 +351,7 @@ export const updateOne = async (
 
     //Check if expedient is ready to DocumentacionCompleta
     if (expedient.estado === ExpedientState.DocumentacionPendiente) {
-      let haveEmptyFields: boolean = true;
+      let haveEmptyFields: boolean = false;
       dataJSON.secciones.forEach((seccion) => {
         console.log({ recursos: seccion.recursos });
         seccion.recursos.forEach((recurso) => {
@@ -360,13 +360,13 @@ export const updateOne = async (
             !recurso.archivos?.[0]
           ) {
             console.log({ archivos: recurso.archivos });
-            haveEmptyFields = false;
+            haveEmptyFields = true;
           } else if (
             (recurso.tipo === ExpedientResourceType.Text ||
               recurso.tipo === ExpedientResourceType.LargeText) &&
             (!recurso.texto || recurso.texto !== "")
           ) {
-            haveEmptyFields = false;
+            haveEmptyFields = true;
           }
         });
       });
