@@ -45,3 +45,27 @@ export const getAreaFuncional = async (id) => {
   }
   return await getAreaFuncional(expedientTypeWithParents?.tramitePadre?._id);
 };
+
+export const getFileName = (name) => {
+  const arr = [
+    "jpg",
+    "jpeg",
+    "png",
+    "gif",
+    "svg",
+    "tiff",
+    "tif",
+    "pdf",
+    "doc",
+    "docx",
+    "xls",
+    "xlsx",
+    "txt",
+  ];
+  arr.forEach((extension) => {
+    if (name.includes(extension)) {
+      name.replace(new RegExp(`.*${extension}`), "." + extension);
+    }
+  });
+  return name;
+};
