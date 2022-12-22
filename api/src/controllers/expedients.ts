@@ -359,6 +359,7 @@ export const updateOne = async (
             recurso.tipo === ExpedientResourceType.Files &&
             recurso.archivos?.[0]
           ) {
+            console.log({ archivos: recurso.archivos });
             haveEmptyFields = false;
           } else if (
             (recurso.tipo === ExpedientResourceType.Text ||
