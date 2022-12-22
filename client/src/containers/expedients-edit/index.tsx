@@ -74,6 +74,8 @@ const ExpedientsEdit = () => {
           }
         }
 
+        console.log({ formData });
+
         dispatch(editExpedient({ id, data: formData }));
       } catch (error) {
         console.log({ error });
