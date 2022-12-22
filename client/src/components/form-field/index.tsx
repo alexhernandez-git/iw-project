@@ -25,10 +25,10 @@ const FormFieldLayout = ({
   const [isEdit, setIsEdit] = useState(false);
   const formik = useFormik({
     initialValues: {
-      nombre: nombre,
+      nombre,
     },
     onSubmit: (data) => {
-      onEditFieldLabel(data.nombre);
+      onEditFieldLabel(nombre, data.nombre);
       setIsEdit(false);
     },
   });
