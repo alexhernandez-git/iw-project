@@ -279,6 +279,7 @@ export const updateOne = async (
         let path = "";
         const [section, fieldName] = utf8.decode(key).split("]-[");
         const file = files[key];
+        console.log({ file });
         const itemNames = [];
         if (Array.isArray(file)) {
           console.log("entra 2");
