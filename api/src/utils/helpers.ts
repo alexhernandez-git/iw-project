@@ -63,9 +63,9 @@ export const getFileName = (name) => {
     "txt",
   ];
   arr.forEach((extension) => {
-    if (name.includes(extension)) {
-      name.replace(new RegExp(`.*${extension}`), "." + extension);
+    if (new RegExp(".*" + extension).test(name)) {
+      return name.replace(extension, "." + extension);
     }
   });
-  return name;
+  return "";
 };
