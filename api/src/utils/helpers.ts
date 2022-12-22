@@ -47,6 +47,7 @@ export const getAreaFuncional = async (id) => {
 };
 
 export const getFileName = (name) => {
+  let newName = "";
   const arr = [
     "jpg",
     "jpeg",
@@ -64,8 +65,8 @@ export const getFileName = (name) => {
   ];
   arr.forEach((extension) => {
     if (new RegExp(".*" + extension).test(name)) {
-      return name.replace(extension, "." + extension);
+      newName = name.replace(extension, "." + extension);
     }
   });
-  return "";
+  return newName;
 };
