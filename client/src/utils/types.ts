@@ -128,6 +128,7 @@ export type FieldData = {
   editable?: boolean;
   disabled?: boolean;
   onDeleteField: (nombre: string) => void;
+  onEditFieldLabel: (nombre: string) => void;
   onEditField: (nombre: string, text: string) => void;
   onEditFileField: (nombre: string, files: any) => void;
   getFieldValue: (nombre: string) => string;

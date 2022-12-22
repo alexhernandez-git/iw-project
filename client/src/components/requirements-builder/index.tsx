@@ -82,6 +82,32 @@ const RequirementsBuilder = ({
     );
   };
 
+  const onEditFieldLabel = (id: string, nombre: string) => {
+    console.log({ id });
+    setFieldValue(
+      "secciones",
+      values.secciones.map((sectionItem: Section) => {
+        if (sectionItem.nombre === section.nombre) {
+          console.log({ sectionItem });
+          return {
+            ...sectionItem,
+            recursos: sectionItem.recursos?.map(
+              (requirement: ExpedientRequirement) =>
+                requirement.nombre === id
+                  ? {
+                      ...requirement,
+                      nombre,
+                    }
+                  : requirement
+            ),
+          };
+        } else {
+          return sectionItem;
+        }
+      })
+    );
+  };
+
   const onEditField = (id: string, text: string) => {
     setFieldValue(
       "secciones",

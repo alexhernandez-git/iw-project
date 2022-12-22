@@ -1,39 +1,96 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FieldData } from "../../utils/types";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
+import { useFormik } from "formik";
+import Button from "../button";
 
 type Props = {
   data: FieldData;
 };
 
 const FormFieldLayout = ({
-  data: { nombre, descripcion, custom, onDeleteField, editable },
+  data: {
+    nombre,
+    descripcion,
+    custom,
+    onDeleteField,
+    onEditFieldLabel,
+    editable,
+  },
   children,
 }: {
   data: FieldData;
   children: React.ReactNode;
 }) => {
+  const [isEdit, setIsEdit] = useState(false);
+  const formik = useFormik({
+    initialValues: {
+      nombre: nombre,
+    },
+    onSubmit: (data) => {
+      onEditFieldLabel(data.nombre);
+      setIsEdit(false);
+    },
+  });
+
+  const inputRef = useRef();
+
+  useEffect(() => {
+    if (isEdit) {
+      inputRef.current.focus();
+    }
+  }, [isEdit]);
   return (
     <div className="sm:border-t sm:border-gray-200  sm:pt-5">
       {(custom || editable) && (
         <div className="flex justify-end">
-          <button
-            type="button"
-            onClick={() => onDeleteField(nombre)}
-            className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-esan-color focus:ring-offset-2"
-          >
-            <span className="sr-only">Close panel</span>
-            <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-          </button>
+          {isEdit ? (
+            <div>
+              <Button onClick={formik.handleSubmit}>Guardar</Button>
+            </div>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={() => setIsEdit(true)}
+                className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-esan-color focus:ring-offset-2"
+              >
+                <span className="sr-only">Close panel</span>
+                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                onClick={() => onDeleteField(nombre)}
+                className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-esan-color focus:ring-offset-2"
+              >
+                <span className="sr-only">Close panel</span>
+                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+              </button>
+            </>
+          )}
         </div>
       )}
       <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 mt-3">
-        <label
-          htmlFor="cover-photo"
-          className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-        >
-          {nombre}
-        </label>
+        {isEdit ? (
+          <input
+            type="text"
+            name="nombre"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            ref={inputRef}
+            value={formik.values.nombre}
+            id="nombre"
+            placeholder=""
+            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-esan-color focus:ring-esan-color sm:max-w-xs sm:text-sm"
+          />
+        ) : (
+          <label
+            htmlFor="cover-photo"
+            className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+          >
+            {nombre}
+          </label>
+        )}
         <div className="mt-1 sm:col-span-2 sm:mt-0">{children}</div>
       </div>
       <p className="mt-2 text-sm text-gray-500">{descripcion}</p>
