@@ -32,6 +32,8 @@ export const getEstadoLabel = (estado: ExpedientState) => {
       return "Pendiente";
     case ExpedientState.DocumentacionCompleta:
       return "Para cursar";
+    case ExpedientState.Concluido:
+      return "Concluido";
     case ExpedientState.ExpedientCursadoNoConcluido:
       return "Cursado no concluido";
     case ExpedientState.NoResolucion:
