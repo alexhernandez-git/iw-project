@@ -353,10 +353,11 @@ export const updateOne = async (
     if (expedient.estado === ExpedientState.DocumentacionPendiente) {
       let haveEmptyFields: boolean = true;
       expedient.secciones.forEach((seccion) => {
+        console.log({ recursos: seccion.recursos });
         seccion.recursos.forEach((recurso) => {
           if (
             recurso.tipo === ExpedientResourceType.Files &&
-            recurso.archivos.length > 0
+            recurso.archivos?.[0]
           ) {
             haveEmptyFields = false;
           } else if (
