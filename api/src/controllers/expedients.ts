@@ -357,14 +357,14 @@ export const updateOne = async (
         seccion.recursos.forEach((recurso) => {
           if (
             recurso.tipo === ExpedientResourceType.Files &&
-            recurso.archivos?.[0]
+            !recurso.archivos?.[0]
           ) {
             console.log({ archivos: recurso.archivos });
             haveEmptyFields = false;
           } else if (
             (recurso.tipo === ExpedientResourceType.Text ||
               recurso.tipo === ExpedientResourceType.LargeText) &&
-            recurso.texto
+            (!recurso.texto || recurso.texto !== "")
           ) {
             haveEmptyFields = false;
           }
