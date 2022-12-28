@@ -64,20 +64,16 @@ const ExpedientsEdit = () => {
 
         delete values?.files;
 
-        formData.append("data", JSON.stringify(values));
-
         if (files) {
           for (const [key] of Object.entries(files)) {
             Array.from(files[key]).forEach((file) => {
-              console.log({ fileName: file?.name });
               formData.append(key, file, file?.name);
             });
           }
         }
+        dispatch(editExpedientType({ id, data: formData }));
 
-        console.log({ formData });
-
-        dispatch(editExpedient({ id, data: formData }));
+        // dispatch(editExpedient({ id, data: formData }));
       } catch (error) {
         console.log({ error });
       }
