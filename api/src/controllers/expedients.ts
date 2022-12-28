@@ -36,6 +36,9 @@ export const create = async (
       if (dbErr) return;
       expedientType = modelDoc.toJSON();
     });
+
+    console.log(expedientType);
+
     let areaFuncional = await getAreaFuncional(tipo);
 
     const expedient = await Expedient.create({
