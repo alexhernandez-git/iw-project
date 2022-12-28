@@ -361,11 +361,17 @@ export const updateOne = async (
 
     const { data } = body;
 
+    console.log({ data });
+
     let dataJSON = JSON.parse(data);
+
+    console.log({ dataJSON });
 
     if (!dataJSON.tramitePadre) {
       delete dataJSON.tramitePadre;
     }
+
+    console.log("entraa 4");
 
     if (files) {
       var fileKeys = Object.keys(files);
@@ -423,7 +429,7 @@ export const updateOne = async (
       });
     }
 
-    if (body?.type === "expedient") {
+    if (data?.type === "expedient") {
       const expedient = await Expedient.findByIdAndUpdate(
         id,
         {
