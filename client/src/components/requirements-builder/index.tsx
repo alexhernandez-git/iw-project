@@ -41,9 +41,7 @@ const RequirementsBuilder = ({
   const [isAddingNewField, setIsAddingNewField] = useState(false);
 
   const onEditFile = (fieldName: string, file: any) => {
-    if (updateFile) {
-      updateFile({ sectionName: section?.nombre, fieldName, file });
-    }
+    updateFile({ sectionName: section?.nombre, fieldName, file });
   };
 
   const onAddField = ({

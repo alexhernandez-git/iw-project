@@ -40,3 +40,16 @@ export function updateExpedientType(id, data) {
     )
   );
 }
+
+export function updateFileExpedientType(id, data) {
+  return new Promise<{ data: { expedientType: ExpedientType } }>((resolve) =>
+    resolve(
+      axios.patch(`http://3.253.49.204/api/expedient-types/files/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+    )
+  );
+}

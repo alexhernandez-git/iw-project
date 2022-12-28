@@ -5,6 +5,7 @@ import {
   createExpedientType,
   fetchExpedientType,
   updateExpedientType,
+  updateFileExpedientType,
 } from "./API";
 
 export interface ExpedientTypeState {
@@ -37,6 +38,14 @@ export const editExpedientType = createAsyncThunk(
   "expedients/editExpedientType",
   async ({ id, data }: { id: string; data: any }) => {
     const response = await updateExpedientType(id, data);
+    return response.data.expedientType;
+  }
+);
+
+export const editFileExpedientType = createAsyncThunk(
+  "expedients/editFileExpedientType",
+  async ({ id, data }: { id: string; data: any }) => {
+    const response = await updateFileExpedientType(id, data);
     return response.data.expedientType;
   }
 );

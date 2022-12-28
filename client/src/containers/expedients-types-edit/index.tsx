@@ -9,6 +9,7 @@ import DashboardLayout from "../../layouts/layout";
 import { useAppSelector } from "../../store";
 import {
   editExpedientType,
+  editFileExpedientType,
   getExpedientType,
 } from "../../store/expedient-type";
 import { getExpedientTypes } from "../../store/expedient-types";
@@ -43,24 +44,27 @@ const ExpedientsTypesEdit = () => {
     onSubmit: (values) => {
       var formData = new FormData();
 
-      const files = values?.files;
-
-      delete values?.files;
-
-      formData.append("data", JSON.stringify(values));
-
-      if (files) {
-        for (const [key] of Object.entries(files)) {
-          Array.from(files[key]).forEach((file) => {
-            formData.append(key, file, file?.name);
-          });
-        }
-      }
       dispatch(editExpedientType({ id, data: formData }));
     },
   });
 
   const { handleSubmit } = formik;
+
+  const updateFile = ({
+    sectionName,
+    fieldName,
+    file,
+  }: {
+    sectionName: string;
+    fieldName: string;
+    file: any;
+  }) => {
+    const data = new FormData();
+    data.append("files", file, file.name);
+    data.append("sectionName", sectionName);
+    data.append("fieldName", fieldName);
+    dispatch(editFileExpedientType({ id, sectionName, fieldName, data }));
+  };
 
   return (
     <DashboardLayout
@@ -134,7 +138,7 @@ const ExpedientsTypesEdit = () => {
             },
           ]}
         >
-          <Sections formik={formik} editable />
+          <Sections updateFile={updateFile} formik={formik} editable />
         </Form>
       </div>
     </DashboardLayout>

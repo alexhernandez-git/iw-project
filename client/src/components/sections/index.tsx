@@ -16,10 +16,10 @@ type Props = {
     sectionName: string;
     fieldName: string;
     file: any;
-  }) => void | null;
+  }) => void;
 };
 
-const Sections = ({ formik, editable = false, updateFile = null }: Props) => {
+const Sections = ({ formik, editable = false, updateFile }: Props) => {
   const [isAddingSection, setIsAddingSection] = useState(false);
 
   const newSectionFormik = useFormik({

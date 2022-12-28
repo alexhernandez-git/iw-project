@@ -496,6 +496,78 @@ export const updateOne = async (
   }
 };
 
+export const updateFile = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const {
+      body
+      files,
+      params: { id },
+    } = req;
+    
+    console.log({body})
+    console.log({files: files.files})
+    console.log({id})
+
+    const {fieldName, sectionName} = body
+
+    const file = files.files;
+
+
+    console.log("entra 1");
+
+    console.log(file);
+
+    const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${file.name}`;
+    const path = `${BASE_PATH}/${fileName}`;
+    file.mv(path);
+
+    console.log({ fileName });
+
+    const expedientType = await ExpedientType.findById(id);
+
+    if (expedientType) {
+      const { secciones } = expedientType;
+
+      if (secciones?.[0]) {
+        expedientType.secciones = secciones.map((sectionItem) =>
+          sectionItem.nombre === sectionName
+            ? {
+                ...sectionItem,
+                recursos: sectionItem.recursos.map((resource) => {
+                  console.log("resource nombre", resource.nombre);
+                  console.log({ fieldName });
+                  if (resource.nombre === fieldName) {
+                    console.log("entra 2");
+                    return {
+                      ...resource,
+                      archivos: [fileName],
+                    };
+                  } else {
+                    return resource;
+                  }
+                }),
+              }
+            : sectionItem
+        );
+        expedientType.save();
+      }
+    }
+
+    res.send({ expedientType, success: true });
+  } catch (error) {
+    console.log("entra message error");
+    console.log({error: error.message});
+    next({
+      statusCode: 500,
+      message: "Error creating user",
+    });
+  }
+};
+
 export const deleteOne = async (
   req: Request<{
     id: string;
