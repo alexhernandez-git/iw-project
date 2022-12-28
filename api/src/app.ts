@@ -21,6 +21,7 @@ console.log("entra 1");
 app.use(
   fileUpload({
     limits: { fileSize: 50 * 1024 * 1024 },
+    debug: true,
   })
 );
 console.log("entra 2");
