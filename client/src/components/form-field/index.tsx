@@ -181,11 +181,11 @@ export const FormFileField = ({ data }: Props) => {
               {archivo.split("]-[")[1]}
             </span>
           ))}
-        {getNotUploadedFieldFiles(nombre).map((archivo: string) => (
+        {/* {getNotUploadedFieldFiles(nombre).map((archivo: string) => (
           <span className="inline-flex items-center mt-2 rounded-full bg-gray-100 px-3 py-0.5 text-xs font-medium text-gray-800">
             {archivo}
           </span>
-        ))}
+        ))} */}
       </div>
     </FormFieldLayout>
   );
