@@ -11,7 +11,6 @@ import { editExpedient, getExpedient } from "../../store/expedient";
 import { FormInputType, StoredIn, ExpedientState } from "../../utils/types";
 import moment from "moment";
 import useUserRole from "../../hooks/use-user-role";
-import { editExpedientType } from "../../store/expedient-type";
 
 const ExpedientsEdit = () => {
   const { id } = useParams();
@@ -72,6 +71,7 @@ const ExpedientsEdit = () => {
             });
           }
         }
+        formData.append("type", "expedient");
         dispatch(editExpedient({ id, data: formData }));
 
         // dispatch(editExpedient({ id, data: formData }));
