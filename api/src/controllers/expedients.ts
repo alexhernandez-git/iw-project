@@ -9,6 +9,7 @@ import {
   SortOptionsValues,
   StoredIn,
   UserRoles,
+  Section,
 } from "../types";
 import moment from "moment";
 import { getAreaFuncional, getFileName } from "../utils/helpers";
@@ -222,6 +223,63 @@ export const find = async (
       success: true,
     });
   } catch (error) {
+    console.log(error.message);
+    next({
+      statusCode: 500,
+      message: "Error creating user",
+    });
+  }
+};
+
+export const updateFile = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const {
+      files,
+      params: { id, sectionName, fieldName },
+    } = req;
+    const file = files[0];
+
+    const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${file.name}`;
+    const path = `${BASE_PATH}/${fileName}`;
+    file.mv(path);
+
+    const expedient = await Expedient.findById(id);
+
+    if (expedient) {
+      const { secciones } = expedient;
+
+      if (secciones?.[0]) {
+        expedient.secciones = secciones.map((sectionItem) =>
+          sectionItem.nombre === sectionName
+            ? {
+                ...sectionItem,
+                recursos: sectionItem.recursos.map((resource) => {
+                  console.log("resource nombre", resource.nombre);
+                  console.log({ fieldName });
+                  if (resource.nombre === fieldName) {
+                    console.log("entra 2");
+                    return {
+                      ...resource,
+                      archivos: [fileName],
+                    };
+                  } else {
+                    return resource;
+                  }
+                }),
+              }
+            : sectionItem
+        );
+        expedient.save();
+      }
+    }
+
+    res.send({ success: true });
+  } catch (error) {
+    console.log("entra message error");
     console.log(error.message);
     next({
       statusCode: 500,

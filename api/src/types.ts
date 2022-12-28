@@ -157,3 +157,25 @@ export type ExpedientType = {
   honorarios: number;
   recursos: ExpedientResource[];
 };
+
+export enum ExpedientRequirementType {
+  Text = "text",
+  LargeText = "largetext",
+  Files = "files",
+}
+
+export type ExpedientRequirement = {
+  id: string;
+  nombre: string;
+  tipo: ExpedientRequirementType;
+  archivos: string[];
+  texto: string;
+  expediente: string;
+  descripcion: string;
+  custom?: boolean;
+};
+
+export type Section = {
+  nombre: string;
+  recursos: ExpedientRequirement[];
+};
