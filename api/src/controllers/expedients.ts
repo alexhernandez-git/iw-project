@@ -38,7 +38,7 @@ export const create = async (
       tipo: new Types.ObjectId(tipo),
       areaFuncional,
       vinculado: vinculado,
-      secciones: expedientType?.secciones ?? [],
+      secciones: { ...expedientType?.secciones } ?? [],
       fechaSolicitud: Date.now(),
       user: _id,
     });
