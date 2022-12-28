@@ -15,12 +15,6 @@ app.use(morgan("dev"));
 var path = require("path");
 const router = express.Router();
 app.use(cors());
-app.use(
-  fileUpload({
-    limits: { fileSize: 50 * 1024 * 1024 },
-    safeFileNames: false,
-  })
-);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
