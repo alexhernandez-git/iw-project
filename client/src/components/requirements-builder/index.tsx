@@ -154,7 +154,6 @@ const RequirementsBuilder = ({
         });
       }
     });
-    formik.handleSubmit();
   };
 
   const getFieldValue = (nombre: string): string => {
