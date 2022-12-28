@@ -17,6 +17,11 @@ const router = express.Router();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  fileUpload({
+    limits: { fileSize: 50 * 1024 * 1024 },
+  })
+);
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/files", express.static("/api/uploads"));
 app.use("/api/users", usersRouter);
