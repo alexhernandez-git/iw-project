@@ -264,73 +264,12 @@ export const updateOne = async (
   try {
     const {
       body,
-      files,
       params: { id },
     } = req;
 
     const { data } = body;
 
     let dataJSON = JSON.parse(data);
-
-    if (!dataJSON.tramitePadre) {
-      delete dataJSON.tramitePadre;
-    }
-
-    if (files) {
-      var fileKeys = Object.keys(files);
-      fileKeys.forEach(function (key) {
-        let path = "";
-        const [section, fieldName] = utf8.decode(key).split("]-[");
-        const file = files[key];
-        const itemNames = [];
-        if (Array.isArray(file)) {
-          file.forEach((fileItem) => {
-            const fileName = `${moment().format(
-              "YYYY-MM-DD HH:mm:ss"
-            )}]-[${getFileName(fileItem.name)}`;
-            path = `${BASE_PATH}/${fileName}`;
-            fileItem.mv(path);
-            itemNames.push(fileName);
-          });
-        } else {
-          const fileName = `${moment().format(
-            "YYYY-MM-DD HH:mm:ss"
-          )}]-[${getFileName(file.name)}`;
-          path = `${BASE_PATH}/${fileName}`;
-          file.mv(path);
-          itemNames.push(fileName);
-        }
-        const filesToDelete = [];
-        dataJSON.secciones = dataJSON.secciones.map((sectionItem) =>
-          sectionItem.nombre === section
-            ? {
-                ...sectionItem,
-                recursos: sectionItem.recursos.map((resource) => {
-                  if (resource.nombre === fieldName) {
-                    filesToDelete.push([
-                      ...filesToDelete,
-                      ...(resource?.archivos ? resource.archivos : []),
-                    ]);
-                    return {
-                      ...resource,
-                      archivos: itemNames,
-                    };
-                  } else {
-                    return resource;
-                  }
-                }),
-              }
-            : sectionItem
-        );
-        // filesToDelete.forEach((file) => {
-        //   fs.unlink(BASE_PATH + "/" + file, (err) => {
-        //     if (err) {
-        //       console.log("file error", err);
-        //     }
-        //   });
-        // });
-      });
-    }
 
     const expedient = await Expedient.findByIdAndUpdate(
       id,
