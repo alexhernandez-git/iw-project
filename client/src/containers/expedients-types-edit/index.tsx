@@ -87,59 +87,56 @@ const ExpedientsTypesEdit = () => {
         },
       ]}
     >
-      <HandleStatus status={status} data={expedientType}>
-        <HandleStatus status={expedientTypesStatus} data={expedientTypes}>
-          <div className="space-y-6 sm:px-6 lg:col-span-9 lg:px-0 mb-6">
-            <Form
-              onSubmit={handleSubmit}
-              data={[
+      <HandleStatus status={status} data={expedientType} />
+      <HandleStatus status={expedientTypesStatus} data={expedientTypes} />
+      <div className="space-y-6 sm:px-6 lg:col-span-9 lg:px-0 mb-6">
+        <Form
+          onSubmit={handleSubmit}
+          data={[
+            {
+              label: "Información",
+              description: "Descripcion",
+              inputs: [
                 {
-                  label: "Información",
-                  description: "Descripcion",
-                  inputs: [
-                    {
-                      label: "Codigo",
-                      name: "codigo",
-                      type: FormInputType.Text,
-                    },
-                    {
-                      label: "Nombre",
-                      name: "nombre",
-                      type: FormInputType.Text,
-                    },
-                    {
-                      label: "Honorarios",
-                      name: "honorarios",
-                      type: FormInputType.Text,
-                    },
-                    {
-                      label: "Padre",
-                      name: "tramitePadre",
-                      type: FormInputType.Select,
-                      options:
-                        expedientTypesStatus === SliceState.Success &&
-                        expedientTypes
-                          ? expedientTypes.data
-                              .filter(({ isAreaFuncional }) => isAreaFuncional)
-                              .map(({ nombre, codigo, _id }) => ({
-                                label: `Nombre: ${nombre} Codigo: ${codigo}`,
-                                id: _id,
-                              }))
-                              .filter(
-                                (expedientTypeItem) =>
-                                  expedientTypeItem.id !== id
-                              )
-                          : [],
-                    },
-                  ].map((item) => ({ ...item, formik })),
+                  label: "Codigo",
+                  name: "codigo",
+                  type: FormInputType.Text,
                 },
-              ]}
-            >
-              <Sections formik={formik} editable />
-            </Form>
-          </div>
-        </HandleStatus>
-      </HandleStatus>
+                {
+                  label: "Nombre",
+                  name: "nombre",
+                  type: FormInputType.Text,
+                },
+                {
+                  label: "Honorarios",
+                  name: "honorarios",
+                  type: FormInputType.Text,
+                },
+                {
+                  label: "Padre",
+                  name: "tramitePadre",
+                  type: FormInputType.Select,
+                  options:
+                    expedientTypesStatus === SliceState.Success &&
+                    expedientTypes
+                      ? expedientTypes.data
+                          .filter(({ isAreaFuncional }) => isAreaFuncional)
+                          .map(({ nombre, codigo, _id }) => ({
+                            label: `Nombre: ${nombre} Codigo: ${codigo}`,
+                            id: _id,
+                          }))
+                          .filter(
+                            (expedientTypeItem) => expedientTypeItem.id !== id
+                          )
+                      : [],
+                },
+              ].map((item) => ({ ...item, formik })),
+            },
+          ]}
+        >
+          <Sections formik={formik} editable />
+        </Form>
+      </div>
     </DashboardLayout>
   );
 };
