@@ -141,6 +141,7 @@ export const FormFileField = ({ data }: Props) => {
   const {
     disabled,
     nombre,
+    onEditFileField,
     getFieldFiles,
     onEditFile,
     getNotUploadedFieldFiles,
@@ -177,6 +178,7 @@ export const FormFileField = ({ data }: Props) => {
               <input
                 disabled={disabled}
                 onChange={(e) => {
+                  onEditFileField(nombre, e.target.files);
                   onEditFile(nombre, e.target.files?.[0]);
                 }}
                 id={nombre}
