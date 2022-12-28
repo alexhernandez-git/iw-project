@@ -60,6 +60,7 @@ const RequirementsBuilder = ({
           : sectionItem
       )
     );
+    formik.handleSubmit();
   };
 
   const onDeleteField = (id: string) => {
@@ -80,6 +81,7 @@ const RequirementsBuilder = ({
         }
       })
     );
+    formik.handleSubmit();
   };
 
   const onEditFieldLabel = (id: string, nombre: string) => {
@@ -107,6 +109,7 @@ const RequirementsBuilder = ({
         }
       })
     );
+    formik.handleSubmit();
   };
 
   const onEditField = (id: string, text: string) => {
@@ -125,6 +128,7 @@ const RequirementsBuilder = ({
           : sectionItem
       )
     );
+    formik.handleSubmit();
   };
 
   const onEditFileField = (id: string, files: any) => {
@@ -136,6 +140,7 @@ const RequirementsBuilder = ({
         });
       }
     });
+    formik.handleSubmit();
   };
 
   const getFieldValue = (nombre: string): string => {

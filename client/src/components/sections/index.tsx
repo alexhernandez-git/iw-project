@@ -23,6 +23,7 @@ const Sections = ({ formik, editable = false }: Props) => {
       formik.setFieldValue("secciones", [...formik.values.secciones, data]);
       setIsAddingSection(false);
       resetForm();
+      formik.handleSubmit();
     },
   });
 
@@ -39,6 +40,7 @@ const Sections = ({ formik, editable = false }: Props) => {
           : sectionItem
       )
     );
+    formik.handleSubmit();
   };
 
   const onDeleteSection = (nombre: string) => {
@@ -51,6 +53,7 @@ const Sections = ({ formik, editable = false }: Props) => {
         (sectionItem: Section) => sectionItem.nombre !== nombre
       )
     );
+    formik.handleSubmit();
   };
 
   const inputRef = useRef();
