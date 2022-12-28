@@ -57,6 +57,7 @@ const ExpedientsEdit = () => {
     enableReinitialize: true,
     onSubmit: (values) => {
       try {
+        delete values.files;
         values.fechaSolicitud = moment(values.fechaSolicitud);
         values.plazoLegal = moment(values.plazoLegal);
         values.silencioAdministrativo = moment(values.silencioAdministrativo);
