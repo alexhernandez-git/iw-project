@@ -350,6 +350,7 @@ export const updateOne = async (
   next: NextFunction
 ) => {
   try {
+    console.log("entraaaa");
     const {
       body,
       files,
