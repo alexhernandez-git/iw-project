@@ -260,6 +260,7 @@ export const updateOne = async (
   res: Response,
   next: NextFunction
 ) => {
+  console.log("entraaa");
   try {
     const {
       body,
