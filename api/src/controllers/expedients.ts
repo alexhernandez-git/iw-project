@@ -249,7 +249,7 @@ export const updateFile = async (
 
     const {fieldName, sectionName} = body
 
-    const file = files[0];
+    const file = files;
 
 
     console.log("entra 1");
