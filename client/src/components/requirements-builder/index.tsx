@@ -142,7 +142,6 @@ const RequirementsBuilder = ({
           : sectionItem
       )
     );
-    formik.handleSubmit();
   };
 
   const onEditFileField = (id: string, files: any) => {
