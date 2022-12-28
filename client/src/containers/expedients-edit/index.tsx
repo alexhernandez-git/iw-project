@@ -72,7 +72,7 @@ const ExpedientsEdit = () => {
             });
           }
         }
-        dispatch(editExpedientType({ id, data: formData }));
+        dispatch(editExpedient({ id, data: formData }));
 
         // dispatch(editExpedient({ id, data: formData }));
       } catch (error) {

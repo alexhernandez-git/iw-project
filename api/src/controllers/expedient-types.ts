@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { ExpedientType } from "../models/expedient-type";
-import { ExpedientResourceType } from "../types";
+import { ExpedientResourceType, ExpedientState } from "../types";
 import moment from "moment";
 import { getAreaFuncional, getFileName } from "../utils/helpers";
 import utf8 from "utf8";
+import { Expedient } from "../models/expedient";
 
 const BASE_PATH = "./uploads";
 
@@ -330,6 +331,7 @@ export const findByParent = async (
 export const updateOne = async (
   req: Request<{
     id: string;
+    type: string;
     nombre: string;
     codigo: string;
     tramitePadre: string | null;
@@ -421,22 +423,64 @@ export const updateOne = async (
       });
     }
 
-    const expedientType = await ExpedientType.findOneAndUpdate(
-      { _id: id },
-      {
-        $set: dataJSON,
-      },
-      {
-        upsert: true,
-        new: true,
-      }
-    ).populate("tramitePadre");
+    if (body?.type === "expedient") {
+      const expedient = await Expedient.findByIdAndUpdate(
+        id,
+        {
+          $set: dataJSON,
+        },
+        {
+          upsert: true,
+          new: true,
+        }
+      ).populate(["tipo", "vinculado"]);
 
-    res.send({
-      expedientType,
-      statusCode: 201,
-      message: "Expediente actualizado",
-    });
+      //Check if expedient is ready to DocumentacionCompleta
+      if (expedient.estado === ExpedientState.DocumentacionPendiente) {
+        let haveEmptyFields: boolean = false;
+        dataJSON.secciones.forEach((seccion) => {
+          console.log({ recursos: seccion.recursos });
+          seccion.recursos.forEach((recurso) => {
+            if (
+              recurso.tipo === ExpedientResourceType.Files &&
+              !recurso.archivos?.[0]
+            ) {
+              console.log({ archivos: recurso.archivos });
+              haveEmptyFields = true;
+            } else if (
+              (recurso.tipo === ExpedientResourceType.Text ||
+                recurso.tipo === ExpedientResourceType.LargeText) &&
+              (!recurso.texto || recurso.texto === "")
+            ) {
+              haveEmptyFields = true;
+            }
+          });
+        });
+        if (!haveEmptyFields) {
+          expedient.estado = ExpedientState.DocumentacionCompleta;
+          expedient.save();
+        }
+      }
+
+      res.send({ expedient, success: true });
+    } else {
+      const expedientType = await ExpedientType.findOneAndUpdate(
+        { _id: id },
+        {
+          $set: dataJSON,
+        },
+        {
+          upsert: true,
+          new: true,
+        }
+      ).populate("tramitePadre");
+
+      res.send({
+        expedientType,
+        statusCode: 201,
+        message: "Expediente actualizado",
+      });
+    }
   } catch (error) {
     console.log(error);
     next({
