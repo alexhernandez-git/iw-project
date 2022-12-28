@@ -244,12 +244,12 @@ export const updateFile = async (
     } = req;
     
     console.log({body})
-    console.log({files})
+    console.log({files: files.files})
     console.log({id})
 
     const {fieldName, sectionName} = body
 
-    const file = files.file;
+    const file = files.files;
 
 
     console.log("entra 1");
