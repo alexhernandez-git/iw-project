@@ -63,7 +63,11 @@ const ExpedientsTypesEdit = () => {
     data.append("files", file, file.name);
     data.append("sectionName", sectionName);
     data.append("fieldName", fieldName);
-    dispatch(editFileExpedientType({ id, sectionName, fieldName, data }));
+    dispatch(editFileExpedientType({ id, sectionName, fieldName, data }))
+      .unwrap()
+      .finally(() => {
+        dispatch(getExpedientType(id));
+      });
   };
 
   return (
