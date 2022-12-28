@@ -178,8 +178,9 @@ export const FormFileField = ({ data }: Props) => {
               <input
                 disabled={disabled}
                 onChange={(e) => {
-                  onEditFileField(nombre, e.target.files);
+                  console.log({ onEditFile });
                   onEditFile(nombre, e.target.files?.[0]);
+                  onEditFileField(nombre, e.target.files);
                 }}
                 id={nombre}
                 name={nombre}
