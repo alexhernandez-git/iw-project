@@ -249,12 +249,12 @@ export const updateFile = async (
 
     const {fieldName, sectionName} = body
 
-    const file = files;
+    const file = files.file;
 
 
     console.log("entra 1");
 
-    console.log({ file });
+    console.log(file);
 
     const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${file.name}`;
     const path = `${BASE_PATH}/${fileName}`;
