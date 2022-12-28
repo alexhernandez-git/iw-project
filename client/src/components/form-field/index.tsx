@@ -149,10 +149,7 @@ export const FormFileField = ({ data }: Props) => {
 
   return (
     <FormFieldLayout data={data}>
-      <label
-        htmlFor={nombre}
-        className={`flex cursor-pointer justify-center rounded-md`}
-      >
+      <label className={`flex cursor-pointer justify-center rounded-md`}>
         <div className="space-y-1 text-center flex flex-col items-center">
           <svg
             className="mx-auto h-12 w-12 text-gray-400"
@@ -170,11 +167,6 @@ export const FormFileField = ({ data }: Props) => {
           </svg>
           <div className="flex text-sm text-gray-600">
             <span className="relative cursor-pointer rounded-md bg-white font-medium text-esan-color focus-within:outline-none focus-within:ring-2 focus-within:ring-esan-color focus-within:ring-offset-2 hover:text-esan-color">
-              <span>
-                {getFieldFiles(nombre).length === 0
-                  ? "Sube un archivo"
-                  : "Cambia el archivo"}
-              </span>
               <input
                 disabled={disabled}
                 onChange={(e) => {
@@ -185,7 +177,6 @@ export const FormFileField = ({ data }: Props) => {
                 id={nombre}
                 name={nombre}
                 type="file"
-                className="sr-only"
               />
             </span>
 
@@ -202,7 +193,7 @@ export const FormFileField = ({ data }: Props) => {
             </span>
           ))}
         {getNotUploadedFieldFiles(nombre).map((archivo: string) => (
-          <span className="inline-flex items-center mt-2 rounded-full bg-green-100 px-3 py-0.5 text-xs font-medium text-green-800">
+          <span className="inline-flex items-center mt-2 rounded-full bg-gray-100 px-3 py-0.5 text-xs font-medium text-gray-800">
             {archivo}
           </span>
         ))}
