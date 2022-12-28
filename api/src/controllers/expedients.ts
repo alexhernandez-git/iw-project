@@ -295,7 +295,7 @@ export const updateFile = async (
     res.send({ expedient, success: true });
   } catch (error) {
     console.log("entra message error");
-    console.log(error.message);
+    console.log({error: error.message});
     next({
       statusCode: 500,
       message: "Error creating user",
