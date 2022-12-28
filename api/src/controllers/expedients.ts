@@ -245,6 +245,7 @@ export const updateFile = async (
     
     console.log({body})
     console.log({files})
+    console.log({id})
 
     const {fieldName, sectionName} = body
 
