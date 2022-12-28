@@ -8,9 +8,18 @@ import Button from "../button";
 type Props = {
   formik: any;
   editable?: boolean;
+  updateFile: ({
+    sectionName,
+    fieldName,
+    file,
+  }: {
+    sectionName: string;
+    fieldName: string;
+    file: any;
+  }) => void | null;
 };
 
-const Sections = ({ formik, editable = false }: Props) => {
+const Sections = ({ formik, editable = false, updateFile = null }: Props) => {
   const [isAddingSection, setIsAddingSection] = useState(false);
 
   const newSectionFormik = useFormik({
@@ -71,6 +80,7 @@ const Sections = ({ formik, editable = false }: Props) => {
       <div className="space-y-6 mb-5">
         {formik.values.secciones.map((section: Section) => (
           <RequirementsBuilder
+            updateFile={updateFile}
             formik={formik}
             editable={editable}
             section={section}

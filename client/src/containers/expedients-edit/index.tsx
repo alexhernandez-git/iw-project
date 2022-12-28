@@ -7,7 +7,11 @@ import HandleStatus from "../../components/handle-status";
 import Sections from "../../components/sections";
 import DashboardLayout from "../../layouts/layout";
 import { RootState } from "../../store";
-import { editExpedient, getExpedient } from "../../store/expedient";
+import {
+  editExpedient,
+  editFileExpedient,
+  getExpedient,
+} from "../../store/expedient";
 import { FormInputType, StoredIn, ExpedientState } from "../../utils/types";
 import moment from "moment";
 import useUserRole from "../../hooks/use-user-role";
@@ -76,6 +80,20 @@ const ExpedientsEdit = () => {
   useEffect(() => {
     dispatch(getExpedient(id));
   }, []);
+
+  const updateFile = ({
+    sectionName,
+    fieldName,
+    file,
+  }: {
+    sectionName: string;
+    fieldName: string;
+    file: any;
+  }) => {
+    const data = new FormData();
+    data.append("files", file, file.name);
+    dispatch(editFileExpedient({ id, sectionName, fieldName, data }));
+  };
 
   return (
     <DashboardLayout
@@ -293,7 +311,11 @@ const ExpedientsEdit = () => {
                   ]
             }
           >
-            <Sections formik={formik} editable={isAdmin || isSuperAdmin} />
+            <Sections
+              updateFile={updateFile}
+              formik={formik}
+              editable={isAdmin || isSuperAdmin}
+            />
           </Form>
         </div>
       </HandleStatus>

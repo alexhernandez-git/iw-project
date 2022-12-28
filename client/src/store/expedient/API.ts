@@ -38,3 +38,20 @@ export function updateExpedient(id, data) {
     )
   );
 }
+
+export function updateFileExpedient(id, sectionName, fieldName, data) {
+  return new Promise<{ data: any }>((resolve) =>
+    resolve(
+      axios.patch(
+        `http://3.253.49.204/api/expedients/files/${id}/${sectionName}/${fieldName}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+    )
+  );
+}

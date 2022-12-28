@@ -277,7 +277,7 @@ export const updateFile = async (
       }
     }
 
-    res.send({ success: true });
+    res.send({ expedient, success: true });
   } catch (error) {
     console.log("entra message error");
     console.log(error.message);

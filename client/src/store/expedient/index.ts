@@ -1,7 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
 import { SliceState, Expedient } from "../../utils/types";
-import { createExpedient, fetchExpedient, updateExpedient } from "./API";
+import {
+  createExpedient,
+  fetchExpedient,
+  updateExpedient,
+  updateFileExpedient,
+} from "./API";
 
 export interface ExpedientState {
   value: Expedient | null;
@@ -33,6 +38,29 @@ export const editExpedient = createAsyncThunk(
   "expedients/editExpedient",
   async ({ id, data }: { id: string; data: any }) => {
     const response = await updateExpedient(id, data);
+    return response.data.expedient;
+  }
+);
+
+export const editFileExpedient = createAsyncThunk(
+  "expedients/editFileExpedient",
+  async ({
+    id,
+    sectionName,
+    fieldName,
+    data,
+  }: {
+    id: string;
+    sectionName: string;
+    fieldName: string;
+    data: any;
+  }) => {
+    const response = await updateFileExpedient(
+      id,
+      sectionName,
+      fieldName,
+      data
+    );
     return response.data.expedient;
   }
 );

@@ -17,6 +17,15 @@ type Props = {
   onDeleteSection: (nombre: string) => void;
   section: Section;
   editable?: boolean;
+  updateFile: ({
+    sectionName,
+    fieldName,
+    file,
+  }: {
+    sectionName: string;
+    fieldName: string;
+    file: any;
+  }) => void | null;
 };
 
 const RequirementsBuilder = ({
@@ -25,10 +34,17 @@ const RequirementsBuilder = ({
   formik,
   onEditSection,
   onDeleteSection,
+  updateFile,
 }: Props) => {
   const { setFieldValue, values } = formik;
 
   const [isAddingNewField, setIsAddingNewField] = useState(false);
+
+  const onEditFile = (fieldName: string, file: any) => {
+    if (updateFile) {
+      updateFile({ sectionName: section?.nombre, fieldName, file });
+    }
+  };
 
   const onAddField = ({
     nombre,
@@ -218,6 +234,8 @@ const RequirementsBuilder = ({
                       getFieldValue,
                       onEditFileField,
                       getNotUploadedFieldFiles,
+                      updateFile,
+                      onEditFile,
                     },
                   };
                   switch (data.tipo) {
