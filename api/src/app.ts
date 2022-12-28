@@ -11,7 +11,7 @@ const fileUpload = require("express-fileupload");
 dotenv.config();
 const app: Express = express();
 var cors = require("cors");
-app.use(morgan("dev"));
+app.use(morgan());
 var path = require("path");
 const router = express.Router();
 app.use(cors());
