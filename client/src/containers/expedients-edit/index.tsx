@@ -68,17 +68,11 @@ const ExpedientsEdit = () => {
 
         if (files) {
           for (const [key] of Object.entries(files)) {
-            console.log("array files", Array.from(files[key]));
             Array.from(files[key]).forEach((file) => {
               console.log({ fileName: file?.name });
               formData.append(key, file, file?.name);
-              console.log({ formDataValue: formData.get(key) });
             });
           }
-        }
-
-        for (const [key, value] of formData) {
-          console.log("»", key, value);
         }
 
         console.log({ formData });
