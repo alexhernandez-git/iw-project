@@ -29,7 +29,7 @@ export function createExpedient(data) {
 export function updateExpedient(id, data) {
   return new Promise<{ data: any }>((resolve) =>
     resolve(
-      axios.patch(`http://3.253.49.204/api/expedient-types/${id}/`, data, {
+      axios.patch(`http://3.253.49.204/api/expedients/${id}/`, data, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
           "Content-Type": "multipart/form-data",
