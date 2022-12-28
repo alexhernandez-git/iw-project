@@ -262,28 +262,27 @@ export const updateOne = async (
 ) => {
   try {
     const {
-      files,
       body,
+      files,
       params: { id },
     } = req;
 
     const { data } = body;
 
-    console.log("files", { files });
-
     let dataJSON = JSON.parse(data);
-    console.log("entra 1");
+
+    if (!dataJSON.tramitePadre) {
+      delete dataJSON.tramitePadre;
+    }
+
     if (files) {
       var fileKeys = Object.keys(files);
       fileKeys.forEach(function (key) {
         let path = "";
         const [section, fieldName] = utf8.decode(key).split("]-[");
         const file = files[key];
-        console.log({ file });
         const itemNames = [];
         if (Array.isArray(file)) {
-          console.log("entra 2");
-
           file.forEach((fileItem) => {
             const fileName = `${moment().format(
               "YYYY-MM-DD HH:mm:ss"
@@ -296,8 +295,6 @@ export const updateOne = async (
           const fileName = `${moment().format(
             "YYYY-MM-DD HH:mm:ss"
           )}]-[${getFileName(file.name)}`;
-          console.log("entra 4");
-
           path = `${BASE_PATH}/${fileName}`;
           file.mv(path);
           itemNames.push(fileName);
@@ -333,10 +330,6 @@ export const updateOne = async (
         // });
       });
     }
-
-    console.log("entra 4");
-
-    console.log(JSON.stringify(dataJSON, null, 2)); // spacing level = 2)
 
     const expedient = await Expedient.findByIdAndUpdate(
       id,
