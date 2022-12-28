@@ -30,8 +30,12 @@ export const create = async (
       body: { tipo, vinculado },
     } = req;
 
-    const expedientType = await ExpedientType.findById(tipo);
+    let expedientType = null;
 
+    await ExpedientType.findById(tipo).exec(function (dbErr, modelDoc) {
+      if (dbErr) return;
+      expedientType = modelDoc.toJSON();
+    });
     let areaFuncional = await getAreaFuncional(tipo);
 
     const expedient = await Expedient.create({
