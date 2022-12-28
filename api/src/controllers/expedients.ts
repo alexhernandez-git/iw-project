@@ -238,11 +238,18 @@ export const updateFile = async (
 ) => {
   try {
     const {
-      body: { sectionName, fieldName },
+      body
       files,
       params: { id },
     } = req;
+    
+    console.log({body})
+    console.log({files})
+
+    const {fieldName, sectionName} = body
+
     const file = files[0];
+
 
     console.log("entra 1");
 
