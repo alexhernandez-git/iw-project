@@ -243,9 +243,15 @@ export const updateFile = async (
     } = req;
     const file = files[0];
 
+    console.log("entra 1");
+
+    console.log({ file });
+
     const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${file.name}`;
     const path = `${BASE_PATH}/${fileName}`;
     file.mv(path);
+
+    console.log({ fileName });
 
     const expedient = await Expedient.findById(id);
 
