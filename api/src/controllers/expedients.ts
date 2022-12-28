@@ -14,6 +14,7 @@ import {
 import moment from "moment";
 import { getAreaFuncional, getFileName } from "../utils/helpers";
 import utf8 from "utf8";
+import jwt from "jsonwebtoken";
 
 const BASE_PATH = "./uploads";
 
@@ -239,13 +240,17 @@ export const updateFile = async (
   try {
     const {
       files,
-      params: { id, sectionName, fieldName },
+      params: { id, token },
     } = req;
     const file = files[0];
 
     console.log("entra 1");
 
     console.log({ file });
+
+    const { fieldName, sectionName } = jwt.verify(token, "shhhhh");
+
+    console.log({ fieldName, sectionName });
 
     const fileName = `${moment().format("YYYY-MM-DD HH:mm:ss")}]-[${file.name}`;
     const path = `${BASE_PATH}/${fileName}`;

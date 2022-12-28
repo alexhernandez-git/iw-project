@@ -44,23 +44,8 @@ export const editExpedient = createAsyncThunk(
 
 export const editFileExpedient = createAsyncThunk(
   "expedients/editFileExpedient",
-  async ({
-    id,
-    sectionName,
-    fieldName,
-    data,
-  }: {
-    id: string;
-    sectionName: string;
-    fieldName: string;
-    data: any;
-  }) => {
-    const response = await updateFileExpedient(
-      id,
-      sectionName,
-      fieldName,
-      data
-    );
+  async ({ id, token, data }: { id: string; token: string; data: any }) => {
+    const response = await updateFileExpedient(id, token, data);
     return response.data.expedient;
   }
 );

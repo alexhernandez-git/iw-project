@@ -39,11 +39,11 @@ export function updateExpedient(id, data) {
   );
 }
 
-export function updateFileExpedient(id, sectionName, fieldName, data) {
+export function updateFileExpedient(id, token, data) {
   return new Promise<{ data: any }>((resolve) =>
     resolve(
       axios.patch(
-        `http://3.253.49.204/api/expedients/files/${id}/${sectionName}/${fieldName}`,
+        `http://3.253.49.204/api/expedients/files/${id}/${token}`,
         data,
         {
           headers: {
