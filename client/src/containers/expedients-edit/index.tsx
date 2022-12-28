@@ -76,6 +76,10 @@ const ExpedientsEdit = () => {
           }
         }
 
+        for (const [key, value] of formData) {
+          console.log("»", key, value);
+        }
+
         console.log({ formData });
 
         dispatch(editExpedient({ id, data: formData }));
