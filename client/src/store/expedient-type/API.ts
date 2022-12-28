@@ -34,6 +34,7 @@ export function updateExpedientType(id, data) {
       axios.patch(`http://3.253.49.204/api/expedient-types/${id}`, data, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem(`token`)}`,
+          "Content-Type": "multipart/form-data",
         },
       })
     )
