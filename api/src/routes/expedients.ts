@@ -12,7 +12,7 @@ var router = express.Router();
 
 router.post("/", create);
 router.get("/", find);
-router.patch("/files/:id/:sectionName/:fieldName", updateFile);
+router.patch("/files/:id", updateFile);
 router.patch("/:id", updateOne);
 router.get("/:id", findOne);
 router.delete("/:id", deleteOne);
