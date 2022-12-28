@@ -94,11 +94,7 @@ const ExpedientsEdit = () => {
     data.append("files", file, file.name);
     data.append("sectionName", sectionName);
     data.append("fieldName", fieldName);
-    dispatch(editFileExpedient({ id, sectionName, fieldName, data }))
-      .unwrap()
-      .finally(() => {
-        dispatch(getExpedient(id));
-      });
+    dispatch(editFileExpedient({ id, sectionName, fieldName, data }));
   };
 
   return (
