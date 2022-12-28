@@ -60,20 +60,7 @@ const ExpedientsEdit = () => {
 
         var formData = new FormData();
 
-        const files = values?.files;
-
-        delete values?.files;
-
         formData.append("data", JSON.stringify(values));
-
-        if (files) {
-          for (const [key] of Object.entries(files)) {
-            Array.from(files[key]).forEach((file) => {
-              console.log({ fileName: file?.name });
-              formData.append(key, file, file?.name);
-            });
-          }
-        }
 
         console.log({ formData });
 
