@@ -10,7 +10,6 @@ import {
   Type,
 } from "../../utils/types";
 import useUserRole from "../../hooks/use-user-role";
-import jwt from "jsonwebtoken";
 
 type Props = {
   formik: any;
@@ -18,7 +17,15 @@ type Props = {
   onDeleteSection: (nombre: string) => void;
   section: Section;
   editable?: boolean;
-  updateFile: ({ token, file }: { token: string; file: any }) => void | null;
+  updateFile: ({
+    sectionName,
+    fieldName,
+    file,
+  }: {
+    sectionName: string;
+    fieldName: string;
+    file: any;
+  }) => void | null;
 };
 
 const RequirementsBuilder = ({
@@ -35,11 +42,7 @@ const RequirementsBuilder = ({
 
   const onEditFile = (fieldName: string, file: any) => {
     if (updateFile) {
-      const token = jwt.sign(
-        { sectionName: section?.nombre, fieldName },
-        "shhhhh"
-      );
-      updateFile({ token, file });
+      updateFile({ sectionName: section?.nombre, fieldName, file });
     }
   };
 

@@ -81,10 +81,20 @@ const ExpedientsEdit = () => {
     dispatch(getExpedient(id));
   }, []);
 
-  const updateFile = ({ token, file }: { token: string; file: any }) => {
+  const updateFile = ({
+    sectionName,
+    fieldName,
+    file,
+  }: {
+    sectionName: string;
+    fieldName: string;
+    file: any;
+  }) => {
     const data = new FormData();
     data.append("files", file, file.name);
-    dispatch(editFileExpedient({ id, token, data }));
+    data.append("sectionName", sectionName);
+    data.append("fieldName", fieldName);
+    dispatch(editFileExpedient({ id, sectionName, fieldName, data }));
   };
 
   return (
