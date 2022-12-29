@@ -89,6 +89,16 @@ export const counterSlice = createSlice({
       })
       .addCase(editExpedientType.rejected, (state) => {
         state.status = SliceState.Failed;
+      })
+      .addCase(editFileExpedientType.pending, (state) => {
+        state.status = SliceState.Loading;
+      })
+      .addCase(editFileExpedientType.fulfilled, (state, action) => {
+        state.status = SliceState.Success;
+        state.value = action.payload;
+      })
+      .addCase(editFileExpedientType.rejected, (state) => {
+        state.status = SliceState.Failed;
       });
   },
 });
