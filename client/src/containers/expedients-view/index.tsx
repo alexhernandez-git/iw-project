@@ -15,6 +15,7 @@ import { editExpedient, getExpedient } from "../../store/expedient";
 import { RootState } from "../../store";
 import HandleStatus from "../../components/handle-status";
 import {
+  downloadUsingFetch,
   getEstadoLabel,
   getHonorariosYSuplidosLabel,
 } from "../../utils/helpers";
@@ -326,7 +327,7 @@ const ExpedientsView = () => {
                                       ? "Descargar"
                                       : "",
                                   onClick: () => {
-                                    window.open(
+                                    downloadUsingFetch(
                                       "http://3.253.49.204/api/files/" +
                                         requerimiento?.archivos[0]
                                     );

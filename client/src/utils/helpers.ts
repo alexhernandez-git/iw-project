@@ -55,3 +55,17 @@ export const downloadFiles = (filePath: string) => {
   a.click();
   document.body.removeChild(a);
 };
+
+export async function downloadUsingFetch(filePath: string) {
+  const image = await fetch(filePath);
+  const imageBlog = await image.blob();
+  const imageURL = URL.createObjectURL(imageBlog);
+
+  const anchor = document.createElement("a");
+  anchor.href = imageURL;
+  anchor.download = filePath;
+
+  document.body.appendChild(anchor);
+  anchor.click();
+  document.body.removeChild(anchor);
+}
