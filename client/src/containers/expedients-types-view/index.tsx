@@ -131,7 +131,7 @@ const ExpedientsTypesView = () => {
                         onClick: () => {
                           requerimiento?.archivos &&
                             requerimiento?.archivos.length > 0 &&
-                            window.location(
+                            window.open(
                               "http://3.253.49.204/api/files/" +
                                 requerimiento?.archivos[0]
                             );
