@@ -155,18 +155,18 @@ const ExpedientsEdit = () => {
                             id: ExpedientState.Concluido,
                             label: "Concluido",
                           },
-                          {
-                            id: ExpedientState.ResolucionFaborable,
-                            label: "Resolución favorable",
-                          },
-                          {
-                            id: ExpedientState.ResolucionDeNegatoria,
-                            label: "Resolución denegatoria",
-                          },
-                          {
-                            id: ExpedientState.NoResolucion,
-                            label: "No resolución",
-                          },
+                          // {
+                          //   id: ExpedientState.ResolucionFaborable,
+                          //   label: "Resolución favorable",
+                          // },
+                          // {
+                          //   id: ExpedientState.ResolucionDeNegatoria,
+                          //   label: "Resolución denegatoria",
+                          // },
+                          // {
+                          //   id: ExpedientState.NoResolucion,
+                          //   label: "No resolución",
+                          // },
                         ],
                       },
                       {
@@ -280,18 +280,18 @@ const ExpedientsEdit = () => {
                             id: ExpedientState.Concluido,
                             label: "Concluido",
                           },
-                          {
-                            id: ExpedientState.ResolucionFaborable,
-                            label: "Resolución favorable",
-                          },
-                          {
-                            id: ExpedientState.ResolucionDeNegatoria,
-                            label: "Resolución denegatoria",
-                          },
-                          {
-                            id: ExpedientState.NoResolucion,
-                            label: "No resolución",
-                          },
+                          // {
+                          //   id: ExpedientState.ResolucionFaborable,
+                          //   label: "Resolución favorable",
+                          // },
+                          // {
+                          //   id: ExpedientState.ResolucionDeNegatoria,
+                          //   label: "Resolución denegatoria",
+                          // },
+                          // {
+                          //   id: ExpedientState.NoResolucion,
+                          //   label: "No resolución",
+                          // },
                         ],
                       },
                       {

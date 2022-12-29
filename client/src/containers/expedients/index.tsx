@@ -161,21 +161,21 @@ const Expedients = () => {
                   value: ExpedientState.Concluido,
                   checked: false,
                 },
-                {
-                  label: "Resolución denegatoria",
-                  value: ExpedientState.ResolucionDeNegatoria,
-                  checked: false,
-                },
-                {
-                  label: "Resolución favorable",
-                  value: ExpedientState.ResolucionFaborable,
-                  checked: false,
-                },
-                {
-                  label: "No resolución",
-                  value: ExpedientState.NoResolucion,
-                  checked: false,
-                },
+                // {
+                //   label: "Resolución denegatoria",
+                //   value: ExpedientState.ResolucionDeNegatoria,
+                //   checked: false,
+                // },
+                // {
+                //   label: "Resolución favorable",
+                //   value: ExpedientState.ResolucionFaborable,
+                //   checked: false,
+                // },
+                // {
+                //   label: "No resolución",
+                //   value: ExpedientState.NoResolucion,
+                //   checked: false,
+                // },
               ],
             },
             {
@@ -236,18 +236,8 @@ const Expedients = () => {
                   checked: false,
                 },
                 {
-                  label: "No resolución",
-                  value: ExpedientState.NoResolucion,
-                  checked: false,
-                },
-                {
-                  label: "Resolución denegatoria",
-                  value: ExpedientState.ResolucionDeNegatoria,
-                  checked: false,
-                },
-                {
-                  label: "Resolución favorable",
-                  value: ExpedientState.ResolucionFaborable,
+                  label: "Concluido",
+                  value: ExpedientState.Concluido,
                   checked: false,
                 },
                 {
@@ -255,6 +245,21 @@ const Expedients = () => {
                   value: ExpedientState.NoResolucion,
                   checked: false,
                 },
+                // {
+                //   label: "Resolución denegatoria",
+                //   value: ExpedientState.ResolucionDeNegatoria,
+                //   checked: false,
+                // },
+                // {
+                //   label: "Resolución favorable",
+                //   value: ExpedientState.ResolucionFaborable,
+                //   checked: false,
+                // },
+                // {
+                //   label: "No resolución",
+                //   value: ExpedientState.NoResolucion,
+                //   checked: false,
+                // },
               ],
             },
             {
