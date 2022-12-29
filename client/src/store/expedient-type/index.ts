@@ -46,6 +46,7 @@ export const editFileExpedientType = createAsyncThunk(
   "expedients/editFileExpedientType",
   async ({ id, data }: { id: string; data: any }) => {
     const response = await updateFileExpedientType(id, data);
+    console.log({ response });
     return response.data.expedientType;
   }
 );
