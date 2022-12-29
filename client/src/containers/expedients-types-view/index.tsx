@@ -129,14 +129,12 @@ const ExpedientsTypesView = () => {
                             ? "Descargar"
                             : "",
                         onClick: () => {
-                          if (
-                            requerimiento?.archivos &&
-                            requerimiento?.archivos.length > 0
-                          ) {
-                            window.location =
+                          requerimiento?.archivos &&
+                            requerimiento?.archivos.length > 0 &&
+                            window.open(
                               "http://3.253.49.204/api/files/" +
-                              requerimiento?.archivos[0];
-                          }
+                                requerimiento?.archivos[0]
+                            );
                         },
                       },
                     }
