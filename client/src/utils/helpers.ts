@@ -48,9 +48,10 @@ export const getEstadoLabel = (estado: ExpedientState) => {
 };
 
 export const downloadFiles = (filePath: string) => {
-  var link = document.createElement("a");
-  link.href = filePath;
-  link.target = "_blank";
-  link.download = filePath.substr(filePath.lastIndexOf("/") + 1);
-  link.click();
+  var a = document.createElement("A");
+  a.href = filePath;
+  a.download = filePath.substr(filePath.lastIndexOf("/") + 1);
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 };
