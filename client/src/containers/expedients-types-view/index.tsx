@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store";
 import HandleStatus from "../../components/handle-status";
 import { getExpedientType } from "../../store/expedient-type";
+import { downloadFiles } from "../../utils/helpers";
 
 const ExpedientsTypesView = () => {
   const navigate = useNavigate();
@@ -131,7 +132,7 @@ const ExpedientsTypesView = () => {
                         onClick: () => {
                           requerimiento?.archivos &&
                             requerimiento?.archivos.length > 0 &&
-                            window.open(
+                            downloadFiles(
                               "http://3.253.49.204/api/files/" +
                                 requerimiento?.archivos[0]
                             );

@@ -46,3 +46,10 @@ export const getEstadoLabel = (estado: ExpedientState) => {
       return "No definido";
   }
 };
+
+export const downloadFiles = (filePath: string) => {
+  var link = document.createElement("a");
+  link.href = filePath;
+  link.download = filePath.substr(filePath.lastIndexOf("/") + 1);
+  link.click();
+};
