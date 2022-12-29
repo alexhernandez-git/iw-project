@@ -157,7 +157,7 @@ const Expedients = () => {
                   checked: false,
                 },
                 {
-                  label: "Expediente concluido",
+                  label: "Concluido",
                   value: ExpedientState.Concluido,
                   checked: false,
                 },
