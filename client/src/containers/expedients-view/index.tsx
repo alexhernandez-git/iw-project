@@ -326,10 +326,9 @@ const ExpedientsView = () => {
                                       ? "Descargar"
                                       : "",
                                   onClick: () => {
-                                    window.open(
+                                    window.location =
                                       "http://3.253.49.204/api/files/" +
-                                        requerimiento?.archivos[0]
-                                    );
+                                      requerimiento?.archivos[0];
                                   },
                                 },
                               }
