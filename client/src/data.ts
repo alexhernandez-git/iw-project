@@ -303,6 +303,7 @@ export const listFields = {
   ],
   [UserRole.Admin]: [
     { label: "Id", value: "_id" },
+    { label: "Colaborador", value: "colaborador" },
     { label: "Tipo", value: "tipo" },
     { label: "Vinculado", value: "vinculado" },
     { label: "Conectividad", value: "conexiones" },
@@ -337,6 +338,7 @@ export const listFields = {
   ],
   [UserRole.SuperAdmin]: [
     { label: "Id", value: "_id" },
+    { label: "Colaborador", value: "colaborador" },
     { label: "Tipo", value: "tipo" },
     { label: "Vinculado", value: "vinculado" },
     { label: "Conectividad", value: "conexiones" },
