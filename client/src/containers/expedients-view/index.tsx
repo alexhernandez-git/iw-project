@@ -210,6 +210,11 @@ const ExpedientsView = () => {
                           label: "Honorarios",
                           value: expedient?.honorarios,
                         },
+                        {
+                          type: ListItemType.Text,
+                          label: "Observaciones",
+                          value: expedient?.observaciones,
+                        },
                       ]
                     : [
                         {
@@ -269,11 +274,6 @@ const ExpedientsView = () => {
                           type: ListItemType.Text,
                           label: "Empresa",
                           value: expedient?.empresa,
-                        },
-                        {
-                          type: ListItemType.Text,
-                          label: "Observaciones",
-                          value: expedient?.observaciones,
                         },
                       ],
               }}
