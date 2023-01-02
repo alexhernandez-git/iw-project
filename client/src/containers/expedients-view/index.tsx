@@ -138,7 +138,7 @@ const ExpedientsView = () => {
                         },
                         {
                           type: ListItemType.Text,
-                          label: "Conexiones",
+                          label: "Conectividad",
                           value: expedient?.conexiones,
                         },
                         {

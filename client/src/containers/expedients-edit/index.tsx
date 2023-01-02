@@ -208,9 +208,23 @@ const ExpedientsEdit = () => {
                         ],
                       },
                       {
-                        label: "Conexiones", // no
+                        label: "Conectividad", // no
                         name: "conexiones",
-                        type: FormInputType.Text,
+                        options: [
+                          {
+                            id: "SI",
+                            label: "Si",
+                          },
+                          {
+                            id: "NO",
+                            label: "No",
+                          },
+                          {
+                            id: "APUNTADO",
+                            label: "Apuntado",
+                          },
+                        ],
+                        type: FormInputType.Select,
                       },
                       {
                         label: "Guardado en", // no
