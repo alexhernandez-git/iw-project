@@ -1,19 +1,24 @@
 import { useFormik } from "formik";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import Button from "../../components/button";
 import Form from "../../components/form";
 import HandleStatus from "../../components/handle-status";
 import Sections from "../../components/sections";
+import useUserRole from "../../hooks/use-user-role";
 import DashboardLayout from "../../layouts/layout";
 import { useAppSelector } from "../../store";
 import {
+  destroyExpedientType,
   editExpedientType,
   editFileExpedientType,
   getExpedientType,
 } from "../../store/expedient-type";
 import { getExpedientTypes } from "../../store/expedient-types";
-import { FormInputType, SliceState } from "../../utils/types";
+import { FormInputType, SliceState, Type } from "../../utils/types";
 
 const ExpedientsTypesEdit = () => {
   const dispatch = useDispatch();
@@ -52,6 +57,8 @@ const ExpedientsTypesEdit = () => {
     },
   });
 
+  const { isAdmin, isSuperAdmin } = useUserRole();
+
   const updateFile = ({
     sectionName,
     fieldName,
@@ -69,6 +76,34 @@ const ExpedientsTypesEdit = () => {
   };
 
   const { handleSubmit } = formik;
+
+  const MySwal = withReactContent(Swal);
+
+  const navigate = useNavigate();
+
+  const deleteItem = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      dispatch(destroyExpedientType({ id }))
+        .unwrap()
+        .then(() => {
+          Swal.fire(
+            "Borrado!",
+            "El expediente ha sido borrado.",
+            "success"
+          ).then(() => {
+            navigate("/expedients");
+          });
+        });
+    });
+  };
 
   return (
     <DashboardLayout
@@ -95,6 +130,7 @@ const ExpedientsTypesEdit = () => {
         },
       ]}
     >
+      {MySwal}
       <HandleStatus status={status} data={expedientType} />
       <HandleStatus status={expedientTypesStatus} data={expedientTypes} />
       <div className="space-y-6 sm:px-6 lg:col-span-9 lg:px-0 mb-6">
@@ -145,6 +181,13 @@ const ExpedientsTypesEdit = () => {
           <Sections updateFile={updateFile} formik={formik} editable />
         </Form>
       </div>
+      {(isAdmin || isSuperAdmin) && (
+        <div className="flex justify-end py-4">
+          <Button type={Type.Secondary} onClick={deleteItem}>
+            Eliminar
+          </Button>
+        </div>
+      )}
     </DashboardLayout>
   );
 };

@@ -53,3 +53,16 @@ export function updateFileExpedientType(id, data) {
     )
   );
 }
+
+export function deleteExpedientType(id) {
+  return new Promise((resolve) =>
+    resolve(
+      axios.delete(`http://3.253.49.204/api/expedient-types/${id}`, {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+    )
+  );
+}

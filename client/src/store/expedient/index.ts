@@ -3,6 +3,7 @@ import { RootState } from "..";
 import { SliceState, Expedient } from "../../utils/types";
 import {
   createExpedient,
+  deleteExpedient,
   fetchExpedient,
   updateExpedient,
   updateFileExpedient,
@@ -48,6 +49,15 @@ export const editFileExpedient = createAsyncThunk(
     const response = await updateFileExpedient(id, data);
     console.log({ response });
     return response.data.expedient;
+  }
+);
+
+export const destroyExpedient = createAsyncThunk(
+  "expedients/destroyExpedient",
+  async ({ id }: { id: string }) => {
+    const response = await deleteExpedient(id);
+    console.log({ response });
+    return null;
   }
 );
 
@@ -98,6 +108,15 @@ export const counterSlice = createSlice({
         state.value = action.payload;
       })
       .addCase(editFileExpedient.rejected, (state) => {
+        state.status = SliceState.Failed;
+      })
+      .addCase(destroyExpedient.pending, (state) => {
+        state.status = SliceState.Loading;
+      })
+      .addCase(destroyExpedient.fulfilled, (state, action) => {
+        state.status = SliceState.Success;
+      })
+      .addCase(destroyExpedient.rejected, (state) => {
         state.status = SliceState.Failed;
       });
   },

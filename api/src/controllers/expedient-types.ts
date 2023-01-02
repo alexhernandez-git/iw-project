@@ -160,7 +160,9 @@ export const find = async (
   try {
     let expedientTypes = [];
     if (!limit) {
-      expedientTypes = await ExpedientType.find()
+      expedientTypes = await ExpedientType.find({
+        borrado: {$ne: true}
+      })
         .sort({ createdAt: -1 })
         .select({
           nombre: 1,
@@ -182,8 +184,11 @@ export const find = async (
                 { "areaFuncional.nombre": { $regex: search, $options: "i" } },
                 { "areaFuncional.codigo": { $regex: search, $options: "i" } },
               ],
+              borrado: {$ne: true}  
             }
-          : {}
+          : {
+            borrado: {$ne: true}  
+          }
       )
         .sort({ createdAt: -1 })
         .limit(Number(limit) * 1)
@@ -192,7 +197,9 @@ export const find = async (
     }
 
     res.send({
-      count: await ExpedientType.find({}).count(),
+      count: await ExpedientType.find({
+        borrado: {$ne: true}
+      }).count(),
       page: Number(page),
       size: expedientTypes.length,
       data: expedientTypes,
@@ -214,6 +221,7 @@ export const findFuncionalAreas = async (
   try {
     const expedientTypes = await ExpedientType.find({
       isAreaFuncional: true,
+      borrado: {$ne: true}
     }).select({
       nombre: 1,
       _id: 1,
@@ -236,7 +244,7 @@ export const findNames = async (
   next: NextFunction
 ) => {
   try {
-    const expedientTypes = await ExpedientType.find({}).select({
+    const expedientTypes = await ExpedientType.find({borrado: {$ne: true}}).select({
       nombre: 1,
       _id: 1,
     });
@@ -272,8 +280,11 @@ export const findAll = async (
               { "areaFuncional.nombre": { $regex: search, $options: "i" } },
               { "areaFuncional.codigo": { $regex: search, $options: "i" } },
             ],
+            borrado: {$ne: true}
           }
-        : {}
+        : {
+          borrado: {$ne: true}
+        }
     ).sort({ createdAt: -1 });
 
     res.send({
@@ -300,7 +311,10 @@ export const findByParent = async (
   try {
     let expedientTypes = [];
     if (parent) {
-      expedientTypes = await ExpedientType.find({ tramitePadre: parent })
+      expedientTypes = await ExpedientType.find({ 
+        tramitePadre: parent,  
+        borrado: {$ne: true}
+      })
         .populate({ path: "hijos" })
         .sort({
           createdAt: -1,
@@ -308,6 +322,7 @@ export const findByParent = async (
         .exec();
     } else {
       expedientTypes = await ExpedientType.find({
+        borrado: {$ne: true},
         tramitePadre: null,
       })
         .populate({ path: "hijos" })
@@ -522,7 +537,7 @@ export const deleteOne = async (
       params: { id },
     } = req;
 
-    await ExpedientType.deleteOne({ _id: id });
+    await ExpedientType.findByIdAndUpdate(id, {borrado: true});
 
     res.send({ success: true });
   } catch (error) {

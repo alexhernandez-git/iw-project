@@ -1,20 +1,29 @@
 import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Form from "../../components/form";
 import HandleStatus from "../../components/handle-status";
 import Sections from "../../components/sections";
 import DashboardLayout from "../../layouts/layout";
 import { RootState } from "../../store";
 import {
+  destroyExpedient,
   editExpedient,
   editFileExpedient,
   getExpedient,
 } from "../../store/expedient";
-import { FormInputType, StoredIn, ExpedientState } from "../../utils/types";
+import {
+  FormInputType,
+  StoredIn,
+  ExpedientState,
+  Type,
+} from "../../utils/types";
 import moment from "moment";
 import useUserRole from "../../hooks/use-user-role";
+import Button from "../../components/button";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 
 const ExpedientsEdit = () => {
   const { id } = useParams();
@@ -98,6 +107,34 @@ const ExpedientsEdit = () => {
     dispatch(editFileExpedient({ id, sectionName, fieldName, data }));
   };
 
+  const MySwal = withReactContent(Swal);
+
+  const navigate = useNavigate();
+
+  const deleteItem = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      dispatch(destroyExpedient({ id }))
+        .unwrap()
+        .then(() => {
+          Swal.fire(
+            "Borrado!",
+            "El expediente ha sido borrado.",
+            "success"
+          ).then(() => {
+            navigate("/expedients");
+          });
+        });
+    });
+  };
+
   return (
     <DashboardLayout
       title={"Editar expediente"}
@@ -123,6 +160,7 @@ const ExpedientsEdit = () => {
         },
       ]}
     >
+      {MySwal}
       <HandleStatus status={status} data={expedient} />
       <div className="space-y-6 sm:px-6 lg:col-span-9 lg:px-0 mb-6">
         <Form
@@ -321,6 +359,13 @@ const ExpedientsEdit = () => {
           />
         </Form>
       </div>
+      {(isAdmin || isSuperAdmin) && (
+        <div className="flex justify-end py-4">
+          <Button type={Type.Secondary} onClick={deleteItem}>
+            Eliminar
+          </Button>
+        </div>
+      )}
     </DashboardLayout>
   );
 };

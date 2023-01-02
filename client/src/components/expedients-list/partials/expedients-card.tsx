@@ -18,7 +18,7 @@ const ExpedientCard = ({ expedient, selectedFields }: Props) => {
           {selectedField === "vinculado"
             ? expedient[selectedField]?._id
             : selectedField === "estado"
-            ? getEstadoLabel(expedient[selectedField])
+            ? getEstadoLabel(expedient[selectedField]?.estado)
             : selectedField === "tipo"
             ? expedient[selectedField]?.nombre
             : selectedField === "fechaSolicitud"

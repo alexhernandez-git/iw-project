@@ -19,6 +19,7 @@ const expedientTypeSchema = new Schema({
   },
   descripcion: { type: String },
   honorarios: { type: Number },
+  borrado: { type: Boolean, default: false },
   isAreaFuncional: { type: Boolean, default: false },
   secciones: [
     {
