@@ -49,6 +49,7 @@ const ExpedientsEdit = () => {
       honorarios: expedient?.honorarios ?? "",
       codigoClienteProvisional: expedient?.codigoClienteProvisional ?? "",
       honorariosYSuplidos: expedient?.honorariosYSuplidos ?? [],
+      observaciones: expedient?.observaciones ?? "",
       plazoLegal: expedient?.plazoLegal
         ? moment(expedient?.plazoLegal).format("yyyy-M-D")
         : null,
@@ -290,6 +291,11 @@ const ExpedientsEdit = () => {
                       {
                         label: "Honorarios",
                         name: "honorarios",
+                        type: FormInputType.Text,
+                      },
+                      {
+                        label: "Observaciones",
+                        name: "observaciones",
                         type: FormInputType.Text,
                       },
                     ].map((item) => ({ ...item, formik })),

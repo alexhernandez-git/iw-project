@@ -270,6 +270,11 @@ const ExpedientsView = () => {
                           label: "Empresa",
                           value: expedient?.empresa,
                         },
+                        {
+                          type: ListItemType.Text,
+                          label: "Observaciones",
+                          value: expedient?.observaciones,
+                        },
                       ],
               }}
             />
