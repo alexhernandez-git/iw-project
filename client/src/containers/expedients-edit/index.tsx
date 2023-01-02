@@ -119,7 +119,7 @@ const ExpedientsEdit = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Si, borrar!",
     }).then((result) => {
       dispatch(destroyExpedient({ id }))
         .unwrap()
