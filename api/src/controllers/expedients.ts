@@ -219,7 +219,71 @@ export const find = async (
     res.send({
       count: await Expedient.find({ 
         borrado: {$ne: true},
-        user: req.user._id }).count(),
+        ...(req.user.role !== UserRoles.SuperAdmin &&
+        req.user.role !== UserRoles.Admin
+          ? {
+              user: { $in: usersFilter },
+            }
+          : usersFilter && usersFilter?.length > 0
+          ? {
+              user: { $in: usersFilter },
+            }
+          : {}),
+        ...(estado
+          ? {
+              estado: { $in: estado },
+            }
+          : {}),
+        ...(guardadoen
+          ? {
+              guardadoEn: { $in: guardadoen },
+            }
+          : {}),
+        ...(facturado
+          ? {
+              facturado: { $in: facturado },
+            }
+          : {}),
+        ...(areafuncional
+          ? {
+              areaFuncional: { $in: areafuncional },
+            }
+          : {}),
+        ...(tipo
+          ? {
+              tipo: { $in: tipo },
+            }
+          : {}),
+  
+        ...(sort?.length > 0 &&
+        sort[0] === SortOptionsValues.LegalTermCloseToDeadline
+          ? {
+              plazoLegal: { $gte: new Date() },
+            }
+          : {}),
+        ...(search
+          ? {
+              $or: [
+                { conexiones: { $regex: search, $options: "i" } },
+                { empresa: { $regex: search, $options: "i" } },
+                { responsable: { $regex: search, $options: "i" } },
+              ],
+            }
+          : {}),
+      })
+        .sort({
+          ...(sort?.length > 0 && sort[0] === SortOptionsValues.OldestFirst
+            ? { createdAt: 1 }
+            : {}),
+          ...(sort?.length > 0 && sort[0] === SortOptionsValues.NewestFirst
+            ? { createdAt: -1 }
+            : {}),
+          ...(sort?.length > 0 &&
+          sort[0] === SortOptionsValues.LegalTermCloseToDeadline
+            ? { plazoLegal: 1 }
+            : {}),
+          ...(!sort?.length ? { createdAt: -1 } : {}),
+        }).count(),
       page: Number(page),
       size: expedients.length,
       data: expedients,
