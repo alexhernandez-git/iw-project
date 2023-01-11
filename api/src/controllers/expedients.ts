@@ -408,7 +408,7 @@ export const deleteOne = async (
       params: { id },
     } = req;
 
-    await Expedient.findByIdAndUpdate(id, {borrado: true});
+    await Expedient.findByIdAndUpdate(id, {borrado: true}, {upsert: true});
  
     res.send({ success: true });
   } catch (error) {
