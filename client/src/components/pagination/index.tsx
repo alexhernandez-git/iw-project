@@ -23,7 +23,7 @@ const Pagination = ({
       <div className="hidden sm:block">
         <p className="text-sm text-gray-700">
           Page <span className="font-medium">{page}</span> Total{" "}
-          <span className="font-medium">{Math.trunc(count / limit)}</span>
+          <span className="font-medium">{Math.floor(count / limit)}</span>
         </p>
       </div>
       <div className="flex flex-1 justify-between sm:justify-end">
