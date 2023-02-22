@@ -91,7 +91,7 @@ expedientSchema.pre("save", function (next) {
     { $inc: { seq: 1 } },
     function (error, counter) {
       if (error) return next(error);
-      doc.code = counter.seq;
+      doc.code = counter.seq ?? 0;
       next();
     }
   );
