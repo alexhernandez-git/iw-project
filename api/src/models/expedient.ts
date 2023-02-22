@@ -8,7 +8,14 @@ import {
   StoredIn,
 } from "../types";
 
+var CounterSchema = new Schema({
+  _id: { type: String, required: true },
+  seq: { type: Number, default: 0 },
+});
+var counter = model("counter", CounterSchema);
+
 const expedientSchema = new Schema({
+  code: { type: Number },
   user: {
     type: Schema.Types.ObjectId,
     ref: Models.User,
@@ -77,6 +84,18 @@ const expedientSchema = new Schema({
 expedientSchema.set("timestamps", true);
 expedientSchema.index({ createdAt: -1 });
 expedientSchema.index({ updatedAt: -1 });
+expedientSchema.pre("save", function (next) {
+  var doc = this;
+  counter.findByIdAndUpdate(
+    { _id: String(doc._id) + doc.user._id },
+    { $inc: { seq: 1 } },
+    function (error, counter) {
+      if (error) return next(error);
+      doc.code = counter.seq;
+      next();
+    }
+  );
+});
 
 const Expedient = model(Models.Expedient, expedientSchema);
 export { Expedient };
