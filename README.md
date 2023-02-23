@@ -2,7 +2,7 @@
 
 Url in dev:
 
-- http://3.253.49.204
+- http://localhost:8000
 
 Before all:
 
