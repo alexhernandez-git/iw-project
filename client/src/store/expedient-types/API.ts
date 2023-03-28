@@ -21,7 +21,7 @@ export function fetchExpedientTypes({
   }>((resolve) =>
     getAll
       ? resolve(
-          axios.get(`http://localhost:8000/api/expedient-types`, {
+          axios.get(`http://52.214.212.142/api/expedient-types`, {
             headers: {
               Authorization: `Bearer ${window.localStorage.getItem("token")}`,
             },
@@ -29,7 +29,7 @@ export function fetchExpedientTypes({
         )
       : resolve(
           axios.get(
-            `http://localhost:8000/api/expedient-types?page=${page}&limit=10&search=${search}`,
+            `http://52.214.212.142/api/expedient-types?page=${page}&limit=10&search=${search}`,
             {
               headers: {
                 Authorization: `Bearer ${window.localStorage.getItem("token")}`,
@@ -50,7 +50,7 @@ export function fetchExpedientTypesByParent({
   }>((resolve) =>
     resolve(
       axios.get(
-        `http://localhost:8000/api/expedient-types/parent${
+        `http://52.214.212.142/api/expedient-types/parent${
           parent ? "?parent=" + parent : ""
         }`,
         {
@@ -68,7 +68,7 @@ export function fetchExpedientTypesAll({ search }: { search: string | null }) {
   }>((resolve) =>
     resolve(
       axios.get(
-        `http://localhost:8000/api/expedient-types/all${
+        `http://52.214.212.142/api/expedient-types/all${
           search ? `?search=${search}` : ""
         }`,
         {
@@ -86,7 +86,7 @@ export function fetchExpedientTypesNames() {
     data: ExpedientType[];
   }>((resolve) =>
     resolve(
-      axios.get(`http://localhost:8000/api/expedient-types/names`, {
+      axios.get(`http://52.214.212.142/api/expedient-types/names`, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
         },
@@ -100,7 +100,7 @@ export function fetchExpedientTypesFunctionalAreas() {
     data: ExpedientType[];
   }>((resolve) =>
     resolve(
-      axios.get(`http://localhost:8000/api/expedient-types/funcional-areas`, {
+      axios.get(`http://52.214.212.142/api/expedient-types/funcional-areas`, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
         },

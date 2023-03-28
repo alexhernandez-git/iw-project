@@ -333,7 +333,7 @@ const ExpedientsView = () => {
                                       : "",
                                   onClick: () => {
                                     downloadUsingFetch(
-                                      "http://localhost:8000/api/files/" +
+                                      "http://52.214.212.142/api/files/" +
                                         requerimiento?.archivos[0]
                                     );
                                   },
