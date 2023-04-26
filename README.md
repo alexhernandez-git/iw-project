@@ -2,7 +2,7 @@
 
 Url in dev:
 
-- http://52.214.212.142
+- http://34.244.188.175
 
 Before all:
 

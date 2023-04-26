@@ -133,7 +133,7 @@ const ExpedientsTypesView = () => {
                           requerimiento?.archivos &&
                             requerimiento?.archivos.length > 0 &&
                             downloadUsingFetch(
-                              "http://52.214.212.142/api/files/" +
+                              "http://34.244.188.175/api/files/" +
                                 requerimiento?.archivos[0]
                             );
                         },

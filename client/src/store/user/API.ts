@@ -3,7 +3,7 @@ import axios from "axios";
 
 export function fetchUser(token: string) {
   return new Promise<{ data: User }>((resolve) =>
-    resolve(axios.get(`http://52.214.212.142/api/users/get-user/${token}`))
+    resolve(axios.get(`http://34.244.188.175/api/users/get-user/${token}`))
   );
 }
 
@@ -16,7 +16,7 @@ export function userLogin({
 }) {
   return new Promise<{ data: { user: User; accessToken: string } }>((resolve) =>
     resolve(
-      axios.post(`http://52.214.212.142/api/users/login`, {
+      axios.post(`http://34.244.188.175/api/users/login`, {
         email: username,
         password,
       })
@@ -33,6 +33,6 @@ export function updateUser(
   }
 ) {
   return new Promise<{ data: { user: User; accessToken: string } }>((resolve) =>
-    resolve(axios.patch(`http://52.214.212.142/api/users/${id}`, user))
+    resolve(axios.patch(`http://34.244.188.175/api/users/${id}`, user))
   );
 }
