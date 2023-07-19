@@ -5,7 +5,7 @@ import axios from "axios";
 export function fetchExpedient(id: string) {
   return new Promise<{ data: Expedient }>((resolve) =>
     resolve(
-      axios.get(`http://localhost:8080/api/expedients/${id}`, {
+      axios.get(`http://34.244.188.175/api/expedients/${id}`, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
         },
@@ -17,7 +17,7 @@ export function fetchExpedient(id: string) {
 export function createExpedient(data) {
   return new Promise<{ data: Expedient }>((resolve) =>
     resolve(
-      axios.post(`http://localhost:8080/api/expedients`, data, {
+      axios.post(`http://34.244.188.175/api/expedients`, data, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
         },
@@ -29,7 +29,7 @@ export function createExpedient(data) {
 export function updateExpedient(id, data) {
   return new Promise<{ data: any }>((resolve) =>
     resolve(
-      axios.patch(`http://localhost:8080/api/expedients/${id}/`, data, {
+      axios.patch(`http://34.244.188.175/api/expedients/${id}/`, data, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
           "Content-Type": "multipart/form-data",
@@ -42,7 +42,7 @@ export function updateExpedient(id, data) {
 export function updateFileExpedient(id, data) {
   return new Promise<{ data: any }>((resolve) =>
     resolve(
-      axios.patch(`http://localhost:8080/api/expedients/files/${id}`, data, {
+      axios.patch(`http://34.244.188.175/api/expedients/files/${id}`, data, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
           "Content-Type": "multipart/form-data",
@@ -55,7 +55,7 @@ export function updateFileExpedient(id, data) {
 export function deleteExpedient(id) {
   return new Promise((resolve) =>
     resolve(
-      axios.delete(`http://localhost:8080/api/expedients/${id}`, {
+      axios.delete(`http://34.244.188.175/api/expedients/${id}`, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
           "Content-Type": "multipart/form-data",

@@ -49,6 +49,7 @@ const expedientSchema = new Schema({
   },
   empresa: { type: String },
   honorarios: { type: Number },
+
   formaDePago: { enum: PaymentType, type: String },
   facturado: { type: Boolean },
   comprobadoTodo: { type: Boolean },
