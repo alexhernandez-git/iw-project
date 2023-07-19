@@ -146,6 +146,7 @@ export const find = async (
     console.log({ usersFilter });
     const expedients = await Expedient.find({
       borrado: {$ne: true},
+      vinculado: null,
       ...(req.user.role !== UserRoles.SuperAdmin &&
       req.user.role !== UserRoles.Admin
         ? {
@@ -216,9 +217,12 @@ export const find = async (
       .skip((Number(page) - 1) * Number(limit))
       .exec();
 
+    const vinculados = await Expedient.find({vinculado: { $in: expedients.map(expedient => String(expedient._id))}}).populate(["tipo", "vinculado", "areaFuncional", "user"])
+
     res.send({
       count: await Expedient.find({ 
         borrado: {$ne: true},
+        vinculado: null,
         ...(req.user.role !== UserRoles.SuperAdmin &&
         req.user.role !== UserRoles.Admin
           ? {
@@ -286,7 +290,7 @@ export const find = async (
         }).count(),
       page: Number(page),
       size: expedients.length,
-      data: expedients,
+      data: {expedientes: expedients, vinculados},
       success: true,
     });
   } catch (error) {
@@ -472,7 +476,7 @@ export const deleteOne = async (
       params: { id },
     } = req;
 
-    await Expedient.findByIdAndUpdate(id, {borrado: true}, {upsert: true});
+    await ExpedientType.findByIdAndDelete(id);
  
     res.send({ success: true });
   } catch (error) {

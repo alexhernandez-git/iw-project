@@ -8,7 +8,7 @@ export interface ExpedientsState {
     count: number;
     page: number;
     size: number;
-    data: Expedient[];
+    data: { expedientes: Expedient[]; vinculados: Expedient[] };
   };
   status: SliceState;
 }
@@ -18,7 +18,10 @@ const initialState: ExpedientsState = {
     count: 0,
     page: 0,
     size: 0,
-    data: [],
+    data: {
+      expedientes: [],
+      vinculados: [],
+    },
   },
   status: SliceState.Inactive,
 };

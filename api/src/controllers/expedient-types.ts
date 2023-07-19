@@ -251,7 +251,7 @@ export const findNames = async (
     res.send({
       expedientTypes,
       success: true,
-    });
+    }); 
   } catch (error) {
     next({
       statusCode: 500,
@@ -537,7 +537,7 @@ export const deleteOne = async (
       params: { id },
     } = req;
 
-    await ExpedientType.findByIdAndUpdate(id, {borrado: true});
+    await ExpedientType.findByIdAndDelete(id);
 
     res.send({ success: true });
   } catch (error) {

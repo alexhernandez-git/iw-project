@@ -284,7 +284,7 @@ export const expedients: Expedient[] = [
 
 export const listFields = {
   [UserRole.User]: [
-    { label: "ID / Código Expediente", value: "_id" },
+    { label: "ID / Código Expediente", value: "autoincrementalId" },
     { label: "Tipo", value: "tipo" },
     { label: "Responsable", value: "responsable" },
     { label: "Cliente", value: "cliente" },
@@ -302,7 +302,7 @@ export const listFields = {
     { label: "Empresa", value: "empresa" },
   ],
   [UserRole.Admin]: [
-    { label: "ID / Código Expediente", value: "_id" },
+    { label: "ID / Código Expediente", value: "autoincrementalId" },
     { label: "Colaborador", value: "colaborador" },
     { label: "Tipo", value: "tipo" },
     { label: "Vinculado", value: "vinculado" },
@@ -337,7 +337,7 @@ export const listFields = {
     { label: "Comprobado todo", value: "comprobadoTodo" },
   ],
   [UserRole.SuperAdmin]: [
-    { label: "ID / Código Expediente", value: "_id" },
+    { label: "ID / Código Expediente", value: "autoincrementalId" },
     { label: "Colaborador", value: "colaborador" },
     { label: "Tipo", value: "tipo" },
     { label: "Vinculado", value: "vinculado" },

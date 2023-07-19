@@ -322,9 +322,10 @@ const Expedients = () => {
           },
         ]}
       >
-        <HandleStatus status={status} data={data}>
+        <HandleStatus status={status} data={data.expedientes}>
           <ExpedientsList
-            expedients={data}
+            expedients={data.expedientes}
+            vinculados={data.vinculados}
             pagination={
               <Pagination
                 limit={10}

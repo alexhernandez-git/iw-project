@@ -30,21 +30,47 @@ export const getEstadoLabel = (estado: ExpedientState) => {
   console.log(estado);
   switch (estado) {
     case ExpedientState.DocumentacionPendiente:
-      return "Pendiente";
+      return (
+        <span className="bg-gray-200 py-1 px-2 rounded-full">Pendiente</span>
+      );
     case ExpedientState.DocumentacionCompleta:
-      return "Para cursar";
+      return (
+        <span className="bg-green-200 py-1 px-2 rounded-full">Para cursar</span>
+      );
     case ExpedientState.Concluido:
-      return "Concluido";
+      return (
+        <span className="bg-yellow-200 py-1 px-2 rounded-full">Concluido</span>
+      );
     case ExpedientState.ExpedientCursadoNoConcluido:
-      return "Cursado no concluido";
+      return (
+        <span className="bg-blue-200 py-1 px-2 rounded-full">
+          Cursado no concluido
+        </span>
+      );
     case ExpedientState.NoResolucion:
-      return "No resolución";
+      return (
+        <span className="bg-gray-200 py-1 px-2 rounded-full">
+          No resolución
+        </span>
+      );
     case ExpedientState.ResolucionDeNegatoria:
-      return "Resolución denegatoria";
+      return (
+        <span className="bg-red-200 py-1 px-2 rounded-full">
+          Resolución denegatoria
+        </span>
+      );
     case ExpedientState.ResolucionFaborable:
-      return "Resolución favorable";
+      return (
+        <span className="bg-purple-200 py-1 px-2 rounded-full">
+          Resolución favorable
+        </span>
+      );
     default:
-      return "No definido";
+      return (
+        <span className="bg-orange-200 py-1 px-2 rounded-full">
+          No definido
+        </span>
+      );
   }
 };
 

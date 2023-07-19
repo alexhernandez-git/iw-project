@@ -95,8 +95,6 @@ export default function NewExpedientType() {
           .map((item: ExpedientType) => ({
             ...item,
             title: item.nombre,
-            subtitle: item.codigo,
-            info: item.honorarios ? item.honorarios + "€" : "",
             button: {
               onClick: () => handleSelect(item._id),
               label: "Selecionar",

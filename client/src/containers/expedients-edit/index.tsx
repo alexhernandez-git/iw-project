@@ -40,7 +40,7 @@ const ExpedientsEdit = () => {
     initialValues: {
       tipo: expedient?.tipo ?? "",
       conexiones: expedient?.conexiones ?? "",
-      guardadoEn: expedient?.guardadoEn ?? "",
+      // guardadoEn: expedient?.guardadoEn ?? "",
       responsable: expedient?.responsable ?? "",
       estado: expedient?.estado ?? "",
       cliente: expedient?.cliente ?? "",
@@ -227,22 +227,22 @@ const ExpedientsEdit = () => {
                         ],
                         type: FormInputType.Select,
                       },
-                      {
-                        label: "Guardado en", // no
-                        name: "guardadoEn",
-                        type: FormInputType.Select,
-                        options: [
-                          { id: StoredIn.EnCarpeta, label: "En carpeta" },
-                          {
-                            id: StoredIn.CurrentExpedient,
-                            label: "Expediente vigente",
-                          },
-                          {
-                            id: StoredIn.Fisico,
-                            label: "En físico",
-                          },
-                        ],
-                      },
+                      // {
+                      //   label: "Guardado en", // no
+                      //   name: "guardadoEn",
+                      //   type: FormInputType.Select,
+                      //   options: [
+                      //     { id: StoredIn.EnCarpeta, label: "En carpeta" },
+                      //     {
+                      //       id: StoredIn.CurrentExpedient,
+                      //       label: "Expediente vigente",
+                      //     },
+                      //     {
+                      //       id: StoredIn.Fisico,
+                      //       label: "En físico",
+                      //     },
+                      //   ],
+                      // },
                       {
                         label: "Responsable", // no
                         name: "responsable",

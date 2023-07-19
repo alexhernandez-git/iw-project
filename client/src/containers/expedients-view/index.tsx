@@ -141,11 +141,11 @@ const ExpedientsView = () => {
                           label: "Conectividad",
                           value: expedient?.conexiones,
                         },
-                        {
-                          type: ListItemType.Text,
-                          label: "Guardado En",
-                          value: expedient?.guardadoEn,
-                        },
+                        // {
+                        //   type: ListItemType.Text,
+                        //   label: "Guardado En",
+                        //   value: expedient?.guardadoEn,
+                        // },
                         {
                           type: ListItemType.Text,
                           label: "Responsable",
@@ -333,7 +333,7 @@ const ExpedientsView = () => {
                                       : "",
                                   onClick: () => {
                                     downloadUsingFetch(
-                                      "http://34.244.188.175/api/files/" +
+                                      "http://localhost:8080/api/files/" +
                                         requerimiento?.archivos[0]
                                     );
                                   },

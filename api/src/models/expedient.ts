@@ -9,6 +9,7 @@ import {
 } from "../types";
 
 const expedientSchema = new Schema({
+  autoincrementalId: { type: Number, default: 0 },
   user: {
     type: Schema.Types.ObjectId,
     ref: Models.User,
@@ -77,6 +78,16 @@ const expedientSchema = new Schema({
 expedientSchema.set("timestamps", true);
 expedientSchema.index({ createdAt: -1 });
 expedientSchema.index({ updatedAt: -1 });
+
+expedientSchema.pre("save", async function (next) {
+  const doc = this;
+  if (doc.isNew) {
+    let total = await Expedient.find().sort({ autoincrementalId: -1 }).limit(1);
+    doc.autoincrementalId =
+      total.length === 0 ? 1 : Number(total[0].autoincrementalId) + 1;
+    next();
+  }
+});
 
 const Expedient = model(Models.Expedient, expedientSchema);
 export { Expedient };

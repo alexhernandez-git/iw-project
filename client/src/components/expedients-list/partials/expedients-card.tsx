@@ -8,32 +8,35 @@ import { getEstadoLabel } from "../../../utils/helpers";
 type Props = {
   expedient: Expediente;
   selectedFields: { label: string; value: string }[];
+  vinculado: boolean;
 };
 
-const ExpedientCard = ({ expedient, selectedFields }: Props) => {
+const ExpedientCard = ({ expedient, selectedFields, vinculado }: Props) => {
   return (
-    <tr key={expedient._id} className="bg-white">
-      {selectedFields.map((selectedField: { label: string; value: string }) => (
-        <td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-500">
-          {selectedField === "vinculado"
-            ? expedient[selectedField]?._id
-            : selectedField === "estado"
-            ? getEstadoLabel(expedient[selectedField])
-            : selectedField === "tipo"
-            ? expedient[selectedField]?.nombre
-            : selectedField === "fechaSolicitud"
-            ? moment(expedient[selectedField]).format("D-M-yyyy")
-            : selectedField === "colaborador"
-            ? expedient?.user?.email
-            : selectedField === "plazoLegal"
-            ? moment(expedient[selectedField]).format("D-M-yyyy")
-            : selectedField === "silencioAdministrativo"
-            ? moment(expedient[selectedField]).format("D-M-yyyy")
-            : selectedField === "fechaNotificacion"
-            ? moment(expedient[selectedField]).format("D-M-yyyy")
-            : expedient[selectedField]}
-        </td>
-      ))}
+    <tr key={expedient._id} className={vinculado ? "bg-gray-100" : "bg-white"}>
+      {selectedFields
+        .filter((field) => field !== "_id")
+        .map((selectedField: { label: string; value: string }) => (
+          <td className="whitespace-nowrap px-6 py-4 text-center text-sm text-gray-500">
+            {selectedField === "vinculado"
+              ? expedient[selectedField]?._id
+              : selectedField === "estado"
+              ? getEstadoLabel(expedient[selectedField])
+              : selectedField === "tipo"
+              ? expedient[selectedField]?.nombre
+              : selectedField === "fechaSolicitud"
+              ? moment(expedient[selectedField]).format("D-M-yyyy")
+              : selectedField === "colaborador"
+              ? expedient?.user?.email
+              : selectedField === "plazoLegal"
+              ? moment(expedient[selectedField]).format("D-M-yyyy")
+              : selectedField === "silencioAdministrativo"
+              ? moment(expedient[selectedField]).format("D-M-yyyy")
+              : selectedField === "fechaNotificacion"
+              ? moment(expedient[selectedField]).format("D-M-yyyy")
+              : expedient[selectedField]}
+          </td>
+        ))}
       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
         <Link
           to={`/expedients/${expedient._id}`}

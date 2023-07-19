@@ -71,8 +71,12 @@ const Dashboard = () => {
           <h2 className="text-lg font-medium leading-6 text-gray-900">
             Expedientes próximos a vencer
           </h2>
-          <HandleStatus status={status} data={data}>
-            <ExpedientsList home expedients={data.slice(0, 5)} />
+          <HandleStatus status={status} data={data.expedientes}>
+            <ExpedientsList
+              home
+              expedients={data.expedientes.slice(0, 5)}
+              vinculados={data.vinculados}
+            />
           </HandleStatus>
         </div>
       </div>

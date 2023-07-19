@@ -8,11 +8,17 @@ import { update } from "../../store/user";
 
 type Props = {
   expedients: Expedient[];
+  vinculados: Expedient[];
   pagination: ReactElement<any, any>;
   home: boolean;
 };
 
-const ExpedientsList = ({ expedients, pagination, home = false }: Props) => {
+const ExpedientsList = ({
+  expedients,
+  vinculados,
+  pagination,
+  home = false,
+}: Props) => {
   const [open, setOpen] = useState(false);
 
   const { value: user } = useAppSelector((state) => state.user);
@@ -20,6 +26,8 @@ const ExpedientsList = ({ expedients, pagination, home = false }: Props) => {
   const dispatch = useAppDispatch();
 
   const { expedientsTableFields, _id } = user;
+
+  console.log({ vinculados });
 
   const handleUpdateExpedientsTableFields = (fields: string[]) => {
     dispatch(
@@ -68,17 +76,19 @@ const ExpedientsList = ({ expedients, pagination, home = false }: Props) => {
                 <table className="min-w-full divide-y divide-gray-300">
                   <thead className="bg-gray-50">
                     <tr>
-                      {expedientsTableFields.map((selectedField) => (
-                        <th
-                          scope="col"
-                          className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
-                        >
-                          {user?.role &&
-                            listFields[user?.role].find(
-                              (field) => field.value === selectedField
-                            )?.label}
-                        </th>
-                      ))}
+                      {expedientsTableFields
+                        .filter((field) => field !== "_id")
+                        .map((selectedField) => (
+                          <th
+                            scope="col"
+                            className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+                          >
+                            {user?.role &&
+                              listFields[user?.role].find(
+                                (field) => field.value === selectedField
+                              )?.label}
+                          </th>
+                        ))}
 
                       <th
                         scope="col"
@@ -91,11 +101,40 @@ const ExpedientsList = ({ expedients, pagination, home = false }: Props) => {
                   <tbody className="divide-y divide-gray-200 bg-white">
                     {expedients &&
                       expedients.map((expedient, index) => (
-                        <ExpedientCard
-                          expedient={expedient}
-                          key={index}
-                          selectedFields={expedientsTableFields}
-                        />
+                        <>
+                          <ExpedientCard
+                            expedient={expedient}
+                            key={index}
+                            selectedFields={expedientsTableFields}
+                          />
+                          {vinculados
+                            .filter(
+                              (vinculado) =>
+                                vinculado.vinculado._id === expedient._id
+                            )
+                            .map((vinculado) => (
+                              <>
+                                <tr
+                                  key={expedient._id}
+                                  className={"bg-gray-200"}
+                                >
+                                  <td
+                                    colSpan={expedientsTableFields.length + 1}
+                                  >
+                                    <span className="text-sm text-gray-600 px-6">
+                                      Vinculados del expediente {expedient._id}
+                                    </span>
+                                  </td>
+                                </tr>
+                                <ExpedientCard
+                                  expedient={vinculado}
+                                  key={index}
+                                  vinculado
+                                  selectedFields={expedientsTableFields}
+                                />
+                              </>
+                            ))}
+                        </>
                       ))}
                   </tbody>
                 </table>

@@ -16,11 +16,11 @@ export function fetchExpedients({
       count: number;
       page: number;
       size: number;
-      data: Expedient[];
+      data: { expedientes: Expedient[]; vinculados: Expedient[] };
     };
   }>((resolve) =>
     resolve(
-      axios.get(`http://34.244.188.175/api/expedients`, {
+      axios.get(`http://localhost:8080/api/expedients`, {
         params: {
           page,
           limit: 10,
@@ -39,7 +39,7 @@ export function createExpedient(data) {
   console.log({ data });
   return new Promise<{ data: Expedient }>((resolve) =>
     resolve(
-      axios.post(`http://34.244.188.175/api/expedients`, data, {
+      axios.post(`http://localhost:8080/api/expedients`, data, {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`,
         },

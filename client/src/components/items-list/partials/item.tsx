@@ -50,13 +50,15 @@ const Item = ({
         <div className="flex items-center px-4 py-4 sm:px-6">
           <div className="flex min-w-0 flex-1 items-center">
             <div className="min-w-0 flex-1 pr-4 md:grid md:grid-cols-2 md:gap-4">
-              <div>
+              <div className="felx items-center">
                 <p className="truncate text-sm font-medium text-esan-color">
                   {title}
                 </p>
-                <p className="mt-2 flex items-center text-sm text-gray-500">
-                  <span className="truncate">{subtitle}</span>
-                </p>
+                {subtitle && (
+                  <p className="mt-2 flex items-center text-sm text-gray-500">
+                    <span className="truncate">{subtitle}</span>
+                  </p>
+                )}
               </div>
               <div className="hidden md:block">
                 <div>
@@ -78,7 +80,7 @@ const Item = ({
             onClick={(e) => handleToggleItem(e, _id)}
             className="flex flex-1 shadow justify-between items-center cursor-pointer text-esan-color bg-white hover:opacity-70 rounded p-3"
           >
-            <span className="flex items-center text-xs mr-2">
+            <span className="flex items-center text-gray-500 text-xs mr-2">
               {isOpen
                 ? `Esconder ${childrens.length} subtrámites`
                 : `Desplegar ${childrens.length} subtrámites`}
@@ -86,12 +88,12 @@ const Item = ({
             <div>
               {isOpen ? (
                 <ChevronDownIcon
-                  className="h-4 w-4 text-esan-color"
+                  className="h-4 w-4 text-gray-500"
                   aria-hidden="true"
                 />
               ) : (
                 <ChevronRightIcon
-                  className="h-4 w-4 text-esan-color"
+                  className="h-4 w-4 text-gray-500"
                   aria-hidden="true"
                 />
               )}
@@ -100,7 +102,7 @@ const Item = ({
         </div>
       )}
       {isOpen && haveChildrens && (
-        <ul className="shadow-inner sm:rounded-m divide-y m-1 divide-gray-200">
+        <ul className="sm:rounded-m divide-y ml-1 divide-gray-200">
           {childrens.map((item) => (
             <Item
               {...item}
