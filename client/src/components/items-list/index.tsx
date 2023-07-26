@@ -75,7 +75,7 @@ const ItemsList = ({ data }: Props) => {
               {openAll ? "Cerrar todos" : "Abrir todos"}
             </Button>
           </div>
-          <ul role="list" className="divide-y divide-gray-200">
+          <ul role="list" className="">
             {data &&
               data?.length > 0 &&
               data.map((item) => (

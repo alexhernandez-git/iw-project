@@ -122,7 +122,7 @@ const ExpedientsList = ({
                                     colSpan={expedientsTableFields.length + 1}
                                   >
                                     <span className="text-sm text-gray-600 px-6">
-                                      Vinculados del expediente {expedient._id}
+                                      Vinculado
                                     </span>
                                   </td>
                                 </tr>

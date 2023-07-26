@@ -1,7 +1,7 @@
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import React, { useEffect, useMemo, useState } from "react";
 import Button from "../../button";
-
+import ExpedientLogo from "../../../images/documentos.png";
 type ItemType = {
   _id: string;
   title: string;
@@ -45,64 +45,48 @@ const Item = ({
   );
 
   return (
-    <li key={title} className="p-1 shadow">
-      <span className={`block`}>
-        <div className="flex items-center px-4 py-4 sm:px-6">
+    <li key={title} className={`${childrenDeep > 0 && "ml-10"}`}>
+      <span
+        className={`block bg-gray-50 hover:bg-gray-100 m-1 cursor-pointer`}
+        onClick={(e) => handleToggleItem(e, _id)}
+      >
+        <div className="flex items-center p-2">
           <div className="flex min-w-0 flex-1 items-center">
-            <div className="min-w-0 flex-1 pr-4 md:grid md:grid-cols-2 md:gap-4">
-              <div className="felx items-center">
-                <p className="truncate text-sm font-medium text-esan-color">
+            <div className="min-w-0 flex-1 pr-4">
+              <div className="flex items-center cursor-pointer">
+                {haveChildrens && (
+                  <div className="flex justify-end items-center mr-2">
+                    <div>
+                      <div>
+                        {isOpen ? (
+                          <ChevronDownIcon
+                            className="h-4 w-4 text-gray-500"
+                            aria-hidden="true"
+                          />
+                        ) : (
+                          <ChevronRightIcon
+                            className="h-4 w-4 text-gray-500"
+                            aria-hidden="true"
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <p
+                  className="truncate text-sm font-medium text-esan-color cursor-pointer"
+                  onClick={button.onClick}
+                >
                   {title}
                 </p>
-                {subtitle && (
-                  <p className="mt-2 flex items-center text-sm text-gray-500">
-                    <span className="truncate">{subtitle}</span>
-                  </p>
-                )}
               </div>
-              <div className="hidden md:block">
-                <div>
-                  <p className="text-sm text-gray-900">{info}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          {button && (
-            <div>
-              <Button onClick={button.onClick}>{button.label}</Button>
-            </div>
-          )}
-        </div>
-      </span>
-      {haveChildrens && (
-        <div className="flex justify-end items-center">
-          <div
-            onClick={(e) => handleToggleItem(e, _id)}
-            className="flex flex-1 shadow justify-between items-center cursor-pointer text-esan-color bg-white hover:opacity-70 rounded p-3"
-          >
-            <span className="flex items-center text-gray-500 text-xs mr-2">
-              {isOpen
-                ? `Esconder ${childrens.length} subtrámites`
-                : `Desplegar ${childrens.length} subtrámites`}
-            </span>
-            <div>
-              {isOpen ? (
-                <ChevronDownIcon
-                  className="h-4 w-4 text-gray-500"
-                  aria-hidden="true"
-                />
-              ) : (
-                <ChevronRightIcon
-                  className="h-4 w-4 text-gray-500"
-                  aria-hidden="true"
-                />
-              )}
             </div>
           </div>
         </div>
-      )}
+      </span>
+
       {isOpen && haveChildrens && (
-        <ul className="sm:rounded-m divide-y ml-1 divide-gray-200">
+        <ul className="sm:rounded-m">
           {childrens.map((item) => (
             <Item
               {...item}

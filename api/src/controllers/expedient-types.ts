@@ -2,8 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { ExpedientType } from "../models/expedient-type";
 import { ExpedientResourceType, ExpedientState } from "../types";
 import moment from "moment";
-import { getAreaFuncional, getFileName } from "../utils/helpers";
-import utf8 from "utf8";
+import { getAreaFuncional } from "../utils/helpers";
 import { Expedient } from "../models/expedient";
 
 const BASE_PATH = "./uploads";
