@@ -59,6 +59,15 @@ const expedientSchema = new Schema({
       cantidad: { type: Number },
     },
   ],
+  checkHonorarios: { type: Boolean },
+  valueHonorarios: { type: Number },
+  checkHonorariosYSuplidos: { type: Boolean },
+  valueHonorariosYSuplidos: { type: Number },
+  checkProvisionDeFondos: { type: Boolean },
+  valueProvisionDeFondos: { type: Number },
+  checkProvisionDeFondosYHonorarios: { type: Boolean },
+  valueProvisionDeFondosYHonorarios: { type: Number },
+  checkFacturacionGes: { type: Boolean },
   secciones: [
     {
       nombre: String,

@@ -384,7 +384,7 @@ export const updateOne = async (
     if (!dataJSON.tramitePadre) {
       delete dataJSON.tramitePadre;
     }
-
+    console.log(dataJSON)
     if (data?.type === "expedient") {
       const expedient = await Expedient.findByIdAndUpdate(
         id,

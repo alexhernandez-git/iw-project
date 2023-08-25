@@ -122,17 +122,19 @@ const ExpedientsEdit = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Si, borrar!",
     }).then((result) => {
-      dispatch(destroyExpedient({ id }))
-        .unwrap()
-        .then(() => {
-          Swal.fire(
-            "Borrado!",
-            "El expediente ha sido borrado.",
-            "success"
-          ).then(() => {
-            navigate("/expedients");
+      if (result.isConfirmed) {
+        dispatch(destroyExpedient({ id }))
+          .unwrap()
+          .then(() => {
+            Swal.fire(
+              "Borrado!",
+              "El expediente ha sido borrado.",
+              "success"
+            ).then(() => {
+              navigate("/expedients");
+            });
           });
-        });
+      }
     });
   };
 

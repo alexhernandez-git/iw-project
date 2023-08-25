@@ -476,7 +476,11 @@ export const deleteOne = async (
       params: { id },
     } = req;
 
-    await ExpedientType.findByIdAndDelete(id);
+    console.log('--------------------------------')
+    console.log(id)
+    console.log('--------------------------------')
+
+    await Expedient.findByIdAndDelete(id);
  
     res.send({ success: true });
   } catch (error) {

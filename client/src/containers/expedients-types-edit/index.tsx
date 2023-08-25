@@ -91,17 +91,19 @@ const ExpedientsTypesEdit = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Si, borrar!",
     }).then((result) => {
-      dispatch(destroyExpedientType({ id }))
-        .unwrap()
-        .then(() => {
-          Swal.fire(
-            "Borrado!",
-            "El expediente ha sido borrado.",
-            "success"
-          ).then(() => {
-            navigate("/expedients");
+      if (result.isConfirmed) {
+        dispatch(destroyExpedientType({ id }))
+          .unwrap()
+          .then(() => {
+            Swal.fire(
+              "Borrado!",
+              "El expediente ha sido borrado.",
+              "success"
+            ).then(() => {
+              navigate("/expedients");
+            });
           });
-        });
+      }
     });
   };
 
